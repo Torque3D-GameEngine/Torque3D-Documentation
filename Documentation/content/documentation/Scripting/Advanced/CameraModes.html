@@ -1,0 +1,417 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 37;
+   parent.leftFrame.expandToItem('tree2', 'doc37');
+   var element = parent.leftFrame.document.getElementById('doc37');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque3D - Camera Modes</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_Scripting_Advanced_CameraModes skin-monobook">
+<table width="700" cellspacing="0" cellpadding="0" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="15" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Camera_Modes"><span class="tocnumber">2</span> <span class="toctext">Camera Modes</span></a></li>
+                          <li class="toclevel-1"><a href="#Toggling_Basic_Camera_Modes"><span class="tocnumber">3</span> <span class="toctext">Toggling Basic Camera Modes</span></a></li>
+                          <li class="toclevel-1"><a href="#Toggling_Special_Camera_Modes"><span class="tocnumber">4</span> <span class="toctext">Toggling Special Camera Modes</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#setOrbitObject.28GameBase.2C_Point3F.2C_float.2C_float.2C_.5Bfloat.5D.2C_.5Bbool.5D.2C_.5BPoint3F.5D.2C_.5Bbool.5D.29"><span class="tocnumber">4.1</span> <span class="toctext">setOrbitObject(GameBase, Point3F, float, float, [float], [bool], [Point3F], [bool])</span></a></li>
+                              <li class="toclevel-2"><a href="#setOrbitPoint.28string.2C_float.2C_float.2C_.5Bfloat.5D.2C_.5BPoint3F.5D.2C_.5Bbool.5D.29"><span class="tocnumber">4.2</span> <span class="toctext">setOrbitPoint(string, float, float, [float], [Point3F], [bool])</span></a></li>
+                              <li class="toclevel-2"><a href="#setTrackObject.28GameBase.2C_.5BPoint3F.5D.29"><span class="tocnumber">4.3</span> <span class="toctext">setTrackObject(GameBase, [Point3F])</span></a></li>
+                              <li class="toclevel-2"><a href="#setFlyMode.28void.29"><span class="tocnumber">4.4</span> <span class="toctext">setFlyMode(void)</span></a></li>
+                              <li class="toclevel-2"><a href="#setNewtonFlyMode.28void.29"><span class="tocnumber">4.5</span> <span class="toctext">setNewtonFlyMode(void)</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Camera_Options"><span class="tocnumber">5</span> <span class="toctext">Camera Options</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">6</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p>The Torque 3D Camera object has several modes and member fields to adjust the control to desired game play.  Additionally, the Torque 3D Camera object has been changed from previous versions of Torque. Major changes include</p>
+                <ul>
+                  <li>Smoothing effects apply to all modes </li>
+                  <li>Two new modes are included </li>
+                  <li>Game play and editor specific cameras </li>
+                  <li>Usage documentation provided for all modes </li>
+                </ul><br />
+                <a name="Camera_Modes" id="Camera_Modes"></a>
+                <h2> <span class="mw-headline">Camera Modes</span></h2>
+                <ul>
+                  <li><strong>Stationary</strong>: The camera is fixed in space and isn't allowed to move.  All user input is ignored. </li>
+                  <li><strong>FreeRotate</strong>: The camera is fixed in space, but the user is allowed to rotate it. </li>
+                  <li><strong>Fly</strong>: The user may control the camera using
+                    Forward/Backward/Left/Right/Up/Down. Controls are relative to the
+                    camera's current view direction - forward moves the camera toward
+                    whatever it's looking at. </li>
+                  <li><strong>OrbitObject</strong>: The camera is fixed in orbit around a particular
+                    object, with optional offset. The user may control the camera's angle,
+                    but not what the camera is looking at. If another object comes between
+                    the camera and orbited object, the camera will move inward so that its
+                    view is unobstructed. </li>
+                  <li><strong>OrbitPoint</strong>: Similar to OrbitObject, except that instead of
+                    orbiting an object (which may be mobile), the camera orbits a fixed
+                    point in the world. If an object comes between the camera and the
+                    orbited point, the camera will move inward so that its view is
+                    unobstructed. </li>
+                  <li><strong>TrackObject</strong>: The camera is fixed in space, and rotates to
+                    keep a particular object in the center of view( again, with optional
+                    offset). Like the Stationary mode, user input is ignored. </li>
+                  <li><strong>Overhead</strong>: The user may control the camera using
+                    Forward/Backward/Left/Right/Up/Down. Unlike the Fly camera,
+                    Forward/Backward/Left/Right movement is constrained to a horizontal
+                    plane. </li>
+                  <li><strong>EditOrbit</strong>: A special mode used by the World Editor.  Should not be used outside of it. </li>
+                </ul><br />
+                <a name="Toggling_Basic_Camera_Modes" id="Toggling_Basic_Camera_Modes"></a>
+                <h2> <span class="mw-headline">Toggling Basic Camera Modes</span></h2>
+                <p>The camera mode may be set by using the camera.cameraMode member field, or using a member function that sets the mode. For instance, Stationary, FreeRotate, Fly and Overhead modes may be set directly using this function: </p>
+                <p><br />
+                  <b>Code Sample 1</b> </p>
+                <pre>function serverCmdSetCameraMode(%client, %cameraMode)
+{
+   %client.camera.setVelocity("0 0 0");
+
+   %client.camera.controlMode = %cameraMode;
+
+   %client.setControlObject(%client.camera);
+}
+</pre>
+                <p><br />
+                  With the code above implemented
+                    at the end of game/server/scripts/camera.cs, you can set the camera  mode using a single function call:</p>
+                <p><br />
+                  <b>Code Sample 2</b> </p>
+                <pre>// Overhead mode
+commandToServer('SetCameraMode', "Overhead");
+
+// Stationary Mode
+commandToServer('SetCameraMode', "Stationary");
+
+// Free Rotate Mode
+commandToServer('SetCameraMode', "FreeRotate");
+
+// Fly Mode
+commandToServer('SetCameraMode', "Fly");
+</pre><br />
+                <a name="Toggling_Special_Camera_Modes" id="Toggling_Special_Camera_Modes"></a>
+                <h2> <span class="mw-headline">Toggling Special Camera Modes</span></h2>
+                <p>OrbitObject, OrbitPoint and TrackObject require additional information to operate, and thus must be set with method calls: </p><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="setOrbitObject.28GameBase.2C_Point3F.2C_float.2C_float.2C_.5Bfloat.5D.2C_.5Bbool.5D.2C_.5BPoint3F.5D.2C_.5Bbool.5D.29" id="setOrbitObject.28GameBase.2C_Point3F.2C_float.2C_float.2C_.5Bfloat.5D.2C_.5Bbool.5D.2C_.5BPoint3F.5D.2C_.5Bbool.5D.29"></a>
+                        <h3> <span class="mw-headline">setOrbitObject(GameBase, Point3F, float, float, [float], [bool], [Point3F], [bool])</span></h3>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>Puts the camera in OrbitObject mode around the specified object:<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>setOrbitObject(GameBase <b>orbitObject</b>, Point3F <b>rotation</b>, float <b>minDistance</b>, float <b>maxDistance</b>, float <b>curDistance</b>, bool <b>ownClientObject</b>, Point3F <b>offset</b>, bool <b>locked</b>) </p>
+                        <ul>
+                          <li><b>orbitObject</b>: The object to orbit.  If the object is a ShapeBase, camera orbits its eye point. Otherwise, orbits the object's center. </li>
+                          <li><b>rotation</b>: Rotation vector of the camera (pitch, roll, yaw) in radians </li>
+                          <li><b>minDist</b>: Minimum distance between object and camera </li>
+                          <li><b>maxDist</b>: Maximum distance between object and camera </li>
+                          <li><b>curDist</b>: <i>Optional</i>. Initial distance between object and camera (defaults to %maxDist) </li>
+                          <li><b>ownClientObject</b>: <i>Optional</i>. True if the client owns the object being viewed (defaults to false) </li>
+                          <li><b>offset</b>: <i>Optional</i>. Offset from the object's center/eye point that the camera should focus on (defaults to "0 0 0") </li>
+                          <li><b>locked</b>: <i>Optional</i>. If true, the camera angle can't be controlled by the user (defaults to false) </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          No return value.<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>// OrbitObject mode requires an object to orbit
+// %client is the LocalClientConnection
+%client.camera.setOrbitObject(%this.player, mDegToRad(60) @ " 0 0", 0, 30, 30);
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="setOrbitPoint.28string.2C_float.2C_float.2C_.5Bfloat.5D.2C_.5BPoint3F.5D.2C_.5Bbool.5D.29" id="setOrbitPoint.28string.2C_float.2C_float.2C_.5Bfloat.5D.2C_.5BPoint3F.5D.2C_.5Bbool.5D.29"></a>
+                        <h3> <span class="mw-headline">setOrbitPoint(string, float, float, [float], [Point3F], [bool])</span></h3>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>Puts the camera in OrbitObject mode around the specified object:<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>setOrbitPoint(string <b>xform </b>, float <b>minDistance</b>, float <b>maxDistance</b>, float <b>curDistance</b>, Point3F <b>offset</b>, bool <b>locked</b>) </p>
+                        <ul>
+                          <li><b>xform</b>: A set of fields for position and rotation: "posX posY posZ rotX rotY rotZ" </li>
+                          <li><b>minDistance</b>: Minimum distance to keep from point </li>
+                          <li><b>maxDistance</b>: Maximum distance to keep from point </li>
+                          <li><b>curDistance</b>: <i>Optional</i>. Initial distance from point (defaults to %maxDistance) </li>
+                          <li><b>offset</b>: <i>Optional</i>. Offset from the object's center/eye point that the camera should focus on (defaults to "0 0 0") </li>
+                          <li><b>locked</b>: <i>Optional</i>. If true, the camera angle can't be controlled by the user (defaults to false) </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          No return value.<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>// OrbitObject mode requires an object to orbit
+// %client is the LocalClientConnection
+%client.camera.setOrbitPoint("30 50 100 0 1 0", 0, 30, 30);
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="setTrackObject.28GameBase.2C_.5BPoint3F.5D.29" id="setTrackObject.28GameBase.2C_.5BPoint3F.5D.29"></a>
+                        <h3> <span class="mw-headline">setTrackObject(GameBase, [Point3F])</span></h3>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>Puts the camera in OrbitObject mode around the specified object:<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>setTrackObject(GameBase <b>object</b>, Point3F <b>offset</b>) </p>
+                        <ul>
+                          <li><b>object</b>: The object to track.  If the object is a ShapeBase, camera tracks its eye point. Otherwise, tracks the object's center. </li>
+                          <li><b>offset</b>: <i>Optional</i>. Offset from the object's center/eye point that the camera should focus on (defaults to "0 0 0") </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          No return value.<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>// OrbitObject mode requires an object to orbit
+// %client is the LocalClientConnection
+%client.camera.setTrackObject(%client.player);
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="setFlyMode.28void.29" id="setFlyMode.28void.29"></a>
+                        <h3> <span class="mw-headline">setFlyMode(void)</span></h3>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>Set the camera to be able to fly freely. Same as setting Camera.cameraMode value to "Fly"<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>setTrackObject(void) <br />
+                          <br />
+                          <b>Returns</b><br />
+                          No return value.<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>// OrbitObject mode requires an object to orbit
+// %client is the LocalClientConnection
+%client.camera.setFlyMode();
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="setNewtonFlyMode.28void.29" id="setNewtonFlyMode.28void.29"></a>
+                        <h3> <span class="mw-headline">setNewtonFlyMode(void)</span></h3>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>Combination of setting Camera.newtonMode value to true and Camera.cameraMode value to "Fly"<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>setNewtonFlyMode(void) <br />
+                          <br />
+                          <b>Returns</b><br />
+                          No return value.<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>// OrbitObject mode requires an object to orbit
+// %client is the LocalClientConnection
+%client.camera.setNewtonFlyMode();
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <a name="Camera_Options" id="Camera_Options"></a>
+                <h2> <span class="mw-headline">Camera Options</span></h2>
+                <p>Camera.newtonRotation and TrackObject mode produce a similar effect for rotation. </p>
+                <p><br />
+                  The Camera.newtonMode and Camera.newtonRotation member
+                  fields control how the camera moves and rotates. When Camera.newtonMode
+                  is set to true, the camera will use "smoothed" movement. Controls will
+                  affect the camera's acceleration rather than velocity. This gives the
+                  camera a sense of weight as it moves around. Camera.newtonRotation does
+                  the same thing, but for rotational controls. The following member
+                  fields only apply when either newtonMode or newtonRotation are set: </p>
+                <ul>
+                  <li><b>Camera.mass</b> - Simulated mass of the camera </li>
+                  <li><b>Camera.drag</b> - Simulated drag when moving (not rotating) </li>
+                  <li><b>Camera.force</b> - Force on the camera when moving (not rotating) </li>
+                  <li><b>Camera.angularDrag</b> - Drag on camera when rotating </li>
+                  <li><b>Camera.angularForce</b> - Force on the camera when rotating (torque) </li>
+                  <li><b>Camera.speedMultiplier</b> - Factor to increase force by when trigger[0] is activated </li>
+                  <li><b>Camera.brakeMultiplier</b> - Factor to increase drag by when trigger[1] is activated </li>
+                </ul>
+                <p><br />
+                  Enabling these flags can give different effects in different modes.  For example: </p>
+                <p>"Tether Mode" - Achieved by enabling newtonMode and OrbitObject
+                  mode. The camera will still follow the orbited object, but with a
+                  springiness to it. This is best used with a massive camera, or with low
+                  moving force. Otherwise, the extra springiness will result in
+                  "Vomit-Vision." </p>
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>Having Torque 3D's camera system exposed to script gives you a great
+                  deal of power and flexibility in your game. When you have tested the
+                various modes, you can begin to see how this will affect game play. </p></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

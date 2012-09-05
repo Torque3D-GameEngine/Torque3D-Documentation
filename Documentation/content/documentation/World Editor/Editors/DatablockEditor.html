@@ -1,0 +1,232 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 82;
+   parent.leftFrame.expandToItem('tree2', 'doc82');
+   var element = parent.leftFrame.document.getElementById('doc82');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D - Datablock Editor</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject  page-Torque3D_WorldEditor_Editors_DecalRoadEditor skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <br /><a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          </div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Setup"><span class="tocnumber">2</span> <span class="toctext">Setup</span></a></li>
+                          <li class="toclevel-1"><a href="#Interface"><span class="tocnumber">3</span> <span class="toctext">Interface</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#Creating_a_new_Datablock"><span class="tocnumber">3.1</span> <span class="toctext">Creating a new 
+                                Datablock</span></a></li>
+                              <li class="toclevel-2"><a href="#Saving_a_Datablock"><span class="tocnumber">3.2</span> <span class="toctext">Saving a Datablock</span></a></li>
+                              <li class="toclevel-2"><a href="#Deleting_a_Datablock"><span class="tocnumber">3.3</span> <span class="toctext">Deleting a Datablock</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Properties"><span class="tocnumber">4</span> <span class="toctext">Properties</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">5</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table><br />
+                <p><br /><i>(click to enlarge)</i> </p>
+                <a href="images/Data_head.jpg" class="livethumbnail"><img src="images/Data_head.jpg" width="432" height="224" largewidth="865" largeheight="449" /></a><br />
+                <br /><a name="Introduction" id="Introduction"></a>
+                <h1> <span class="mw-headline">Introduction</span></h1>
+                <p>The configuration properties that describe dynamic objects in Torque 3D are  stored in information structures called datablocks. The T3D Datablock Editor is used to quickly and easily change any parameter of any datablock from within the world Editor. </p>
+                <br /><a name="Setup" id="Setup"></a>
+                <h1> <span class="mw-headline">Setup</span></h1>
+                <p>From the T3D Toolbox, select your project and load the Empty Terrain level. Once T3D loads, open the world editor (F11) if it is not open already. </p>
+                <br /><a name="Interface" id="Interface"></a>
+                <h1> <span class="mw-headline">Interface</span></h1>
+                <p>To switch to the Datablock Editor press the F6 key or from the main menu select Editors > Datablock Editor.</p>
+                <p><br />
+                  <i>menu&gt;Editors&gt; Datablock Editor</i> </p>
+                <p><br />
+                  <img alt="Image:Data_menu.jpg" src="images/Data_menu.jpg" border="0" height="309" width="419" /> </p>
+                <p><br />
+                  Or alternately click the Datablock icon from the World Editor toolbar.</p>
+                <p><img alt="Image:Data_toolbar1.jpg" src="images/Data_toolbar1.jpg" border="0" height="30" width="441" /> </p>
+                <p><br />
+                  The Datablock editor has two components: the Datablock Library pane and the Datablock properties pane. These panes appear at the right of the screen whenever the Datablock Editor is active. The Datablock Library pane is further divided into two tabs. The first, labelled Existing, contains a categorized list of all the existing datablocks. The second, labelled New, is used to create new instances of those datablocks. </p>
+                <p><img alt="Image:Data_toollib1.jpg" src="images/Data_toollib1.jpg" border="0" height="236" width="600" /> </p>
+                <p><br />
+                  Clicking any existing datablock will cause the Datablock properties pane to update to display the current properties of that datablock. </p><br />
+                <p>The image below shows the selection of the DefaultCar datablock, under the WheeledVehicleData category.  This datablock contains variables related to vehicle performance. </p>
+                <p><br />
+                  <img alt="Image:Data_toolprop1.jpg" src="images/Data_toolprop1.jpg" border="0" height="436" width="284" /> </p>
+                <br /><a name="Creating_a_new_Datablock" id="Creating_a_new_Datablock"></a>
+                <h2> <span class="mw-headline">Creating a new Datablock</span></h2>
+                <p>Creating a new datablock can be done by creating a copy from an already existing datablock. To do so first select the New tab in the Datablock Library pane. </p>
+                <p><img alt="Image:Data_new1.jpg" src="images/Data_new1.jpg" border="0" height="236" width="284" /> </p>
+                <p><br />
+                  Then choose the type of datablock you wish to create from the list. Then press the New icon. </p>
+                <p><img alt="Image:Data_new2.jpg" src="images/Data_new2.jpg" border="0" height="237" width="300" /> </p>
+                <p><br />
+                  You will be presented with a new window giving you the option to name the new datablock and to copy values from one of the existing instances of the datablock type, if you want to.  For example, in this scenario the DefaultCar datablock would be available in the dropdown box because it already exists at the time when creating a new datablock.</p>
+                <p><img alt="Image:Data_new3.jpg" src="images/Data_new3.jpg" border="0" height="165" width="205" /> </p>
+                <p><br />
+                  After clicking the Create button a new copy of the datablock will be added to the library, under the datablock type you first selected. In this example, you will create a new WheeledVehicleData datablock and name the new version "raceCar". This new version can now be found in the Library, under the Existing tab, in the WheeledVehicleData section. </p>
+                <p><img alt="Image:Data_new4.jpg" src="images/Data_new4.jpg" border="0" height="239" width="284" /> </p>
+                <br /><a name="Saving_a_Datablock" id="Saving_a_Datablock"></a>
+                <h2> <span class="mw-headline">Saving a Datablock</span></h2>
+                <p>After editing the new datablock or any other datablock, you will need to save it. You will see a small "*" in the header of the properties right after the Datablock label if the datablock needs saving. </p><br />
+                <p>Click the small floppy disk icon to save your datablock changes.</p>
+                <p><img alt="Image:Data_save1.jpg" src="images/Data_save1.jpg" border="0" height="212" width="282" /> </p>
+                <p><br />
+                  <img alt="Image:Data_save2.jpg" src="images/Data_save2.jpg" border="0" height="112" width="297" /> </p>
+                <p><br />
+                  <em><strong>Note: Any new datablock which has been saved will be added into the managedDatablocks.cs document which can be found at the location: project\game\art\datablocks\ for your scripters to access later.</strong></em></p>
+                <br /><a name="Deleting_a_Datablock" id="Deleting_a_Datablock"></a>
+                <h2> <span class="mw-headline">Deleting a Datablock</span></h2>
+                <p>If you no longer need a datablock you can easily delete it by selecting the Delete icon. </p>
+                <p><img alt="Image:Data_dal1.jpg" src="images/Data_dal1.jpg" border="0" height="150" width="300" /> </p>
+                <p><br />
+                  After pressing this icon you will get a notification window stating that
+                  the datablock has been removed. </p>
+                <p><img alt="Image:Data_dal2.jpg" src="images/Data_dal2.jpg" border="0" height="124" width="297" /> </p>
+                <p>The World Builder will need to be restarted to completely remove the file. </p>
+                <br /><a name="Properties" id="Properties"></a>
+                <h1> <span class="mw-headline">Properties</span></h1>
+                <p>Let's take a quick look at an example datablock from the library, to get an understanding of how you can work with a datablock's properties.</p>
+                <p><br />
+                  Select the DefaultPlayerData datablock in the PlayerData section. Now you have access to all of the data associated with the demo player character that comes with Torque 3D (his name is Gideon). From here you can change how the he moves, jumps, interacts with objects, his physics, etc. </p>
+                <p><img alt="Image:Data_prop1.jpg" src="images/Data_prop1.jpg" border="0" height="236" width="283" /> </p>
+                <p><br />
+                  Below is a list of some of the properties in the DefaultPlayerData datablock. </p>
+                <p><img alt="Image:Data_prop2.jpg" src="images/Data_prop2.jpg" border="0" height="425" width="282" /> </p>
+                <p><br />
+                  For example, if you wanted to increase the maximum number of rockets carried by Gideon, you would change the maxInvRocketLauncherAmmo value.  Update the value to 600.</p>
+                <p><img alt="Image:Data_prop3.jpg" src="images/Data_prop3.jpg" border="0" height="303" width="279" /> </p><br />
+                <p>The next time you close down the editor, by pressing the F11 key or by any other method, and test the game level, your character will carry more ammo. </p><br />
+                <p>Take some time to explore the datablocks in the library, look through their properties and get a feel for how they can be used in your project. Try changing a few settings and see how this will affect the object's performance. A little experimenting early on will save you time when you develop a project later. </p>
+                <br /><a name="Conclusion" id="Conclusion"></a>
+                <h1> <span class="mw-headline">Conclusion</span></h1>
+                <p>This article has covered the Datablock Editor and how it can be used to speed up your project development by adjusting object properties from within the Torque 3D World Editor. You can now make in-game adjustments on-the-fly without resorting to scripting. </p>
+                <p>Don't forget to save your level! </p></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

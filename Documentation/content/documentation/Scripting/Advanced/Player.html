@@ -1,0 +1,1470 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 40;
+   parent.leftFrame.expandToItem('tree2', 'doc40');
+   var element = parent.leftFrame.document.getElementById('doc40');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<title>Torque 3D - The Player Class</title>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_Scripting_Overview_Introduction skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+        <table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          </div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Detailed_Description"><span class="tocnumber">1</span> <span class="toctext">Detailed Description</span></a></li>
+                          <li class="toclevel-1"><a href="#Movement"><span class="tocnumber">2</span> <span class="toctext">Movement</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#Jumping"><span class="tocnumber">2.1</span> <span class="toctext">Jumping and Jetting</span></a></li>
+                              <li class="toclevel-2"><a href="#Falling_and_Landing"><span class="tocnumber">2.2</span> <span class="toctext">Falling and Landing</span></a></li>
+                              <li class="toclevel-2"><a href="#Air_Control"><span class="tocnumber">2.3</span> <span class="toctext">Air Control and Hard Impacts</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Dismounting"><span class="tocnumber">3</span> <span class="toctext">Dismounting</span></a></li>
+                          <li class="toclevel-1"><a href="#Triggering_a_Mounted_Object"><span class="tocnumber">4</span> <span class="toctext">Triggering a Mounted Object</span></a>
+                          <li class="toclevel-1"><a href="#Character_Model"><span class="tocnumber">5</span> <span class="toctext">The Character Model</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#Mounted_Image_Controlled_3rd_Person_Animation"><span class="tocnumber">5.1</span> <span class="toctext">Mounted Image Controlled 3rd Person Animation</span></a></li>
+                              <li class="toclevel-2"><a href="#First_Person_Arms"><span class="tocnumber">5.2</span> <span class="toctext">First Person Arms</span></a></li>
+                              <li class="toclevel-2"><a href="#Example_PlayerData_Datablock"><span class="tocnumber">5.3</span> <span class="toctext">Example PlayerData Datablock</span></a></li>
+                              <li class="toclevel-2"><a href="#Member_Function_Documentation"><span class="tocnumber">5.4</span> <span class="toctext">Member Function Documentation</span></a></li>
+                              <li class="toclevel-2"><a href="#Member_Data_Documentation"><span class="tocnumber">5.5</span> <span class="toctext">Member Data Documentation</span></a></li>
+                            </ul>
+                          </li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+<a name="Detailed_Description"></a><h2>Detailed Description</h2>
+<p>A client-controlled player character. </p>
+<p>The Player object is the main client-controlled object in an FPS, or indeed, any game where the user is in control of a single character. This class (and the associated datablock, PlayerData) 
+allows you to fine-tune the movement, collision detection, animation, and SFX properties of the character. Player derives from ShapeBase, so it is recommended to have a good understanding of that 
+class (and it's parent classes) as well.</p>
+
+<a name="Movement"></a><h2>Movement</h2>
+<p>The Player class supports the following modes of movement, known as poses:</p>
+<ul>
+<li>
+Stand </li>
+<li>
+Sprinting </li>
+<li>
+Crouching </li>
+<li>
+Prone </li>
+<li>
+Swimming </li>
+</ul>
+<p>The acceleration, maximum speed, and bounding box for each mode can be set independently using the PlayerData datablock. The player will automatically switch between swimming and one of the 
+other 4 'dry' modes when entering/exiting the water, but transitions between the non-swimming modes are handled by controller input (such as holding down a key to begin crouching). $mvTriggerCount3 
+activates crouching, while $mvTriggerCount4 activates being prone.</p>
+<p>It is important to set the bounding box correctly for each mode so that collisions with the player remain accurate:</p>
+<div align="center">
+<img src="images/player_bbox.png" alt="player_bbox.png" width="700"/>
+</div>
+<p>When the player changes pose a new PlayerData callback onPoseChange() is called. This is being used as Armor::onPoseChange() to modify an animation prefix used by ShapeBaseImageData to allow the 
+1st person arms to change their animation based on pose.</p>
+<dl class="user"><dt><b>Example:</b></dt><dd><div class="fragment"><pre class="fragment">function Armor::onPoseChange(%<span class="keyword">this</span>, %obj, %oldPose, %newPose)
+{
+   <span class="comment">// Set the script anim prefix to be that of the current pose</span>
+   %obj.setImageScriptAnimPrefix( $WeaponSlot, addTaggedString(%newPose) );
+}
+</pre></div></dd></dl>
+<p>Another feature is being able to lock out poses for the Player at any time. This is done with allowCrouch(), allowSprinting() etc. (there is even allowJumping() and allowJetJumping() which aren't 
+actually poses but states). So if for some game play reason the player should not be allowed to crouch right now, that may be disabled. All poses may be allowed with allowAllPoses() on the Player class.</p>
+<p>The pose lock out mechanism is being used by the weapon script system -- see Weapon::onUse(). With this system, weapons can prevent the player from going into certain poses. This is used by the 
+deployable turret to lock out sprinting while the turret is the current weapon.</p>
+<dl class="user"><dt><b>Example:</b></dt><dd><div class="fragment"><pre class="fragment">function Weapon::onUse(%data, %obj)
+{
+   <span class="comment">// Default behavior for all weapons is to mount it into the object&#39;s weapon</span>
+   <span class="comment">// slot, which is currently assumed to be slot 0</span>
+   <span class="keywordflow">if</span> (%obj.getMountedImage($WeaponSlot) != %data.image.getId())
+   {
+      serverPlay3D(WeaponUseSound, %obj.getTransform());
+
+      %obj.mountImage(%data.image, $WeaponSlot);
+      <span class="keywordflow">if</span> (%obj.client)
+      {
+         <span class="keywordflow">if</span> (%data.description !$= <span class="stringliteral">&quot;&quot;</span>)
+            messageClient(%obj.client, <span class="stringliteral">&#39;MsgWeaponUsed&#39;</span>, <span class="stringliteral">&#39;\c0%1 selected.&#39;</span>, 
+            %data.description);
+         <span class="keywordflow">else</span>
+            messageClient(%obj.client, <span class="stringliteral">&#39;MsgWeaponUsed&#39;</span>, <span class="stringliteral">&#39;\c0Weapon selected&#39;</span>);
+      }
+      
+      <span class="comment">// If this is a Player class object then allow the weapon to modify allowed poses</span>
+      <span class="keywordflow">if</span> (%obj.isInNamespaceHierarchy(<span class="stringliteral">&quot;Player&quot;</span>))
+      {
+         <span class="comment">// Start by allowing everything</span>
+         %obj.allowAllPoses();
+         
+         <span class="comment">// Now see what isn&#39;t allowed by the weapon</span>
+         
+         %image = %data.image;
+         
+         <span class="keywordflow">if</span> (%image.jumpingDisallowed)
+            %obj.allowJumping(<span class="keyword">false</span>);
+         
+         <span class="keywordflow">if</span> (%image.jetJumpingDisallowed)
+            %obj.allowJetJumping(<span class="keyword">false</span>);
+         
+         <span class="keywordflow">if</span> (%image.sprintDisallowed)
+            %obj.allowSprinting(<span class="keyword">false</span>);
+         
+         <span class="keywordflow">if</span> (%image.crouchDisallowed)
+            %obj.allowCrouching(<span class="keyword">false</span>);
+         
+         <span class="keywordflow">if</span> (%image.proneDisallowed)
+            %obj.allowProne(<span class="keyword">false</span>);
+         
+         <span class="keywordflow">if</span> (%image.swimmingDisallowed)
+            %obj.allowSwimming(<span class="keyword">false</span>);
+      }
+   }
+}
+</pre></div></dd></dl>
+<a name="Sprinting"></a><h2>Sprinting</h2>
+<p>As mentioned above, sprinting is another pose for the Player class. It defines its own force and max speed in the three directions in PlayerData just like most poses, 
+such as crouch. It is activated using $mvTriggerCount5 by default which is often connected to Left Shift. When used this way you could treat it just like a standard run -- 
+perhaps with the standard pose used for a walk in a RPG.</p>
+<p>But sprinting is special in that you can control if a player's movement while sprinting should be constrained. You can place scale factors on strafing, yaw and pitch. 
+These force the player to move mostly in a straight line (or completely if you set them to 0) while sprinting by limiting their motion. You can also choose if the player 
+can jump while sprinting. This is all set up in PlayerData.</p>
+<p>Just like other poses, you can define which sequences should be played on the player while sprinting. These sequences are:</p>
+<ul>
+<li>
+sprint_root </li>
+<li>
+sprint_forward </li>
+<li>
+sprint_backward </li>
+<li>
+sprint_side </li>
+<li>
+sprint_right </li>
+</ul>
+<p>However, if any of these sequences are not defined for the player, then the standard root, run, back, side and side_right sequences will be used. The idea here is that the 
+ground transform for these sequences will force them to play faster to give the appearance of sprinting. But if you want the player to do something different than just look 
+like they're running faster -- such as holding their weapon against their body -- then you'll want to make use of the sprint specific sequences.</p>
+<p>Sprint also provides two PlayerData callbacks: onStartSprintMotion() and onStopSprintMotion(). The start callback is called when the player is in a sprint pose and starts 
+to move (i.e. presses the W key). The stop callback is called when either the player stops moving, or they stop sprinting. These could be used for anything, but by default 
+they are tied into the ShapeBaseImageData system. See Armor::onStartSprintMotion() and Armor::onStopSprintMotion(). With ShapeBaseImageData supporting four generic triggers 
+that may be used by a weapon's state machine to do something, the first one is triggered to allow weapons to enter a special sprint state that plays a sprint animation sequence 
+and locks out firing. However, you may choose to do something different.</p>
+
+<a name="Jumping"></a><h2>Jumping</h2>
+<p>The Player class supports jumping. While the player is in contact with a surface (and optionally has enough energy as defined by the PlayerData), $mvTriggerCount2 will cause the player to jump.</p>
+<h2>Jetting</h2>
+<p>The Player class includes a simple jetpack behaviour allowing characters to 'jet' upwards while jumping. The jetting behaviour can be linked to the player's energy level using 
+datablock properties as shown below:</p>
+<dl class="user"><dt><b>Example:</b></dt><dd><div class="fragment"><pre class="fragment">datablock PlayerData( JetPlayer )
+{
+   ...
+
+   jetJumpForce = 16.0 * 90;
+   jetJumpEnergyDrain = 10;
+   jetMinJumpEnergy = 25;
+   jetMinJumpSpeed = 20;
+   jetMaxJumpSpeed = 100;
+   jetJumpSurfaceAngle = 78;
+}
+</pre></div></dd></dl>
+<p>This player will not be able to jet if he has less than 25 units of energy, and 10 units will be subtracted each tick.</p>
+<p>If PlayerData::jetJumpFore is greater than zero then $mvTriggerCount1 will activate jetting.</p>
+<a name="Falling_and_Landing"></a><h2>Falling and Landing</h2>
+<p>When the player is falling they transition into the "fall" sequence. This transition doesn't occur until the player has reached a particular speed -- you don't want the 
+fall sequence to kick in if they've just gone over a small bump. This speed threshold is set by the PlayerData fallingSpeedThreshold field. By default it is set to -10.0.</p>
+<p>When the player lands there are two possible outcomes depending on how the player is set up. With the traditional method the "land" sequence has the player start from a 
+standing position and animates into a crouch. The playback speed of this sequence is scaled based on how hard the player hits the ground. Once the land sequence finishes 
+playing the player does a smooth transition back into the root pose (making them effectively stand up).</p>
+<p>Starting with 1.2 there is a new method of handling landing. Here the "land" sequence starts with the player crouching on the ground and animates getting back up. This has 
+a look of the player hitting the ground from a fall and slowly standing back up. This new method is used when the PlayerData landSequenceTime field is given a value greater than 
+zero. This is the amount of time taken for the player to recover form the landing, and is also how long the land sequence will play for. As this has game play ramifications (the 
+player may have movement constraints when landing) this timing is controlled by the datablock field rather than just the length of time of the land sequence.</p>
+<p>Also when using the new land sequence the PlayerData transitionToLand flag indicates if the player should smoothly transition between the fall sequence and the land sequence. 
+If set to false (the default) then there is no transition and the player appears to immediately go from falling to landing, which is usually the case when mirroring real life.</p>
+<a name="Air_Control"></a><h2>Air Control</h2>
+<p>The player may optionally move itself through the air while jumping or falling. This allows the player to adjust their trajectory while in the air, and is known as air control. 
+The PlayerData::airControl property determines what fraction of the player's normal speed they may move while in the air. By default, air control is disabled (set to 0).</p>
+<h2>Hard Impacts</h2>
+<p>When the player hits something hard it is possible to trigger an impact (such as handled by Armor::onImpact()). The PlayerData</a> minImpactSpeed is the threshold at which falling 
+damage will be considered an impact. Any speed over this parameter will trigger an onImpact() call on the datablock. This allows for small falls to not cause any damage.</p>
+<p>The PlayerData minLateralImpactSpeed is the threshold at which non-falling damage impacts will trigger the callback. This is separate from falling as you may not want a sprinting 
+player that hits a wall to get hurt, but being thrown into a wall by an explosion will.</p>
+<a name="Dismounting"></a><h2>Dismounting</h2>
+<p>It is possible to have the player mount another object, such as a vehicle, just like any other SceneObject. While mounted, $mvTriggerCount2 will cause the player to dismount.</p>
+<a name="Triggering_a_Mounted_Object"></a><h2>Triggering a Mounted Object</h2>
+<p>A Player may have other objects mounted to it, with each mounted object assigned to a slot. These Player mounted objects are known as images. See ShapeBase::mountImage(). If there 
+is an image mounted to slot 0, $mvTriggerCount0 will trigger it. If the player dies this trigger is automatically released.</p>
+<p>If there is an image mounted to slot 1, $mvTriggerCount1 will trigger it. Otherwise $mvTriggerCount1 will be passed along to the image in slot 0 as an alternate fire state.</p>
+<a name="Character_Model"></a><h2>Character model</h2>
+<p>The following sequences are used by the Player object to animate the character. Not all of them are required, but a model should have at least the root, run, back and side animations. 
+And please see the section on Sprinting above for how they are handled when not present.</p>
+<dl>
+<dt>root</dt>
+<dd>Looping sequence played when player is standing but not moving. </dd>
+<dt>run</dt>
+<dd>Looping sequence played when player is running forward. </dd>
+<dt>back</dt>
+<dd>Looping sequence played when player is running backward. </dd>
+<dt>side</dt>
+<dd>Looping sequence played when player is running sideways (strafing). The sequence should depict the player moving left. If side_right is not present, this sequence will be played backwards in its place. </dd>
+<dt>side_right</dt>
+<dd><p class="startdd">Looping sequence played when player is running sideways right.</p>
+<p class="enddd"></p>
+</dd>
+<dt>sprint_root</dt>
+<dd>Looping sequence played when the player is stationary but in a sprinting mode. If not present then the root sequence is used. </dd>
+<dt>sprint_forward</dt>
+<dd>Looping sequence played when the player is sprinting and moving forward. If not present then the run sequence is used. </dd>
+<dt>sprint_backward</dt>
+<dd>Looping sequence played when the player is sprinting and moving backward. If not present then the back sequence is used. </dd>
+<dt>sprint_side</dt>
+<dd>Looping sequence played when the player is sprinting and moving sideways. The sequence should depict the player moving left. If crouch_right is not present, this sequence will be played backwards in its place. If not present then the side sequence is used. </dd>
+<dt>sprint_right</dt>
+<dd><p class="startdd">Looping sequence played when the player is sprinting and moving sideways. If not present then the side_right sequence is used.</p>
+<p class="enddd"></p>
+</dd>
+<dt>crouch_root</dt>
+<dd>Looping sequence played when player is crouched and not moving. </dd>
+<dt>crouch_forward</dt>
+<dd>Looping sequence played when player is crouched and moving forward. </dd>
+<dt>crouch_backward</dt>
+<dd>Looping sequence played when player is crouched and moving backward. </dd>
+<dt>crouch_side</dt>
+<dd>Looping sequence played when player is crouched and moving sideways. The sequence should depict the player moving left. If crouch_right is not present, this sequence will be played backwards in its place. </dd>
+<dt>crouch_right</dt>
+<dd><p class="startdd">Looping sequence played when player is crouched and moving sideways.</p>
+<p class="enddd"></p>
+</dd>
+<dt>prone_root</dt>
+<dd>Looping sequence played when player is prone (lying down) and not moving. </dd>
+<dt>prone_forward</dt>
+<dd>Looping sequence played when player is prone (lying down) and moving forward. </dd>
+<dt>prone_backward</dt>
+<dd><p class="startdd">Looping sequence played when player is prone (lying down) and moving backward.</p>
+<p class="enddd"></p>
+</dd>
+<dt>swim_root</dt>
+<dd>Looping sequence played when player is swimming and not moving. </dd>
+<dt>swim_forward</dt>
+<dd>Looping sequence played when player is swimming and moving forward. </dd>
+<dt>swim_backward</dt>
+<dd>Looping sequence played when player is swimming and moving backward. </dd>
+<dt>swim_left</dt>
+<dd>Looping sequence played when player is swimming and moving left. The sequence should depict the player moving left. If swim_right is not present, this sequence will be played backwards in its place. </dd>
+<dt>swim_right</dt>
+<dd><p class="startdd">Looping sequence played when player is swimming and moving right.</p>
+<p class="enddd"></p>
+</dd>
+<dt>fall</dt>
+<dd>Sequence played when player is falling. </dd>
+<dt>jump</dt>
+<dd>Sequence played when player has jumped while moving. </dd>
+<dt>standjump</dt>
+<dd>Sequence played when player has jumped from a standing start. </dd>
+<dt>land</dt>
+<dd>Sequence played when player lands after falling. </dd>
+<dt>jet</dt>
+<dd><p class="startdd">Looping sequence played when player is jetting.</p>
+<p class="enddd"></p>
+</dd>
+<dt>head</dt>
+<dd>Sequence to control vertical head movement (for looking) (start=full up, end=full down). </dd>
+<dt>headside</dt>
+<dd>Sequence to control horizontal head movement (for looking) (start=full left, end=full right). </dd>
+<dt>look</dt>
+<dd><p class="startdd">Sequence to control vertical arm movement (for looking) (start=full up, end=full down).</p>
+<p class="enddd"></p>
+</dd>
+<dt>light_recoil</dt>
+<dd>Sequence played when the player is firing a light weapon. (Based on ShapeBaseImageData) </dd>
+<dt>medium_recoil</dt>
+<dd>Sequence played when player is firing a medium weapon. (Based on ShapeBaseImageData) </dd>
+<dt>heavy_recoil</dt>
+<dd><p class="startdd">Sequence played when player is firing a heavy weapon (Based on ShapeBaseImageData).</p>
+<p class="enddd"></p>
+</dd>
+<dt>deathN</dt>
+<dd>Sequence played when player has been killed (a random one of these will play). N is an integer from 1 to 11. </dd>
+</dl>
+<a name="Mounted_Image_Controlled_3rd_Person_Animation"></a><h2>Mounted Image Controlled 3rd Person Animation</h2>
+<p>A player's 3rd person action animation sequence selection may be modified based on what images are mounted on the player. When mounting a ShapeBaseImageData, the image's 
+imageAnimPrefix field is used to control this. If this is left blank (the default) then nothing happens to the 3rd person player -- all of the sequences play as defined. If 
+it is filled with some text (best to keep it to letters and numbers, with no spaces) then that text is added to the action animation sequence name and looked up on the player 
+shape. For example:</p>
+<p>A rifle ShapeBaseImageData is mounted to the player in slot 0. The rifle's datablock doesn't have an imageAnimPrefix defined, so the 3rd person player will use the standard 
+action animation sequence names. i.e. "root", "run", "back", "crouch_root", etc.</p>
+<p>Now a pistol ShapeBaseImageData is mounted to the player in slot 0. The pistol's datablock has imageAnimPrefix = "pistol". Now the "pistol_" (underscore is added by the system) 
+prefix is added to each of the action animation sequence names when looking up what to play on the player's shape. So the Player</a> class will look for "pistol_root", "pistol_run", 
+"pistol_back", "pistol_crouch_root", etc. If any of these new prefixed names are not found on the player's shape, then we fall back to the standard action animation sequence names, 
+such as "root", "run", etc.</p>
+<p>In all of our T3D examples the player only mounts a single image. But Torque allows up to four images to be mounted at a time. When more than one image is mounted then the engine 
+adds all of the prefixes together when searching for the action animation sequence name. If that combined name is not found then the engine starts removing prefixes starting with the 
+highest slot down to the lowest slot. For example, if a player is holding a sword (slot 0) and a shield (slot 1) in each hand that are mounted as separate images (and with 
+imageAnimPrefix's of "sword" and "shield" respectively), then the engine will search for the following names while the player is just standing there:</p>
+<ul>
+<li>
+shield_sword_root </li>
+<li>
+sword_root </li>
+<li>
+root </li>
+</ul>
+<p>The first one that is found in the above order will be used.</p>
+<p>Another example: If the player has a jet pack (slot 3 with a prefix of "jetpack") and two pistols being used akimbo style (slots 1 and 0, both with a prefix of "laserpistol") 
+with slot 2 left open for a helmet (which is skipped as it doesn't have a prefix), then the following search order would be used:</p>
+<ul>
+<li>
+jetpack_laserpistol_laserpistol_root </li>
+<li>
+laserpistol_laserpistol_root </li>
+<li>
+laserpistol_root </li>
+<li>
+root </li>
+</ul>
+<p>Again, the first one that is found is used.</p>
+<p>A player's 3rd person animation may also be modified by the weapon being used. In T3D 1.1 there are the three recoil sequences that may be triggered on the 3rd person player by 
+the weapon's state. Starting with T3D 1.2 this becomes more generic (while still supporting the existing recoil sequence). When a ShapeBaseImageData state defines a 
+stateShapeSequence, that sequence may be played on the player's shape (the new PlayerData allowImageStateAnimation field must be set to "true" as well). The new ShapeBaseImageData 
+state stateScaleShapeSequence flag may also be used to indicate if this player animation sequence should have its playback rate scaled to the length of the image's state.</p>
+<p>What exactly happens on the player depends on what else has been defined. First, there is the sequence name as passed in from the image. Then there is also the imageAnimPrefix 
+as defined by the image. Finally, there is the generic script defined prefix that may be added with ShapeBase::setImageScriptAnimPrefix()</a> -- we're using this to pass along the 
+current pose, but it could be used for anything. Time for an example. We want to throw a grenade that we're holding (mounted in slot 0). The weapon's state that does this has 
+stateShapeSequence set to "throw". The grenade image itself has an imageAnimPrefix defined as "fraggrenade". Finally, the player is crouching, so Armor::onPoseChange() sets the 
+script prefix to "crouch". The final search order goes like this:</p>
+<ul>
+<li>
+fraggrenade_crouch_throw </li>
+<li>
+fraggrenade_throw </li>
+<li>
+crouch_throw </li>
+<li>
+throw </li>
+</ul>
+<p>The first of those sequences that is found is played as a new thread on the 3rd person player. As with recoil, only one of these 3rd person animation threads may be active at a time. 
+If an image in another slot also asks to play a 3rd person sequence, the most recent request is what will play.</p>
+<a name="First_Person_Arms"></a><h2>1st Person Arms</h2>
+<p>Games that have the player hold a weapon in a 1st person view often let you see the player's arms and hands holding that weapon. Rather than requiring you to build the art for all possible 
+combinations of character arms and weapons, T3D allows you to mix and match shapes and animation sequences.</p>
+<p>1st person arms are an optional client-side only effect and are not used on the server. The arms are a separate shape from the normal 3rd person player shape. You reference the arms using 
+the PlayerData "shapeNameFP" array. It is an array as we support up to four mounted images therefore we support up to four arm shapes. However, for T3D 1.2 our examples only make use of a single 
+set of arms for the first mounting slot as our example soldier holds a single weapon at a time.</p>
+<p>As the arms are just regular DAE/DTS files they may get their animation sequences from anywhere. For the included 1.2 art path (see the soldier in the template projects) we decided that their 
+sequences should come from the weapons themselves. This means that the weapons include all of the bones/nodes needed to animate the arms, but none of the arm geometry. If you take a look at 
+art/shapes/actors/Soldier/FP/FP_SoldierArms.cs you'll see the external animation sequence references for each of the possible weapons.</p>
+<p>As each weapon may require its own set of animation sequences (i.e. a different idle sequence for a pistol vs. a rifle) starting with T3D 1.2 a new ShapeBaseImageData field now exists: 
+imagePrefixFP. If this field is defined for the mounted image then it is added to the sequence name as given in the current weapon state in the form of "prefix_sequence" (the underscore is 
+added by the system). For example, the Lurker rifle has an imagePrefixFP of "Rifle". The Lurker's Ready state calls the idle sequence, so the arms will attempt to play the "Rifle_idle" sequence 
+and if not found, they will play the "idle" sequence.</p>
+<p>The advantage of having the prefix defined within the datablock and not making it part of the sequence names referenced directly in the weapon state machine is that you can do something like this:</p>
+<dl class="user"><dt><b>Example:</b></dt><dd><div class="fragment"><pre class="fragment">datablock ShapeBaseImageData(Pistol1Image)
+{
+   imageAnimPrefixFP = <span class="stringliteral">&quot;Pistol1&quot;</span>;
+   ...other data here...
+   ...weapon state machine here...
+};
+ 
+datablock ShapeBaseImageData(Pistol2Image : Pistol1Image)
+{
+   imageAnimPrefixFP = <span class="stringliteral">&quot;Pistol2&quot;</span>;
+};
+</pre>
+</div></dd></dl>
+<p>You could define a new pistol (Pistol2Image) that uses the exact same state machine as Pistol1Image, but could use a slightly different set of animation sequences with a prefix of "Pistol2".</p>
+<p>As was previously discussed with 3rd person animation above, a script-based modifier may also be added when looking up the sequence name for the arms. This is currently used to pass along the player's pose so the arm's idle sequence could have a swimming motion when in the swim pose, for example. And as with images, the arms sequence name look up uses the following order to find a sequence to play, with the first one found being used:</p>
+<ul>
+<li>
+ShapeBaseImageDataPrefix_ScriptPrefix_WeaponStateSequence </li>
+<li>
+ShapeBaseImageDataPrefix_WeaponStateSequence </li>
+<li>
+ScriptPrefix_WeaponStateSequence </li>
+<li>
+WeaponStateSequence </li>
+</ul>
+<p>Finally, the arms support an "ambient" sequence that may be used for anything and will always play, if it is defined in the arm's shape.</p>
+<a name="Example_PlayerData_Datablock"></a><h2>Example PlayerData Datablock</h2>
+<p>An example of a player datablock appears below:</p>
+<dl class="user"><dt><b>Example:</b></dt><dd><div class="fragment"><pre class="fragment">datablock PlayerData(DefaultPlayerData)
+{
+   renderFirstPerson = <span class="keyword">false</span>;
+
+   computeCRC = <span class="keyword">false</span>;
+
+   <span class="comment">// Third person shape</span>
+   shapeFile = <span class="stringliteral">&quot;art/shapes/actors/Soldier/soldier_rigged.dae&quot;</span>;
+   cameraMaxDist = 3;
+   allowImageStateAnimation = <span class="keyword">true</span>;
+
+   <span class="comment">// First person arms</span>
+   imageAnimPrefixFP = <span class="stringliteral">&quot;soldier&quot;</span>;
+   shapeNameFP[0] = <span class="stringliteral">&quot;art/shapes/actors/Soldier/FP/FP_SoldierArms.DAE&quot;</span>;
+
+   canObserve = 1;
+   cmdCategory = <span class="stringliteral">&quot;Clients&quot;</span>;
+
+   cameraDefaultFov = 55.0;
+   cameraMinFov = 5.0;
+   cameraMaxFov = 65.0;
+
+   debrisShapeName = <span class="stringliteral">&quot;art/shapes/actors/common/debris_player.dts&quot;</span>;
+   debris = playerDebris;
+   
+   throwForce = 30;
+
+   aiAvoidThis = 1;
+
+   minLookAngle = <span class="stringliteral">&quot;-1.2&quot;</span>;
+   maxLookAngle = <span class="stringliteral">&quot;1.2&quot;</span>;
+   maxFreelookAngle = 3.0;
+
+   mass = 120;
+   drag = 1.3;
+   maxdrag = 0.4;
+   density = 1.1;
+   maxDamage = 100;
+   maxEnergy =  60;
+   repairRate = 0.33;
+   energyPerDamagePoint = 75;
+
+   rechargeRate = 0.256;
+
+   runForce = 4320;
+   runEnergyDrain = 0;
+   minRunEnergy = 0;
+   maxForwardSpeed = 8;
+   maxBackwardSpeed = 6;
+   maxSideSpeed = 6;
+
+   sprintForce = 4320;
+   sprintEnergyDrain = 0;
+   minSprintEnergy = 0;
+   maxSprintForwardSpeed = 14;
+   maxSprintBackwardSpeed = 8;
+   maxSprintSideSpeed = 6;
+   sprintStrafeScale = 0.25;
+   sprintYawScale = 0.05;
+   sprintPitchScale = 0.05;
+   sprintCanJump = <span class="keyword">true</span>;
+
+   crouchForce = 405;
+   maxCrouchForwardSpeed = 4.0;
+   maxCrouchBackwardSpeed = 2.0;
+   maxCrouchSideSpeed = 2.0;
+
+   maxUnderwaterForwardSpeed = 8.4;
+   maxUnderwaterBackwardSpeed = 7.8;
+   maxUnderwaterSideSpeed = 7.8;
+
+   jumpForce = <span class="stringliteral">&quot;747&quot;</span>;
+   jumpEnergyDrain = 0;
+   minJumpEnergy = 0;
+   jumpDelay = <span class="stringliteral">&quot;15&quot;</span>;
+   airControl = 0.3;
+
+   fallingSpeedThreshold = -6.0;
+
+   landSequenceTime = 0.33;
+   transitionToLand = <span class="keyword">false</span>;
+   recoverDelay = 0;
+   recoverRunForceScale = 0;
+
+   minImpactSpeed = 10;
+   minLateralImpactSpeed = 20;
+   speedDamageScale = 0.4;
+
+   boundingBox = <span class="stringliteral">&quot;0.65 0.75 1.85&quot;</span>;
+   crouchBoundingBox = <span class="stringliteral">&quot;0.65 0.75 1.3&quot;</span>;
+   swimBoundingBox = <span class="stringliteral">&quot;1 2 2&quot;</span>;
+   pickupRadius = 1;
+
+   <span class="comment">// Damage location details</span>
+   boxHeadPercentage       = 0.83;
+   boxTorsoPercentage      = 0.49;
+   boxHeadLeftPercentage         = 0.30;
+   boxHeadRightPercentage        = 0.60;
+   boxHeadBackPercentage         = 0.30;
+   boxHeadFrontPercentage        = 0.60;
+
+   <span class="comment">// Foot Prints</span>
+   decalOffset = 0.25;
+
+   footPuffEmitter = <span class="stringliteral">&quot;LightPuffEmitter&quot;</span>;
+   footPuffNumParts = 10;
+   footPuffRadius = <span class="stringliteral">&quot;0.25&quot;</span>;
+
+   dustEmitter = <span class="stringliteral">&quot;LightPuffEmitter&quot;</span>;
+
+   splash = PlayerSplash;
+   splashVelocity = 4.0;
+   splashAngle = 67.0;
+   splashFreqMod = 300.0;
+   splashVelEpsilon = 0.60;
+   bubbleEmitTime = 0.4;
+   splashEmitter[0] = PlayerWakeEmitter;
+   splashEmitter[1] = PlayerFoamEmitter;
+   splashEmitter[2] = PlayerBubbleEmitter;
+   mediumSplashSoundVelocity = 10.0;
+   hardSplashSoundVelocity = 20.0;
+   exitSplashSoundVelocity = 5.0;
+
+   <span class="comment">// Controls over slope of runnable/jumpable surfaces</span>
+   runSurfaceAngle  = 38;
+   jumpSurfaceAngle = 80;
+   maxStepHeight = 0.35;  <span class="comment">//two meters</span>
+   minJumpSpeed = 20;
+   maxJumpSpeed = 30;
+
+   horizMaxSpeed = 68;
+   horizResistSpeed = 33;
+   horizResistFactor = 0.35;
+
+   upMaxSpeed = 80;
+   upResistSpeed = 25;
+   upResistFactor = 0.3;
+
+   footstepSplashHeight = 0.35;
+
+   <span class="comment">// Footstep Sounds</span>
+   FootSoftSound        = FootLightSoftSound;
+   FootHardSound        = FootLightHardSound;
+   FootMetalSound       = FootLightMetalSound;
+   FootSnowSound        = FootLightSnowSound;
+   FootShallowSound     = FootLightShallowSplashSound;
+   FootWadingSound      = FootLightWadingSound;
+   FootUnderwaterSound  = FootLightUnderwaterSound;
+
+   FootBubblesSound     = FootLightBubblesSound;
+   movingBubblesSound   = ArmorMoveBubblesSound;
+   waterBreathSound     = WaterBreathMaleSound;
+
+   impactSoftSound      = ImpactLightSoftSound;
+   impactHardSound      = ImpactLightHardSound;
+   impactMetalSound     = ImpactLightMetalSound;
+   impactSnowSound      = ImpactLightSnowSound;
+
+   impactWaterEasy      = ImpactLightWaterEasySound;
+   impactWaterMedium    = ImpactLightWaterMediumSound;
+   impactWaterHard      = ImpactLightWaterHardSound;
+
+   groundImpactMinSpeed    = <span class="stringliteral">&quot;45&quot;</span>;
+   groundImpactShakeFreq   = <span class="stringliteral">&quot;4.0 4.0 4.0&quot;</span>;
+   groundImpactShakeAmp    = <span class="stringliteral">&quot;1.0 1.0 1.0&quot;</span>;
+   groundImpactShakeDuration = 0.8;
+   groundImpactShakeFalloff = 10.0;
+
+   exitingWater         = ExitingWaterLightSound;
+
+   observeParameters = <span class="stringliteral">&quot;0.5 4.5 4.5&quot;</span>;
+   <span class="keyword">class </span>= &quot;armor&quot;;
+
+   cameraMinDist = <span class="stringliteral">&quot;0&quot;</span>;
+   DecalData = <span class="stringliteral">&quot;PlayerFootprint&quot;</span>;
+
+   <span class="comment">// Allowable Inventory Items</span>
+   mainWeapon = Lurker;
+
+   maxInv[Lurker] = 1;
+   maxInv[LurkerClip] = 20;
+
+   maxInv[LurkerGrenadeLauncher] = 1;
+   maxInv[LurkerGrenadeAmmo] = 20;
+
+   maxInv[Ryder] = 1;
+   maxInv[RyderClip] = 10;
+
+   maxInv[ProxMine] = 5;
+
+   maxInv[DeployableTurret] = 5;
+
+   <span class="comment">// available skins (see materials.cs in model folder)</span>
+   availableSkins =  <span class="stringliteral">&quot;base DarkBlue DarkGreen   LightGreen  Orange   Red   Teal  
+   Violet   Yellow&quot;</span>;
+};
+</pre></div> </dd></dl>
+<hr/>
+<a name="Member_Function_Documentation"></a><h2>Member Function Documentation</h2>
+<a class="anchor" id="a66b01bb7d8df835100d1c98816dbff3a"></a><!-- doxytag: member="Player::allowAllPoses" ref="a66b01bb7d8df835100d1c98816dbff3a" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Player::allowAllPoses </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Allow all poses a chance to occur. </p>
+<p>This method resets any poses that have manually been blocked from occuring. This includes the regular pose states such as sprinting, crouch, being prone and swimming. It also includes being able to jump and jet jump. While this is allowing these poses to occur it doesn't mean that they all can due to other conditions. We're just not manually blocking them from being allowed. </p>
+
+</div>
+</div>
+<a class="anchor" id="afddb82a82c11883aa034f135c7acdfea"></a><!-- doxytag: member="Player::allowCrouching" ref="afddb82a82c11883aa034f135c7acdfea" args="(bool state)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Player::allowCrouching </td>
+          <td>(</td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>state</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Set if the Player is allowed to crouch. </p>
+<p>The default is to allow crouching unless there are other environmental concerns that prevent it. This method is mainly used to explicitly disallow crouching at any time. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>state</em>&nbsp;</td><td>Set to true to allow crouching, false to disable it. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ad14cdb8e2da3448cde798fbdeb7ddbdf"></a><!-- doxytag: member="Player::allowJetJumping" ref="ad14cdb8e2da3448cde798fbdeb7ddbdf" args="(bool state)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Player::allowJetJumping </td>
+          <td>(</td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>state</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Set if the Player is allowed to jet jump. </p>
+<p>The default is to allow jet jumping unless there are other environmental concerns that prevent it. This method is mainly used to explicitly disallow jet jumping at any time. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>state</em>&nbsp;</td><td>Set to true to allow jet jumping, false to disable it. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a55f95c7e6d7a0d3145e657508179c6cf"></a><!-- doxytag: member="Player::allowJumping" ref="a55f95c7e6d7a0d3145e657508179c6cf" args="(bool state)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Player::allowJumping </td>
+          <td>(</td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>state</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Set if the Player is allowed to jump. </p>
+<p>The default is to allow jumping unless there are other environmental concerns that prevent it. This method is mainly used to explicitly disallow jumping at any time. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>state</em>&nbsp;</td><td>Set to true to allow jumping, false to disable it. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a4f71884f4efb9777ec6ab4c5701a09f4"></a><!-- doxytag: member="Player::allowProne" ref="a4f71884f4efb9777ec6ab4c5701a09f4" args="(bool state)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Player::allowProne </td>
+          <td>(</td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>state</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Set if the Player is allowed to go prone. </p>
+<p>The default is to allow being prone unless there are other environmental concerns that prevent it. This method is mainly used to explicitly disallow going prone at any time. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>state</em>&nbsp;</td><td>Set to true to allow being prone, false to disable it. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a4fad19513bcbd805637ceeaa2c37ba56"></a><!-- doxytag: member="Player::allowSprinting" ref="a4fad19513bcbd805637ceeaa2c37ba56" args="(bool state)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Player::allowSprinting </td>
+          <td>(</td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>state</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Set if the Player is allowed to sprint. </p>
+<p>The default is to allow sprinting unless there are other environmental concerns that prevent it. This method is mainly used to explicitly disallow sprinting at any time. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>state</em>&nbsp;</td><td>Set to true to allow sprinting, false to disable it. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a8b38259458441d08d57b2e57eee3202e"></a><!-- doxytag: member="Player::allowSwimming" ref="a8b38259458441d08d57b2e57eee3202e" args="(bool state)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Player::allowSwimming </td>
+          <td>(</td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>state</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Set if the Player is allowed to swim. </p>
+<p>The default is to allow swimming unless there are other environmental concerns that prevent it. This method is mainly used to explicitly disallow swimming at any time. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>state</em>&nbsp;</td><td>Set to true to allow swimming, false to disable it. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a08297b8517d0876c7b1ee449e71c2b7e"></a><!-- doxytag: member="Player::checkDismountPoint" ref="a08297b8517d0876c7b1ee449e71c2b7e" args="(Point3F oldPos, Point3F pos)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Player::checkDismountPoint </td>
+          <td>(</td>
+          <td class="paramtype">Point3F&nbsp;</td>
+          <td class="paramname"> <em>oldPos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Point3F&nbsp;</td>
+          <td class="paramname"> <em>pos</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Check if it is safe to dismount at this position. </p>
+<p>Internally this method casts a ray from oldPos to pos to determine if it hits the terrain, an interior object, a water object, another player, a static shape, a vehicle 
+(exluding the one currently mounted), or physical zone. If this ray is in the clear, then the player's bounding box is also checked for a collision at the pos position. If 
+this displaced bounding box is also in the clear, then checkDismountPoint() returns true. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>oldPos</em>&nbsp;</td><td>The player's current position </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>pos</em>&nbsp;</td><td>The dismount position to check </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>True if the dismount position is clear, false if not </dd></dl>
+<dl class="note"><dt><b>Note:</b></dt><dd>The player must be already mounted for this method to not assert. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ada70910b56f162d2cb0ce478d6ee1312"></a><!-- doxytag: member="Player::clearControlObject" ref="ada70910b56f162d2cb0ce478d6ee1312" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Player::clearControlObject </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Clears the player's current control object. </p>
+<p>Returns control to the player. This internally calls Player::setControlObject(0). </p>
+<dl class="user"><dt><b>Example:</b></dt><dd><div class="fragment"><pre class="fragment">%player.clearControlObject();
+echo(%player.getControlObject()); <span class="comment">//&lt;-- Returns 0, player assumes control</span>
+%player.setControlObject(%vehicle);
+echo(%player.getControlObject()); <span class="comment">//&lt;-- Returns %vehicle, player controls vehicle now.</span>
+</pre></div></dd></dl>
+<dl class="note"><dt><b>Note:</b></dt><dd>If the player does not have a control object, the player will receive all moves from its GameConnection. If you're looking to 
+remove control from the player itself (i.e. stop sending moves to the player) use GameConnection::setControlObject() to transfer control to another object, such as a camera. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a796ee9e35a9a7e8269882b579351b9ea"></a><!-- doxytag: member="Player::getControlObject" ref="a796ee9e35a9a7e8269882b579351b9ea" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Player::getControlObject </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get the current object we are controlling. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>ID of the ShapeBase object we control, or 0 if not controlling an object. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a4e30d845c50351bb96be0579dd323a8a"></a><!-- doxytag: member="Player::getDamageLocation" ref="a4e30d845c50351bb96be0579dd323a8a" args="(Point3F pos)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Player::getDamageLocation </td>
+          <td>(</td>
+          <td class="paramtype">Point3F&nbsp;</td>
+          <td class="paramname"> <em>pos</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get the named damage location and modifier for a given world position. </p>
+<p>the Player object can simulate different hit locations based on a pre-defined set of PlayerData defined percentages. These hit percentages divide up the Player's bounding 
+box into different regions. The diagram below demonstrates how the various PlayerData properties split up the bounding volume:</p>
+<div align="center">
+<img src="images/player_damageloc.png" alt="player_damageloc.png"/>
+</div>
+<p>While you may pass in any world position and getDamageLocation() will provide a best-fit location, you should be aware that this can produce some interesting results. For example, 
+any position that is above PlayerData::boxHeadPercentage will be considered a 'head' hit, even if the world position is high in the sky. Therefore it may be wise to keep the passed in 
+point to somewhere on the surface of, or within, the Player's bounding volume.</p>
+<dl class="note"><dt><b>Note:</b></dt><dd>This method will not return an accurate location when the player is prone or swimming.</dd></dl>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>pos</em>&nbsp;</td><td>A world position for which to retrieve a body region on this player. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>a string containing two words (space separated strings), where the first is a location and the second is a modifier.</dd></dl>
+<p>Posible locations:</p>
+<ul>
+<li>
+head</li>
+<li>
+torso</li>
+<li>
+legs</li>
+</ul>
+<p>Head modifiers:</p>
+<ul>
+<li>
+left_back</li>
+<li>
+middle_back</li>
+<li>
+right_back</li>
+<li>
+left_middle</li>
+<li>
+middle_middle</li>
+<li>
+right_middle</li>
+<li>
+left_front</li>
+<li>
+middle_front</li>
+<li>
+right_front</li>
+</ul>
+<p>Legs/Torso modifiers:</p>
+<ul>
+<li>
+front_left</li>
+<li>
+front_right</li>
+<li>
+back_left</li>
+<li>
+back_right</li>
+</ul>
+
+</div>
+</div>
+<a class="anchor" id="ae2e1c4231d6d26ef27a34c62db342152"></a><!-- doxytag: member="Player::getNumDeathAnimations" ref="ae2e1c4231d6d26ef27a34c62db342152" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Player::getNumDeathAnimations </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get the number of death animations available to this player. </p>
+<p>Death animations are assumed to be named death1-N using consecutive indices. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa9a5641964f205597a5e582ddc0b730a"></a><!-- doxytag: member="Player::getPose" ref="aa9a5641964f205597a5e582ddc0b730a" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Player::getPose </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get the name of the player's current pose. </p>
+<p>The pose is one of the following:</p>
+<ul>
+<li>
+Stand - Standard movement pose.</li>
+<li>
+Sprint - Sprinting pose.</li>
+<li>
+Crouch - Crouch pose.</li>
+<li>
+Prone - Prone pose.</li>
+<li>
+Swim - Swimming pose.</li>
+</ul>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The current pose; one of: "Stand", "Sprint", "Crouch", "Prone", "Swim" </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a3cbe806db4bbc8d2331e05707bd85987"></a><!-- doxytag: member="Player::getState" ref="a3cbe806db4bbc8d2331e05707bd85987" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Player::getState </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get the name of the player's current state. </p>
+<p>The state is one of the following:</p>
+<ul>
+<li>
+Dead - The Player is dead.</li>
+<li>
+Mounted - The Player is mounted to an object such as a vehicle.</li>
+<li>
+Move - The Player is free to move. The usual state.</li>
+<li>
+Recover - The Player is recovering from a fall. See PlayerData::recoverDelay.</li>
+</ul>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The current state; one of: "Dead", "Mounted", "Move", "Recover" </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad1b12d593e7feb4c76866c889f05d95a"></a><!-- doxytag: member="Player::setActionThread" ref="ad1b12d593e7feb4c76866c889f05d95a" args="(string name, bool hold=false, bool fsp=true)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Player::setActionThread </td>
+          <td>(</td>
+          <td class="paramtype">string&nbsp;</td>
+          <td class="paramname"> <em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>hold</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>fsp</em> = <code>true</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Set the main action sequence to play for this player. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>name</em>&nbsp;</td><td>Name of the action sequence to set </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>hold</em>&nbsp;</td><td>Set to false to get a callback on the datablock when the sequence ends (PlayerData::animationDone()). When 
+    set to true no callback is made. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>fsp</em>&nbsp;</td><td>True if first person and none of the spine nodes in the shape should animate. False will allow the shape's 
+    spine nodes to animate. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>True if succesful, false if failed </dd></dl>
+<dl class="note"><dt><b>Note:</b></dt><dd>The spine nodes for the Player's shape are named as follows:</dd></dl>
+<ul>
+<li>
+Bip01 Pelvis</li>
+<li>
+Bip01 Spine</li>
+<li>
+Bip01 Spine1</li>
+<li>
+Bip01 Spine2</li>
+<li>
+Bip01 Neck</li>
+<li>
+Bip01 Head</li>
+</ul>
+<p>You cannot use setActionThread() to have the Player play one of the motion determined action animation sequences. These sequences are chosen based on how the Player moves 
+and the Player's current pose. The names of these sequences are:</p>
+<ul>
+<li>
+root</li>
+<li>
+run</li>
+<li>
+side</li>
+<li>
+side_right</li>
+<li>
+crouch_root</li>
+<li>
+crouch_forward</li>
+<li>
+crouch_backward</li>
+<li>
+crouch_side</li>
+<li>
+crouch_right</li>
+<li>
+prone_root</li>
+<li>
+prone_forward</li>
+<li>
+prone_backward</li>
+<li>
+swim_root</li>
+<li>
+swim_forward</li>
+<li>
+swim_backward</li>
+<li>
+swim_left</li>
+<li>
+swim_right</li>
+<li>
+fall</li>
+<li>
+jump</li>
+<li>
+standjump</li>
+<li>
+land</li>
+<li>
+jet</li>
+</ul>
+<p>If the player moves in any direction then the animation sequence set using this method will be cancelled and the chosen mation-based sequence will take over. This makes great for times when the Player cannot move, such as when mounted, or when it doesn't matter if the action sequence changes, such as waving and saluting. </p>
+<dl class="user"><dt><b>Example:</b></dt><dd><div class="fragment"><pre class="fragment"><span class="comment">// Place the player in a sitting position after being mounted</span>
+%player.setActionThread( <span class="stringliteral">&quot;sitting&quot;</span>, <span class="keyword">true</span>, <span class="keyword">true</span> );
+</pre></div> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a9a9a39112a007c9a07256ca7f80fca71"></a><!-- doxytag: member="Player::setArmThread" ref="a9a9a39112a007c9a07256ca7f80fca71" args="(string name)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Player::setArmThread </td>
+          <td>(</td>
+          <td class="paramtype">string&nbsp;</td>
+          <td class="paramname"> <em>name</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Set the sequence that controls the player's arms (dynamically adjusted to match look direction). </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>name</em>&nbsp;</td><td>Name of the sequence to play on the player's arms. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if successful, false if failed. </dd></dl>
+<dl class="note"><dt><b>Note:</b></dt><dd>By default the 'look' sequence is used, if available. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a58150632f7766abaacab337835551674"></a><!-- doxytag: member="Player::setControlObject" ref="a58150632f7766abaacab337835551674" args="(ShapeBase obj)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Player::setControlObject </td>
+          <td>(</td>
+          <td class="paramtype">ShapeBase&nbsp;</td>
+          <td class="paramname"> <em>obj</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Set the object to be controlled by this player. </p>
+<p>It is possible to have the moves sent to the Player object from the GameConnection to be passed along to another object. This happens, for example when a player is mounted to a vehicle. 
+The move commands pass through the Player and on to the vehicle (while the player remains stationary within the vehicle). With setControlObject() you can have the Player pass along its moves 
+to any object. One possible use is for a player to move a remote controlled vehicle. In this case the player does not mount the vehicle directly, but still wants to be able to control it. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>obj</em>&nbsp;</td><td>Object to control with this player </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>True if the object is valid, false if not </dd></dl>
+
+</div>
+</div>
+<hr/>
+<a name="Member_Data_Documentation"></a><h2>Member Data Documentation</h2>
+<a class="anchor" id="ac5ec3e2d196f521fe6f9500b2e1c1e1d"></a><!-- doxytag: member="Player::crouchTrigger" ref="ac5ec3e2d196f521fe6f9500b2e1c1e1d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Player::crouchTrigger<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>The move trigger index used for player crouching. </p>
+
+</div>
+</div>
+<a class="anchor" id="a6fa411d7d798c28193131cef73c5304f"></a><!-- doxytag: member="Player::imageTrigger0" ref="a6fa411d7d798c28193131cef73c5304f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Player::imageTrigger0<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>The move trigger index used to trigger mounted image 0. </p>
+
+</div>
+</div>
+<a class="anchor" id="a0dc6cfeab3fa9ca6626877c4b522b1f1"></a><!-- doxytag: member="Player::imageTrigger1" ref="a0dc6cfeab3fa9ca6626877c4b522b1f1" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Player::imageTrigger1<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>The move trigger index used to trigger mounted image 1 or alternate fire on mounted image 0. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae6232b57b48713685decfe392d76805d"></a><!-- doxytag: member="Player::jumpJetTrigger" ref="ae6232b57b48713685decfe392d76805d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Player::jumpJetTrigger<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>The move trigger index used for player jump jetting. </p>
+
+</div>
+</div>
+<a class="anchor" id="accb252a0e320944b5f8c2dd875f632fe"></a><!-- doxytag: member="Player::jumpTrigger" ref="accb252a0e320944b5f8c2dd875f632fe" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Player::jumpTrigger<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>The move trigger index used for player jumping. </p>
+
+</div>
+</div>
+<a class="anchor" id="a412e1759095a511f8cb26f14aa8652a6"></a><!-- doxytag: member="Player::maxImpulseVelocity" ref="a412e1759095a511f8cb26f14aa8652a6" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Player::maxImpulseVelocity<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>The maximum velocity allowed due to a single impulse. </p>
+
+</div>
+</div>
+<a class="anchor" id="a0dc479fdb67aec8a55894719b48f8a0b"></a><!-- doxytag: member="Player::maxPredictionTicks" ref="a0dc479fdb67aec8a55894719b48f8a0b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Player::maxPredictionTicks<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Maximum number of ticks to predict on the client from the last known move obtained from the server. </p>
+
+</div>
+</div>
+<a class="anchor" id="a279988bb16cd613c67c60c14a409c6bd"></a><!-- doxytag: member="Player::maxWarpTicks" ref="a279988bb16cd613c67c60c14a409c6bd" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Player::maxWarpTicks<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>When a warp needs to occur due to the client being too far off from the server, this is the maximum number of ticks we'll allow the client to warp to catch up. </p>
+
+</div>
+</div>
+<a class="anchor" id="abc0c7a93eb882b1f6b19cd816b4288a8"></a><!-- doxytag: member="Player::minWarpTicks" ref="abc0c7a93eb882b1f6b19cd816b4288a8" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Player::minWarpTicks<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Fraction of tick at which instant warp occures on the client. </p>
+
+</div>
+</div>
+<a class="anchor" id="a777ed6a79e23677ceba9eb764d40ebd2"></a><!-- doxytag: member="Player::proneTrigger" ref="a777ed6a79e23677ceba9eb764d40ebd2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Player::proneTrigger<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>The move trigger index used for player prone pose. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1bce1e347122ec4f87c641a639c24f76"></a><!-- doxytag: member="Player::renderCollision" ref="a1bce1e347122ec4f87c641a639c24f76" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Player::renderCollision<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Determines if the player's collision mesh should be rendered. </p>
+<p>This is mainly used for the tools and debugging. </p>
+
+</div>
+</div>
+<a class="anchor" id="a0170af39407077c9559b1054f4ba3b12"></a><!-- doxytag: member="Player::renderMyItems" ref="a0170af39407077c9559b1054f4ba3b12" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Player::renderMyItems<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Determines if mounted shapes are rendered or not. </p>
+<p>Used on the client side to disable the rendering of all Player mounted objects. This is mainly used for the tools or debugging. </p>
+
+</div>
+</div>
+<a class="anchor" id="aea29af6f0b5f728b46ed675483bf7a2a"></a><!-- doxytag: member="Player::renderMyPlayer" ref="aea29af6f0b5f728b46ed675483bf7a2a" args="" -->
+<div class="memitem">
+
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Player::renderMyPlayer<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Determines if the player is rendered or not. </p>
+<p>Used on the client side to disable the rendering of all Player objects. This is mainly for the tools or debugging. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac6d19c8228c8285d954b477a5da6dfad"></a><!-- doxytag: member="Player::sprintTrigger" ref="ac6d19c8228c8285d954b477a5da6dfad" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Player::sprintTrigger<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>The move trigger index used for player sprinting. </p>
+
+</div>
+</div>
+<a class="anchor" id="aff1c02a4098c4b977a9547cc513dab18"></a><!-- doxytag: member="Player::vehicleDismountTrigger" ref="aff1c02a4098c4b977a9547cc513dab18" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Player::vehicleDismountTrigger<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>The move trigger index used to dismount player. </p>
+                <p>&nbsp;</p>
+</div>
+</div>
+</div></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

@@ -1,0 +1,450 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 89;
+   parent.leftFrame.expandToItem('tree2', 'doc89');
+   var element = parent.leftFrame.document.getElementById('doc89');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D - River Editor</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  class="mediawiki ltr ns-0 ns-subject  page-Torque3D_WorldEditor_Editors_RiverEditor skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          </div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Setup"><span class="tocnumber">2</span> <span class="toctext">Setup</span></a></li>
+                          <li class="toclevel-1"><a href="#Interface"><span class="tocnumber">3</span> <span class="toctext">Interface</span></a></li>
+                          <li class="toclevel-1"><a href="#Interface"><span class="tocnumber">4</span> <span class="toctext">Adding a River</span></a></li>
+                          <li class="toclevel-1"><a href="#Editing_a_River"><span class="tocnumber">5</span> <span class="toctext">Editing a River</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#Selection_Tool"><span class="tocnumber">5.1</span> <span class="toctext">Selection Tool</span></a></li>
+                              <li class="toclevel-2"><a href="#Moving_the_River"><span class="tocnumber">5.2</span> <span class="toctext">Moving the River</span></a></li>
+                              <li class="toclevel-2"><a href="#Scaling_a_River"><span class="tocnumber">5.3</span> <span class="toctext">Scaling a River</span></a></li>
+                              <li class="toclevel-2"><a href="#Rotating_a_River"><span class="tocnumber">5.4</span> <span class="toctext">Rotating a river</span></a></li>
+                              <li class="toclevel-2"><a href="#Adding_extra_Points"><span class="tocnumber">5.5</span> <span class="toctext">Adding extra Points</span></a></li>
+                              <li class="toclevel-2"><a href="#Removing_Points."><span class="tocnumber">5.6</span> <span class="toctext">Removing Points.</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Properties"><span class="tocnumber">6</span> <span class="toctext">Properties</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#Transform"><span class="tocnumber">6.1</span> <span class="toctext">Transform</span></a></li>
+                              <li class="toclevel-2"><a href="#River"><span class="tocnumber">6.2</span> <span class="toctext">River</span></a></li>
+                              <li class="toclevel-2"><a href="#Water_Object"><span class="tocnumber">6.3</span> <span class="toctext">Water Object</span></a></li>
+                              <li class="toclevel-2"><a href="#Waves"><span class="tocnumber">6.4</span> <span class="toctext">Waves</span></a></li>
+                              <li class="toclevel-2"><a href="#Reflect"><span class="tocnumber">6.5</span> <span class="toctext">Reflect</span></a></li>
+                              <li class="toclevel-2"><a href="#Underwater_Fogging"><span class="tocnumber">6.6</span> <span class="toctext">Underwater Fogging</span></a></li>
+                              <li class="toclevel-2"><a href="#Misc"><span class="tocnumber">6.7</span> <span class="toctext">Misc</span></a></li>
+                              <li class="toclevel-2"><a href="#Distortion"><span class="tocnumber">6.8</span> <span class="toctext">Distortion</span></a></li>
+                              <li class="toclevel-2"><a href="#Basic_Lighting"><span class="tocnumber">6.9</span> <span class="toctext">Basic Lighting</span></a></li>
+                              <li class="toclevel-2"><a href="#Sound"><span class="tocnumber">6.10</span> <span class="toctext">Sound</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">7</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table><br />
+                <p><br /><i>(click to enlarge)</i> </p>
+                <a href="images/RiverHeader.jpg" class="livethumbnail"><img src="images/RiverHeader.jpg" width="400" height="221" largewidth="800" largeheight="443" /></a><br />
+                <br /><br /><a name="Introduction" id="Introduction"></a>
+                <h1> <span class="mw-headline">Introduction</span></h1>
+                <p>The Torque 3D World Editor has a complete system for creating rivers and other small bodies of water. The River Editor is built-in WYSIWYG (<strong>W</strong>hat-<strong>Y</strong>ou-<strong>S</strong>ee-<strong>I</strong>s-<strong>W</strong>hat-<strong>Y</strong>ou-<strong>G</strong>et) editor with real-time feedback, giving you full control over how you would like to your river to appear. </p>
+                <p><br /><i>(click to enlarge)</i> </p>
+                  <a href="images/RiverIntro.jpg" class="livethumbnail"><img src="images/RiverIntro.jpg" width="400" height="258" largewidth="800" largeheight="516" /></a><br />
+                <br /><br /><a name="Setup" id="Setup"></a>
+                <h1> <span class="mw-headline">Setup</span></h1>
+                <p>To get started, open the Toolbox and create a new project from the Full template then load the Empty Terrain level.  </p>
+                <p><br />
+                  Use the Terrain Editor tools to create a channel for your new river. This can be as simple or as detailed as you would like it to be. If you are unsure how to use the Terrain Editor, refer to the  <a href="TerrainEditor.html"  title="http://docs.torquepowered.com/torque-3d/official/content/documentation/World%20Editor/Editors/TerrainEditor.html" rel="nofollow">Terrain Editing</a> section.</p>
+                <br /><br /><a name="Interface" id="Interface"></a>
+                <h1> <span class="mw-headline">Interface</span></h1>
+                <p>To access the River Editor you can either activate it from the main menu by selecting Editors > River Editor:</p>
+                <p><br />
+                  <i>menu&gt;Editors&gt;River Editor</i> </p>
+                <p><br />
+                  <img alt="Image:RiverMenu.jpg" src="images/RiverMenu.jpg" border="0" height="309" width="373" /> </p>
+                <p><br />
+                  Alternatively you can click the River icon from the World Editor Tools Selector Bar:</p>
+                <p><br />
+                  <img alt="Image:Rivertoolbar.jpg" src="images/Rivertoolbar.jpg" border="0" height="31" width="442" /> </p>
+                <p><br />
+                  The editor has two main parts, one where you can add and manipulate the river nodes (control points) for creation, the other for adjusting the river properties to create the river style (depth, width, flow, ripples etc).  </p>
+                <p><br />
+                  Whenever the River Editor is active three sections of the screen are updated to contain the editors tool.</p>
+                  <p><br />On the right side of the screen are three panes. At the top is the Rivers pane which contains a list of all the rivers currently in the level, if any are present.  In the middle is the River Nodes pane which displays the properties of the currently selected river control point. At the bottom is the Properties Pane which displays the properties of the currently selected river. </p>
+                  <p><br /><img src="images/RERiverProperties.png" /></p>
+                  <p><br />At the left of the screen the River placement tools will appear and are used to create and modify rivers and their control points. </p>
+                  <p><br /><em>Hint: These tool bars are floating and can be moved to any part of your screen.</em></p>
+                  <p><br />
+                  <img alt="Image:RiverIconBar.jpg" src="images/RiverIconBar.jpg" border="0" height="196" width="228" /> </p>
+                  <p><br />At the top of the screen in the World Editor Tool Settings Bar, a new set of icons will appear when the River Editor is active. </p>
+                  <p><br /><p><img alt="Image:RiverIconBar2.jpg" src="images/RiverIconBar2.jpg" border="0" height="31" width="690" /> </p>
+                  <p><br />These icons and their associated values will enable you to quickly set up the width and depth of the river and modify the editor to show and hide some visual aids which can be used to guide your river placement.</p>
+                <br /><br /><a name="Adding_a_River" id="Adding_a_River"></a>
+                <h1> <span class="mw-headline">Adding a River</span></h1>
+                <p>The river is created by placing a series of control points across the terrain which defines the path you would like your river to follow. Each control point, also called a "node", will give you control of how the river will look at any given point .By adjusting each of these points we can have full control of where our river will go, its size, and its orientation. </p>
+                
+                <p><br />
+                  The default width and depth of control points can be set using the Default Width and Default Height properties on the Tool Settings Bar at the top of the editor window. Any new rivers will be created using these settings until you change their values again.</p>
+                <p>To create a new river select the Create River icon <img alt="Image:RiverIcon1.jpg" src="images/RiverIcon1.jpg" border="0" height="31" width="32" /> from the tool bar then click on the terrain with the left mouse button where you would like to start your river. Move the mouse away from the clicked location to see the results. Each time you click the terrain you will see three things: (1) a green square which represents the river location that you just placed; (2) a blue square which represents the next location that will be placed the river if you press mouse button again; (3) the surface of the river that will be placed the next time you click the button. Move the mouse to the next point on the terrain that you wish your river to travel to and then click again. Continue moving and clicking until you are finished with the initial placement of your river. </p>
+                <p><br />
+                  To complete the river placement process press the ESC key. This action will exit the Create River tool leaving your new river selected and ready for adjustments. </p>
+                  <p><br />To abort a river creation operation without placing a river at all press the Esc key before selecting a second river point. Once a second river point has been placed the only way to remove the river completely is to delete it, as explained later.</p>
+                <p><br />
+                  <img alt="Image:Riverpath.jpg" src="images/Riverpath.jpg" border="0" height="248" width="566" /> </p>
+                <p><br />
+                  The new River will also show up in the Rivers list at the right top of the screen. </p>
+                <p><br />
+                  <img alt="Image:Riverlist.jpg" src="images/Riverlist.jpg" border="0" height="168" width="207" /> </p>
+                <p>You will notice that the river itself is color-coded. These visual aids will be of help in adjusting your river. </p>
+                <p><br />
+                  RED - The red lines at the edges of the river represent the river bounds. These lines need to be moved so that they are hidden by the terrain river bank to avoid gaps between the edge of the water and the surrounding terrain.</p>
+                <p><br />
+                  GREEN - The green surface represents the depth of the river. This surface needs to be adjusted to be just below the terrain at every point in order for underwater views to be correct. Whenever this surface is above the terrain it will cause an "air bubble" between the bottom of the water and the terrain.  </p>
+                <p><img alt="Image:Riverred.jpg" src="images/Riverred.jpg" border="0" height="239" width="581" /> </p>
+                <p>The new River may not look correct but with the following set of 
+                  tools you will be able to adjust the width, depth
+                  and path. </p>
+                  <h1><a name="Editing_a_River">Editing a River</a></h1>
+                  <p><br />The River Editor provides several tools for modifying rivers after they have been created. If at any time you make a mistake with any tool, you can press CTRL+Z to undo it.</p>
+                <a name="Selection_Tool" id="Selection_Tool"></a>
+                <h2> <span class="mw-headline">Selection Tool</span></h2>
+                <p> Once you have created your initial river you may need to edit some or all of the control points. This tool will allow you to directly select any created point for further editing. To activate the Selection Tool click its icon <img alt="Image:RiverIcon4.jpg" src="images/RiverIcon4.jpg" border="0" height="31" width="32" />  on the Tool Selector bar. Note that the River Editor will automatically select this tool when you have finished creating a new river. </p>
+                <p><br />An entire river can be selected by clicking anywhere on a river other than one of its control points. This type of selection will result in the river being highlighted with a "spline", which is a curved line that runs along the center line of the river, and a series of green squares which represent the rivers control points. There are no operations that can be performed on a river as a whole within the River Editor. Selecting a river allows you to see its centerline and it control points for individual selection and manipulation. To perform operations on the entire river such as moving it to a new location use the Object Editors tools as with any other shape in your level.</p>
+                <p><br />Control points can be selected individually to adjust each point as necessary. To select a control point left click on one of the colored squares that represent a rivers control points. A selected control point will turn blue. </p>
+                <p><br />
+                  <img alt="Image:RiverSelected.jpg" src="images/RiverSelected.jpg" border="0" height="236" width="372" /> </p>
+                  <p><br />Selecting a control point also causes the Properties pane on the right of the screen to be updated to display the current property values of the control point. The Node Properties section will display the position, rotation, width and depth of the selected control point. Values can be directly entered into these fields to modify the point or the Move Tool can be used to manipulate the point using the mouse.</p>
+                <p><br /><img alt="Image:RiverNode.jpg" src="images/RiverNode.jpg" border="0" height="90" width="274" /> </p>
+                <p>A selected control point will turn blue. </p>
+                
+                <br /><br /><a name="Moving_the_River" id="Moving_the_River"></a>
+                <h2> <span class="mw-headline">Moving a River</span></h2>
+                <p>If at any time you are unhappy with the placement of a selected River control point you can use the Move Point tool to adjust its position. To activate the Move Point tool click its icon <img alt="Image:RiverIcon5.jpg" src="images/RiverIcon5.jpg" border="0" height="31" width="32" /> in the Tool Selector bar. The move gizmo will appear:</p>
+                <p><img alt="Image:Rivermove.jpg" src="images/Rivermove.jpg" border="0" height="235" width="373" /> </p>
+                <p>The move gizmo is used to move the river point to a new location. Left mouse click on any arrowhead then drag the mouse to move the point along that arrows axis. Release the mouse button to relocate the control point to that new location. Left mouse click on the colored square at the origin of the axes then drag the mouse to freely move the point to without regard to any axis.</p>
+                <a name="Scaling_a_River" id="Scaling_a_River"></a>
+                <h2> <span class="mw-headline">Scaling a River</span></h2>
+                <p>The width and depth of a river can be directly adjusted at a selected control point by using the Scale Point tool. To activate the Scale Point tool click on its icon <img alt="Image:RiverIcon6.jpg" src="images/RiverIcon6.jpg" border="0" height="31" width="32" /> on the Tool Selector. The scaling gizmo will appear:</p>
+                <p><img alt="Image:RiverScale.jpg" src="images/RiverScale.jpg" border="0" height="235" width="376" /> </p>
+                <p>Left mouse click on the colored cube at the end of any axis then drag the mouse while holding the button down to increase or decrease the size of the road along that axis. To adjust the width and depth at the same time left mouse click on the colored cube at the origin of the axes then drag the mouse while holding down the button. Release the mouse button to change the river to that new width and depth. Changing the width and depth of the river in this manner is the main method to make sure that the red edges and the green surface, mentioned above, are concealed by the terrain. </p>
+                <p><br />The Scale point tool will allow you to quickly create very wide river sections, even as wide as a small lake, without having to use a <a href="../Adding%20Objects/WaterBlock.html">WaterBlock</a>. </p>
+                <p><img alt="Image:Riverlake.jpg" src="images/Riverlake.jpg" border="0" height="289" width="537" /> </p>
+                <br /><br /><a name="Rotating_a_River" id="Rotate_a_river"></a>
+                <h2> <span class="mw-headline">Rotating a river</span></h2>
+                <p><img alt="Image:RiverIcon7.jpg" src="images/RiverIcon7.jpg" border="0" height="31" width="32" /> The Rotate Tool can be used to rotate a river at any selected control point. To activate the Rotate Tool click its icon   on the Tool Selector. The rotate gizmo  will appear.  </p>
+                <p><img alt="Image:RiverRotate.jpg" src="images/RiverRotate.jpg" border="0" height="233" width="379" /> </p>
+                <p>Rotating a river at each control in along the path of a river can make a river appear to be flowing downhill as opposed to a flat surface as is created by default.  </p>
+                <p><br />
+                  The following image shows what a finished river could look like after editing. </p>
+                <p><img alt="Image:Riverfinalriver.jpg" src="images/Riverfinalriver.jpg" border="0" height="254" width="560" /> </p>
+                <a name="Adding_extra_Points" id="Adding_extra_Points"></a>
+                <h2> <span class="mw-headline">Adding extra Points</span></h2>
+                <p>The Insert Point tool can be used to add extra points in a river to create a smoother curve. In order to insert a new point into a river the river must first be selected. See the Selection Tool above for details on how to select a river. To activate the Insert Point tool once a river has been selected click its icon <img alt="Image:RiverIcon2.jpg" src="images/RiverIcon2.jpg" border="0" height="31" width="32" />  on the Tool Selector bar. To place a new point on the selected river click on the river where you would like the new point to be placed. A new point will be added to the river and will immediately the currently selected point as indicated by the blue square. </p>
+                <br /><br /><a name="Removing_Points." id="Removing_Points."></a>
+                <h2> <span class="mw-headline">Removing Points.</span></h2>
+                <p> The Remove Point tool can be used to delete a control from a river. In order to remove a new point from a river the river must first be selected. See the Selection Tool above for details on how to select a river. To activate the Remove Point tool click its icon <img alt="Image:RiverIcon3.jpg" src="images/RiverIcon3.jpg" border="0" height="31" width="32" /> on the Tool Selector bar. To remove a control from the selected road point click on the control point. This will remove only the selected point leaving all the others in place. No adjustments will be performed on the other existing control points.</p>
+                
+                
+                
+                <br /><br /><a name="Properties" id="Properties"></a>
+                <h1> <span class="mw-headline">Properties</span></h1>
+                <p>The Properties pane on the right side of the screen can be used to configure or modify various facets of the river object, such as its flow, colors, underwater effects, etc.</p>
+                <p><img alt="Image:RiverP1.jpg" src="images/RiverP1.jpg" border="0" height="477" width="208" /> </p>
+                <a name="Transform" id="Transform"></a>
+                <h2> <span class="mw-headline">Transform</span></h2>
+                <p>This section contains properties which control the placement, rotation and scale of the River as a whole. </p>
+                <p><br />
+                  <b>Position:</b> Indicates the position of entire River in the level.  </p>
+                <p><b>Rotation:</b> Indicates the rotation of the entire River in the level.</p>
+                <p><b>Scale:</b> Indicates the scale of the entire River in the level.  </p>
+                <br /><br /><a name="River" id="River"></a>
+                <h2> <span class="mw-headline">River</span></h2>
+                <p>This section contains properties which control how the River is rendered which in turn will have an effect on the wave settings. </p>
+                <p><br />
+                  <b>Segment Length:</b> The river will be divided into segments of this length, in meters. </p>
+                <p><b>Subdivide Length:</b> River segments will be subdivided in a way that each quad (four-sided polygon) is not any wider or longer than this distance in meters. </p>
+                <p><b>Flow Magnitude:</b> The magnitude of the force vector applied to dynamic objects that are within the River. This will affect how thing floating or suspended in the water are driven by the flow of the river.</p>
+                <p><b>Low LOD Distance:</b> Segments of the river at this distance in meters or more will be rendered as a single un-subdivided area without any undulation wave effects.  </p>
+                <br /><br /><a name="Water_Object" id="Water_Object"></a>
+                <h2> <span class="mw-headline">Water Object</span></h2>
+                <p>This section contains properties that control the look and action of the water and contains several sub-sections:  </p>
+                <p><img alt="Image:RiverP2.jpg" src="images/RiverP2.jpg" border="0" height="478" width="333" /> </p>
+                <p><br />
+                  <b>Density:</b> Affects the buoyancy of an object entering the water. </p>
+                <p><b>Viscosity:</b> Affects a submerged object&#39;s drag force. </p>
+                <p><b>Liquid Type:</b> Type of datablock used to represent the type of liquid contained in the river (i.e. water, lava, etc.)</p>
+                <p><b>Base Color:</b> Changes the color of the underwater fog which has the effect of coloring the water surface. </p>
+                <p><br />
+                  <b>Fresnel Bias: </b>Extent of Fresnel (reflection level based on viewing angle) affecting reflection fogging </p>
+                <p><b>Fresnel Power:</b> Measures the intensity of the effect on the
+                  reflection, based on fogging. </p>
+                  <p><br /><i>(click to enlarge)</i> </p>
+                <a href="images/RiverfresP2.jpg" class="livethumbnail"><img src="images/RiverfresP2.jpg" width="479" height="111" largewidth="959" largeheight="222" /></a><br />
+                <p><b>Specular Power:</b> Power used for secularity (lighting reflection) on the water 
+                  surface (sun only) </p>
+                <p><b>Specular Color:</b> Specular color used for the water surface (
+                  sun only ) </p>
+                <br /><br /><a name="Waves" id="Waves"></a>
+                <h2> <span class="mw-headline">Waves</span></h2>
+                <p>This sub-section contains properties that control the undulations on the water. Note: This effect actually moves the vertices of the mesh. </p>
+                <p><img alt="Image:Riverwave.jpg" src="images/Riverwave.jpg" border="0" height="316" width="601" /> </p>
+                <p><br />This section has further sub-sections for controlling three wave sets, each sub-section is composed of the following properties that define the wave set: </p>
+                <p><b>Wave Dir:</b> A vector describing the direction the waves flow towards the river banks.  </p>
+                <p><b>Wave Speed:</b> Speed of the wave undulation. </p>
+                <p><b>Wave Magnitude:</b> Height of the wave. </p>
+                <p><br />Two properties control the overall wave action:</p>
+                <p><b>Overall Wave Magnitude:</b> This master parameter affects the depth of all the wave subsets, like a global wave height parameter. </p>
+                <p><br />
+                  <b>Ripple Texture:</b> The Normal map used for simulating the surface ripples. </p>
+                  <h2>Ripples</h2>
+                  <p><br />This sub-section contains properties that control the animation that simulates the effect of ripples bouncing off the river bank. This animation is performed using normal map to represent the ripples. This section has further sub-sections for controlling three ripple sets, each sub-section is composed of the following properties that define the ripple set: </p>
+                <p><b>Ripple Dir:</b> A vector that modifies the surface ripple direction.  </p>
+                <p><b>Ripple Speed:</b> Controls the ripple speed. </p>
+                <p><b>Ripple Tex Scale:</b> Intensifies the affect of the surface ripples by scaling the texture. </p>
+                <p><br />The Ripples sub-section also contains two properties that control the overall ripple effect:</p>
+                <p><b>Ripple Magnitude:</b> Intensifies the ripple effect. </p>
+                <p><br />The Ripples sub-section also contains two properties that control the overall ripple effect:</p>
+                <p><br /><b>Overall Ripple Magnitude:</b> This parameter affects the depth of all the ripple subsets, like a global ripple intensity variable.</p>
+                <p><strong>Foam Tex:</strong> The texture used to render the ripple effect.</p>
+                <p><br />
+                  <i>Hint:</i> <i>Turn up the ripple magnitude if you want to see ripples 
+                  when looking up from underwater.</i> </p>
+                <p><img alt="Image:Riverunder.jpg" src="images/Riverunder.jpg" border="0" height="319" width="595" /> </p>
+                <p><br />
+                  <img alt="Image:RivermoreP.jpg" src="images/RivermoreP.jpg" border="0" height="387" width="329" /> </p>
+                <br /><br /><a name="Reflect" id="Reflect"></a>
+                <h2> <span class="mw-headline">Reflect</span></h2>
+                <p>This section contains properties that control the rendering of surface reflections:  </p>
+                <p><br />
+                  <b>CubeMap:</b> Cubemap to use instead of the default reflection texture, which is the current sky, if Full Reflect is turned off. Handy if you have not yet set up a sky for your project.  </p>
+                <p><b>FullReflect:</b> Enables dynamic reflection rendering, which causes the water surface to reflect the current sky, if available. </p>
+                <p><b>Reflect Priority:</b> Affects the sort order of reflected 
+                  objects. </p>
+                <p><b>Reflect Max Rate Ms:</b> Affects the sort time of reflected 
+                  objects. </p>
+                <p><b>Reflect Detail Adjust:</b> Scale up or down the detail level 
+                  for objects rendered in a reflection. </p>
+                <p><b>Reflect Normal Up:</b> The reflection normal. </p>
+                <p><b>Use Occlusion Query:</b> Turn off reflection rendering when 
+                  occluded. </p>
+                <p><b>Reflect Text Size:</b> Texture size used for the reflections. </p>
+                <br /><br /><a name="Underwater_Fogging" id="Underwater_Fogging"></a>
+                <h2> <span class="mw-headline">Underwater Fogging</span></h2>
+                <p>This section contains properties that control how the underwater view appears: </p>
+                <p><br />
+                  <b>Water Fog Density:</b> The intensity of the underwater fogging. </p>
+                  <p><br /><i>(click to enlarge)</i> </p>
+                <a href="images/Riverfog1.jpg" class="livethumbnail"><img src="images/Riverfog1.jpg" width="466" height="90" largewidth="932" largeheight="181" /></a><br />
+                <p><br />
+                  <b>Water Fog Density Offset:</b> The offset distance before the fogging 
+                  occurs. </p>
+                  <p><br /><i>(click to enlarge)</i> </p>
+                <a href="images/Riverfog2.jpg" class="livethumbnail"><img src="images/Riverfog2.jpg" width="302" height="90" largewidth="605" largeheight="181" /></a><br />
+                <p><br />
+                  <b>Wet Depth:</b> The depth in world units at which full darkening will
+                    occur, giving a wet look to objects underwater. </p>
+                <p><b>Wet Darkening:</b> The refract color intensity scaled to the depth of the 
+                    player (wetDepth). The deeper under the water you go, the darker it will get. </p>
+                  <p><br /><i>(click to enlarge)</i> </p>
+                <a href="images/Riverwet.jpg" class="livethumbnail"><img src="images/Riverwet.jpg" width="459" height="91" largewidth="918" largeheight="182" /></a><br />
+                <br /><br /><a name="Misc" id="Misc"></a>
+                <h2> <span class="mw-headline">Misc</span></h2>
+                <p>Other uncategorized properties. </p><br />
+                <p><br /><b>Depth Gradient Tex:</b> Texture for the gradient as the players moves 
+                    deeper.</p>
+                <p><br /><b>Depth Gradient Max:</b> Maximum depth for the gradient texture.</p>
+                <h2><span class = "mw-headline">Foam</span></h2>
+                <p><b>Foam Opacity:</b>Overall foam opacity.</p>
+                <p><b>Foam Max Depth:</b> The depth that the foam will be visible 
+                  from underwater. </p>
+                <p><b>Foam Ambient Lerp:</b> An RGB color value that interpolates 
+                  linearly between the base foam color and ambient color.
+                  This prevents bright white colors be viewable during situations such as 
+                  Night. </p>
+                 <p><b>Foam Ripple Influence:</b> Intensity of the foam effect on ripples. </p>
+                <p><br /><img alt="Image:Riverpd.jpg" src="images/Riverpd.jpg" border="0" height="172" width="324" /> </p>
+                <br /><br /><a name="Distortion" id="Distortion"></a>
+                <h2> <span class="mw-headline">Distortion</span></h2>
+                <p>This section contains properties that control how the water distorts the under water terrain when viewed from above. </p>
+                <p><br /><i>(click to enlarge)</i> </p>
+                  <a href="images/Riverdist.jpg" class="livethumbnail"><img src="images/Riverdist.jpg" width="453" height="84" largewidth="907" largeheight="169" /></a><br /><br />
+                <p><b>Distort Start Dist:</b> Determines the start of the 
+                  distortion effect from the camera. </p>
+                <p><b>Distort End Dist:</b> Max Distance that the distortion 
+                  algorithm is performed. Lower values will show more
+                  of the distortion effect. </p>
+                <p><b>Distort Full Depth:</b> Sets the scaling down value for the 
+                  distortion in shallow water. The lower the value the more
+                  the distortion will be applied to the shallow area. </p>
+                <br /><br /><a name="Basic_Lighting" id="Basic_Lighting"></a>
+                <h2> <span class="mw-headline">Basic Lighting</span></h2>
+                <p><br />This section contains properties that control the basic lighting effects on and in the water:</p>
+                <p><b>Clarity:</b> Opacity or transparency of the water 
+                  surface. </p>
+                <p><b>Underwater Color:</b> Changes the color shading of objects 
+                  beneath the water surface </p>
+                <br /><br /><a name="Sound" id="Sound"></a>
+                <h2> <span class="mw-headline">Sound</span></h2>
+                <p><br />This section contains properties that control sound under the water:</p>
+                <p><b>Sound Ambience:</b> Ambient sound environment for when the 
+                  listener is submerged. </p>
+                                  <br /><br /><a name="Editing" id="A1"></a>
+                <h2> <span class="mw-headline">Editing</span></h2>
+                <p><br />This section contains properties that control whether the river can be edited:</p>
+                <p><b>isRenderEnabled:</b> Toggles whether the object is rendered on the client. </p>
+                <p><b>isSelectionEnabled:</b> Toggles whether the object can be selected in the tools. </p>
+                <p><b>hidden:</b> Toggles whether the object is visible. </p>
+                <p><b>locked:</b> Toggles whether the object can be edited. </p>
+                                <h2> <span class="mw-headline">Mounting</span></h2>
+                <p><br />This section contains properties that control whether the river can be mounted to another world object, for example a sewer pipe or a cave:</p>
+                <p><b>mountPID:</b> PersistentID of object we are mounted to. </p>
+                <p><b>mountNode:</b> Node we are mounted to. </p>
+                <p><b>mountPos:</b> Position where object is mounted. </p>
+                <p><b>mountRot:</b>Rotation where object is mounted. </p>
+              <h2> <span class="mw-headline">Object</span></h2>
+                <p><br />This section contains properties that control whether the river object is persistent in the world.</p>
+                <p><b>internalName:</b> Internal name of this object. </p>
+                <p><b>parentGroup:</b> Group to which this object belongs. </p>
+                <p><b>class:</b> Class to which this object belongs. </p>
+                <p><b>superClass:</b> SuperClass to which this object belongs. </p>
+              <h2> <span class="mw-headline">Persistence</span></h2>
+                <p><br />This section contains properties that control whether the river object is persistent in the world.</p>
+                <p><b>canSave:</b> Whether the object can be saved to the mission file. </p>
+                <p><b>canSaveDynamicField:</b> Whether dynamic properties are saved at runtime. </p>
+                <p><b>persistentID:</b> Unique ID of this object. </p>
+                <br /><br /><a name="Conclusion" id="Conclusion"></a>
+                <h1> <span class="mw-headline">Conclusion</span></h1>
+                <p>In this article we covered how to use the Torque 3D River Editor to create a river and a small body of water, as well as reviewed the properties of a river object and how affect it. With time and care you can create some very satisfying rivers, and best of all, you can make your player character interact with them. Try entering the river with the main character in third person mode, he will now have buoyancy and be able to swim. </p>
+                <p><br />
+                  Remember to save often and have fun creating your new rivers! </p></td>
+            </tr>
+          </tbody>
+        </table>
+        
+         
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

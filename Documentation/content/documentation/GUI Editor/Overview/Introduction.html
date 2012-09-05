@@ -1,0 +1,207 @@
+<html>
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 25;
+   parent.leftFrame.expandToItem('tree2', 'doc25');
+   var element = parent.leftFrame.document.getElementById('doc25');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D - GUI Editor Introduction</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_GUIEditor_Introduction skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2></div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#What_is_a_GUI.3F"><span class="tocnumber">1</span> <span class="toctext">What is a GUI?</span></a></li>
+                          <li class="toclevel-1"><a href="#Torque_3D_GUIs"><span class="tocnumber">2</span> <span class="toctext">Torque 3D GUIs</span></a></li>
+                          <li class="toclevel-1"><a href="#GUI_Editor"><span class="tocnumber">3</span> <span class="toctext">GUI Editor</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">4</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="What_is_a_GUI.3F" id="What_is_a_GUI.3F"></a>
+                <h2> <span class="mw-headline">What is a GUI?</span></h2>
+                <p>"GUI" stands for Graphical User Interface. It is the summation of
+                  all the controls (windows, buttons, text fields, etc.) that are used to
+                  interact with a game and its settings. Most interfaces in games
+                  consist of buttons to launch or join a game session, editing devices to
+                  change user preferences, options to change screen resolutions and
+                  rendering options, and elements which display game data to the user as
+                  they are playing. </p>
+                <p><br />
+                  GUI creation and design is extremely important to game development.
+                  Many decent games have been crippled by inaccessible GUIs, which is why
+                  having a built in GUI editor can be a blessing. The Torque 3D editor
+                  provides drag and drop functionality, with minimal fill in the blank
+                  requirements. </p><br>
+                <a name="Torque_3D_GUIs" id="Torque_3D_GUIs"></a>
+                <h2> <span class="mw-headline">Torque 3D GUIs</span></h2>
+                <p>GUIs are saved as a script (.gui), which allows you to further tweak
+                  values using your favorite text editor. Additionally, you can declare
+                  variables and define functions at the end of a GUI script, which will
+                  not be written over when modifying the GUI using Torques editor. </p>
+                <p><br />
+                  Multiple controls which can be combined to make up
+                  a single interface. Each control is contained in a single structure,
+                  which can be embedded into other GUI elements to form a tree. The
+                  following is an example of a GUI control which displays a picture: </p>
+                <pre>// Bitmap GUI control
+new GuiBitmapCtrl() {
+   profile = "GuiDefaultProfile";
+   horizSizing = "width";
+   vertSizing = "height";
+   position = "8 8";
+   extent = "384 24";
+   minExtent = "8 8";
+   visible = "1";
+   helpTag = "0";
+   bitmap = "art/gui/images/swarmer.png";
+   wrap = "0";
+};
+</pre>
+                <p><br />
+                  Once the above GUI is active in your interface, it will display the following: </p>
+                <p><br />
+                  <img alt="Image:swarmer.png" src="images/swarmer.png" border="1" height="128" width="256" /> </p><br>
+                <a name="GUI_Editor" id="GUI_Editor"></a>
+                <h2> <span class="mw-headline">GUI Editor</span></h2>
+                <p>Torque 3D features a WYSIWYG GUI Editor, which allows you to create,
+                  edit, and test your GUI in game with maximum fidelity. 90% of your GUI
+                  creation can be done in the editor,  leaving 10% for scripting
+                  advanced functionality. </p>
+                <p><br />
+                  <em>(click to enlarge)</em> </p>
+                <a href="images/GUIEditor.jpg" class="livethumbnail"><img src="images/GUIEditor.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br /><br>
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>As previously mentioned, the game interface is critical to its
+                  success. The GUI Editor is a powerful tool you should become familiar
+                  with early in your development. Before you begin experimenting, you
+                  should continue reading and learn about the <a href="./Interface.html">GUI Editor Interface</a>. </p>
+                  
+                  </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

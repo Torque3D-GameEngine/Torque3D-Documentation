@@ -1,0 +1,666 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 38;
+   parent.leftFrame.expandToItem('tree2', 'doc38');
+   var element = parent.leftFrame.document.getElementById('doc38');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<title>Torque 3D - Engine to Script Interface</title>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_Scripting_Overview_Introduction skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <br /><a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Creating_Call-in_Points"><span class="tocnumber">2</span> <span class="toctext">Creating Call-in Points</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#Global_functions"><span class="tocnumber">2.1</span> <span class="toctext">Global functions</span></a></li>
+                              <li class="toclevel-2"><a href="#Class_methods"><span class="tocnumber">2.2</span> <span class="toctext">Class methods</span></a></li>
+                              <li class="toclevel-2"><a href="#Notes"><span class="tocnumber">2.3</span> <span class="toctext">Notes</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Creating_Call-out_Points"><span class="tocnumber">3</span> <span class="toctext">Creating Call-out Points</span></a></li>
+                          <li class="toclevel-1"><a href="#Creating_Types"><span class="tocnumber">4</span> <span class="toctext">Creating Types</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#Creating_an_Object_Type"><span class="tocnumber">4.1</span> <span class="toctext">Creating an Object Type</span></a></li>
+                              <li class="toclevel-2"><a href="#Creating_an_Enumeration_Type"><span class="tocnumber">4.2</span> <span class="toctext">Creating an Enumeration Type</span></a></li>
+                              <li class="toclevel-2"><a href="#Creating_a_Bitfield_Type"><span class="tocnumber">4.3</span> <span class="toctext">Creating a Bitfield Type</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Documentation"><span class="tocnumber">5</span> <span class="toctext">Documentation</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#Documenting_an_engine_function.2Fmethod."><span class="tocnumber">5.1</span> <span class="toctext">Documenting an engine function/method.</span></a></li>
+                              <li class="toclevel-2"><a href="#Handling_overloaded_functions:"><span class="tocnumber">5.2</span> <span class="toctext">Handling overloaded functions:</span></a></li>
+                              <li class="toclevel-2"><a href="#Handling_variadic_functions"><span class="tocnumber">5.3</span> <span class="toctext">Handling variadic functions</span></a></li>
+                              <li class="toclevel-2"><a href="#Documenting_an_engine_callback"><span class="tocnumber">5.4</span> <span class="toctext">Documenting an engine callback</span></a></li>
+                              <li class="toclevel-2"><a href="#Documenting_an_engine_class"><span class="tocnumber">5.5</span> <span class="toctext">Documenting an engine class</span></a></li>
+                              <li class="toclevel-2"><a href="#Documenting_a_field"><span class="tocnumber">5.6</span> <span class="toctext">Documenting a field</span></a></li>
+                              <li class="toclevel-2"><a href="#Documenting_a_variable"><span class="tocnumber">5.7</span> <span class="toctext">Documenting a variable</span></a></li>
+                              <li class="toclevel-2"><a href="#Documenting_a_constant"><span class="tocnumber">5.8</span> <span class="toctext">Documenting a constant</span></a></li>
+                              <li class="toclevel-2"><a href="#Inserting_an_arbitrary_piece_of_documentation"><span class="tocnumber">5.9</span> <span class="toctext">Inserting an arbitrary piece of documentation</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Important_Notes"><span class="tocnumber">6</span> <span class="toctext">Important Notes</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">7</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <br /><a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline"> Introduction </span></h2>
+                <p>This document intends to give an overview and a set of rules for 
+                  creating and documenting Torque control layer interfaces. There are 
+                  specific functions used for communication between TorqueScript and the 
+                  C++ engine. This system makes heavy use of macros and ties in closely 
+                  with the Console system. </p>
+                <p><br />
+                  If you plan on extending the engine to support new classes or 
+                  functionality, you will need to adhere to this guide so as to not break 
+                  your build. Equally important is the practice of documenting your 
+                  extensions, so make heavy use of the fields that exist for 
+                  documentation. </p>
+                <p><br />
+                  <i><b>NOTE:</b></i> This document was primarily written for C++ 
+                  programmers with access to Torque 3D's source code. Without source code 
+                  you will not be able to directly implement any of the following. 
+                  However, someone without source access should still be able to harvest 
+                  important documentation on Torque 3D's control layer interface. </p>
+                <br /><a name="Creating_Call-in_Points" id="Creating_Call-in_Points"></a>
+                <h2> <span class="mw-headline"> Creating Call-in Points </span></h2>
+                <p>A call-in point is an entry point from the control layer into Torque.
+                  In simpler terms, these are functions called from TorqueScript. There 
+                  are two types of call-in functions: global and class</p>
+                <br /><a name="Global_functions" id="Global_functions"></a>
+                <h3> <span class="mw-headline">Global functions</span></h3>
+                <p>These are stand alone functions that can be called in TorqueScript without belonging to any class or object. </p>
+                <p><b>Example</b> </p>
+                <pre>echo("Hello World");
+</pre>
+                <p><br />
+                  You define a global function by using the following procedure: </p>
+                <p><br />
+                  Include engineAPI.h in your cpp implementation file: </p>
+                <pre>#include "console/engineAPI.h"
+                </pre>
+                <p><br />
+                  Define the function: </p>
+                <pre>DefineEngineFunction( myFunction, myReturnType, ( S32 arg1, F32 arg2, const char* arg3 ),, "Documentation string" )
+{
+   // Code goes here
+}
+</pre>
+                <p><b>Working Example in Torque 3D</b> </p>
+                <pre>DefineEngineFunction(addBadWord, bool, (const char* badWord),,
+					 "Add a string to the bad word filter\n"
+					 "The bad word filter is a table containing words which will not be "
+					 "displayed in chat windows. Instead, a designated replacement string will be displayed.\n"
+					 "@param badWord Exact text of the word to restrict.\n"
+					 "@return True if word was successfully added, false if the word or a subset of it already exists in the table\n"
+					 "@see filterString\n\n"
+					 "@tsexample\n"
+						"// In this game, \"Foobar\" is banned\n"
+						"%badWord = \"Foobar\";\n\n"
+						"// Returns true, word was successfully added\n"
+						"addBadWord(%badWord);\n\n"
+						"// Returns false, word has already been added\n"
+						"addBadWord(\"Foobar\");"
+					 "@endtsexample\n"
+					 "@ingroup Game")
+{
+	TORQUE_UNUSED(badWord);
+	return gBadWordFilter-&gt;addBadWord(badWord);
+}
+</pre>
+                <br /><a name="Class_methods" id="Class_methods"></a>
+                <h3> <span class="mw-headline">Class methods</span></h3>
+                <p>These are functions called in TorqueScript from an object associated with a class, such as SFXSource. </p>
+                <p><b>Example</b> </p>
+                <pre>%sfxSourceObject.stop() 
+</pre>
+                <p><br />
+                  You define a class method by using the following procedure: </p>
+                <p><br />
+                  Include engineAPI.h in your cpp implementation file: </p>
+                <pre>#include "console/engineAPI.h"
+                </pre>
+                <p><br />
+                  Define the method: </p>
+                <pre>DefineEngineMethod( MyClass, myMethod, myReturnType, ( S32 arg1, F32 arg2, const char* arg3 ),, "Documentation string" )
+{
+   // Code goes here
+}
+                </pre>
+                <p><br />
+                  <b>Working Example in Torque 3D</b> </p>
+                <pre>DefineEngineMethod( GuiCanvas, reset, void, (),,
+				   "@brief Reset the update regions for the canvas.\n\n"
+
+				   "@tsexample\n"
+				   "Canvas.reset();\n"
+				   "@endtsexample\n\n")
+{
+	object-&gt;resetUpdateRegions();
+}
+</pre>
+                <p><br />
+                  Within the function bodies, you can access the given parameters and 
+                  return a value just like with a normal C++ function. To assign default 
+                  values to arguments (like in C++: S32 index=-1), you use the macro 
+                  argument left empty above: </p>
+                <pre>DefineEngineMethod( MyClass, myMethod, myReturnType, ( S32 arg1, F32 arg2, const char* arg3 ), ( -1.f, "foo" ), "Documentation string" )
+{
+   // Code goes here
+}
+</pre>
+                <p><br />
+                  Here, -1.f is the default argument for "arg2" and "foo" is the default argument for "arg3." <b>Be aware that the default argument list is matched starting from the end of the argument list (like it happens in C++).</b> </p>
+                <p><br />
+                  <b>Working Example in Torque 3D</b> </p>
+                <pre>DefineEngineMethod( SFXSource, play, void, ( F32 fadeInTime ), ( -1.f ),
+   "Start playback of the source.\n"
+   "If the sound data for the source has not yet been fully loaded, there will be a delay after calling "
+   "play and playback will start after the data has become available.\n\n"
+   "@param fadeInTime Seconds for the sound to reach full volume.  If -1, the SFXDescription::fadeInTime "
+      "set in the source's associated description is used.  Pass 0 to disable a fade-in effect that may "
+      "be configured on the description." )
+{
+   object-&gt;play( fadeInTime );
+}
+</pre>
+                <br /><a name="Notes" id="Notes"></a>
+                <h3> <span class="mw-headline">Notes</span></h3>
+                <ul>
+                  <li>You cannot currently use references (&amp;) as argument types. 
+                    This is due to the default argument code here and might change in the 
+                    future. </li>
+                </ul>
+                <ul>
+                  <li>All types used in an engine API function/method must have 
+                    registered console types including an ImplementConsoleTypeCasters 
+                    instance for the given native C++ type.  If this is missing, you will 
+                    see link-time errors or compile-time errors in the templates. </li>
+                </ul>
+                <ul>
+                  <li>There are two exceptions:
+                    <ul>
+                      <li>U32 can be used and is treated internally like S32 </li>
+                      <li>Pointers to SimObject-derived classes can be used freely </li>
+                    </ul>
+                  </li>
+                </ul>
+                <ul>
+                  <li>Do not use String for string arguments. Use "const char*". You 
+                    may use Strings as return values, though (for TS: memory will be copied 
+                    to evaluator stack). </li>
+                </ul>
+                <ul>
+                  <li>If you return "const char*", the API assumes the lifetime of the
+                    string exceeds that of the call-in. If that is not the case, you need 
+                    to use Con::getReturnBuffer. </li>
+                </ul>
+                <ul>
+                  <li>If you return String, the API assumes the String is temporary and will automatically copy it with Con::getReturnBuffer. </li>
+                </ul>
+                <ul>
+                  <li>Due to the template trickery involved in the engineAPI macro 
+                    system, default argument values will be constructed once during global 
+                    startup (except if the compiler is smart enough to optimize the 
+                    non-side-effecting constructors away). <b>This means that any default 
+                    argument value must not use a feature of Torque that requires global 
+                    ctors to have executed. Using String::EmptyString is an example of what 
+                    would not work.</b> </li>
+                </ul>
+                <br /><a name="Creating_Call-out_Points" id="Creating_Call-out_Points"></a>
+                <h2> <span class="mw-headline"> Creating Call-out Points </span></h2>
+                <p>A call-out point is an exit point from the C++ engine to the control 
+                  layer (TorqueScript). This is often referred to as a callback. The main 
+                  purpose of a callback is to trigger a function in script from C++ after 
+                  an important piece of code has been executed. The following procedure is
+                  used to creating a callback: </p>
+                <p><br />
+                  In your class definition, declare the callbacks for the class with DECLARE_CALLBACK: </p>
+                <p><br />
+                  <b>Example</b> </p>
+                <pre>   protected:      
+      /// @name Callbacks
+      /// @{
+      
+      DECLARE_CALLBACK(void, onAdd, (SimObjectId ID) );
+
+      /// @}
+
+</pre>
+                <p><br />
+                  In your implementation file, include the engineAPI.h header: </p>
+                <pre>#include "console/engineAPI.h"</pre>
+                <p><br />
+                  Then, use the IMPLEMENT_CALLBACK macro for each of the callbacks: </p>
+                <pre>IMPLEMENT_CALLBACK( ScriptObject, onAdd, void, ( SimObjectId ID ), ( ID ),
+	"Called when this ScriptObject is added to the system.\n"
+	"@param ID Unique object ID assigned when created (%this in script).\n"
+);
+</pre>
+                <p><br />
+                  The two list arguments to the macro represent the raw argument type list
+                  ( type arg1, type arg2... ) as well as the argument call list ( arg1, 
+                  arg2 ).  This is needed by the macros to chain the call along. To 
+                  trigger a callback in the code, invoke the given callback method by 
+                  appending _callback to its name: </p>
+                <pre>bool ScriptObject::onAdd()
+{
+   if (!Parent::onAdd())
+      return false;
+
+   // Call onAdd in script!
+   onAdd_callback(getId());
+   return true;
+}
+</pre>
+                <br /><a name="Creating_Types" id="Creating_Types"></a>
+                <h2> <span class="mw-headline"> Creating Types </span></h2>
+                <p>Before a native C++ type can be used in the engine API, it must be 
+                  registered with the console system.  How this is done depends on the 
+                  kind of type. For all registered types, TYPEID&lt;type&gt;() returns the
+                  numeric type ID of the static type. </p>
+                <br /><a name="Creating_an_Object_Type" id="Creating_an_Object_Type"></a>
+                <h3> <span class="mw-headline">Creating an Object Type</span></h3>
+                <p>To define a new object type for use in the control layer API, use the
+                  following procedure.  For a class T, this allows to use pointers to T 
+                  objects to be used in the API. Derive your class directly or indirectly 
+                  from SimObject: </p>
+                <pre>class SFXAmbience : public SimDataBlock
+{
+</pre>
+                <p><br />
+                  In the class interface, define a public typedef "Parent" as an alias for the parent class: </p>
+                <pre>   public:
+   
+      typedef SimDataBlock Parent;
+
+</pre>
+                <p><br />
+                  Also, in the public interface, use DECLARE_CONOBJECT.  Optionally, also supply a description and category. </p>
+                <pre>      DECLARE_CONOBJECT( SFXAmbience );
+      DECLARE_CATEGORY( "SFX" );
+      DECLARE_DESCRIPTION( "An ambient sound environment." );
+</pre>
+                <p><br />
+                  Then, in the implementation file, use IMPLEMENT_CONOBJECT or one of its variants (for datablocks and netobjects). </p>
+                <pre>IMPLEMENT_CO_DATABLOCK_V1( SFXAmbience );</pre>
+                <br /><a name="Creating_an_Enumeration_Type" id="Creating_an_Enumeration_Type"></a>
+                <h3> <span class="mw-headline">Creating an Enumeration Type</span></h3>
+                <p>To define a new enumeration type for use in the control layer API, 
+                  use the following procedure. In the file where your native enum type is 
+                  defined, include the type header: </p>
+                <pre>#include "console/dynamicTypes.h"</pre>
+                <p><br />
+                  After the enum definition, </p>
+                <pre>/// Rolloff curve used for distance volume attenuation of 3D sounds.
+enum SFXDistanceModel
+{
+   SFXDistanceModelLinear,             ///&lt; Volume decreases linearly from min to max where it reaches zero.
+   SFXDistanceModelLogarithmic,        ///&lt; Volume halves every min distance steps starting from min distance; attenuation stops at max distance.
+};
+</pre>
+                <p><br />
+                  Declare the public type bits: </p>
+                <pre>DefineEnumType( SFXDistanceModel );</pre>
+                <p><br />
+                  In the corresponding implementation file, add the corresponding implementation detail: </p>
+                <pre>ImplementEnumType( SFXDistanceModel,
+   "Type of volume distance attenuation curve.\n"
+   "The distance model determines the falloff curve applied to the volume of 3D sounds over distance.\n\n"
+   "@ref SFXSource_volume\n\n"
+   "@ingroup SFX" )
+   { SFXDistanceModelLinear, "Linear",
+      "Volume attenuates linearly from the references distance onwards to max distance where it reaches zero." },
+   { SFXDistanceModelLogarithmic, "Logarithmic", 
+      "Volume attenuates logarithmically starting from the reference distance and halving every reference distance step from there on. "
+      "Attenuation stops at max distance but volume won't reach zero." },
+EndImplementEnumType;
+</pre>
+                <p><br />
+                  Note you can declare fields of this type directly: </p>
+                <pre>addField( "soundDistanceModel", TYPEID&lt; SFXDistanceModel &gt;(), Offset( mSoundDistanceModel, LevelInfo ), "The distance attenuation model to use." );</pre>
+                <p><br />
+                  Be aware that the native C++ enum type used in the macros must be global
+                  (the resulting type name will be global).  To use nested enum types, 
+                  simply work around this with a typedef: </p>
+                <pre>typedef SFXPlayList::ELoopMode SFXPlayListLoopMode;
+DefineEnumType( SFXPlayListLoopMode );
+</pre>
+                <br /><a name="Creating_a_Bitfield_Type" id="Creating_a_Bitfield_Type"></a>
+                <h3> <span class="mw-headline">Creating a Bitfield Type</span></h3>
+                <p>To define a new bitfield type for use in the control layer API, 
+                  follow the instructions for defining an enumeration type with the 
+                  following macros substituted for their enumeration counterparts: </p>
+                <p><br />
+                  Declare the type: </p>
+                <pre>DefineBitfieldType( MaterialAnimType );</pre>
+                <p><br />
+                  Implement the type: </p>
+                <pre>ImplementBitfieldType( MaterialAnimType,
+   "The type of animation effect to apply to this material.\n"
+   "@ingroup GFX\n\n")
+   { Material::Scroll, "Scroll", "Scroll the material along the X/Y axis.\n" },
+   { Material::Rotate, "Rotate" , "Rotate the material around a point.\n"},
+   { Material::Wave, "Wave" , "Warps the material with an animation using Sin, Triangle or Square mathematics.\n"},
+   { Material::Scale, "Scale", "Scales the material larger and smaller with a pulsing effect.\n" },
+   { Material::Sequence, "Sequence", "Enables the material to have multiple frames of animation in its imagemap.\n" }
+</pre>
+                <p><br />
+                  Immediately after you will end the implementation: </p>
+                <pre>EndImplementBitfieldType;</pre>
+                <br /><a name="Documentation" id="Documentation"></a>
+                <h2> <span class="mw-headline"> Documentation </span></h2>
+                <p>Torque 3D 
+                  makes it very easy to document the code via strings written directly 
+                  into the implementations. Documentation strings for engine API items use
+                  the JavaDoc tag syntax (@param, @ingroup, etc...). </p>
+                <br /><a name="Documenting_an_engine_function.2Fmethod." id="Documenting_an_engine_function.2Fmethod."></a>
+                <h3> <span class="mw-headline">Documenting an engine function/method.</span></h3>
+                <p>Place the documentation in the DefineEngineXXX macro. If not containing a @brief, the first line (i.e. up to \n) will be taken as the function @brief and automatically split out from the doc string. This allows the coder to omit the @brief in almost all cases as the first line will generally be good enough. Write explicit @briefs where this is not the case. For functions, place them in a group by using @ingroup tag:</p>
+                <p><br />
+                  <b>Example</b> </p>
+                <pre>DefineEngineFunction( strIsMatchExpr, bool, ( const char* pattern, const char* str, bool caseSensitive ), ( false ),
+   "Match a pattern against a string.\n"
+   "@param pattern The wildcard pattern to match against.  The pattern can include characters, '*' to match "
+      "any number of characters and '?' to match a single character.\n"
+   "@param str The string which should be matched against @a pattern.\n"
+   "@param caseSensitive If true, characters in the pattern are matched in case-sensitive fashion against "
+      "this string.  If false, differences in casing are ignored.\n"
+   "@return True if @a str matches the given @a pattern.\n\n"
+   "@tsexample\n"
+   "strIsMatchExpr( \"f?o*R\", \"foobar\" ) // Returns true.\n"
+   "@endtsexample\n"
+   "@see strIsMatchMultipleExpr\n"
+   "@ingroup Strings" )
+{
+   return FindMatch::isMatch( pattern, str, caseSensitive );
+}
+</pre>
+                <br /><a name="Handling_overloaded_functions:" id="Handling_overloaded_functions:"></a>
+                <h3> <span class="mw-headline">Handling overloaded functions:</span></h3>
+                <p>Overloading is not currently supported by engineAPI. TorqueScript 
+                  functions that have varying argument lists thus cannot be implemented 
+                  with engineAPI right now.</p>
+                  <p><br />Example: </p>
+                <pre>GuiControl::setExtent( Point2I p )
+GuiControl::setExtent( S32 width, S32 height )
+</pre>
+                <p>These functions must remain implemented with the old ConsoleXXX 
+                  macros. For documentation, these functions must be split into multiple 
+                  independent functions/methods for Doxygen.  This is achieved using the 
+                  following procedure: </p>
+                <p><br />
+                  Document the original function for in-game purposes but @hide it from Doxygen: </p>
+                <pre>ConsoleMethod( GuiControl, setExtent, void, 3, 4,
+   "( Point2I p | int x, int y ) Set the width and height of the control.\n\n"
+   "@hide" )
+</pre>
+                <p><br />
+                  Write an independent ConsoleDocFragment for each variant of the function method: </p>
+                <pre>static ConsoleDocFragment _sGuiControlSetExtent1(
+   "@brief Resize the control to the given dimensions.\n\n"
+   "Child controls will resize according to their layout settings.\n"
+   "@param width The new width of the control in pixels.\n"
+   "@param height The new height of the control in pixels.",
+   "GuiControl", // The class to place the method in; use NULL for functions.
+   "void setExtent( S32 width, S32 height );" ); // The definition string.
+
+static ConsoleDocFragment _sGuiControlSetExtent2(
+   "@brief Resize the control to the given dimensions.\n\n"
+   "Child controls with resize according to their layout settings.\n"
+   "@param p The new ( width, height ) extents of the control.",
+   "GuiControl", // The class to place the method in; use NULL for functions.
+   "void setExtent( Point2I p );" ); // The definition string.
+</pre>
+                <br /><a name="Handling_variadic_functions" id="Handling_variadic_functions"></a>
+                <h3> <span class="mw-headline">Handling variadic functions</span></h3>
+                <p>Variadic functions are not currently supported by engineAPI. 
+                  TorqueScript functions that takes a variable number of arguments cannot 
+                  be implemented with engineAPI right now. </p>
+                <p><br />
+                  <b>Example</b> </p>
+                <pre>echo( string text... )</pre>
+                <p><br />
+                  For now, these functions must remain implemented with the old ConsoleXXX
+                  macros. To document them, place the function argument prototype string 
+                  first in the usage string and then include documentation for other types of 
+                    functions.</p>
+                    <h4>Class Function</h4>
+                <pre>ConsoleMethod( SimSet, add, void, 3, 0,
+   "( SimObject objects... ) Add the given objects to the set.\n"
+   "@param objects The objects to add to the set." )
+</pre>
+                <h4>Global Function</h4>
+                <pre>
+ConsoleFunction( getRandom, F32, 1, 3,
+	"( int a=1, int b=0 ) "
+	"Get a random number between @a a and @a b.\n"
+	"@param a Lower bound on the random number.  The random number will be >= @a a.\n"
+	"@param b Upper bound on the random number.  The random number will be <= @a b.\n"
+	"@return A pseudo-random number between @a a and @a b.\n" )</pre>
+                <br /><a name="Documenting_an_engine_callback" id="Documenting_an_engine_callback"></a>
+                <h3> <span class="mw-headline">Documenting an engine callback</span></h3>
+                <p>Place the documentation on the IMPLEMENT_CALLBACK macro. If not 
+                  containing a @brief, the first line (i.e. up to \n) will be taken as the
+                  function @brief and automatically split out from the doc string.  This 
+                  allows to omit the @brief in almost all cases as the first line will 
+                  generally be good enough.  Write explicit @briefs where this is not the 
+                  case. </p>
+                <pre>IMPLEMENT_CALLBACK( GuiControl, onActive, void, ( bool state ), ( state ),
+   "Called when the control changes its activeness state, i.e. when going from active to inactive or vice versa.\n"
+   "@param stat The new activeness state.\n"
+   "@see isActive\n"
+   "@see setActive\n"
+   "@ref GuiControl_VisibleActive" );
+</pre>
+                <br /><a name="Documenting_an_engine_class" id="Documenting_an_engine_class"></a>
+                <h3> <span class="mw-headline">Documenting an engine class</span></h3>
+                <p>Place the documentation either in a .txt file in 
+                  Documentation/scriptDocs/docs or in the C++ implementation files using 
+                  the ConsoleDocClass macro. Always use @ingroup and @brief: </p>
+                <pre>ConsoleDocClass( SFXAmbience,
+   "@brief A datablock that describes an ambient sound space.\n\n"
+   
+   "Each ambience datablocks captures the properties of a unique ambient sound space.  A sound space is comprised of:\n"
+   
+   "- an ambient audio track that is played when the listener is inside the space,\n"
+   "- a reverb environment that is active inside the space, and\n"
+   "- a number of SFXStates that are activated when entering the space and deactivated when exiting it.\n"
+   "\n"
+   
+   "Each of these properties is optional.\n\n"
+   
+   "An important characteristic of ambient audio spaces is that their unique nature is not determined by their location "
+   "in space but rather by their SFXAmbience datablock.  This means that the same SFXAmbience datablock assigned to "
+   "multiple locations in a level represents the same unique audio space to the sound system.\n\n"
+   
+   "This is an important distinction for the ambient sound mixer which will activate a given ambient audio space only "
+   "once at any one time regardless of how many intersecting audio spaces with the same SFXAmbience datablock assigned "
+   "the listener may currently be in.\n\n"
+   
+   "Each SFXAmbience instance will automatically add itself to the global SFXAmbienceSet.\n\n"
+
+   "At the moment, transitions between reverb environments are not blended and different reverb environments from multiple "
+   "active SFXAmbiences will not be blended together.  This will be added in a future version.\n\n"
+   
+   "@tsexample\n"
+   "singleton SFXAmbience( Underwater )\n"
+   "{\n"
+   "   environment = AudioEnvUnderwater;\n"
+   "   soundTrack = ScubaSoundList;\n"
+   "   states[ 0 ] = AudioLocationUnderwater;\n"
+   "};\n"
+   "@endtsexample\n"
+      
+   "@see SFXEnvironment\n"
+   "@see SFXTrack\n"
+   "@see SFXState\n"
+   "@see LevelInfo::soundAmbience\n"
+   "@see Zone::soundAmbience\n"
+   "@ref Datablock_Networking\n"
+   "@ingroup SFX\n"
+   "@ingroup Datablocks\n"
+);
+</pre>
+                <br /><a name="Documenting_a_field" id="Documenting_a_field"></a>
+                <h3> <span class="mw-headline">Documenting a field</span></h3>
+                <p>Place the documentation directly on the addField usage string. The 
+                  first line (i.e. up to the first \n) is taken as the @brief and showed 
+                  in inspectors.  The rest is only used for doc output. </p>
+                <pre>addField( "coneOutsideVolume",   TypeF32,    Offset( mConeOutsideVolume, SFXDescription ),
+         "Determines the volume scale factor applied the a source's base volume level outside of the outer cone.\n"
+         "In the outer cone, starting from outside the inner cone, the scale factor smoothly interpolates from 1.0 (within the inner cone) "
+         "to this value.  At the moment, the allowed range is 0.0 (silence) to 1.0 (no attenuation) as amplification is only supported on "
+         "XAudio2 but not on the other devices.\n\n"
+         "Only for 3D sound.\n"
+         "@ref SFXSource_cones" );
+</pre>
+                <br /><a name="Documenting_a_variable" id="Documenting_a_variable"></a>
+                <h3> <span class="mw-headline">Documenting a variable</span></h3>
+                <p>Place the documentation on the Con::addVariable() call. Use @ingroup 
+                  to properly associate the documentation with a group. The first line of 
+                  the doc string will be taken as the @brief </p>
+                <pre>Con::addVariable( "SFX::numSources", TypeS32, &amp;mStatNumSources, NULL,
+      "Number of SFXSources that are currently instantiated.\n"
+      "@ingroup SFX" );
+</pre>
+                <p><br />
+                  Make sure the Con::addVariable() call is within the engine init phase 
+                  and will be available after the engine has started up. Don't put the 
+                  call on conditional paths. If necessary, use the module system 
+                  (core/module.h) for relevant initialization </p>
+                <br /><a name="Documenting_a_constant" id="Documenting_a_constant"></a>
+                <h3> <span class="mw-headline">Documenting a constant</span></h3>
+                <p>Place the documentation on the Con::addConstant() call. Use @ingroup 
+                  to properly associate the documentation with a group. The first line of 
+                  the doc string will be taken as the @brief </p>
+                <pre>Con::addConstant( "SFX::REVERB_FLAG_DECAYTIMESCALE", TypeS32, &amp;sReverbFlagDecayTimeScale, NULL,
+      "SFXEnvironment::envSize affects reverberation decay time.\n"
+      "@see SFXEnvironment::flags\n\n"
+      "@ingroup SFX" );
+</pre>
+                <p>Make sure the Con::addConstant() call is within the engine init phase
+                  and will be available after the engine has started up. Don't put the 
+                  call on conditional paths. If necessary, use the module system 
+                  (core/module.h) for relevant initialization. </p>
+                <br /><a name="Inserting_an_arbitrary_piece_of_documentation" id="Inserting_an_arbitrary_piece_of_documentation"></a>
+                <h3> <span class="mw-headline">Inserting an arbitrary piece of documentation</span></h3>
+                <p>Arbitrary code documentation can be inserted using the ConsoleDoc macro: </p>
+                <pre>ConsoleDoc(
+   "@defgroup MyGroup\n"
+   "@brief Blabla\n\n"
+   "My description.\n\n"
+   "@ingroup Parent"
+);
+</pre>
+                <p><br />
+                  Be aware that only one ConsoleDoc instance can be in any given .cpp 
+                  file. To work around this, either place the macro instances in different
+                  namespaces or use the ConsoleDocFragment class directly: </p>
+                <pre>static ConsoleDocFragment _sGuiControlSetExtent1(
+   "@fn void GuiControl::setExtent( int width, int height )\n"
+   "@brief Resize the control to the given dimensions.\n\n"
+   "Child controls will resize according to their layout settings.\n"
+   "@param width The new width of the control in pixels.\n"
+   "@param height The new height of the control in pixels." );
+
+static ConsoleDocFragment _sGuiControlSetExtent2(
+   "@fn void GuiControl::setExtent( Point2I p )\n"
+   "@brief Resize the control to the given dimensions.\n\n"
+   "Child controls with resize according to their layout settings.\n"
+   "@param p The new ( width, height ) extents of the control." );
+                </pre>
+                <p><br />
+                  You can also place a fragment inside a class: </p>
+                <pre>static ConsoleDocFragment _sFragment(
+   "doc",
+   "className", //NULL to place globally
+   "definition" ); //optional
+</pre>
+                <br /><a name="Important_Notes" id="Important_Notes"></a>
+                <h2> <span class="mw-headline">Important Notes</span></h2>
+                <p>Things to watch out for: </p>
+                <ul>
+                  <li>Put two newlines after @brief, i.e. "@brief Text\n\n" </li>
+                </ul>
+                <ul>
+                  <li>Put two newlines at the end of a paragraph, i.e. "My paragraph.\n\n" </li>
+                </ul>
+                <ul>
+                  <li>Put two newlines before @tsexample. </li>
+                </ul>
+                <ul>
+                  <li>Put two newlines to separate a @see from a @ref.  Otherwise 
+                    Doxygen will put the @ref on the same line as the @see which is visually
+                    unpleasing. </li>
+                </ul>
+                <ul>
+                  <li>Put @ingroup at the end of doc strings. </li>
+                </ul>
+                <ul>
+                  <li>Put datablocks in two groups; first in the group that the 
+                    non-datablock object is in (e.g. PlayerData should be in the same group 
+                    with Player) and second in the "Datablocks" group </li>
+                </ul>
+                <ul>
+                  <li>Use @tsexample and @endtsexample instead of @code and @endcode </li>
+                </ul>
+                <br /><a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline"> Conclusion </span></h2>
+                <p>After reading through this document you should a solid understanding 
+                  of how the C++ engine communicates with the script layer. This is how 
+                  the Torque team extends the engine and generates its official 
+                  documentation. You should adhere to these standards if you wish to 
+                  maintain stability while extending the engine. </p></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

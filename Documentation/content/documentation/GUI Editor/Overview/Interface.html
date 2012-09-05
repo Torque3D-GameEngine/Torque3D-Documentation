@@ -1,0 +1,404 @@
+<html>
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 24;
+   parent.leftFrame.expandToItem('tree2', 'doc24');
+   var element = parent.leftFrame.document.getElementById('doc24');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D - GUI Editor Interface</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_GUIEditor_Interface skin-monobook">
+<script type="text/javascript" src="../../include/wz_tooltip.js"></script>
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2></div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Running_the_GUI_Editor"><span class="tocnumber">1</span> <span class="toctext">Running the GUI Editor</span></a></li>
+                          <li class="toclevel-1"><a href="#Main_Editor_Sections"><span class="tocnumber">2</span> <span class="toctext">Main Editor Sections</span></a></li>
+                          <li class="toclevel-1"><a href="#Menu_Bar"><span class="tocnumber">3</span> <span class="toctext">Menu Bar</span></a></li>
+                          <li class="toclevel-1"><a href="#Tool_Bar"><span class="tocnumber">4</span> <span class="toctext">Tool Bar</span></a></li>
+                          <li class="toclevel-1"><a href="#Control_Palette"><span class="tocnumber">5</span> <span class="toctext">Control Palette</span></a></li>
+                          <li class="toclevel-1"><a href="#GUI_Tree_View"><span class="tocnumber">6</span> <span class="toctext">GUI Tree View</span></a></li>
+                          <li class="toclevel-1"><a href="#Profile_Editor"><span class="tocnumber">7</span> <span class="toctext">Profile Editor</span></a></li>
+                          <li class="toclevel-1"><a href="#GUI_Inspector"><span class="tocnumber">8</span> <span class="toctext">GUI Inspector</span></a></li>
+                          <li class="toclevel-1"><a href="#Selection_and_Parenting"><span class="tocnumber">9</span> <span class="toctext">Selection and Parenting</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">10</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Running_the_GUI_Editor" id="Running_the_GUI_Editor"></a>
+                <h2> <span class="mw-headline">Running the GUI Editor</span></h2>
+                <p>You can run Torque 3D's GUI Editor using one of two ways. The most
+                  intuitive way is to use the Toolbox. Run the Toolbox, select a project,
+                  then press the GUI Editor shortcut: </p>
+                <p><br />
+                  <img alt="Image:LaunchFromToolbox.jpg" src="images/LaunchFromToolbox.jpg" border="0" height="360" width="385" /> </p>
+                <p><br />
+                  Your project will begin to load. Before the game is actually
+                  launched, a screen will appear allowing to pick which GUI you want to
+                  start editing: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/ToolboxGuiSelector.jpg" class="livethumbnail"><img src="images/ToolboxGuiSelector.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  Once you have selected a starting GUI, the editor will fully
+                  load. From here, you can edit your selection, load a different GUI, or
+                  create an entirely new one. The alternate method to loading the GUI
+                  Editor is to press the shortcut key while running a game: Windows users
+                  press F10, OS X users press cmd + F10. </p>
+                <p><br />
+                  You can perform this action at anytime while running your game. The
+                  same shortcut will also quit the GUI Editor, so make sure you save your
+                  progress before you quit. </p>
+                <a name="Main_Editor_Sections" id="Main_Editor_Sections"></a>
+                <h2> <span class="mw-headline">Main Editor Sections</span></h2>
+                <p>The main GUI Editor view consists of 5 primary sections: </p>
+                <p><b>File Menu</b> - Found at the very top, this is where you will
+                  find various menus that controls global functionality of the editor,
+                  such as creating/saving GUI files, manually locking, selecting, and
+                  aligning controls, toggle snapping, and so on. </p>
+                <p><br />
+                  <b>The Toolbar</b> - Located just below the File Menu, this bar
+                  contains shortcuts to the GUI Selector, resolution adjuster, and common
+                  positioning actions (nudge, align, etc). </p>
+                <p><br />
+                  <b>Control Palette</b> - The Control Palette contains all of the
+                  controls you can add to your current GUI. You can click a control in
+                  the list or manually drag it to a position in the view to add it to the
+                  scene. </p>
+                <p><br />
+                  <b>GUI Tree Panel</b> - This panel, located on the far right, contains
+                  all of the controls that make up your current GUI. They are listed in
+                  hierarchical tree, which is sorted by oldest to most recent (top to
+                  bottom) and parenting (described later). </p>
+                <p><br />
+                  <b>GUI Inspector Panel</b> - This panel, found directly below the GUI
+                  Tree Panel, is populated with all the properties that make up the
+                  currently selected GUI control. Most of your field editing will be
+                  performed here. </p>
+                <p><br />
+                  <i>(Hover over different sections to get description)</i> </p>
+                <img src="images/GUIEditorMenuBar.jpg" width="640" border="0" height="31" onMouseOver="Tip('<strong>File Menu</strong>: Found at the very top, this is where you will find various menus that controls global functionality of the editor, such as opening/saving levels, toggling camera modes, opening settings dialogs, and so on..', WIDTH, 400)" onMouseOut="UnTip()" > <br /> <img src="images/GUIEditorToolBar.jpg" width="640" border="0" height="25" onMouseOver="Tip('<strong>The Toolbar</strong>: Located just below the File Menu, this bar contains shortcuts to the GUI Selector, resolution adjuster, and common positioning actions (nudge, align, etc).', WIDTH, 400)" onMouseOut="UnTip()" ><img src="images/GUIEditorGuiView.jpg" width="493" border="0" height="203" onMouseOver="Tip('<strong>GUI View</strong>: The main canvas view of your GUI.', WIDTH, 250)" onMouseOut="UnTip()" ><img src="images/GUIEditorGuiTreeView.jpg" width="147" border="0" height="203" onMouseOver="Tip('<strong>GUI Tree Panel</strong>: This panel, located on the far right, contains all of the controls that make up your current GUI.', WIDTH, 400)" onMouseOut="UnTip()" ><img src="images/GUIEditorGuiView2.jpg" width="493" border="0" height="236" onMouseOver="Tip('<strong>GUI View</strong>: The main canvas view of your GUI.', WIDTH, 250)" onMouseOut="UnTip()" ><img src="images/GUIEditorGuiInspector.jpg" width="147" border="0" height="236" onMouseOver="Tip('<strong>GUI Inspector Panel</strong>: This panel, found directly below the GUI Tree Panel, is populated with all the properties that make up the currently selected GUI control. Most of your field editing will be performed here.', WIDTH, 400)" onMouseOut="UnTip()" > <br /><br>
+                <a name="Menu_Bar" id="Menu_Bar"></a>
+                <h2> <span class="mw-headline">Menu Bar</span></h2>
+                <table border="1" cellpadding="7" cellspacing="0" width="700">
+                  <tbody>
+                    <tr valign="top">
+                      <td bgcolor="#6699ff" width="62"><b>Menu</b></td>
+                      <td bgcolor="#6699ff" width="335"><b>Description </b></td>
+                    </tr>
+                    <tr valign="top">
+                      <td bgcolor="#e6e6e6" width="62"><img alt="Image:GEFileMenu.jpg" src="images/GEFileMenu.jpg" border="0" height="239" width="254" /> </td>
+                      <td bgcolor="#e6e6e6" width="335">File Menu allows you to create, save, and open GUI files. You can also revert GUIs or load from file. </td>
+                    </tr>
+                    <tr valign="top">
+                      <td bgcolor="#e6e6e6" width="62"><img alt="Image:GEEditMenu.jpg" src="images/GEEditMenu.jpg" border="0" height="446" width="364" /> </td>
+                      <td bgcolor="#e6e6e6" width="335">Edit Menu controls various editor actions, such as undo and redo.<br />
+                        <br />
+                        The second function allows you to cut/copy/paste/delete objects you have selected. <br />
+                        <br />
+                        Finally, this is the menu that allows you to perform selection and group actions, such as toggling visibility and locking. </td>
+                    </tr>
+                    <tr valign="top">
+                      <td bgcolor="#e6e6e6" width="62"><img alt="Image:GELayoutMenu.jpg" src="images/GELayoutMenu.jpg" border="0" height="342" width="325" /> </td>
+                      <td bgcolor="#e6e6e6" width="335">The Layout Menu contains actions that makes it easy for you align your GUI controls for a clean and neat appearance.<br />
+                        <br />
+                        This is very useful for a complex interface with multiple controls that stack vertically or horizontally. </td>
+                    </tr>
+                    <tr valign="top">
+                      <td bgcolor="#e6e6e6" width="62"><img alt="Image:GEMoveMenu.jpg" src="images/GEMoveMenu.jpg" border="0" height="209" width="354" /> </td>
+                      <td bgcolor="#e6e6e6" width="335">When you need to perform very subtle and precise movements on a GUI control, you can use the actions listed in the Move Menu.<br />
+                        <br />
+                        Each nudge is assigned a shortcut, so using this menu is optional. </td>
+                    </tr>
+                    <tr valign="top">
+                      <td bgcolor="#e6e6e6" width="62"><img alt="Image:GESnapMenu.jpg" src="images/GESnapMenu.jpg" border="0" height="172" width="393" /> </td>
+                      <td bgcolor="#e6e6e6" width="335">When
+                        dragging GUI controls with your mouse, using the Snap Menu toggles will
+                        cause your mouse to immediately jump to specific points (depending on
+                        the toggle). </td>
+                    </tr>
+                    <tr valign="top">
+                      <td bgcolor="#e6e6e6" width="62"><img alt="Image:GEHelpMenu.jpg" src="images/GEHelpMenu.jpg" border="0" height="90" width="251" /> </td>
+                      <td bgcolor="#e6e6e6" width="335">Contains shortcuts to documentation and forums for Torque 3D. </td>
+                    </tr>
+                  </tbody>
+                </table><br>
+                <a name="Tool_Bar" id="Tool_Bar"></a>
+                <h2> <span class="mw-headline">Tool Bar</span></h2>
+                <p>The most useful and preferred shortcuts for quick edits can be found
+                  in the Tool Bar. While most of your control properties will be edited
+                  in the Inspector, you can use the Tool Bar to perform quick positioning
+                  actions and testing. </p>
+                <p><br />
+                  <img alt="Image:GEToolBar.jpg" src="images/GEToolBar.jpg" border="0" height="19" width="496" /> </p>
+                <p><br />
+                  The first three icons toggle the editors, and are always available. The
+                  left most icon (looks like a mountain) toggles the World Editor. The
+                  next one (boxes) toggles the GUI Editor. The Play icon will exit the
+                  editors and let you play through the game. </p>
+                <p><br />
+                  <img alt="Image:EditorIcons.jpg" src="images/EditorIcons.jpg" border="0" height="32" width="100" /> </p>
+                <p><br />
+                  Next to the editor toggles, you will find three extremely important
+                  settings. The first two are drop down lists and the last one is a
+                  button toggle. These determine what you are editing and at what
+                  resolution. </p>
+                <p><br />
+                  <img alt="Image:GEBaseSettings.jpg" src="images/GEBaseSettings.jpg" border="0" height="32" width="280" /> </p>
+                <p><br />
+                  The first drop down is a list of every single GUI available
+                  to edit, including new ones you just created. You can jump to an
+                  individual GUI at anytime, which can be useful if you are editing
+                  multiple GUIs that which work together. </p>
+                <p><br />
+                  <img alt="Image:GuiSelector.jpg" src="images/GuiSelector.jpg" border="0" height="307" width="208" /> </p>
+                <p><br />
+                  The second drop down list contains three different resolutions you can build your GUI in: </p>
+                <p><br />
+                  <img alt="Image:GEResolutionPicker.jpg" src="images/GEResolutionPicker.jpg" border="0" height="73" width="240" /> </p>
+                <p><br />
+                  The button toggles the Control Palette, which is explained
+                  in the next section. The next set of icons allow you to toggle the most
+                  commonly used and important settings for snapping: </p>
+                <p><br />
+                  <img alt="Image:GESnapIcons.jpg" src="images/GESnapIcons.jpg" border="0" height="32" width="101" /> </p>
+                <p><br />
+                  After the snapping icons, several shortcuts are available toggle the alignment of controls: </p>
+                <p><br />
+                  <img alt="Image:GEAlignIcons.jpg" src="images/GEAlignIcons.jpg" border="0" height="32" width="178" /> </p>
+                <p><br />
+                  The next two icons, which look like multiple boxes attached
+                  to lines, are used when you have multiple GUI controls selected. These
+                  distribution toggles will equally space the GUIs you currently have
+                  selected: </p>
+                <p><br />
+                  <img alt="Image:GEDistributeIcons.jpg" src="images/GEDistributeIcons.jpg" border="0" height="32" width="69" /> </p>
+                <p><br />
+                  The final two icons in the the Tool Bar can move the
+                  currently selected GUI between layers. The first button will move the
+                  selected GUI ahead in a layer, bringing it closer to view. The second
+                  button will start shoving your GUI behind others, obscuring it from
+                  view: </p>
+                <p><br />
+                  <img alt="Image:GELayerIcons.jpg" src="images/GELayerIcons.jpg" border="0" height="32" width="79" /> </p><br>
+                <a name="Control_Palette" id="Control_Palette"></a>
+                <h2> <span class="mw-headline">Control Palette</span></h2>
+                <p>The Control Palette contains all of the controls you can add to your
+                  current GUI. You can click a control in the list or manually drag it to
+                  a position in the view to add it to the scene. There are ways to view
+                  the list of available controls, depending on which tab you are using. </p>
+                <p><br />
+                  When you first toggle the Control Palette, you will see a list of the
+                  most commonly used controls. There are quite a few controls hidden,
+                  which are mainly used to create the Torque 3D editors. These controls
+                  are not typically used in games, so they have been hidden. You can
+                  click the <b>All</b> button to see every GUI control the engine contains. </p>
+                <p><br />
+                  <img alt="Image:GEControlPalette.jpg" src="images/GEControlPalette.jpg" border="0" height="383" width="187" /> </p>
+                <p><br />
+                  When you click on the Categorized tab, you can get list of all the GUI controls based on their functionality: </p>
+                <p><br />
+                  <img alt="Image:GECategorizedPalette.jpg" src="images/GECategorizedPalette.jpg" border="0" height="383" width="187" /> </p>
+                <p><br />
+                  The categories are straight forward and should be an excellent way to
+                  get to the exact controls you need to build your interface. To see what
+                  a category contains, just click on one of the arrows or text to expand
+                  it: </p>
+                <p><br />
+                  <img alt="Image:GECateExpanded.jpg" src="images/GECateExpanded.jpg" border="0" height="383" width="187" /> </p>
+                <p><br />
+                  To add a control, locate it in the Palette's list: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/GECreateWindow.jpg" class="livethumbnail"><img src="images/GECreateWindow.jpg" width="213" height="211" largewidth="427" largeheight="423" /></a><br />
+                <p><br />
+                  Next, click on the control and drag it to your main view using a mouse: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/GEDragWindow.jpg" class="livethumbnail"><img src="images/GEDragWindow.jpg" width="213" height="211" largewidth="427" largeheight="423" /></a><br />
+                <p><br />
+                  When you let go of your mouse button, you new control will anchor to the view and become your current selection: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/GEResizeWindow.jpg" class="livethumbnail"><img src="images/GEResizeWindow.jpg" width="213" height="211" largewidth="427" largeheight="423" /></a><br />
+                <a name="GUI_Tree_View" id="GUI_Tree_View"></a>
+                <h2> <span class="mw-headline">GUI Tree View</span></h2>
+                <p>Every control added to your current GUI is kept in a sorted list. To
+                  view this list, go to the panel on the far right and click the "GUI"
+                  tab. This will list all of your controls in the order they were added,
+                  the most recent at the bottom of the list. Each control has a unique
+                  ID, and can be given a name. </p>
+                <p><br />
+                  <img alt="Image:GETreeView.jpg" src="images/GETreeView.jpg" border="0" height="370" width="214" /> </p><br>
+                <a name="Profile_Editor" id="Profile_Editor"></a>
+                <h2> <span class="mw-headline">Profile Editor</span></h2>
+                <p>In the same panel as the GUI Tree View, there is a tab called
+                  "Profiles." Clicking this tab will present you with a list of all the
+                  GUI profiles currently loaded by your game. GUI profiles contain data
+                  that personalizes your controls. This will allow you tailor an
+                  interface unique to your game. </p>
+                <p><br />
+                  <img alt="Image:GEProfileEditor.jpg" src="images/GEProfileEditor.jpg" border="0" height="391" width="213" /> </p><br>
+                <a name="GUI_Inspector" id="GUI_Inspector"></a>
+                <h2> <span class="mw-headline">GUI Inspector</span></h2>
+                <p>When you have a control or profile selected, the GUI inspector will
+                  be populated with the properties that make up the selection. These are
+                  the values that play an important role in assigning functionality to
+                  your GUI. Most of your editing will occur here. </p>
+                <p><br />
+                  <img alt="Image:GEInspector.jpg" src="images/GEInspector.jpg" border="0" height="400" width="217" /> </p>
+                <a name="Selection_and_Parenting" id="Selection_and_Parenting"></a>
+                <h2> <span class="mw-headline">Selection and Parenting</span></h2>
+                <p>The last portion of the interface is how controls are selected. The
+                  following image shows the stock options GUI that ships with Torque 3D.
+                  This consists of dozens of controls working together to make up the
+                  audio and video options: </p>
+                <p><br />
+                  <img alt="Image:GESelection.jpg" src="images/GESelection.jpg" border="0" height="303" width="377" /> </p>
+                <p><br />
+                  In the above image, I have selected the list box control
+                  that shows the display driver for a video card. The current selection
+                  is marked by six boxes surrounding the corners of the control, and
+                  several subtle lines. However, you should notice there is a large blue
+                  box surrounding multiple controls. </p>
+                <p><br />
+                  The large blue box shows the <b>Parent</b> control. When
+                  a control is the "parent", it can contain multiple sub-controls. The
+                  "children" controls will now adhere to the same behaviors as the parent
+                  control. For example, if the parent control is set to invisible, the
+                  children controls will become invisible as well. If the parent is
+                  moved, all the children controls will move with it. </p><br>
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>The purpose of this article was to walk you through the GUI Editor's
+                  interface. The terms you learned will be used throughout the rest of
+                  the documentation, and you should memorize the locations of the tools,
+                  menus, and dialogs. More specific details will be explained in the
+                  individual tools documentation. </p>
+                </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

@@ -1,0 +1,539 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 88;
+   parent.leftFrame.expandToItem('tree2', 'doc88');
+   var element = parent.leftFrame.document.getElementById('doc88');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D - Particle Editor</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject  page-Torque3D_WorldEditor_Editors_DecalRoadEditor skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <br /><a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          </div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Setup"><span class="tocnumber">2</span> <span class="toctext">Setup</span></a></li>
+                          <li class="toclevel-1"><a href="#Interface"><span class="tocnumber">3</span> <span class="toctext">Interface</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#Trigger_One_shot_effects"><span class="tocnumber">3.1</span> <span class="toctext">One Shot Effect Types</span></a></li>
+                              <li class="toclevel-2"><a href="#Placement_of_the_temporary_editor_emitter"><span class="tocnumber">3.2</span> <span class="toctext">The 
+                                Temporary Emitter</span></a></li>
+                              <li class="toclevel-2"><a href="#New_Emitter_.2F_Particle"><span class="tocnumber">3.3</span> <span class="toctext">New Emitter / 
+                                Particle</span></a></li>
+                              <li class="toclevel-2"><a href="#Save_Emitter_.2F_Particle"><span class="tocnumber">3.4</span> <span class="toctext">Save Emitter / 
+                                Particle</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Emitter_Properties"><span class="tocnumber">4</span> <span class="toctext">Emitter Properties</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#Basic"><span class="tocnumber">4.1</span> <span class="toctext">Basic</span></a></li>
+                              <li class="toclevel-2"><a href="#Motion:"><span class="tocnumber">4.2</span> <span class="toctext">Motion:</span></a></li>
+                              <li class="toclevel-2"><a href="#Spread"><span class="tocnumber">4.3</span> <span class="toctext">Spread</span></a></li>
+                              <li class="toclevel-2"><a href="#Particles"><span class="tocnumber">4.4</span> <span class="toctext">Particles</span></a></li>
+                              <li class="toclevel-2"><a href="#Blending"><span class="tocnumber">4.5</span> <span class="toctext">Blending</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Particle_Properties"><span class="tocnumber">5</span> <span class="toctext">Particle Properties</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#Basic_2"><span class="tocnumber">5.1</span> <span class="toctext">Basic</span></a></li>
+                              <li class="toclevel-2"><a href="#Motion"><span class="tocnumber">5.2</span> <span class="toctext">Motion</span></a></li>
+                              <li class="toclevel-2"><a href="#Spin"><span class="tocnumber">5.3</span> <span class="toctext">Spin</span></a></li>
+                              <li class="toclevel-2"><a href="#Overtime"><span class="tocnumber">5.4</span> <span class="toctext">Overtime</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Emitter_and_Particle_Example_Settings"><span class="tocnumber">6</span> <span class="toctext">Emitter and Particle 
+                            Example Settings</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#Fire_Effect_-_Looping"><span class="tocnumber">6.1</span> <span class="toctext">Fire Effect - Looping Example</span></a></li>
+                              <li class="toclevel-2"><a href="#Plasma_Spark_-_triggered_single_shot"><span class="tocnumber">6.2</span> <span class="toctext">Plasma Spark Effect - 
+                                One Shot Example</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">7</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table><br />
+                <p><br /><i>(click to enlarge)</i> </p>
+                <a href="images/Particle_head.jpg" class="livethumbnail"><img src="images/Particle_head.jpg" border="0" width="412" height="252" largewidth="824" largeheight="505" /></a><br />
+                <br /><a name="Introduction" id="Introduction"></a>
+                <h1> <span class="mw-headline">Introduction</span></h1>
+                <p>Torque 3D provides a full featured 
+                <a href="http://en.wikipedia.org/wiki/Particle_system" class="external" target="_blank">particle system</a>
+                with many parameters which can be 
+                  manipulated to fine tune your particle effects. Particle effects are things such as 
+                  fire balls, smoke, and water splashes that you create and place into your levels. 
+                  The Torque 3D Particle Editor is the tool of choice
+                  for full control over the look and feel of your effects. At its most 
+                  basic level a particle effect consists of: an emitter, a particle to be emitted from the 
+                  emitter, and an image rendered to represent that particle. </p>
+                <p><br />
+                  The emitter controls: the creation of the particles; their movement;
+                  which directions the particles will travel, also referred to as the 
+                  spread pattern and: how each particle blends into the world. </p>
+                <p><br />
+                  The particle controls its own life span, what image will be shown; how big 
+                  the image is; what it's color over time is; and some basic force
+                  settings. </p>
+                <br /><a name="Setup" id="Setup"></a>
+                <h1> <span class="mw-headline">Setup</span></h1>
+                <p>From the Toolbox, create a new project using the Full template then load the Empty Terrain level.  </p>
+                <p><br />
+                  If you have your own particle images that you want to experiment with, you will need 
+                  to copy them into the project folder at: </p>
+                <p><br />
+                  <i>projectName\game\art\shapes\particles</i> </p>
+                <p><br />
+                  <i>Hint: It can be very helpful when creating particle effects to put 
+                  your camera into Orbit mode, so that it will be easy to orbit around the
+                  selected emitter.</i> </p>
+                <p><br />
+                To place the camera into Orbit mode, from the main menu select Camera -> World Camera -> Orbit Camera:
+                </p>
+                <p><img alt="Image:Particle_cam.jpg" src="images/Particle_cam.jpg" border="0" height="203" width="304" /> </p>
+                <br /><a name="Interface" id="Interface"></a>
+                <h1> <span class="mw-headline">Interface</span></h1>
+                <p>The Particle Editor can be activated from the dmain menu by selecting. </p>
+                <p><br />
+                  <i>Editors -> Particle Editor</i> </p>
+                <p><img alt="Image:Particle_menu.jpg" src="images/Particle_menu.jpg" border="0" height="310" width="421" /> </p>
+                <p><br />
+                  Or alternately, click the Particle Icon 
+                  from the Tool Selector bar. </p>
+                <p><img alt="Image:Particle_toolbar1.jpg" src="images/Particle_toolbar1.jpg" border="0" height="33" width="440" /> </p>
+                <p><br />
+                  Whenever the Particle Editor is active the Particle Editor – 
+                  mitters pane will be present on the right side of the screen. 
+                  This pane is further divided into two tabs: (1) the Emitter tab 
+                  contains properties about the currently selected emitter; (2) the 
+                  Particles tab contains properties about the currently selected particle. </p>
+                <p><img alt="Image:Particle_pne1.jpg" src="images/Particle_pne1.jpg" border="0" height="442" width="452" /> </p>
+                <p><br />
+                  Select either the Emitter tab or 
+                  particle tab depending upon which object you wish to work with. </p>
+                <p><img alt="Image:Particle_pne2.jpg" src="images/Particle_pne2.jpg" border="0" height="68" width="205" /> </p>
+                <p><br />In edition to the tabs there are also two buttons within the header of the Particle Editor – Emissions pane:</p>
+                <br /><a name="Trigger_One_shot_effects" id="Trigger_One_shot_effects"></a>
+                <h2> <span class="mw-headline">One Shot Effect Types</span></h2>
+                <p>There are two types of particle effect: (1) continuous effects, which constantly emit particles and; (2) 
+                one-shot effects, which only produce particles for a short time and then stop. Continuous effects run 
+                constantly so your changes can be seen in real-time as you adjust the properties of the emitter and 
+                its particles. In order to see your changes for one-shot emitters you need to replay the emission. 
+                To replay a one-shot emitter click the arrow icon to the right of the tabs. </p>
+                <p><img alt="Image:Particle_pne3.jpg" src="images/Particle_pne3.jpg" border="0" height="68" width="205" /> </p>
+                <br /><a name="Placement_of_the_temporary_editor_emitter" id="Placement_of_the_temporary_editor_emitter"></a>
+                <h2> <span class="mw-headline">The Temporary Emitter</span></h2>
+                <p>When you open the Particle Editor you may have noticed it creates a 
+                  temporary particle emitter in your current view. This temporary emitter is very useful for quickly trying out different 
+                  particle editor settings.If your view is changed and you no longer see temporary emitter, press 
+                  the little camera icon to the right of the tabs to place it back into view.
+                  It will always be placed in the center of your current view. </p>
+                <p><img alt="Image:Particle_pne4.jpg" src="images/Particle_pne4.jpg" border="0" height="68" width="240" /> </p>
+                <p><br />
+                  The temporary particle emitter can be moved, rotated, and scaled like any other shape using the 
+                  <a href="Interface.html#Tool_Selector_and_Palette">Object Editor.</a>
+                  </p>
+                <br /><a name="New_Emitter_.2F_Particle" id="New_Emitter_.2F_Particle"></a>
+                <h2> <span class="mw-headline">New Emitter / Particle</span></h2>
+                <p>To create a new blank emitter or particle that is ready to be configured, press the new icon
+                on the Emitter or Particle tab as appropriate. </p>
+                <p><img alt="Image:Particle_pne5.jpg" src="images/Particle_pne5.jpg" border="0" height="68" width="240" /> </p>
+                <br /><a name="Save_Emitter_.2F_Particle" id="Save_Emitter_.2F_Particle"></a>
+                <h2> <span class="mw-headline">Save Emitter / Particle</span></h2>
+                <p>After editing an emitter or particle save the new 
+                  settings by pressing the save icon on the Emitter or Particle tab as appropriate: </p>
+                <p><img alt="Image:Particle_pne6.jpg" src="images/Particle_pne6.jpg" border="0" height="68" width="240" /> </p>
+                <p><br />
+                  Particle emitters are updated in real-time. Any changes to a particle or emitter will be 
+                  reflected through out your level when changes are saved. Any instances of the emitter or particle that you are editing will also be 
+                  changed. </p>
+                <p><br />
+                As with a lot of Torque 3D Editors the Particle Editor writes the resulting data to 
+                script files which the engine runs to create the particle emitter when you game is being played.
+                </p>
+                <p><br />
+                Emitters can be found in a file named:
+                </p>
+                <p><i>projectName\game\art\levels\levelName.mis</i> </p>
+                <p>Particles can be found in a file named:</p>
+                <p><i>projectName\game\art\shapes\particles\managedParticleData.cs</i> </p>
+                <br /><a name="Emitter_Properties" id="Emitter_Properties"></a>
+                <h1> <span class="mw-headline">Emitter Properties</span></h1>
+                <p>The Emitter tab contains the properties that define an Emitter. Properties are grouped into sections:</p>
+                <p><img alt="Image:Particle_pe1.jpg" src="images/Particle_pe1.jpg" border="0" height="381" width="499" /> </p>
+                <br /><a name="Basic" id="Basic"></a>
+                <h2> <span class="mw-headline">Basic</span></h2>
+                <p>Basic properties affect the base emitter:</p>
+                <p><br />
+                  <b>Life: </b>The time duration in ms that the effect will emit particles. </p>
+                <p><b>Life (Random): </b>Substitutes a random value for the life property. </p>
+                <p><b>Infinite Loop: </b>When enabled this emitter will continuously
+                  produce particles. This setting effectively causes the <b>Life</b> and <b>Random Life</b> properties to have no affect on the emitter.</p>
+                <p><b>Amount:</b> The time in ms between each individual particle released 
+                  from the emitter. </p>
+                <p><b>Amount Random: </b>Random Variation amount to be applied to 
+                  the amount setting. </p>
+                <br /><a name="Motion:" id="Motion:"></a>
+                <h2> <span class="mw-headline">Motion:</span></h2>
+                <p>These settings will affect the emitter spread pattern, speed, and 
+                  particle image orientation: </p>
+                <p><br />
+                  <b>Speed: </b>The velocity the particle will leave the emitter in the 
+                  defined spread pattern. </p>
+                <p><b>Speed Random:</b> A random setting for varying the speed. </p>
+                <p><b>Orient to Movement Direction:</b> Enabling this option 
+                  fixes the particles image to the velocity direction of the particle.
+                  Note this will over ride any particle spin settings. </p>
+                <p><br />
+                  <img alt="Image:Particle_peOrient.jpg" src="images/Particle_peOrient.jpg" border="0" height="215" width="606" /> </p>
+                <p><br />
+                  <b>Align to a Direction:</b> Enabling this option aligns the particles to a predefined vector 
+                  set up in <b>Align Direction</b> option. </p>
+                <p><b>Align Direction:</b> The vector used for particle alignment if the <b>Align to a Direction</b> option is checked. </p>
+                <br /><a name="Spread" id="Spread"></a>
+                <h2> <span class="mw-headline">Spread</span></h2>
+                <p>These setting affect how the spread pattern will be dispersed: </p>
+                <p><br />
+                  <b>Angle Min:</b> The minimum angle for the emitter spread pattern. </p>
+                <p><b>Angle Max:</b> The maximum angle for the emitter spread pattern. </p>
+                  <p><br /><i>(click to enlarge)</i> </p>
+                <a href="images/Particle_peAngle.jpg" class="livethumbnail"><img src="images/Particle_peAngle.jpg" width="341" height="158" largewidth="682" largeheight="317" /></a><br />
+                <p><br /><i>(click to enlarge)</i> </p>
+                <a href="images/Particle_peAngle2.jpg" class="livethumbnail"><img src="images/Particle_peAngle2.jpg" width="341" height="158" largewidth="682" largeheight="317" /></a><br />
+                <p><b>Depth: </b>The depth of the released pattern. A setting 
+                  of 360 will create a spherical spread pattern when <b>Angle Max</b> 
+                  is set to 360. </p>
+                <p><b>Offset: </b>The distance from the emitter that particles will be released. Effectively the distance that the particle will be visible to the viewer. </p>
+                  <p><br /><i>(click to enlarge)</i> </p>
+                <a href="images/Particle_peOffset.jpg" class="livethumbnail"><img src="images/Particle_peOffset.jpg" width="311" height="153" largewidth="623" largeheight="306" /></a><br />
+                <br /><a name="Particles" id="Particles"></a>
+                <h2> <span class="mw-headline">Particles</span></h2>
+                <p>This affect assigns which particle(s) will be emitted from this emitter:  </p>
+                <p><br />
+                  <b>Particle 1 - 4:</b> Select the particle from the drop down list to be used with this emitter. </p>
+                <p>If at any time you need to remove a particle  
+                  press the clear icon. Particle 1 can not be removed.</p>
+                <p><br />
+                  <img alt="Image:Particle_peparticle1.jpg" src="images/Particle_peparticle1.jpg" border="0" height="106" width="224" /> </p>
+                <br /><a name="Blending" id="Blending"></a>
+                <h2> <span class="mw-headline">Blending</span></h2>
+                <p>These setting affect how the particle(s) are rendered </p>
+                <p><br />
+                  <b>Blend Type: </b>The types of blending available to be applied to the particles. </p>
+                <p><b>Softness Distance: </b>The particle edge blending distance. 
+                  Removes the hard edges where the particle meets an object. </p>
+                  <p><br /><i>(click to enlarge)</i> </p>
+                <a href="images/Particle_peSoft.jpg" class="livethumbnail"><img src="images/Particle_peSoft.jpg" width="301" height="204" largewidth="602" largeheight="409" /></a><br />
+                <p><b>Ambient Factor: </b>Adjusts the alpha blend (level of the particles which affects how transparent they are). </p>
+                <p><b>Sort Particles: </b>The order in which particles are rendered. </p>
+                <p><b>Reverse Order: </b>When enabled, reverses the render order set in the <b>Sort Particles</b> setting</p>
+                <br /><a name="Particle_Properties" id="Particle_Properties"></a>
+                <h1> <span class="mw-headline">Particle Properties</span></h1>
+                <p>The Particle tab contains the properties that define a Particle. Properties are grouped into sections:</p>
+                <p><img alt="Image:Particle_p_prop.jpg" src="images/Particle_p_prop.jpg" border="0" height="317" width="492" /> </p>
+                <br /><a name="Basic_2" id="Basic_2"></a>
+                <h2> <span class="mw-headline">Basic</span></h2>
+                <p>Particle basic settings </p>
+                <p><br />
+                  <b>Texture Map:</b> The image that will be used on the emitted particle.
+                  The Edit button will open a file browser to locate and select a particle image. </p>
+                <p><b>Inverse Alpha:</b> Invert the alpha channel on the partice image (if one exists). </p>
+                <p><b>Life:</b> The time in ms (milliseconds) after its creation that the particle will exist for. </p>
+                <p><b>Life Random:</b> Random variation to the particle life span. </p>
+                <br /><a name="Motion" id="Motion"></a>
+                <h2> <span class="mw-headline">Motion</span></h2>
+                <p>These settings affect the velocity of the particle:</p>
+                <p><br />
+                  <b>Initial Speed: </b>The initial velocity, that the particle
+                  will travel at after being emitted. (Not to be confused
+                  with emitter spread speed.) </p>
+                <p><b>Acceleration: </b>The rate at which the particle's velocity 
+                with increase or decrease. Positive values cause a particle to speed 
+                up over time after being emitted. Negative values cause a particle 
+                to slow down over time after being emitted.</p>
+                <p><b>Gravity: </b>The gravitational force to be applied to particle. 
+                Positive values cause the particle to fall to the ground. Negative values 
+                cause the particle to rise from the ground. </p>
+                <p><b>Drag: </b>The amount of force working against the particle velocity. 
+                  Drag will slow a particle's movement. </p>
+                <br /><a name="Spin" id="Spin"></a>
+                <h2> <span class="mw-headline">Spin</span></h2>
+                <p>These settings affect if, and how, a particle rotates in degrees: </p>
+                <p><br />
+                  <b>Spin Min: </b>The minimum rotation to be applied to the particle. </p>
+                <p><b>Spin Max: </b>The maximum rotation to be applied to the 
+                  particle. </p>
+                <p><b>Spin Speed: </b>The speed of particle's rotation. </p>
+                <br /><a name="Overtime" id="Overtime"></a>
+                <h2> <span class="mw-headline">Overtime</span></h2>
+                <p><br />
+                These settings affect the particle based upon how long it has been in existence for:</p>
+                <p>Each particle can have up to four color and size settings, which can be 
+                  set to change over time. </p>
+                <p><br />
+                  <b>Colors: </b>Four color swatches indicate the color phases which a particle can pass through. 
+                  To set any color click that swatch. The Color Picker Dialog will appear:</p>
+                <p><img alt="Image:Particle_p_col.jpg" src="images/Particle_p_col.jpg" border="0" height="345" width="345" /> </p>
+                <p></br />
+                To set a color value you may: enter R (red), G (green), and B (blue) color values; 
+                click anywhere within the gradient on the left or; click anywhere in the vertical 
+                "rainbow" strip. Red, green and blue color values range from 0 to 255 and indicate 
+                the amount of that color present in the overall particle color.
+                </p>
+                <p><br />
+                The alpha value which represents the transparency of the particle color can be set 
+                by entering a decimal number between 0.0 and 1.0 in the Alpha field or by moving the 
+                slider with the mouse. The higher the number the less transparent the color will be.
+                </p>
+                <p><br />
+                  <b>Size 1-4: </b>Each slider sets the size for the particle during each time stage. </p>
+                <p><b>Time 1-4: </b>Each slider sets the time for that stage. </p>
+                <br /><a name="Emitter_and_Particle_Example_Settings" id="Emitter_and_Particle_Example_Settings"></a>
+                <h1> <span class="mw-headline">Emitter and Particle Example Settings</span></h1>
+                <p>The best way to get an understanding of the particle system is to experiment with the settings. 
+                The following examples use the images below. Right click on each of the images and save 
+                them to you project's particle folder at:</p>
+                <p><i>projectName\game\art\shapes\particles</i></p>
+                <p><br />Save this image as fire.png:</p>
+                <p><br />
+                  <img alt="Image:Particle_ex1.png" src="images/Particle_ex1.png" border="0" height="170" width="250" /> </p><br />
+                <p>Save this image as spark.png:</p>
+                <p><img alt="Image:Particle_ex2.png" src="images/Particle_ex2.png" border="0" height="128" width="128" /> </p><br />
+                <br /><a name="Fire_Effect_-_Looping" id="Fire_Effect_-_Looping"></a>
+                <h2> <span class="mw-headline">Fire Effect - Looping</span></h2>
+                <p>In this example we will create a fire effect with a 
+                  flickering rising motion. </p>
+                <p><img alt="Image:Particle_fire1.jpg" src="images/Particle_fire1.jpg" border="0" height="264" width="429" /> </p><br />
+                <p><br />
+                  This is an example of a looping effect which continuously emits particles as long 
+                  as the emitter exists. Changes to the emitter's properties are reflected in real-time.</p>
+                <p><br />
+                  First we will create a new particle. Select the Particle tab; press the
+                  New Particle icon; rename this new particle to <b>fire2Particle</b>; 
+                  press the Enter key; and then click the Save button. </p>
+                <p><img alt="Image:Particle_fire4.jpg" src="images/Particle_fire4.jpg" border="0" height="86" width="468" /> </p>
+                <p><br />Your new particle will be saved. <b>NOTE: You MUST press the Enter key after renaming 
+                the particle BEFORE clicking the save button or the particle will not be properly saved.</b></p>
+                <p>After saving the particle you should now see that gray stars have been added to the golden 
+                stars coming from the temporary emitter. This is a preview of your new particle. In the Basic 
+                section of the Particle tab take note of the thumbnail picture to the left of the Texture Map 
+                label. The emitter is now generating gray stars because that is the default texture assigned 
+                to a new particle.</p>
+                <p><br />
+                  Click the Edit button within the Basic section of the Particle tab</p>
+                <p><img alt="Image:Particle_fire5.jpg" src="images/Particle_fire5.jpg" border="0" height="146" width="202" /> </p>
+                <p><br />
+                A File Browser will appear. Navigate to the location where you saved the above images; 
+                click the fire.png to select it; then click the Open button. You should now see your new 
+                fire particle being emitted from the 
+                <a href="ParticleEditor.html#Placement_of_the_temporary_editor_emitter">temporary emitter</a>. Save your new particle again so 
+                that it will retain the new texture selection.
+                </p>
+                <p><br />
+                You will also notice that the other particles, the golden star and the gray star, 
+                are still being emitted as well. Remember that you are seeing a temporary emitter 
+                intended to show the changes that you make in real-time. In order to see the emitter 
+                as you wish it to appear in your level you must load that specific emitter and assign 
+                your new particle to it. Until you do this, you are seeing only a preview of the changes 
+                you are making while creating new particles.
+                </p>
+                <p><br />
+                Any new particles that you create will not be available to the Particle Editor until 
+                they have been reloaded. Exit the World Editor then restart it by reloading your 
+                project's level from the Toolbox.
+                </p>
+                <p><br />
+                The Particle Editor should automatically be reactivated. Ensure the Emitter tab is 
+                selected then click the New Emitter icon.
+                </p>
+                <p><img alt="Image:particle_emiter_new.jpg" src="images/particle_emiter_new.jpg" border="0" height="64" width="240" /> </p>
+                <p><br />
+                The emitter in the scene should be emitting golden "stars". This is because a new 
+                emitter has been created which, by default, emits the defaultParticle which is a 
+                golden star. Rename the new emitter to fire2; press the Enter key; and then click 
+                the Save button, which is represented by the floppy disk icon.
+                </p>
+                <p><img alt="Image:particle_emiter_new_fire2.jpg" src="images/particle_emiter_new_fire2.jpg" border="0" height="71" width="208" /> </p>
+                <p><br />
+                Your new emitter will be saved. <b>NOTE: You MUST press the Enter key after renaming 
+                the emitter BEFORE clicking the save button or the emitter will not be properly saved.</b>
+                </p>
+                <p><br />
+                  Now let's tell the emitter to use your new particle. In the Particles section of the Emitters tab,
+                   select your new particle by name from the <b>Particle 1</b> drop down list.</p>
+                <p><img alt="Image:Particle_fire6.jpg" src="images/Particle_fire6.jpg" border="0" height="107" width="183" /> </p>
+                <p><br />
+                If you do not see your new emitter in the list then go back and review the note which 
+                speaks of the requirement to press the Enter key before saving a particle. 
+                Most likely, you missed that step. 
+                </p>
+                <p><br />
+                  After making the selection you should see the emitter in the scene generating only your new 
+                  fire particle, and no stars at all. Next change the settings in your emitter 
+                  Properties pane to match the following images: </p>
+                  <p><br /><i>(click to enlarge)</i> </p>
+                <a href="images/Particle_fire7.jpg" class="livethumbnail"><img src="images/Particle_fire7.jpg" border="0" width="467" height="189" largewidth="934" largeheight="379" /></a><br />
+                <p><br />
+                Move the camera back if necessary to view the entire emitter. It should now resemble a flickering rising fire. 
+                <br />You could add an emitter for smoke and another for the embers to complete the fire effect. </p>
+                <br /><a name="Plasma_Spark_-_triggered_single_shot" id="Plasma_Spark_-_triggered_single_shot"></a>
+                <h2> <span class="mw-headline">Plasma Spark Effect - One Shot Example</span></h2>
+                <p>This is an example of a one-shot effect which only emits particles for its 
+                configured period of time. You will need to use the re-trigger button to view 
+                this effect each time you make changes.</p>
+                <p><img alt="Image:Particle_spark1.jpg" src="images/Particle_spark1.jpg" border="0" height="264" width="429" /> </p>
+                <p><br />
+                  This effect will use the emitter non looping function to give a single 
+                  trigger effect. You will need to use the re-trigger
+                  button to view this effect. </p>
+                <p><img alt="Image:Particle_pne3.jpg" src="images/Particle_pne3.jpg" border="0" height="68" width="205" /> </p>
+                <p><br />
+                  This example will use the image <i>spark.png</i> from the download above.</p>
+                  <p><br />
+                  To create this effect follow the previous fire example exactly, with the 
+                  following changes: use the spark.png for the particle instead of fire.png; 
+                  name the particle sparkParticle; name the emitter sparkEmitter; and use the 
+                  properties below for the emitter and the partcle respectively: </p>
+                  <p><br /><i>(click to enlarge)</i> </p>
+                <a href="images/Particle_spark2.jpg" class="livethumbnail"><img src="images/Particle_spark2.jpg" border="0" width="461" height="199" largewidth="923" largeheight="398" /></a><br />
+                <p><br />
+                  If you have modified the settings correctly, you should see an 
+                  interesting colorful particle pattern explode from the emitter each time you press the retrigger button. </p>
+                <br /><a name="Conclusion" id="Conclusion"></a>
+                <h1> <span class="mw-headline">Conclusion</span></h1>
+                <p>This article covered the Torque 3D particle system and its many properties.
+                  You should now have a basic understanding 
+                  of Emitters, Particles, and their parameters. By experimenting
+                  with the settings and trying different particle
+                  images, you will gain valuable knowledge ready for use in your own 
+                  future projects. You will soon be creating your own
+                  special effects from water drops to rocket trails with Torque 3D's Particle 
+                  Effects Editor. </p></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

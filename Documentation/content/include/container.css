@@ -1,0 +1,47 @@
+BODY {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; TEXT-ALIGN: left
+}
+#body-with-lockmark {
+	BACKGROUND-POSITION: right bottom; BACKGROUND-ATTACHMENT: fixed; BACKGROUND-IMAGE: url(../images/background_lock.png); BACKGROUND-REPEAT: no-repeat
+}
+#content {
+	MIN-WIDTH: 550px; MARGIN: 1em auto; WIDTH: 100%; TEXT-ALIGN: left
+}
+#sidebar {
+	LEFT: 5px; WIDTH: 159px; POSITION: absolute; TOP: 98px
+}
+#sidebar-content {
+	PADDING-RIGHT: 1em; PADDING-LEFT: 1em; FONT-SIZE: 70%; PADDING-BOTTOM: 0.5em; MARGIN: 0px; PADDING-TOP: 0.5em
+}
+#main {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 5px; PADDING-BOTTOM: 5px; MARGIN: 0px 0px 0px 160px; PADDING-TOP: 5px
+}
+#main-content {
+	PADDING-RIGHT: 0.5em; PADDING-LEFT: 0.5em; FONT-SIZE: 100%; PADDING-BOTTOM: 0.25em; MARGIN: -22px 0px; PADDING-TOP: 0.25em
+}
+HR.cleaner {
+	CLEAR: both; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; VISIBILITY: hidden; PADDING-BOTTOM: 0px; MARGIN: -1px 0px 0px; BORDER-TOP-STYLE: none; PADDING-TOP: 0px; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; HEIGHT: 1px; BORDER-BOTTOM-STYLE: none
+}
+#headerTop {
+	BACKGROUND: url(../images/header_03.png) #ffffff repeat-x 0px 6px; WIDTH: 100%; HEIGHT: 56px
+}
+#headerTop IMG.left {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; Z-INDEX: 4; LEFT: 0px; BORDER-BOTTOM-WIDTH: 0px; POSITION: absolute; TOP: 6px; BORDER-RIGHT-WIDTH: 0px
+}
+#headerTop IMG.right {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; RIGHT: 0px; BORDER-BOTTOM-WIDTH: 0px; POSITION: absolute; TOP: 6px; BORDER-RIGHT-WIDTH: 0px
+}
+.printfooter {
+	DISPLAY: none
+}
+
+@media Print    
+{
+#leftcol {
+	DISPLAY: none
+}
+#navlogin {
+	DISPLAY: none
+}
+
+}

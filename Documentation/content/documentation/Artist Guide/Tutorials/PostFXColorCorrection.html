@@ -1,0 +1,122 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 10;
+   parent.leftFrame.expandToItem('tree2', 'doc10');
+   var element = parent.leftFrame.document.getElementById('doc10');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<title>Torque 3D - PostFX Color Correction</title>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    </head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_Scripting_Overview_Introduction skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+    <h1 align="center">PostFX Color Correction</h1>
+<h3>Required Knowledge</h3>
+<ul>
+    <li>You need to be familiar with Torque 3D.  Specifically loading a level for game play, taking an in game screen shot and locating the screen shot file location for editing, saving, and loading.</li>
+    <li>You need to have a basic understanding of Adobe Photoshop or another image editing software package. </li>
+</ul>
+<h3>Color Correction</h3>
+<p>Color Correction is a powerful new tool to help fine tune the overall color temperature in a Torque 3D scene.  These adjustments are performed in an image editing program such 
+as Photoshop that allows for individual channel  (R, G, B ) tuning.  Interesting variants can easily be achieved for a scene with some simple steps.</p>
+<h3>Workflow</h3>
+<ol>
+<li>Load a level in Torque 3D.  Generally it is good practice to be fairly far along in the lighting of the scene since the curves and their adjustments will be based on screen 
+captures from the level.  For this example; we will use Chinatown_Dusk.</li>
+<li>Press the <strong>Play Game</strong> icon on the top shelf. 
+    <p><img alt="" class="thumb" src="images/PostFX_PlayGame.png" /></p></li>
+<li>Find an area in your level that represents the overall lighting scheme well.</li>
+<li>Take a screen grab by pressing ( <strong>Ctrl + P</strong> ). </li>
+
+<li>Torque will save a file with the naming format <strong>screenshot_####.png</strong> in your game folder for the level. 
+    <p><img alt=""src="images/PostFX_ScreenshotLocation.png" width="660" 
+            class="thumb" /></p>
+    <p><img src="images/PostFX_Screenshot.png" width="660" class="thumb" /></p></li>
+    
+
+<li>Load Photoshop or the image editing software of your choice that allows for RGB channel modification. 
+<p style="color:Navy; font-style:italic">** For the rest of this document, all references will be made to the workflow in Photoshop.</p></li>
+<li>Load the screenshot of the level into Photoshop .
+    <p><img src="images/PostFX_InPhotoshop01.png" dir="ltr" width="660" class="thumb" /></p></li>
+<li>Locate the following file from the Torque 3D install folders :
+ <strong>\game\core\scripts\client\postFx\null_color_ramp.png</strong>
+
+    <p><img src="images/PostFX_InPhotoshop02.png" width="660" class="thumb" /></p>
+<p style="color:Navy; font-style:italic">** Note: this is a 256 X 1 pixel image that is perfectly tuned. </p>
+<p>Pixel 0 = 0,0,0	  128 = 128,128,128	255 = 255,255,255</p></li>
+
+
+
+<li>Add the null color ramp to the screenshot as a layer:
+    <p><img src="images/PostFX_InPhotoshop03.png" class="thumb" /></p></li>
+ 
+<li>Add an adjustment layer  -  <strong>Curves</strong>.
+    <p><img src="images/PostFX_InPhotoshop04.png" class="thumb" /></p></li>
+ 
+<li>Use the curves adjustment layer interface to tweak the values for each RGB Channel.  As you can see, slight adjustments go a long way in altering the overall look of the screenshot. 
+Since the adjustment layer is the top layer, the null color ramp is also being affected.
+    <p><img src="images/PostFX_InPhotoshop05.png" class="thumb" /></p></li>
+ 
+<li>When you are satisfied with the image; You may elect to save a .PSD file to save to your layered file.</li>
+<li>Select the adjustment layer and the null_color_ramp layer by <strong>CTRL</strong> + clicking each layer in the Layers tab and then merge the two layers by pressing 
+    <strong>CTRL +E</strong>.
+        <p><img src="images/PostFX_InPhotoshop06.png" class="thumb" /></p></li>
+ 
+<li>Notice that the Null_color_Ramp is no longer a perfect grey gradient, but it now contains the adjustment made with the RGB Layer. Select the new layer with a 
+    <strong>CTRL + left click</strong> into the 
+layers interface window where the image is displayed. This will select the gradient bar.
+    <p><img src="images/PostFX_InPhotoshop07.png" /></p></li>
+ 
+
+<li>In Photoshop  go to <strong>File – New</strong>. The size should be 256 X 1.  Click
+    <strong>OK</strong>. 
+    <p><img src="images/PostFX_InPhotoshop08.png" class="thumb" /></p></li>
+<li>Select the new blank image file and paste the adjusted gradient ramp into it by pressing 
+    <strong>CTRL + P</strong>.</li>
+<li>Save the image file into your working level file in Torque 3D with a naming convention of your choosing.  </li>
+<li>Go back to Torque 3D and load the level file.</li>
+<li>In Torque 3D, go to <strong>Edit – PostEffect Manager – Color Correction</strong>.
+    <p><img src="images/PostFX_InGame01.png" class="thumb" /></p></li>
+ 
+
+<li>Click on <strong>Select… </strong>and browse to the folder where you placed the new gradient ramp and select it. Immediately the scene changes and should match the changes made in Photoshop.</li>
+<li>Click on <strong>Save Preset…</strong> to accept the color changes. Proper naming convention must be followed when saving  settings from the PostFX Manager; otherwise the PostFX settings will not load 
+the next time the level is loaded into Torque 3D.. The naming convention to follow is: 
+    <strong>levelname_postfxpreset.cs</strong>.</li>
+<li>Done.</li>
+
+</ol>
+
+<p>Examples with RGB gradient changes:</p>
+      <p><img src="images/PostFX_InGame02.png" class="thumb" /></p>
+ </td></tr></table>
+<div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

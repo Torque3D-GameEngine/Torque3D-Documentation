@@ -1,0 +1,172 @@
+<html>
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 23;
+   parent.leftFrame.expandToItem('tree2', 'doc23');
+   var element = parent.leftFrame.document.getElementById('doc23');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D - Rendering Source Tour</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_EngineOverview_GFX_Tour skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#GFX_Core"><span class="tocnumber">2</span> <span class="toctext">GFX Core</span></a></li>
+                          <li class="toclevel-1"><a href="#DirectX_.28D3D.2C_D3D9.29"><span class="tocnumber">3</span> <span class="toctext">DirectX (D3D, D3D9)</span></a></li>
+                          <li class="toclevel-1"><a href="#OpenGL_.28gl_and_ggl.29"><span class="tocnumber">4</span> <span class="toctext">OpenGL (gl and ggl)</span></a></li>
+                          <li class="toclevel-1"><a href="#Null"><span class="tocnumber">5</span> <span class="toctext">Null</span></a></li>
+                          <li class="toclevel-1"><a href="#Sim"><span class="tocnumber">6</span> <span class="toctext">Sim</span></a></li>
+                          <li class="toclevel-1"><a href="#Test"><span class="tocnumber">7</span> <span class="toctext">Test</span></a></li>
+                          <li class="toclevel-1"><a href="#RenderInstance"><span class="tocnumber">8</span> <span class="toctext">RenderInstance</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">9</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p>This document will explain the source code folders and files that
+                  make up Torque 3D's rendering system. If you have not done so already,
+                  make sure you read the following docs first: </p>
+                <ul>
+                  <li><a href="../../Setup/DevEnvironment.html">Environment Setup</a></li>
+                  <li><a href="../../Introduction/DirectoryOverview.html">Torque 3D Directory Overview</a></li>
+                </ul>
+                <a name="GFX_Core" id="GFX_Core"></a>
+                <h2> <span class="mw-headline">GFX Core</span></h2>
+                <p>You can find the core GFX files in <b>engine/gfx</b>. Some of the
+                  source files in this system are meant to be sub-classed based on
+                  platform. There are currently 4 main gfxDevice classes: </p>
+                <ul>
+                  <li>GFXDevice </li>
+                  <li>GFXD3D9Device (inside the D3D9 directory)</li>
+                  <li>GFXGLDevice (inside the gl directory)</li>
+                  <li>GFXNullDevice (inside the Null directory)</li>
+                </ul>
+                <p><br />
+                  As you can see, each platform gets its own GFXDevice. The same
+                  goes for other platform dependent files: gfxShader, gfxCubemap,
+                  gfxVertexBuffer, and so on. Some of the other source files are
+                  stand-alone. For instance, gfxStructs.h contains classes/structs and
+                  functions used by all platforms. This usually involves generic
+                  information, such as GFXLightInfo containing light type, position, etc. </p>
+                <a name="DirectX_.28D3D.2C_D3D9.29" id="DirectX_.28D3D.2C_D3D9.29"></a>
+                <h2> <span class="mw-headline">DirectX (D3D, D3D9)</span></h2>
+                <p>Since Torque 3D supports cross-platform compatibility, it is
+                  important to keep the GFX layers separate. The D3D folder contains only
+                  two files: screenshotD3D.h and screenshotD3D.cpp. Just as the name
+                  implies, these two files are used in capturing screens while running a
+                  game, <i>currently D3D9 only</i>. </p>
+                <p><br />
+                  You'll see the major platform specific classes represented here, such
+                  as the GFXdevice, TextureManager, VertexBuffer, etc. The functionality
+                  remains the same, but the application and execution are specific to the
+                  API. </p>
+                <a name="OpenGL_.28gl_and_ggl.29" id="OpenGL_.28gl_and_ggl.29"></a>
+                <h2> <span class="mw-headline">OpenGL (gl and ggl)</span></h2>
+                <p>Much like the D3D sections, the gl folder and its files contain
+                  rendering functionality specifically meant to run on a Mac. Once again,
+                  the major systems are integrated into the OpenGL layer (StateBlock,
+                  GFXDevice, PrimitiveBuffer, etc). </p>
+                <p><br />
+                  Within the gl directory is another folder: ggl. The source code in this
+                  section make up the Torque OpenGL Library. In the code itself, you will
+                  find the various OpenGL configurations, bindings, and extension
+                  definitions. </p>
+                <a name="Null" id="Null"></a>
+                <h2> <span class="mw-headline">Null</span></h2>
+                <p>The Null folder contains gfxNullDevice.h and gfxNullDevice.cpp. This
+                  device layer is used primarily for dedicated servers, which typically
+                  do not require any rendering. Dedicated servers usually just process
+                  simulation events and relays that information to the clients. There is
+                  no real reason to waste processing power and memory rendering objects
+                  that no one will see. </p>
+                <a name="Sim" id="Sim"></a>
+                <h2> <span class="mw-headline">Sim</span></h2>
+                <p>The 3 systems found in this folder are: CubeMapData, gfxStateBlockData, and debugDraw. </p>
+                <p><br />
+                  <b>debugDraw</b> does exactly what it sounds like. Once you enable
+                  debugDraw, you can pass it data (Point3Fs and ColorF) which will then
+                  render points, cubes, and other polygons. For instance, if you pass in
+                  the points that make up a Player's bounding box, you will see a box
+                  surrounding that player when running the game. </p>
+                <p><br />
+                  <b>CubemapData</b> is a class exposed to TorqueScript, making the class
+                  a ConsoleObject. A Cubemap is a texture that represents a rendering of
+                  the surrounding environment. The easiest example to explain would be a
+                  Sky cubemap rendered onto a body of water. The cubemap would consist of
+                  various sky images taken from different angles. </p>
+                <p><br />
+                  <b>GFXStateBlockData</b> is extremely important. Since GFXStateBlocks
+                  are meant to be created in script, a ConsoleObject that can hold
+                  StateBlock description was needed. GFXStateBlockData is that
+                  ConsoleObject. We will cover this in greater detail later. </p>
+                <a name="Test" id="Test"></a>
+                <h2> <span class="mw-headline">Test</span></h2>
+                <p><i>You can ignore this folder, as it was used during internal testing</i>. </p>
+                <a name="RenderInstance" id="RenderInstance"></a>
+                <h2> <span class="mw-headline">RenderInstance</span></h2>
+                <p>Another section of engine code that is considered an important part
+                  of GFX can be found under renderInstance (engine/renderInstance). The
+                  files found in this directory make up the various render managers. We
+                  will cover these in the next GFX document. For now, just remember these
+                  classes are responsible for controlling the rendering flow of your
+                  game. </p>
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>This guide is another high level walk through of a Torque 3D system.
+                  Even though we covered some major files and concepts, you should take
+                  the time to read through the code comments left by the engine
+                  developers. Some of this will make more since as you read through the
+                  remaining GFX documents.</p>
+                </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

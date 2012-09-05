@@ -1,0 +1,303 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 58;
+   parent.leftFrame.expandToItem('tree2', 'doc58');
+   var element = parent.leftFrame.document.getElementById('doc58');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+
+<title>Torque 3D - Switch Statements</title>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_Scripting_Simple_Switch skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Syntax_Review"><span class="tocnumber">1</span> <span class="toctext">Syntax Review</span></a></li>
+                          <li class="toclevel-1"><a href="#Creating_the_Script"><span class="tocnumber">2</span> <span class="toctext">Creating the Script</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">3</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Syntax_Review" id="Syntax_Review"></a>
+                <h2> <span class="mw-headline">Syntax Review</span></h2>
+                <p>There are two types of switch statements used in TorqueScript.<strong>  switch(...)</strong> is used to compare numerical values and
+                    <strong>switch$(...)</strong> is used to compare strings.</p>
+                <p><br />Standard switch statements use numerical values to determine which case to execute: </p>
+                <p><br />
+                  <b>switch Syntax</b>: </p>
+                <pre>switch(&lt;numeric expression&gt;) 
+{
+   case value0:
+       statements;
+   case value1:
+       statements;
+   case value3:
+       statements;
+   default:
+       statements;
+}
+</pre>
+                <p><br />
+                  Switch statements requiring string comparison use the switch$ syntax. </p>
+                <p><br />
+                  <b>switch$ Syntax:</b> </p>
+                <pre>switch$ (&lt;string expression&gt;) 
+{
+   case "string value 0":
+                statements;
+   case "string value 1":
+                statements;
+...
+   case "string value N":
+                statements;
+   default:
+                statements;
+}
+</pre><br />
+                <a name="Creating_the_Script" id="Creating_the_Script"></a>
+                <h2> <span class="mw-headline">Creating the Script</span></h2>
+                <p>First, we need to create a new script: </p>
+                <ol>
+                  <li>Navigate to your project's <b>game/scripts/client</b> directory. </li>
+                  <li>Create a new script file called "switch". In Torsion, right
+                    click on the directory, click the "New Script" option, then name your
+                    script. On Windows or OS X, create a new text file and change the
+                    extension to .cs. </li>
+                  <li>Open your new script using a text editor or Torsion. </li>
+                </ol>
+                <p><br />
+                  Before writing any actual script code, we should go ahead and tell the game it should load the script. Open <b>game/scripts/client/init.cs</b>. Scroll down to the <i><b>initClient</b></i> function. Under the // Client scripts section, add the following: </p>
+                <p><br />
+                  <b>Execute our new script</b> </p>
+                <pre>exec("./switch.cs");
+</pre>
+                <p><br />
+                  The first function we are going to write will take in a
+                  numerical argument. This number will be checked for a specific value,
+                  and a message will be printed based on the value comparison. Create the
+                  following function in your script: </p>
+                <pre>// Print a message to a console based on
+// the amount of ammo a weapon has
+// %ammoCount - Ammo count (obviously)
+function checkAmmoCount(%ammoCount)
+{
+   // If the ammo is at 0, we are out of ammo
+   // If the ammo is at 1, we are at the end of the clip
+   // If the ammo is at 100, we have a full clip
+   // If the ammo is anything else, we do not care
+   if(%ammoCount == 0)
+      echo("Out of ammo, time to reload");
+   else if(%ammoCount == 1)
+      echo("Almost out of ammo, warn user");
+   else if(%ammoCount == 100)
+      echo("Full ammo count");
+   else
+      echo("Doing nothing");
+}
+</pre>
+                <p><br />
+                  To test your new script: </p>
+                <ol>
+                  <li>Save the script </li>
+                  <li>Run your game </li>
+                  <li>Open the console by pressing the tilde (~) key </li>
+                  <li>Type the following, press enter after each line: </li>
+                </ol>
+                <pre>checkAmmoCount(0);
+checkAmmoCount(1);
+checkAmmoCount(100);
+checkAmmoCount(44);
+</pre>
+                <p><br />
+                  Your console output should be the following: </p>
+                <pre>Out of ammo, time to reload
+
+Almost out of ammo, warn user
+
+Full ammo count
+
+Do nothing
+</pre>
+                <p><br />
+                  Instead of using four separate if/else checks, we can use a
+                  single switch statement to handle all of the cases. Change the
+                  checkAmmoCount(...) function to use the following code: </p>
+                <pre>// Print a message to a console based on
+// the amount of ammo a weapon has
+// %ammoCount - Ammo count (obviously)
+function checkAmmoCount(%ammoCount)
+{
+   // If the ammo is at 0, we are out of ammo
+   // If the ammo is at 1, we are at the end of the clip
+   // If the ammo is at 100, we have a full clip
+   // If the ammo is anything else, we do not care
+   switch(%ammoCount)
+   {
+      case 0:
+         echo("Out of ammo, time to reload");
+      case 1:
+         echo("Almost out of ammo, warn user");
+      case 100:
+         echo("Full ammo count");
+      default:
+         echo("Doing nothing");
+   }
+}
+                </pre>
+                <p><br />
+                  The switch is declared using the <b>switch(%ammoCount){...}</b> syntax. The test value is kept in the parenthesis, and the cases are defined in the brackets. Each <b>case</b> you wish to check for is defined by the keyword case, the value, and a colon (case: 0). </p>
+                <p><br />
+                  You can write as few or as many lines of TorqueScript code between cases as you need to handle each numerical value. The <b>default</b> keyword is used when you want to handle a value that does not have a
+                  defined case. Without the default case, any other value besides was is
+                  defined as a case will be ignored. </p>
+                <p><br />
+                  If you test the function as you did previously, you should get the same result: </p>
+                <pre>checkAmmoCount(0);
+checkAmmoCount(1);
+checkAmmoCount(100);
+checkAmmoCount(44);
+</pre>
+                <p><br />
+                  <b>Result:</b> </p>
+                <pre>Out of ammo, time to reload
+
+Almost out of ammo, warn user
+
+Full ammo count
+
+Do nothing
+</pre>
+                <p><br />
+                  Testing strings in switch statements requires a small
+                  syntactical change. There are multiple ways to perform a string
+                  comparison. Write the following function in your script: </p>
+                <pre>// Check to see if a person's name is 
+// a known user
+// %userName - String containing person's name
+function matchNames(%userName)
+{
+   if(!strcmp(%userName, "Heather"))
+      echo("User Found: " @ %userName);
+   else if(%userName $= "Mich")
+      echo("User Found: " @ %userName);
+   else if(%userName $= "Nikki")
+      echo("User Found: " @ %userName);
+   else 
+      echo("User " @ %userName @ " not found");
+}
+</pre>
+                <p><br />
+                  The above code defines a function which takes in a string as an
+                  argument, then performs three separate string comparison to find a
+                  result. The first <i>if(...)</i> check uses the <b>strcmp</b> function to check the %userName variable against a static string ("Heather"). </p>
+                <p><br />
+                  The two other checks use the basic $= string equality operator.
+                  Finally, an else statement exists to inform the system that no user was
+                  found. Run the script and type the following to test the function: </p>
+                <pre>matchNames("Heather");
+matchNames("Mich");
+matchNames("Nikki");
+matchNames("Brad");
+</pre>
+                <p><br />
+                  <b>Output</b>: </p>
+                <pre>User Found: Heather
+User Found: Mich
+User Found: Nikki
+User Brad not found
+</pre>
+                <p><br />
+                  Instead of four separate if/else string comparison statements, a single switch can clean the code up greatly. Replace the <i>matchNames(...)</i> function with the following: </p>
+                <pre>// Check to see if a person's name is 
+// a known user
+// %userName - String containing person's name
+function matchNames(%userName)
+{
+   switch$(%userName)
+   {
+      case "Heather":
+         echo("User Found: " @ %userName);
+      case "Mich":
+         echo("User Found: " @ %userName);
+      case "Nikki":
+         echo("User Found: " @ %userName);
+      default:
+         echo("User: " @ %userName @ " not found");
+   }
+}
+</pre>
+                <p><br />
+                  Just like the switch statement used in the <i>checkAmmoCount(...)</i> function, the above code starts with the switch$ keyword. This is
+                  followed by the string we are testing, held in the parenthesis. Instead
+                  of numerical values, the case keywords are followed by a strings. </p>
+                <p><br />
+                    In the above example, the case statements are comparing
+                  the test (%userName) against string literals. String literals are raw
+                  text displayed in code between quotations. If you have variables that
+                  contain a string value to test against, you can use those instead. </p>
+                <p><br />
+                  As with a numerical switch statement, you can write your logic in between the case statements. </p><br />
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>This guide covered the basics of the switch and switch$ statement
+                  structures. When you need to perform one or two logical checks, you
+                  will use the basic control statements such as if(...), if else(...),
+                  and else. When you need a complex control statement handling multiple
+                  outcomes based on a value, try using a switch statement instead </p>
+                <p><br />
+                  You can download the entire script from this lesson by
+                    <a href="switch.cs" class="downloads">CLICKING HERE</a>. Save the script as you would any other text file from a
+                  website. </p>
+                  
+                  </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

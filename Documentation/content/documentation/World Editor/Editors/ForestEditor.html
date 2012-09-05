@@ -1,0 +1,377 @@
+<html>
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 85;
+   parent.leftFrame.expandToItem('tree2', 'doc85');
+   var element = parent.leftFrame.document.getElementById('doc85');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D - Forest Editor</title>
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_WorldEditor_ForestEditor skin-monobook">
+<script type="text/javascript" src="../../../include/wz_tooltip.js"></script>
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2></div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Setup"><span class="tocnumber">2</span> <span class="toctext">Setup</span></a></li>
+                          <li class="toclevel-1"><a href="#Interface"><span class="tocnumber">3</span> <span class="toctext">Interface</span></a></li>
+                          <li class="toclevel-1"><a href="#Creating_a_Forest_Mesh"><span class="tocnumber">4</span> <span class="toctext">Creating a Forest Mesh</span></a></li>
+                          <li class="toclevel-1"><a href="#Using_a_Brush"><span class="tocnumber">5</span> <span class="toctext">Using a Brush</span></a></li>
+                          <li class="toclevel-1"><a href="#Adjusting_Properties"><span class="tocnumber">6</span> <span class="toctext">Adjusting Properties</span></a></li>
+                          <li class="toclevel-1"><a href="#Editor_Settings"><span class="tocnumber">7</span> <span class="toctext">Editor Settings</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">8</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p><br /><i>(click to enlarge)</i> </p>
+                <a href="images/foresteditorheader.jpg" class="livethumbnail"><img src="images/foresteditorheader.jpg" width="395" height="198" largewidth="790" largeheight="396" /></a><br />
+                <a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p>The Forest Editor is a tool that allows you to quickly create massive amounts of vegetation for your level including patches of trees, forests, and fields of smaller elements such as shrubs and plants. Entire forests can be laid down using simple techniques similar to painting on a canvas, where instead of paint your brushes, lay down 3D models on the terrain. </p><br>
+                <a name="Setup" id="Setup"></a>
+                <h2> <span class="mw-headline">Setup</span></h2>
+                <p>This article was written using a newly generated project with the
+                  Full Template, which ships with plenty of free assets for testing and
+                  learning. To save time and focus on this specific section of the
+                  documentation, we are going to bypass asset creation until later on. </p>
+                <p><br />
+                  The Full Template has one tree, located in <strong>game/art/shapes/trees/defaulttree</strong> and is called defaulttree.DAE. You can also use the Forest Editor to paint other objects, such as rocks, bushes, and any other 3D shape in .DAE or .DTS format. </p>
+                <p><br />
+                  To get started: open the Torque 3D Toolbox; select your project; and then load the Empty Terrain level.
+                <a name="Interface" id="Interface"></a>
+                <h2> <span class="mw-headline">Interface</span></h2>
+                <p><br />To access the Forest Editor press the F8 key, or select it from the drop down menu at the top of the World Editor, by choosing Editors &gt; Forest Editor, or click on the leaf icon to get started  <img alt="Image:FEIcon.jpg" src="images/FEIcon.jpg" border="0" height="31" width="33" />.</p>
+                <p><br />The Tools Palette on the left of the screen will populate with Forest Editor specific tool buttons represented by icons: </p>
+                <p><br />
+                  <img alt="Image:FEToolPalette.jpg" src="images/FEToolPalette.jpg" border="0" height="199" width="35" /> </p><br>
+                <p><b>Tool Descriptions</b> <i>(top to bottom)</i>: </p>
+                <ul>
+                  <li>Select Item - Select an individual object in forest </li>
+                </ul>
+                <ul>
+                  <li>Translate Item - Move the currently selected object </li>
+                </ul>
+                <ul>
+                  <li>Rotate Item - Rotate&nbsp; the currently selected object </li>
+                </ul>
+                <ul>
+                  <li>Scale Item - Grow or shrink the currently selected object </li>
+                </ul>
+                <ul>
+                  <li>Paint - Used for painting objects on terrain </li>
+                </ul>
+                <ul>
+                  <li>Erase - Used for erasing objects from a terrain </li>
+                </ul>
+                <ul>
+                  <li>Erase Selected - Used to delete the currently selected objects </li>
+                </ul>
+                <p><br />
+                  The Forest Editor has two main panels which will appear on the right of the screen whenever the Forest Editor is active.. On the top is the Forest Editor pane which is divided into two tabs: Brushes and Meshes. The Forest Editor works in a manner similar to painting on a canvas with a brush, except instead of paint the Forest Editor lays down shapes onto the terrain of your level. A Brush in the Torque 3D Forest Editor is composed of one or more mesh elements, which can be alternated between when painting.  </p>
+                <p><img alt="Image:FEBrushesTab.jpg" src="images/FEBrushesTab.jpg" border="0" height="252" width="209" /> </p>
+                <p><br />
+                  The Meshes tab contains a list of all Forest Mesh elements which can be assigned to a brush. A forest mesh is really a datablock which is an information structure that defines a model and the properties which control it in the forest.  </p>
+                <p><img alt="Image:FEMeshesTab.jpg" src="images/FEMeshesTab.jpg" border="0" height="252" width="209" /> </p>
+                <p><br />On the bottom of the right side of the screen is the Properties pane. The Properties pane displays information about the currently selected element in active tab of the Forest Editor pane.</p>
+                <p><br />
+                  Before we can use these tools and paint a forest, we need to import a forest mesh and set up a brush. </p><br>
+                <a name="Creating_a_Forest_Mesh" id="Creating_a_Forest_Mesh"></a>
+                <h2> <span class="mw-headline">Creating a Forest Mesh</span></h2>
+                <p>To create a forest mesh tart by clicking on the Meshes tab in the Forest Editor pane. There are two icons in the top right. The trash bin deletes the currently selected existing mesh, and the leaf icon will adds a new mesh. Click on the Add New Mesh icon. </p>
+                <p><br />
+                  <img alt="Image:FEAddNewMesh.jpg" src="images/FEAddNewMesh.jpg" border="0" height="59" width="144" /> </p>
+                <p><br />
+                  A file browser should appear. Locate the sample tree mesh file, defaulttree.DAE, which can be located in the 
+                    <strong>game/art/shapes/trees/defaulttree</strong> folder. </p>
+                <p><br />
+                  <i>(click to enlarge</i>) </p>
+                <a href="images/FEDefaultTree.jpg" class="livethumbnail"><img src="images/FEDefaultTree.jpg" width="305" height="240" largewidth="610" largeheight="480" /></a><br />
+                <p><br />
+                    A new mesh will be added to the tab using the same name as the file you selected: </p>
+                <p><img alt="Image:FEDefaultTreeAdded.jpg" src="images/FEDefaultTreeAdded.jpg" border="0" height="252" width="211" /> </p>
+                <p><br />
+                  The Properties pane will also be populated with fields and values which describe the new mesh. </p>
+                <p><br />
+                  <img alt="Image:FEElementProperties.jpg" src="images/FEElementProperties.jpg" border="0" height="354" width="208" /> </p>
+                <p><br />
+                  Switch to the Brushed Tab. You will see that the new mesh has also automatically been added to the list of Brushesallow you to select it as the element to paint with: </p>
+                <p><br />
+                  <img alt="Image:FEDefaultTreeBrush.jpg" src="images/FEDefaultTreeBrush.jpg" border="0" height="252" width="211" /> </p>
+                <p><br />
+                  Select the new brush by clicking on its name. The Properties pane will be updated to display the properties of the brush which can be used to randomize the placement and appearance of the selected mesh:</p>
+                <p><br />
+                  <img alt="Image:FEElementProperties.jpg" src="images/FEElementProperties.jpg" border="0" height="354" width="208" /> </p><br>
+                <a name="Using_a_Brush" id="Using_a_Brush"></a>
+                <h2> <span class="mw-headline">Using a Brush</span></h2>
+                <p>Now that you have an available brush you can begin painting a forest. Select the 
+                    <strong>defaulttree</strong> brush from the sample assets. Move the mouse until a blue circle appears on the terrain. This is the outline of your forest brush and shows where you are going paint. To begin painting, left click the mouse and drag it around on the terrain. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/FEBrushCircle.jpg" class="livethumbnail"><img src="images/FEBrushCircle.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  If this is the first time you have painted a forest in a level then no Forest object exists in the level yet. However, a forest object must exist , so you will be prompted to confirm that you want to add one. </p>
+                <p><br />
+                  <img alt="Image:FECreateForest.jpg" src="images/FECreateForest.jpg" border="0" height="114" width="300" /> </p>
+                <p><br />
+                  Answering No will abort the forest painting operation. Answering Yes will automatically create a new Forest object, add it to your level, and return you to the level with the brush still active ready to continue painting. You can examine the forest object the same way as any other object using the Object Editor but it has no useful properties to edit so lets skip it for now an continue on with our forest painting operation.: </p>
+                <p><br />
+                  <img alt="Image:FEForestAdded.jpg" src="images/FEForestAdded.jpg" border="0" height="195" width="209" /> </p>
+                <p><br />
+                  Once again, hold down the left mouse button and drag the mouse over terrain. As you move the brush trees will begin showing up in the wake of your brush. To change the size of your brush, pull the mouse wheel toward you to increase the size or push it away to decrease the size. The blue circle will grow or shrink to indicate your new size.</p>
+                  <p><br />Note that you do not have the ability to move the camera forward and back in the Forest Editor because of the availability of the brush resizing feature. To move the camera forward and back while using the Forest Editor press the Up Arrow to move forward and the Down arrow to move backward.</p>
+                  <p><br />Keep painting until you have a decent patch of trees: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/FETreesPainted.jpg" class="livethumbnail"><img src="images/FETreesPainted.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  If you move your camera down to ground level, you can see how your forest will look from a player perspective. Youll notice that these are full 3D objects that react to collision, sunlight, and external forces.</p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/FEGroundView1.jpg" class="livethumbnail"><img src="images/FEGroundView1.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <a name="Adjusting_Properties" id="Adjusting_Properties"></a>
+                <h2> <span class="mw-headline">Adjusting Properties</span></h2>
+                <p>You can edit the properties of a Mesh to adjust how each tree is placed when painting. To adjust the density of mesh placement switch to the Meshes tab then select your defaulttree entry. The Properties pane will update to display the properties of your mesh. Change the radius property from 1 to 2 then press the Enter key. </p>
+                <p><br />
+                  <img alt="Image:FEAdjustRadius.jpg" src="images/FEAdjustRadius.jpg" border="0" height="244" width="209" /> </p>
+                <p><br />
+                  This radius tells the tool a rough amount of space this item takes up. The value is a decimal value and has no limits, but remember that if the value is too low your trees may overlap, and if it is too high you may not get any trees to appear because the spacing might be larger than the brush itself. Now when you paint you should get more spacing between the placed meshes. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/FESpacedTrees.jpg" class="livethumbnail"><img src="images/FESpacedTrees.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  As mentioned previously, you can use the Forest Editor to paint additional environmental objects such as rocks, shrubs, or any other 3D model. Since you can paint different types of objects, you might want to organize your brushes and meshes. </p>
+                <p><br />
+                  In the Brushes tab, click on the <b>Add New Brush Group</b> icon. This will add a new entry in the brush list, called "Brush". </p>
+                <p><br />
+                  <img alt="Image:FEAddNewBrushGroup.jpg" src="images/FEAddNewBrushGroup.jpg" border="0" height="123" width="209" /> </p>
+                <p><br />
+                  Click on the text of the new brush group. This will allow you to edit the text of the brush. Name the brush group &quot;<strong>Trees</strong>&quot; then press the enter key.</p>
+                <p><br />
+                  <img alt="Image:FENameBrushGroup.jpg" src="images/FENameBrushGroup.jpg" border="0" height="147" width="209" /> </p>
+                <p><br />
+                  Now, you can click on the <strong>defaulttree</strong> element and drag it onto the Trees brush group. Your Brushes tab should look like the following: </p>
+                <p><br />
+                  <img alt="Image:FEDefaultTreeOrg.jpg" src="images/FEDefaultTreeOrg.jpg" border="0" height="126" width="209" /> </p>
+                <p><br />
+                  Switch to the Meshes tab, and click the Add New Mesh tree icon to add a new one. Select 
+                    <strong>game/art/shapes/rocks/rock1.dts</strong> as your model: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/FERock1DTS.jpg" class="livethumbnail"><img src="images/FERock1DTS.jpg" width="304" height="240" largewidth="609" largeheight="480" /></a><br />
+                <p><br />
+                  The rock1 mesh will be added to your Meshes list. Unlike trees, the 
+                    <strong>rock1</strong> mesh is fairly large and somewhat spherical. Spreading out the placement of this mesh will help prevent dense blobs of rocks being placed. In the Mesh properties tab, increase the rock1 radius to 3:  </p>
+                <p><br />
+                  <img alt="Image:FERockRadius.jpg" src="images/FERockRadius.jpg" border="0" height="246" width="210" /> </p>
+                <p><br />
+                  Switch back to the Brushes tab. Create a new brush group and name it 
+                    <strong>Rocks</strong>. Your <em>rock1</em> mesh element should already be in the list, so drag it onto the 
+                    <em>Rocks</em> brush group to keep things organized. Your Brushes tab should look like the following: </p>
+                <p><br />
+                  <img alt="Image:FERocksBrush.jpg" src="images/FERocksBrush.jpg" border="0" height="251" width="209" /> </p>
+                <p><br />
+                  Go ahead and paint down some rocks in your level. You should end up with a patch of huge boulders with fairly even spacing: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/FERocksPainted.jpg" class="livethumbnail"><img src="images/FERocksPainted.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  You might have noticed all the boulders are the same size.
+                  For added realism, you can adjust the brush properties to
+                  randomize its appearance. Select <em>rock1</em>, then decrease the <b>scaleMin</b> and increase the <b>scaleMax</b>: </p>
+                <p><br />
+                  <img alt="Image:FEAdjustRockScale.jpg" src="images/FEAdjustRockScale.jpg" border="0" height="320" width="209" /> </p>
+                <p><br />
+                  Begin painting a new set of rocks. Now, you will end up with rocks of
+                  varying sizes. Some will be as small as your player, while others could
+                  be twice the size of the original mesh: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/FEPaintVariedRock.jpg" class="livethumbnail"><img src="images/FEPaintVariedRock.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/FEGroundView2.jpg" class="livethumbnail"><img src="images/FEGroundView2.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <a name="Editor_Settings" id="Editor_Settings"></a>
+                <h2> <span class="mw-headline">Editor Settings</span></h2>
+                <p>The actions available in the tools palette give you absolute control of your forest placement. The first four tools allow you to adjust individual elements of your forest, such as a single tree. The Select Item tool allows you to select an individual element, which is indicated by a colored axis gizmo appearing on top of the item:  </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/FESelectTree.jpg" class="livethumbnail"><img src="images/FESelectTree.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  Once you have a tree selected, you can change its location
+                  without moving the entire forest. With the tree selected, activate the
+                  Move Item tool. The arrows gizmo will appear, allowing
+                  you to drag the tree around in the world: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/FETranslateTree.jpg" class="livethumbnail"><img src="images/FETranslateTree.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  The Rotate tool, represented by a spherical gizmo, allows
+                  you to adjust the orientation of the tree in 3D space. You can use this
+                  to make individual trees lean in a specific direction: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/FERotateTree.jpg" class="livethumbnail"><img src="images/FERotateTree.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  The Scale tool can be used to shrink or grow an individual tree: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/FEScaleTree.jpg" class="livethumbnail"><img src="images/FEScaleTree.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  When you need to tidy up a forest, such as removing rogue trees, pressing the delete key when you have a tree selected will remove it from the scene: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/FEDeleteTree.jpg" class="livethumbnail"><img src="images/FEDeleteTree.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  If you need to delete entire sections of a forest, you may not want to delete each tree individually. Instead, you should use the Erase tool. The Erase tool is located directly below the Paint tool. When activated, the circle representing your brush in the world will turn from blue to red when you move your brush over the terrain: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/FEEraseBrush.jpg" class="livethumbnail"><img src="images/FEEraseBrush.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  Left click your mouse and drag the brush over 
+                    a section of trees. Any
+                  trees under your brush will be removed from the forest object. This is
+                  much faster than deleting individual trees: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/FETreesErased.jpg" class="livethumbnail"><img src="images/FETreesErased.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  If you  want to remove a 
+                    larger amount of trees such as clearing an area for a road, you can set the width of the brush to a specific width. Locate the Size dropdown on the Tool Settings bar and click on it. A slider will appear so you can increase the circumference of your brush. Set it to something fairly large, like 20: </p>
+                <p><br />
+                  <img alt="Image:FEIncreaseBrushSize.jpg" src="images/FEIncreaseBrushSize.jpg" border="0" height="54" width="198" /> </p>
+                <p><br />
+                  Now you can 
+                    remove much larger sections of the terrain, making massive forest creation a snap: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/FEMassPainting.jpg" class="livethumbnail"><img src="images/FEMassPainting.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>The purpose of this guide was to walk you through the Forest Editor's interface and typical usage. Used in conjunction with the Terrain Editor and Terrain Painter, you can fabricate some amazing and realistic environments for your game. Remember to save your work often and do not be afraid to experiment first! </p></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

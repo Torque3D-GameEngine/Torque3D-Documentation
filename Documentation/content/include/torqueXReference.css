@@ -1,0 +1,95 @@
+.classHeading 
+{
+   font-size: 26px;
+   position: relative;
+   display: block;
+   margin-bottom: 5px;
+   margin-top: 0px;
+}
+
+.classBox
+{
+   display: block;
+   width: 98%;
+   margin-top: 15px;
+   /*border-style: solid;
+   border-width: 2px;
+   background-color: #e6e6e6;*/
+}
+
+.methodHeading
+{
+   position: relative;
+   display: block;
+   color: 990000;
+   margin-bottom: 5px;
+   margin-top: 0px;
+   /*border-style: solid;
+   border-width: 1px;
+   border-color: Black;
+   background-color: #CCCCCC;*/
+}
+
+.methodBox
+{
+   position: relative;
+   left: 10px;
+   display: block;
+   border-style: solid;
+   border-width: 1px;
+   background-color: #e6e6e6;
+   padding: 4px;
+   margin: 2px;
+   width: 95%;
+}
+
+.propertyHeading
+{
+   position: relative;
+   display: block;
+   margin-bottom: 5px;
+   margin-top: 0px;
+   color: #000099;
+}
+
+.propertyBox
+{
+   position: relative;
+   left: 10px;
+   display: block;
+   border-style: solid;
+   border-width: 1px;
+   background-color: #e6e6e6;
+   padding: 4px;
+   margin: 2px;
+   width: 95%;
+}
+
+.definition
+{
+   position: relative;
+   left: 10px;
+   display: block;
+   margin-bottom: -5px;
+   margin-top: 0px;
+   width: 98%;
+}
+
+.classDescriptionBox
+{ 
+   position: relative;
+   left: 10px;
+}
+
+.paramBox
+{
+   position: relative;
+   left: 10px;
+}
+
+.expandLink
+{
+   /*text-decoration: underline;*/
+   cursor: hand;
+   cursor: pointer;
+}

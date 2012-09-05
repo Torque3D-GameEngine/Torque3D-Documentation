@@ -1,0 +1,364 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 54;
+   parent.leftFrame.expandToItem('tree2', 'doc54');
+   var element = parent.leftFrame.document.getElementById('doc54');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+
+<title>Torque 3D - Torque Script Functions</title>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_Scripting_Simple_Functions skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Syntax_Review"><span class="tocnumber">1</span> <span class="toctext">Syntax Review</span></a></li>
+                          <li class="toclevel-1"><a href="#Calling_Functions"><span class="tocnumber">2</span> <span class="toctext">Calling Functions</span></a></li>
+                          <li class="toclevel-1"><a href="#Creating_the_Script"><span class="tocnumber">3</span> <span class="toctext">Creating the Script</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">4</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Syntax_Review" id="Syntax_Review"></a>
+                <h2> <span class="mw-headline">Syntax Review</span></h2>
+                <p>Depending on the type of function you are writing or calling, the syntax will vary. </p>
+                <p><br />
+                  <b>Stand Alone Function Declaration:</b> </p>
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> function function_name([arg0],...){...}</b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>Declaration of function<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <pre>function function_name([arg0],...)
+{
+    statements;
+    [return val;]
+}</pre>
+                        <ul>
+                          <li><b>function</b> - Is a keyword telling TorqueScript we are defining a new function.<br />
+                          </li>
+                          <li><b>function_name</b> - Is the name of the function we are creating.<br />
+                          </li>
+                          <li><b>[arg0]</b> - Argument. Value passed into function for use<br />
+                          </li>
+                          <li><b>...</b> - Any number of additional arguments.<br />
+                          </li>
+                          <li><b>statements</b> - Your custom logic executed when function is called<br />
+                          </li>
+                          <li><b>return val</b> - <i>Optional</i>. The value the function will give back after it has completed.<br />
+                          </li>
+                        </ul>
+                        <p><br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>// Print 0 to value of %repeatCount in console
+function echoRepeat (%echoString, %repeatCount)
+{
+   for (%count = 0; %count &lt; %repeatCount; %count++)
+   {
+      echo(%echoString);
+   }
+}
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p><br /><br />
+                  <b>Namespace Function Declaration:</b> </p>
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> function Classname::func_name(%this, [arg0],...,[argn]){...}</b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>Declaration of function attached to a class/object<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <pre>function Classname::func_name(%this, [arg0],...,[argn]) 
+{
+   statements;
+   [return val;]
+}</pre>
+                        <ul>
+                          <li><b>function</b> - Is a keyword telling TorqueScript we are defining a new function. </li>
+                          <li><b>ClassName::</b>- Is the class type this function is supposed to work with. </li>
+                          <li><b>function_name</b> - Is the name of the function we are creating. </li>
+                          <li><b>%this</b>- Is a variable that will contain the handle of the 'calling object'. </li>
+                          <li><b>[arg0]</b> - Argument. Value passed into function for use<br />
+                          </li>
+                          <li><b>...</b> - Is any number of additional arguments. </li>
+                          <li><b>statements</b> - Your custom logic executed when function is called </li>
+                          <li><b>return val</b> - The value the function will give back after it has completed. Optional. </li>
+                        </ul>
+                        <p><br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>// Print "Katana sheathed" in the console when
+// function is called
+function Samurai::sheatheSword(%this)
+{
+    echo("Katana sheathed");
+}
+
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br />
+                <a name="Calling_Functions" id="Calling_Functions"></a>
+                <h2> <span class="mw-headline">Calling Functions</span></h2>
+                <p>Once a function is written, you can call it from script or the
+                  console. You only need to know the name of the function and its
+                  parameters, if it has any. The <b>echo</b> function is the easiest method to start with. It is a stock ConsoleFunction which accepts up to 2 parameters: </p>
+                <p><br />
+                  <b>Example:</b> </p>
+                <pre>// Print "Hello World" in the console
+// Only passing in 1 argument
+echo("Hello World");
+</pre>
+                <p><br />
+                  The echo command can actually make use of 2 arguments, depending on your goal: </p>
+                <p><br />
+                  <b>Example:</b> </p>
+                <pre>// Print "HelloWorld" in the console
+// Passing in 2 arguments
+
+%hello = "Hello";
+%world = "World";
+
+echo(%hello, %world);
+</pre>
+                <p><br />
+                  If your function does not use arguments, you do not have to type anything in the parenthesis: </p>
+                <p><br />
+                  <b>Example:</b> </p>
+                <pre>// Function declaration
+function CreateLevels()
+{
+   echo("Levels Created");
+}
+
+// Calling the function
+CreateLevels();
+</pre>
+                <p>The last way to call a method is invoking a member function. You
+                  can call the member functions of an object, such as a Player, using a
+                  scoping symbol: </p>
+                <p><br />
+                  <b>Example:</b> </p>
+                <pre>// Player function "doSomething"
+// %this - The Player class/object
+// %action - String to print out
+function Player::doSomething(%this, %action)
+{
+   echo(%action);
+}
+
+// Create a player object
+%myPlayer = new Player(){...};
+
+// Call "doSomething" member function
+%myPlayer.doSomething("Dance");
+</pre><br />
+                <a name="Creating_the_Script" id="Creating_the_Script"></a>
+                <h2> <span class="mw-headline">Creating the Script</span></h2>
+                <p>Now that you know how to declare and call functions, we can create a
+                  few examples from scratch. First, we need to create a new script: </p>
+                <ol>
+                  <li>Navigate to your project's <b>game/scripts/client</b> directory. </li>
+                  <li>Create a new script file called "sampleFunctions". In Torsion,
+                    right click on the directory, click the "New Script" option, then name
+                    your script. On Windows or OS X, create a new text file and change the
+                    extension to .cs </li>
+                  <li>Open your new script using a text editor or Torsion. </li>
+                </ol>
+                <p><br />
+                  Before writing any actual script code, we should go ahead and tell the game it should load the script. Open <b>game/scripts/client/init.cs</b>. Scroll down to the <i><b>initClient</b></i> function. Under the // Client scripts section, add the following: </p>
+                <p><br />
+                  <b>Execute our new script</b> </p>
+                <pre>exec("./sampleFunctions.cs");
+</pre>
+                <p><br />
+                  Now, let's write an extremely simple function that prints a message to the console. The <b>echo(...)</b> function already performs this, but we are going to create a more
+                  intuitively named method to work with. Type the following in the
+                  script: </p>
+                <pre>// Print a message to the console
+// Kind of repetitiously redundant
+// %message - The message to print
+function printMessage(%message)
+{
+   echo(%message);
+}
+</pre>
+                <p><br />
+                  To test your new script: </p>
+                <ol>
+                  <li>Save </li>
+                  <li>Run your game </li>
+                  <li>Open the console by pressing the tilde (~) key </li>
+                  <li>Type the following, pressing enter after each line: </li>
+                </ol>
+                <pre>printMessage("Of melodies pure and true,");
+printMessage("Sayin, this is my message to you-ou-ou");
+</pre>
+                <p><br />
+                  Fairly straight forward. From here on, it will be assumed you
+                  know how to save your script, run the game, and call functions in the
+                  console. Next, let's create a function that takes multiple parameters.
+                  Write the following code in your script: </p>
+                <pre>// Print two separate strings to the console
+// Equally redundant in equality
+// %part1 - First part of message
+// %part2 - Second part of message
+function printAdvancedMessage(%part1, %part2)
+{
+   echo(%part1, %part2);
+}
+</pre>
+                <p><br />
+                  Run the game and type the following in the console: </p>
+                <pre>printAdvancedMessage("Singin: dont worry about a thing,", "\ncause every little thing gonna be all right");
+</pre>
+                <p><br />
+                  In a single function call, the above code will write out two
+                  separate lyrics on different lines. Every game always has at least one
+                  initialization function. Some even have multiple inits. We can write a
+                  function that creates and initializes a few game specific variables.
+                  Note, that the variables used here are completely new and not used by
+                  stock Torque 3D projects: </p>
+                <pre>// Change global game variables to default values
+function resetGameVariables()
+{
+   // Game's name
+   $GameName = "Blank";
+   
+   // Player's name
+   $PlayerName = "Player";
+   
+   // Game play type
+   $GameType = "Default";
+}
+</pre>
+                <p><br />
+                  The above code simply declares three global variables and sets
+                  them to default values. Every time this function is called, the same
+                  logic will execute. If you were to call this in the console, you will
+                  not see anything for output. Let's add a function to do this: </p>
+                <pre>// Print our game's information to the console
+function printGameInformation()
+{
+   echo("Game Name: ", $GameName);
+   echo("Player's Name: ", $PlayerName);
+   echo("Game Type: ", %gameType);
+}
+</pre>
+                <p><br />
+                  Save your new script and run the game. In the console, you will
+                  need to call the init function before the print function. Invoke the
+                  functions in this order: </p>
+                <pre>resetGameVariables();
+printGameInformation();
+</pre>
+                <p><br />
+                  Instead of manually setting each variable in the console, we can
+                  write a "set" function for our game variables. Add the following to
+                  your script: </p>
+                <pre>// Set the global game variables
+// %gameName - Game's name
+// %playerName - Player's name
+// %gameType - Game play type
+function setGameVariables(%gameName, %playerName, %gameType)
+{
+   $GameName = %gameName;
+   $PlayerName = %playerName;
+   $GameType = %gameType;
+}
+</pre>
+                <p><br />
+                  Now, you can set your game variables to whatever you wish through a single function call: </p>
+                <pre>setGameVariables("Ars Moriendi", "Mich", "Survival Horror");
+
+printGameInformation();
+
+resetGameVariables();
+
+printGameInformation();
+</pre>
+                <p><br />
+                  We will get into creating member functions in a later section of
+                  the script documentation. For now, you should know enough about
+                  functions to move on. </p><br />
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>A large portion of your Torque 3D development will occur in
+                  TorqueScript. 90% of that will be writing functions to handle your game
+                  play and other logic. With TorqueScript, it is easy to create and use
+                  functions without having to recompile the engine. </p>
+                <p><br />
+                  You can download the entire script from this lesson by <a href="sampleFunctions.cs" class="downloads">CLICKING HERE</a>.
+                  Save the script as you would any other text file from a website. </p>
+                <p><br />
+                  The information you learned in this doc will be used
+                  throughout the rest of the documentation, so make sure you are
+                  comfortable in your knowledge of functions. Continue reading to learn
+                  more advanced logic and math operators. </p>  
+                  
+                </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

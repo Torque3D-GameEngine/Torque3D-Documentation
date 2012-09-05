@@ -1,0 +1,1877 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 46;
+   parent.leftFrame.expandToItem('tree2', 'doc46');
+   var element = parent.leftFrame.document.getElementById('doc46');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<title>Torque 3D - ShapeBaseImageData Reference</title>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_Scripting_Overview_Introduction skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <br /><a name="top" id="top"></a>
+        <table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          </div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Detailed_Description"><span class="tocnumber">1</span> <span class="toctext">Detailed Description</span></a></li>
+                          <li class="toclevel-1"><a href="#Weapon_Shape_Nodes"><span class="tocnumber">2</span> <span class="toctext">Weapon Shape Nodes</span></a></li>
+                          <li class="toclevel-1"><a href="#Weapon_Muzzle_Flash"><span class="tocnumber">3</span> <span class="toctext">Weapon Muzzle Flash</span></a></li>
+                          <li class="toclevel-1"><a href="#First_Person_Shape"><span class="tocnumber">4</span> <span class="toctext">First Person Shape (optional)</span></a></li>
+                          <li class="toclevel-1"><a href="#Animation_Sequence_Transitions"><span class="tocnumber">5</span> <span class="toctext">Animation Sequence Transitions</span></a></li>
+                          <li class="toclevel-1"><a href="#Animation_Sequence_Selection"><span class="tocnumber">6</span> <span class="toctext">Animation Sequence Selection</span></a></li>
+                          <li class="toclevel-1"><a href="#EyeMount_Node"><span class="tocnumber">7</span> <span class="toctext">eyeMount Node (optional)</span></a></li>
+                          <li class="toclevel-1"><a href="#Special_State_Triggers"><span class="tocnumber">8</span> <span class="toctext">Special State Triggers</span></a></li>
+                          <li class="toclevel-1"><a href="#Special_States"><span class="tocnumber">9</span> <span class="toctext">Special States</span></a></li>
+                          <li class="toclevel-2"><a href="#Member_Function_Documentation"><span class="tocnumber">10</span> <span class="toctext">Member Function Documentation</span></a></li>
+                          <li class="toclevel-2"><a href="#Member_Data_Documentation"><span class="tocnumber">11</span> <span class="toctext">Member Data Documentation</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <a name="Detailed_Description"></a><h2>Detailed Description</h2>
+                <p>Represents geometry to be mounted to a <a class="el" href="ShapeBase.html" title="A scriptable, renderable shape.">ShapeBase</a> object. </p>
+                <p>Unlike other datablocks, <a class="el" href="ShapeBaseImageData.html" title="Represents geometry to be mounted to a ShapeBase object.">ShapeBaseImageData</a> does not have a base class associated with it. Instead, this datablock is an abstraction of geometry that can only be mounted to a <a class="el" href="ShapeBase.html" title="A scriptable, renderable shape.">ShapeBase</a> object and is only used by a ShapBase object.</p>
+                <p>The most common use for <a class="el" href="ShapeBaseImageData.html" title="Represents geometry to be mounted to a ShapeBase object.">ShapeBaseImageData</a> objects (referred to as Images hereafter) is for weapons carried by a <a class="el" href="Player.html" title="A client-controlled player character.">Player</a> or 
+                    <a class="el" 
+                        title="Base functionality shared by all Vehicles (FlyingVehicle, HoverVehicle, WheeledVehicle)...">Vehicle</a> object, and much of the functionality provided by the Image is aimed at that use-case. Images include a powerful state machine to control animations, sounds, script callbacks, and state transitions. This state system is downloaded to the client so that clients can predict state changes and animate accordingly.</p>
+                <p>The following example - a grenade launcher weapon - demonstates the flexibility of the system. The weapon includes states and transitions to handle the normal ready-&gt;fire-&gt;reload-&gt;ready loop as well as noammo-&gt;dryfire for firing when the weapon is out of ammo.</p>
+                <div align="center"> <img src="images/shapeBaseImage_fsm.png" alt="shapeBaseImage_fsm.png"/> </div>
+                <dl class="user">
+                  <dt><b>Example:</b></dt>
+                  <dd>
+                    <div class="fragment">
+                      <pre class="fragment">datablock <a class="code" href="ShapeBaseImageData.html" title="Represents geometry to be mounted to a ShapeBase object.">ShapeBaseImageData</a>( GrenadeLauncherImage )
+{
+   <span class="comment">// Basic properties</span>
+   shapefile = <span class="stringliteral">&quot;art/shapes/weapons/ramrifle/base.dts&quot;</span>;
+
+   <span class="comment">// Specify mount point &amp; offset for 3rd person, and eye offset</span>
+   <span class="comment">// for first person rendering.</span>
+   <a class="code" href="ShapeBaseImageData.html#a50cc87b4d15aff2f4686dd8e59e789e6" title="Mount node # to mount this Image to.">mountPoint</a> = 0;
+   <a class="code" href="ShapeBaseImageData.html#ac4406e729b2ebf20b4885327c806b65c" title="&quot;X Y Z&quot; translation offset from this Image&#39;s mountPoint node to attach...">offset</a> = <span class="stringliteral">&quot;0.0 0.0 0.1&quot;</span>;
+   <a class="code" href="ShapeBaseImageData.html#a913cfb8e4212cd6a9b2ef55124560a18" title="&quot;X Y Z&quot; translation offset from the ShapeBase model&#39;s eye node.">eyeOffset</a> = <span class="stringliteral">&quot;0.25 0.4 -0.4&quot;</span>;
+
+   <span class="comment">// Add the WeaponImage namespace as a parent, WeaponImage namespace</span>
+   <span class="comment">// provides some hooks into the inventory system.</span>
+   <a class="code" href="classSimObject.html#a2cc1b913d92fec41e452b7189ad8d668" title="Script class of object.">className</a> = <span class="stringliteral">&quot;WeaponImage&quot;</span>;
+
+   <span class="comment">// Projectile and Ammo.</span>
+   item = GrenadeLauncher;
+   ammo = GrenadeLauncherAmmo;
+   projectile = GrenadeLauncherProjectile;
+   wetProjectile = GrenadeWetProjectile;
+   projectileType = <a class="code" href="Projectile.html" title="Base projectile class. Uses the ProjectileData class for properties of individual...">Projectile</a>;
+
+   <span class="comment">// Shell casings</span>
+   <a class="code" href="ShapeBaseImageData.html#a3f54f20c648793e7187a239acacecde8" title="DebrisData datablock to use for ejected casings.">casing</a> = GrenadeLauncherShellCasing;
+   <a class="code" href="ShapeBaseImageData.html#ae7e117b394d720b7f4a46b1fb195a0d7" title="Vector direction to eject shell casings.">shellExitDir</a> = <span class="stringliteral">&quot;1.0 0.3 1.0&quot;</span>;
+   shellExitOffset = <span class="stringliteral">&quot;0.15 -0.56 -0.1&quot;</span>;
+   <a class="code" href="ShapeBaseImageData.html#aa96d818d41552d6913ddeef6fe5319d4" title="Variance (in degrees) from the shellExitDir vector to eject casings.">shellExitVariance</a> = 15.0;
+   <a class="code" href="ShapeBaseImageData.html#a8a722795e018f3d9fb2c5a5072811c9a" title="Speed at which to eject casings.">shellVelocity</a> = 3.0;
+
+   <span class="comment">// Let there be light - NoLight, ConstantLight, PulsingLight, WeaponFireLight.</span>
+   <a class="code" href="ShapeBaseImageData.html#acfc894659a60a9f20f58a62815c783aa" title="The type of light this Image emits.">lightType</a> = <span class="stringliteral">&quot;WeaponFireLight&quot;</span>;
+   <a class="code" href="ShapeBaseImageData.html#a7eeaed257f004e01af490ab01c6cdd87" title="The color of light this Image emits.">lightColor</a> = <span class="stringliteral">&quot;1.0 1.0 0.9&quot;</span>;
+   <a class="code" href="ShapeBaseImageData.html#ac2e23bfe8ce499f19f8e0e270da2a38a" title="Duration in SimTime of Pulsing and WeaponFire type lights.">lightDuration</a> = 200;
+   <a class="code" href="ShapeBaseImageData.html#aca8f7fcad3986ca6bc664529487fb5c6" title="Radius of the light this Image emits.">lightRadius</a> = 20;
+
+
+   <span class="comment">// Initial start up state</span>
+   <a class="code" href="ShapeBaseImageData.html#add69872cef7088b412af9a714be1c8cb" title="Name of this state.">stateName</a>[0] = <span class="stringliteral">&quot;Preactivate&quot;</span>;
+   <a class="code" href="ShapeBaseImageData.html#a9f24d7fc5684fb9cf175d0ed3f87d19b" title="Name of the state to transition to when the loaded state of the Image changes to...">stateTransitionOnLoaded</a>[0] = <span class="stringliteral">&quot;Activate&quot;</span>;
+   <a class="code" href="ShapeBaseImageData.html#ae9e0e65296e76355fb7011de57e589eb" title="Name of the state to transition to when the ammo state of the Image changes to false...">stateTransitionOnNoAmmo</a>[0] = <span class="stringliteral">&quot;NoAmmo&quot;</span>;
+
+   <span class="comment">// Activating the gun.</span>
+   <span class="comment">// Called when the weapon is first mounted and there is ammo.</span>
+   <a class="code" href="ShapeBaseImageData.html#add69872cef7088b412af9a714be1c8cb" title="Name of this state.">stateName</a>[1] = <span class="stringliteral">&quot;Activate&quot;</span>;
+   <a class="code" href="ShapeBaseImageData.html#a9639909ea6a7989daca29e186cd6117d" title="Name of the state to transition to when we have been in this state for stateTimeoutValue...">stateTransitionOnTimeout</a>[1] = <span class="stringliteral">&quot;Ready&quot;</span>;
+   <a class="code" href="ShapeBaseImageData.html#a2b1f004c6324ea1739a2af79cbdffc25" title="Time in seconds to wait before transitioning to stateTransitionOnTimeout.">stateTimeoutValue</a>[1] = 0.6;
+   <a class="code" href="ShapeBaseImageData.html#a2cc77806e23f8227757fa836621a7485" title="Name of the sequence to play on entry to this state.">stateSequence</a>[1] = <span class="stringliteral">&quot;Activate&quot;</span>;
+
+   <span class="comment">// Ready to fire, just waiting for the trigger</span>
+   <a class="code" href="ShapeBaseImageData.html#add69872cef7088b412af9a714be1c8cb" title="Name of this state.">stateName</a>[2] = <span class="stringliteral">&quot;Ready&quot;</span>;
+   <a class="code" href="ShapeBaseImageData.html#ae9e0e65296e76355fb7011de57e589eb" title="Name of the state to transition to when the ammo state of the Image changes to false...">stateTransitionOnNoAmmo</a>[2] = <span class="stringliteral">&quot;NoAmmo&quot;</span>;
+   <a class="code" href="ShapeBaseImageData.html#ade3a437205e84c0901f4d69d76e64969" title="Name of the state to transition to when the trigger state of the Image changes to...">stateTransitionOnTriggerDown</a>[2] = <span class="stringliteral">&quot;CheckWet&quot;</span>;
+   <a class="code" href="ShapeBaseImageData.html#a2cc77806e23f8227757fa836621a7485" title="Name of the sequence to play on entry to this state.">stateSequence</a>[2] = <span class="stringliteral">&quot;Ready&quot;</span>;
+
+   <span class="comment">// Fire the weapon. Calls the fire script which does the actual work.</span>
+   <a class="code" href="ShapeBaseImageData.html#add69872cef7088b412af9a714be1c8cb" title="Name of this state.">stateName</a>[3] = <span class="stringliteral">&quot;Fire&quot;</span>;
+   <a class="code" href="ShapeBaseImageData.html#a9639909ea6a7989daca29e186cd6117d" title="Name of the state to transition to when we have been in this state for stateTimeoutValue...">stateTransitionOnTimeout</a>[3] = <span class="stringliteral">&quot;PostFire&quot;</span>;
+   <a class="code" href="ShapeBaseImageData.html#a2b1f004c6324ea1739a2af79cbdffc25" title="Time in seconds to wait before transitioning to stateTransitionOnTimeout.">stateTimeoutValue</a>[3] = 0.4;
+   <a class="code" href="ShapeBaseImageData.html#af73b18eddbee50d234eec20b4db22915" title="The first state with this set to true is the state entered by the client when it...">stateFire</a>[3] = <span class="keyword">true</span>;
+   <a class="code" href="ShapeBaseImageData.html#a873d4da0b59683b8130f15e47c82a425" title="If false, other Images will temporarily be blocked from mounting while the state...">stateAllowImageChange</a>[3] = <span class="keyword">false</span>;
+   <a class="code" href="ShapeBaseImageData.html#a2cc77806e23f8227757fa836621a7485" title="Name of the sequence to play on entry to this state.">stateSequence</a>[3] = <span class="stringliteral">&quot;Fire&quot;</span>;
+   <a class="code" href="ShapeBaseImageData.html#a61b1e6ea47b9d81a7e7e051ba91bd04a" title="Method to execute on entering this state.">stateScript</a>[3] = <span class="stringliteral">&quot;onFire&quot;</span>;
+   <a class="code" href="ShapeBaseImageData.html#a1077edf291b0a9896cb3939b8525b31d" title="Sound to play on entry to this state.">stateSound</a>[3] = GrenadeLauncherFireSound;
+
+   <span class="comment">// Check ammo</span>
+   <a class="code" href="ShapeBaseImageData.html#add69872cef7088b412af9a714be1c8cb" title="Name of this state.">stateName</a>[4] = <span class="stringliteral">&quot;PostFire&quot;</span>;
+   <a class="code" href="ShapeBaseImageData.html#a4770df0484785bb6e0048ca289a3dd25" title="Name of the state to transition to when the ammo state of the Image changes to true...">stateTransitionOnAmmo</a>[4] = <span class="stringliteral">&quot;Reload&quot;</span>;
+   <a class="code" href="ShapeBaseImageData.html#ae9e0e65296e76355fb7011de57e589eb" title="Name of the state to transition to when the ammo state of the Image changes to false...">stateTransitionOnNoAmmo</a>[4] = <span class="stringliteral">&quot;NoAmmo&quot;</span>;
+
+   <span class="comment">// Play the reload animation, and transition back into Ready state</span>
+   <a class="code" href="ShapeBaseImageData.html#add69872cef7088b412af9a714be1c8cb" title="Name of this state.">stateName</a>[5] = <span class="stringliteral">&quot;Reload&quot;</span>;
+   <a class="code" href="ShapeBaseImageData.html#a9639909ea6a7989daca29e186cd6117d" title="Name of the state to transition to when we have been in this state for stateTimeoutValue...">stateTransitionOnTimeout</a>[5] = <span class="stringliteral">&quot;Ready&quot;</span>;
+   <a class="code" href="ShapeBaseImageData.html#a2b1f004c6324ea1739a2af79cbdffc25" title="Time in seconds to wait before transitioning to stateTransitionOnTimeout.">stateTimeoutValue</a>[5] = 0.2;
+   <a class="code" href="ShapeBaseImageData.html#a873d4da0b59683b8130f15e47c82a425" title="If false, other Images will temporarily be blocked from mounting while the state...">stateAllowImageChange</a>[5] = <span class="keyword">false</span>;
+   <a class="code" href="ShapeBaseImageData.html#a2cc77806e23f8227757fa836621a7485" title="Name of the sequence to play on entry to this state.">stateSequence</a>[5] = <span class="stringliteral">&quot;Reload&quot;</span>;
+   <a class="code" href="ShapeBaseImageData.html#ac6ae7a6d797ff9ebb7c2ad2f5a95428b" title="If true, a shell casing will be ejected in this state.">stateEjectShell</a>[5] = <span class="keyword">false</span>; <span class="comment">// set to true to enable shell casing eject</span>
+   <a class="code" href="ShapeBaseImageData.html#a1077edf291b0a9896cb3939b8525b31d" title="Sound to play on entry to this state.">stateSound</a>[5] = GrenadeLauncherReloadSound;
+
+   <span class="comment">// No ammo in the weapon, just idle until something shows up.</span>
+   <span class="comment">// Play the dry fire sound if the trigger iS pulled.</span>
+   <a class="code" href="ShapeBaseImageData.html#add69872cef7088b412af9a714be1c8cb" title="Name of this state.">stateName</a>[6] = <span class="stringliteral">&quot;NoAmmo&quot;</span>;
+   <a class="code" href="ShapeBaseImageData.html#a4770df0484785bb6e0048ca289a3dd25" title="Name of the state to transition to when the ammo state of the Image changes to true...">stateTransitionOnAmmo</a>[6] = <span class="stringliteral">&quot;Reload&quot;</span>;
+   <a class="code" href="ShapeBaseImageData.html#a2cc77806e23f8227757fa836621a7485" title="Name of the sequence to play on entry to this state.">stateSequence</a>[6] = <span class="stringliteral">&quot;NoAmmo&quot;</span>;
+   <a class="code" href="ShapeBaseImageData.html#ade3a437205e84c0901f4d69d76e64969" title="Name of the state to transition to when the trigger state of the Image changes to...">stateTransitionOnTriggerDown</a>[6] = <span class="stringliteral">&quot;DryFire&quot;</span>;
+
+   <span class="comment">// No ammo dry fire</span>
+   <a class="code" href="ShapeBaseImageData.html#add69872cef7088b412af9a714be1c8cb" title="Name of this state.">stateName</a>[7] = <span class="stringliteral">&quot;DryFire&quot;</span>;
+   <a class="code" href="ShapeBaseImageData.html#a2b1f004c6324ea1739a2af79cbdffc25" title="Time in seconds to wait before transitioning to stateTransitionOnTimeout.">stateTimeoutValue</a>[7] = 1.0;
+   <a class="code" href="ShapeBaseImageData.html#a9639909ea6a7989daca29e186cd6117d" title="Name of the state to transition to when we have been in this state for stateTimeoutValue...">stateTransitionOnTimeout</a>[7] = <span class="stringliteral">&quot;NoAmmo&quot;</span>;
+   <a class="code" href="ShapeBaseImageData.html#a1077edf291b0a9896cb3939b8525b31d" title="Sound to play on entry to this state.">stateSound</a>[7] = GrenadeLauncherFireEmptySound;
+
+   <span class="comment">// Check if wet</span>
+   <a class="code" href="ShapeBaseImageData.html#add69872cef7088b412af9a714be1c8cb" title="Name of this state.">stateName</a>[8] = <span class="stringliteral">&quot;CheckWet&quot;</span>;
+   <a class="code" href="ShapeBaseImageData.html#a1be212611a0c618484b318f117694eda" title="Name of the state to transition to when the Image enters the water.">stateTransitionOnWet</a>[8] = <span class="stringliteral">&quot;WetFire&quot;</span>;
+   <a class="code" href="ShapeBaseImageData.html#ac7746a77d895987f7d6d2764ca0cb7f1" title="Name of the state to transition to when the Image exits the water.">stateTransitionOnNotWet</a>[8] = <span class="stringliteral">&quot;Fire&quot;</span>;
+
+   <span class="comment">// Wet fire</span>
+   <a class="code" href="ShapeBaseImageData.html#add69872cef7088b412af9a714be1c8cb" title="Name of this state.">stateName</a>[9] = <span class="stringliteral">&quot;WetFire&quot;</span>;
+   <a class="code" href="ShapeBaseImageData.html#a9639909ea6a7989daca29e186cd6117d" title="Name of the state to transition to when we have been in this state for stateTimeoutValue...">stateTransitionOnTimeout</a>[9] = <span class="stringliteral">&quot;PostFire&quot;</span>;
+   <a class="code" href="ShapeBaseImageData.html#a2b1f004c6324ea1739a2af79cbdffc25" title="Time in seconds to wait before transitioning to stateTransitionOnTimeout.">stateTimeoutValue</a>[9] = 0.4;
+   <a class="code" href="ShapeBaseImageData.html#af73b18eddbee50d234eec20b4db22915" title="The first state with this set to true is the state entered by the client when it...">stateFire</a>[9] = <span class="keyword">true</span>;
+   <a class="code" href="ShapeBaseImageData.html#a873d4da0b59683b8130f15e47c82a425" title="If false, other Images will temporarily be blocked from mounting while the state...">stateAllowImageChange</a>[9] = <span class="keyword">false</span>;
+   <a class="code" href="ShapeBaseImageData.html#a2cc77806e23f8227757fa836621a7485" title="Name of the sequence to play on entry to this state.">stateSequence</a>[9] = <span class="stringliteral">&quot;Fire&quot;</span>;
+   <a class="code" href="ShapeBaseImageData.html#a61b1e6ea47b9d81a7e7e051ba91bd04a" title="Method to execute on entering this state.">stateScript</a>[9] = <span class="stringliteral">&quot;onWetFire&quot;</span>;
+   <a class="code" href="ShapeBaseImageData.html#a1077edf291b0a9896cb3939b8525b31d" title="Sound to play on entry to this state.">stateSound</a>[9] = GrenadeLauncherFireSound;
+};
+                </pre>
+                    </div>
+                  </dd>
+                </dl>
+                <p>Images are mounted into a slot on the target <a class="el" href="ShapeBase.html" title="A scriptable, renderable shape.">ShapeBase</a> derrived object as shown below.</p>
+                <dl class="user">
+                  <dt><b>Example:</b></dt>
+                  <dd>
+                    <div class="fragment">
+                      <pre class="fragment">$WeaponSlot = 0;
+
+...
+
+<span class="comment">// Use a weapon by mounting it onto the given ShapeBase derrived object.</span>
+<span class="comment">// %data is the weapon whose .image member points to its ShapeBaseImageData datablock</span>
+<span class="comment">// %obj is the object to mount the weapon on</span>
+function Weapon::onUse( %data, %obj )
+{
+   <span class="comment">// Default behavior for all weapons is to mount it into the object&#39;s weapon</span>
+   <span class="comment">// slot, as defined by $WeaponSlot here, and is usually slot 0. We begin by</span>
+   <span class="comment">// checking if the requested weapon is already mounted.</span>
+   <span class="keywordflow">if</span> ( %obj.getMountedImage($WeaponSlot) != %data.image.getId() )
+   {
+      <span class="comment">// The requested weapon is not mounted on $WeaponSlot so mount it now.</span>
+      %obj.mountImage( %data.image, $WeaponSlot );
+   }
+}
+                </pre>
+                    </div>
+                  </dd>
+                </dl>
+                <a name="Weapon_Shape_Nodes"></a><h2>Weapon Shape Nodes</h2>
+                <p>The DTS or DAE model used for the Image has the following requirements:</p>
+                <dl>
+                  <dt>ejectPoint node</dt>
+                  <dd>Node from which shell casings are emitted </dd>
+                  <dt>muzzlePoint node</dt>
+                  <dd>Node used to fire projectiles and particles </dd>
+                  <dt>retractionPoint node</dt>
+                  <dd>Nearest point to use as muzzle when up against a wall (and muzzle node is inside wall). This node is optional. </dd>
+                  <dt>mountPoint node</dt>
+                  <dd>Where to attach to on this object. If not present the origin of the model will be used. </dd>
+                  <dt>stateEmitterNode</dt>
+                  <dd>Each state may optionally have a particle emitter, which will play at this node's location. One example is smoke coming from the barrel of a gun after it has been fired. If this node is not present, the muzzlePoint node will be used instead. </dd>
+                  <dt>ambient sequence</dt>
+                  <dd>Cyclic sequence to play while Image is mounted. This sequence is optional. </dd>
+                  <dt>spin sequence</dt>
+                  <dd>Cyclic sequence to play while Image is mounted. This sequence is optional. See ShapeBaseImageSpinState. </dd>
+                </dl>
+                <a name="Weapon_Muzzle_Flash"></a><h2>Weapon Muzzle Flash</h2>
+                <p>When the Image is used as a weapon, a sequence can be added to display a muzzle flash when the weapon is fired (if stateSequenceRandomFlash is set to true for the firing state). The name of the muzzle flash sequence is the same as the state sequence (eg. <em>fire</em>), but with '_vis' appended (eg. <em>fire_vis</em>).</p>
+                <p>In the example below, the muzzle flash is made up of three quads; one facing the player, and two crossed quads pointing out of the weapon so viewers perpendicular to the player will also see the flash.</p>
+                <div align="center"> <img src="images/shapeBaseImage_muzzle_quads.png" alt="shapeBaseImage_muzzle_quads.png"/> </div>
+                <p>The visibility of the muzzle flash mesh is animated on for 1 frame then off for 1 frame as shown below, but any Torque supported animation method could be used as well. For example, the node the quads are attached to could be rotated or scaled, or the mesh 
+                    <a class="el" 
+                        title="A material in Torque 3D is a data structure that describes a surface.">Material</a> could be animated (UV or frame) to provide further variation.</p>
+                <div align="center"> <img src="images/shapeBaseImage_muzzle_flash.gif" alt="shapeBaseImage_muzzle_flash.gif"/> </div>
+                <a name="First_Person_Shape"></a><h2>First Person Shape [Optional]</h2>
+                <p>The <a class="el" href="ShapeBaseImageData.html" title="Represents geometry to be mounted to a ShapeBase object.">ShapeBaseImageData</a> supports an optional shape that is displayed when the player is in a first person view. This shape is defined using the shapeFileFP property. You also must set an eyeOffset or make use of an eye mount node for this shape to be used in a first person view.</p>
+                <p>Having this second shape defined provides for more flexibility between 3rd person (and what other players see) and 1st person views. In a typical first person shooter the 3rd person weapon is not as detailed and supports a limited number of animation sequences. Just enough for the other players in the game to get a sense of what the player is doing. Then the 1st person weapon has a lot more detail, such as moving parts, etc. It may also have some arms and hands incldued that are animated when reloading the weapon and other actions. Only the player holding the weapon sees all of this.</p>
+                <p>There are a number of things to keep in mind if you make use of shapeFileFP:</p>
+                <dl>
+                  <dt>Requires eyeOffset or useEyeNode</dt>
+                  <dd>In Torque a 1st person view of an Image is only active if an eyeOffset is defined, or you have the useEyeNode flag set. This is also true if you wish to make use of a specific first person shape. </dd>
+                  <dt>Player First Person Rendering</dt>
+                  <dd>You'll probably want to turn off the rendering of the player in first person. Otherwise its shape and animation may not match the first person Image </dd>
+                  <dt>Animation Sequences and Naming</dt>
+                  <dd>You are not required to have the same animation sequences defined for the standard Image shape and the 1st person Image shape. Any sequences that are missing are just ignored. However, if you wish to have the same sequence play for a particular Image state on both shapes you must use the same animation sequence name between them. Image states only support a single sequence name. </dd>
+                  <dt>Animation Sequence Playback Speed</dt>
+                  <dd>The playback speed of a state's animation sequence may be scaled to match the length of the state's timeout. The standard (3rd person) shape and 1st person shape may be set up with different playback scaling options using the stateScaleAnimation and stateScaleAnimationFP flags. </dd>
+                  <dt>stateEmitterNode</dt>
+                  <dd>This optional node's world position will not likely line up between the standard shape and the 1st person shape. If the player switches from 3rd person to 1st person (or vice versa) while particles are being emitted from this node, the emission point will appear to shift. This normally isn't an issue for most uses of this node, such as smoke from the barrel after the weapon has been fired. As these particles are a client-side only effect, no other players will see this shift as the standard shape will always be used. </dd>
+                  <dt>Server Always In First Person</dt>
+                  <dd>The server always operates in 1st person mode when it comes to transform calculations for an Image's nodes. This means that the server will use the shapeFileFP nodes when it is present. This is something to be aware of when building the two shape files. </dd>
+                </dl>
+                <a name="Animation_Sequence_Transitions"></a><h2>Animation Sequence Transitions</h2>
+                <p>Starting with T3D 1.2 control is now given over transitioning from one image state's sequence to another state's sequence. The new state &quot;stateSequenceTransitionIn&quot; and &quot;stateSequenceTransitionOut&quot; flags dictate if the current state's sequence should be transitioned into when changing to the current state, or transitioned out of when switching to a new state. However, there are times when you don't want to do an animation sequence transition regardless of which state you are coming from. An example of this is the traditional &quot;Fire&quot; state. A Fire state should play immediately and not be transitioned into. In these cases a state may set the &quot;stateSequenceNeverTransition&quot; flag. With that set a state's sequence will begin to play immediately.</p>
+                <a name="Animation_Sequence_Selection"></a><h2>Animation Sequence Selection</h2>
+                <p>When it comes to choosing what sequence to play on the mounted image there are now some new rules. Under 1.1 when an image state requested a named sequence that is found on the mounted image and played -- its action sequence. This still occurs under 1.2. However, it is now possible to modify the name of the sequence to play based on some prefixes. <a class="el" href="PlayerData.html" title="Defines properties for a Player object.">PlayerData</a> now has two additional, optional fields: imageAnimPrefix and imageAnimPrefixFP. Just like how these same fields on <a class="el" href="ShapeBaseImageData.html" title="Represents geometry to be mounted to a ShapeBase object.">ShapeBaseImageData</a> can modify when sequences are played on the player based on what is mounted (see <a class="el" href="Player.html" title="A client-controlled player character.">Player</a> class documentation), these two <a class="el" href="PlayerData.html" title="Defines properties for a Player object.">PlayerData</a> fields can modify what sequence is played on the mounted image based on the mounting player. This becomes especially useful when combined with 1st person arms -- although here we're just talking about weapons/mounted images.</p>
+                <p>Let's suppose we have two types of player: Soldier and Alien. We may want each type of player to use the same weapon slightly differently (or even radically differently, such as the Alien holding the weapon upside down). We use the &quot;Soldier&quot; anim prefix in the soldier's datablock and the &quot;Alien&quot; prefix in the alien's datablock. Now when looking up the sequence for a weapon's fire state -- usually called &quot;fire&quot; by convention -- the appropriate prefix is added first. And if that prefixed sequence is not found, then we fall back to the standard sequence name. So the soldier's sequence name search looks like this:</p>
+                <ul>
+                  <li> Soldier_fire </li>
+                  <li> fire </li>
+                </ul>
+                <p>and the alien's sequence name search looks like this:</p>
+                <ul>
+                  <li> Alien_fire </li>
+                  <li> fire </li>
+                </ul>
+                <p>This gives the artist greater control over how the weapons look. And because there are separate prefixes possible on <a class="el" href="PlayerData.html" title="Defines properties for a Player object.">PlayerData</a> for 1st person and 3rd person you can mix and match as appropriate. So you could set a prefix for 1st person, but leave it blank for 3rd person (don't do anything special in 3rd person).</p>
+                <p>Another way that an image state's sequence name could be modified is through the new <a class="el" href="ShapeBase.html#af32f35605ca8fb4653c2381271f09a72" title="Set the script animation prefix for the Image mounted in the specified slot.">ShapeBase::setImageScriptAnimPrefix()</a> method. This allows you to insert an additional prefix into the name look up. The current scripts pass along the player's current pose name, but anything could be passed in based on game play. This can be even more useful with the 1st person arms. You could then have a weapon idle state when swimming that moves the weapon (and 1st person arms) in a gentle swim motion. When you combine the <a class="el" href="PlayerData.html" title="Defines properties for a Player object.">PlayerData</a> prefix with the script anim prefix and finally with the image state sequence name, you end up with the following sequence name search pattern (the first found is used):</p>
+                <ul>
+                  <li> PlayerDataPrefix_ScriptAnimPrefix_StateSequenceName </li>
+                  <li> PlayerDataPrefix_StateSequenceName </li>
+                  <li> ScriptAnimPrefix_StateSequenceName </li>
+                  <li> StateSequenceName </li>
+                </ul>
+                <p>Whenever <a class="el" href="ShapeBase.html#af32f35605ca8fb4653c2381271f09a72" title="Set the script animation prefix for the Image mounted in the specified slot.">ShapeBase::setImageScriptAnimPrefix()</a> is called there is a transition from the currently playing state sequence into the new script prefixed animation sequence. In our example, this allows for a transition from walking to swimming for the weapon. The new <a class="el" href="ShapeBaseImageData.html" title="Represents geometry to be mounted to a ShapeBase object.">ShapeBaseImageData</a> scriptAnimationTransitionTime controls how long to take for this transition.</p>
+                <a name="EyeMount_Node"></a><h2>eyeMount Node [Optional]</h2>
+                <p>As with 1.1 the placement of the 1st person image may be set with the eyeOffset parameter. Now with 1.2 the 1st person image may be placed based on a node in the 1st person DTS/DAE shape, the &quot;eyeMount&quot; node. When the ShapeBaseImageData's useEyeNode parameter is made true, the image is effectively mounted to the 3rd person player's &quot;eye&quot; node, locking it into place. This allows the artist in their 3D application to precisely place the 1st person weapon in view when their 3D app's camera is placed on the eyeMount node and has the same field of view as Torque. This is very handy when animating the 1st person weapon, especially with 1st person arms.</p>
+                <p>Also with 1.2 an image that is placed with the eyeMount node may have an &quot;eye&quot; node defined. When found the player's camera is mounted to the image's &quot;eye&quot; node rather than the 3rd person player's &quot;eye&quot; node. This allows for animating the camera such as during a fire sequence.</p>
+                <p>Allowing for this much control does have a potential down side. In order for a weapon to fire correctly on the server it needs to have its muzzle point at the correct location. If a weapon's root pose (without animation) doesn't have its muzzle point at roughly the same location as when the weapon is fired, then the new <a class="el" href="ShapeBaseImageData.html" title="Represents geometry to be mounted to a ShapeBase object.">ShapeBaseImageData</a> &quot;animateOnServer&quot; flag should be set. When set the server will perform all state machine animation to ensure the muzzle point is at the correct location when required. This puts an extra strain on the server. If care is taken when building the weapons such that the root pose is close enough to the fire pose, then you can safely leave the &quot;animateOnServer&quot; flag off and not have to worry about the extra server load.</p>
+                <a name="Special_State_Triggers"></a><h2>Special State Triggers</h2>
+                <p>Starting with 1.2 there are now a number of new triggers that may be set for a ShapeBaseImageData's state machine to react to. These provide greater game play control over an image's state flow. The first are the &quot;stateTransitionOnMotion&quot; and &quot;stateTransitionOnNoMotion&quot; triggers. This trigger occurs whenever the mounting <a class="el" href="ShapeBase.html" title="A scriptable, renderable shape.">ShapeBase</a> (usually a <a class="el" href="Player.html" title="A client-controlled player character.">Player</a>) has x, y or z motion applied through the Move structure. From a <a class="el" href="Player.html" title="A client-controlled player character.">Player</a> perspective this means whenever the user moves their player forwards, backwards or strafes. That has been used to provide weapons a slight bobbing appearance (using an animation sequence) when the weapon is idle. Fire and Reload states don't usually make use of these triggers to keep those actions solid.</p>
+                <p>There has always been a target trigger for <a class="el" href="ShapeBaseImageData.html" title="Represents geometry to be mounted to a ShapeBase object.">ShapeBaseImageData</a> but under 1.1 it was not possible to set it, nor was it used. Starting with 1.2 you can now set the target trigger in script using ShapeBase::setImageTargetState() and use stateTransitionOnTarget and stateTransitionOnNoTarget for whatever game play reasons are required.</p>
+                <p>Finally, there are four new generic triggers that may be set from script and used for whatever purpose the game play imposes. These are &quot;stateTransitionGeneric0In&quot;, &quot;stateTransitionGeneric1In&quot;, etc. and &quot;stateTransitionGeneric0Out&quot;, &quot;stateTransition1Out&quot; etc. The FPS Tutorial weapons use the first generic trigger to indicate that the player is sprinting and switch to a Sprint state to prevent firing of the weapon. Other possible uses are for iron sights.</p>
+                <a name="Special_States"></a><h2>Special States</h2>
+                <p>The client and server move through a ShapeBaseImageData's state machine independantly according to various triggers, timeouts, etc. The client is not normally told to move to a specific state when the server does. However, there are three instances where the client is told by the server to immediately jump to a given state. This ensures that the client's experience matches the server at key moments. As such, only one of each of these states may exist in a single <a class="el" href="ShapeBaseImageData.html" title="Represents geometry to be mounted to a ShapeBase object.">ShapeBaseImageData</a> state machine at a time.</p>
+                <p>The fire state is the first such state. It is indicated by setting the state's &quot;stateFire&quot; flag to true. This is the state immediately jumped to when the weapon begins to fire.</p>
+                <p>The alternate fire state is the second forced jump point (new in 1.2). It is indicated by setting the state's &quot;stateAlternateFire&quot; flag to true. Not all weapons have an alternate fire state. In fact most games treat a weapon's alternate fire as a separate weapon altogether.</p>
+                <p>The reload state is the last special state (new in 1.2). It is indicated by setting the state's &quot;stateReload&quot; flag to true. This state is triggered if the weapon makes use of the new 1.2 ammo clip system and the weapon is reloading a clip, either automatically or manually triggered by the client. </p>
+                <hr/>
+                <a name="Member_Function_Documentation"></a><h2>Member Function Documentation</h2>
+                <a class="anchor" id="a95c29d9f866cbd16a1dac481567fcee8"></a>
+                <!-- doxytag: member="ShapeBaseImageData::onMount" ref="a95c29d9f866cbd16a1dac481567fcee8" args="(ShapeBase obj, int slot, float dt)" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">void ShapeBaseImageData::onMount </td>
+                        <td>(</td>
+                        <td class="paramtype"><a class="el" href="ShapeBase.html">ShapeBase</a>&nbsp;</td>
+                        <td class="paramname"><em>obj</em>, </td>
+                      </tr>
+                      <tr>
+                        <td class="paramkey"></td>
+                        <td></td>
+                        <td class="paramtype">int&nbsp;</td>
+                        <td class="paramname"><em>slot</em>, </td>
+                      </tr>
+                      <tr>
+                        <td class="paramkey"></td>
+                        <td></td>
+                        <td class="paramtype">float&nbsp;</td>
+                        <td class="paramname"><em>dt</em></td>
+                        <td>&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>)</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Called when the Image is first mounted to the object. </p>
+                    <dl>
+                      <dt><b>Parameters:</b></dt>
+                      <dd>
+                        <table border="0" cellspacing="2" cellpadding="0">
+                          <tr>
+                            <td valign="top"></td>
+                            <td valign="top"><em>obj</em>&nbsp;</td>
+                            <td>object that this Image has been mounted to </td>
+                          </tr>
+                          <tr>
+                            <td valign="top"></td>
+                            <td valign="top"><em>slot</em>&nbsp;</td>
+                            <td>Image mount slot on the object </td>
+                          </tr>
+                          <tr>
+                            <td valign="top"></td>
+                            <td valign="top"><em>dt</em>&nbsp;</td>
+                            <td>time remaining in this Image update </td>
+                          </tr>
+                        </table>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="acc6b26b61627b87b983acead0e2c4f2b"></a>
+                <!-- doxytag: member="ShapeBaseImageData::onUnmount" ref="acc6b26b61627b87b983acead0e2c4f2b" args="(ShapeBase obj, int slot, float dt)" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">void ShapeBaseImageData::onUnmount </td>
+                        <td>(</td>
+                        <td class="paramtype"><a class="el" href="ShapeBase.html">ShapeBase</a>&nbsp;</td>
+                        <td class="paramname"><em>obj</em>, </td>
+                      </tr>
+                      <tr>
+                        <td class="paramkey"></td>
+                        <td></td>
+                        <td class="paramtype">int&nbsp;</td>
+                        <td class="paramname"><em>slot</em>, </td>
+                      </tr>
+                      <tr>
+                        <td class="paramkey"></td>
+                        <td></td>
+                        <td class="paramtype">float&nbsp;</td>
+                        <td class="paramname"><em>dt</em></td>
+                        <td>&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>)</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Called when the Image is unmounted from the object. </p>
+                    <dl>
+                      <dt><b>Parameters:</b></dt>
+                      <dd>
+                        <table border="0" cellspacing="2" cellpadding="0">
+                          <tr>
+                            <td valign="top"></td>
+                            <td valign="top"><em>obj</em>&nbsp;</td>
+                            <td>object that this Image has been unmounted from </td>
+                          </tr>
+                          <tr>
+                            <td valign="top"></td>
+                            <td valign="top"><em>slot</em>&nbsp;</td>
+                            <td>Image mount slot on the object </td>
+                          </tr>
+                          <tr>
+                            <td valign="top"></td>
+                            <td valign="top"><em>dt</em>&nbsp;</td>
+                            <td>time remaining in this Image update </td>
+                          </tr>
+                        </table>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+                <hr/>
+                <a name="Member_Data_Documentation"></a><h2>Member Data Documentation</h2>
+                <a class="anchor" id="a29be9fc63a4f25ccd435328afc1b09ae"></a>
+                <!-- doxytag: member="ShapeBaseImageData::accuFire" ref="a29be9fc63a4f25ccd435328afc1b09ae" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">bool <a class="el" href="ShapeBaseImageData.html#a29be9fc63a4f25ccd435328afc1b09ae">ShapeBaseImageData::accuFire</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Flag to control whether the Image's aim is automatically converged with the crosshair. </p>
+                    <p>Currently unused. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a12f88956fa7d02a727fe184ca823cb58"></a>
+                <!-- doxytag: member="ShapeBaseImageData::animateAllShapes" ref="a12f88956fa7d02a727fe184ca823cb58" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">bool <a class="el" href="ShapeBaseImageData.html#a12f88956fa7d02a727fe184ca823cb58">ShapeBaseImageData::animateAllShapes</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Indicates that all shapes should be animated in sync. </p>
+                    <p>When multiple shapes are defined for this image datablock, each of them are automatically animated in step with each other. This allows for easy switching between between shapes when some other condition changes, such as going from first person to third person, and keeping their look consistent. If you know that you'll never switch between shapes on the fly, such as players only being allowed in a first person view, then you could set this to false to save some calculations.</p>
+                    <p>There are other circumstances internal to the engine that determine that only the current shape should be animated rather than all defined shapes. In those cases, this property is ignored.</p>
+                    <dl class="note">
+                      <dt><b>Note:</b></dt>
+                      <dd>This property is only important if you have more than one shape defined, such as shapeFileFP.</dd>
+                    </dl>
+                    <dl class="see">
+                      <dt><b>See also:</b></dt>
+                      <dd><a class="el" href="ShapeBaseImageData.html#a31231cc35845f73a38aeeeaebac1f367" title="The DTS or DAE model to use for this Image when in first person.">shapeFileFP</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="a5d4857c07d7a6fa214c899f0f9ef79fd"></a>
+                <!-- doxytag: member="ShapeBaseImageData::animateOnServer" ref="a5d4857c07d7a6fa214c899f0f9ef79fd" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">bool <a class="el" href="ShapeBaseImageData.html#a5d4857c07d7a6fa214c899f0f9ef79fd">ShapeBaseImageData::animateOnServer</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Indicates that the image should be animated on the server. </p>
+                    <p>In most cases you'll want this set if you're using useEyeNode. You may also want to set this if the muzzlePoint is animated while it shoots. You can set this to false even if these previous cases are true if the image's shape is set up in the correct position and orientation in the 'root' pose and none of the nodes are animated at key times, such as the muzzlePoint essentially remaining at the same position at the start of the fire state (it could animate just fine after the projectile is away as the muzzle vector is only calculated at the start of the state).</p>
+                    <p>You'll also want to set this to true if you're animating the camera using the image's 'eye' node -- unless the movement is very subtle and doesn't need to be reflected on the server.</p>
+                    <dl class="note">
+                      <dt><b>Note:</b></dt>
+                      <dd>Setting this to true causes up to four animation threads to be advanced on the server for each instance in use, although for most images only one or two are actually defined.</dd>
+                    </dl>
+                    <dl class="see">
+                      <dt><b>See also:</b></dt>
+                      <dd><a class="el" href="ShapeBaseImageData.html#ac398de7e09bdd5c0713af499ae56508c" title="Mount image using image's eyeMount node and place the camera at the image's...">useEyeNode</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="af3f9c3e34f83b96a7d57b913b24a0ddf"></a>
+                <!-- doxytag: member="ShapeBaseImageData::camShakeAmp" ref="af3f9c3e34f83b96a7d57b913b24a0ddf" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">Point3F <a class="el" href="ShapeBaseImageData.html#af3f9c3e34f83b96a7d57b913b24a0ddf">ShapeBaseImageData::camShakeAmp</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Amplitude of the camera shaking effect. </p>
+                    <dl class="see">
+                      <dt><b>See also:</b></dt>
+                      <dd><a class="el" href="ShapeBaseImageData.html#a648390fa8001bc948fb9ee98f9c55480" title="Flag indicating whether the camera should shake when this Image fires.">shakeCamera</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="ae71c6ff26b8393937bd078b7d66520f7"></a>
+                <!-- doxytag: member="ShapeBaseImageData::camShakeFreq" ref="ae71c6ff26b8393937bd078b7d66520f7" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">Point3F <a class="el" href="ShapeBaseImageData.html#ae71c6ff26b8393937bd078b7d66520f7">ShapeBaseImageData::camShakeFreq</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Frequency of the camera shaking effect. </p>
+                    <dl class="see">
+                      <dt><b>See also:</b></dt>
+                      <dd><a class="el" href="ShapeBaseImageData.html#a648390fa8001bc948fb9ee98f9c55480" title="Flag indicating whether the camera should shake when this Image fires.">shakeCamera</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="a3f54f20c648793e7187a239acacecde8"></a>
+                <!-- doxytag: member="ShapeBaseImageData::casing" ref="a3f54f20c648793e7187a239acacecde8" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname"><a class="el" href="classDebrisData.html">DebrisData</a> <a class="el" href="ShapeBaseImageData.html#a3f54f20c648793e7187a239acacecde8">ShapeBaseImageData::casing</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p><a class="el" href="classDebrisData.html" title="Stores properties for an individual debris type.">DebrisData</a> datablock to use for ejected casings. </p>
+                    <dl class="see">
+                      <dt><b>See also:</b></dt>
+                      <dd><a class="el" href="ShapeBaseImageData.html#ac6ae7a6d797ff9ebb7c2ad2f5a95428b" title="If true, a shell casing will be ejected in this state.">stateEjectShell</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="abd9b01783ddbc27bf96bd9e9bee64145"></a>
+                <!-- doxytag: member="ShapeBaseImageData::cloakable" ref="abd9b01783ddbc27bf96bd9e9bee64145" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">bool <a class="el" href="ShapeBaseImageData.html#abd9b01783ddbc27bf96bd9e9bee64145">ShapeBaseImageData::cloakable</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Whether this Image can be cloaked. </p>
+                    <p>Currently unused. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a57c604117801410258a5a4a5a679dc7a"></a>
+                <!-- doxytag: member="ShapeBaseImageData::computeCRC" ref="a57c604117801410258a5a4a5a679dc7a" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">bool <a class="el" href="ShapeBaseImageData.html#a57c604117801410258a5a4a5a679dc7a">ShapeBaseImageData::computeCRC</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>If true, verify that the CRC of the client's Image matches the server's CRC for the Image when loaded by the client. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a0067830cccd5340da470c08e551640fa"></a>
+                <!-- doxytag: member="ShapeBaseImageData::correctMuzzleVector" ref="a0067830cccd5340da470c08e551640fa" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">bool <a class="el" href="ShapeBaseImageData.html#a0067830cccd5340da470c08e551640fa">ShapeBaseImageData::correctMuzzleVector</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Flag to adjust the aiming vector to the eye's LOS point. </p>
+                    <p>Flag to adjust the aiming vector to the eye's LOS point when in 1st person view.</p>
+                    <dl class="see">
+                      <dt><b>See also:</b></dt>
+                      <dd><a class="el" href="ShapeBase.html#aaa72197dd49e93b06f7b0c07db6e7fd9" title="Get the muzzle vector of the Image mounted in the specified slot.">ShapeBase::getMuzzleVector()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="acaf152c3373eaf72359545e5c167c419"></a>
+                <!-- doxytag: member="ShapeBaseImageData::correctMuzzleVectorTP" ref="acaf152c3373eaf72359545e5c167c419" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">bool <a class="el" href="ShapeBaseImageData.html#acaf152c3373eaf72359545e5c167c419">ShapeBaseImageData::correctMuzzleVectorTP</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Flag to adjust the aiming vector to the camera's LOS point when in 3rd person view. </p>
+                    <dl class="see">
+                      <dt><b>See also:</b></dt>
+                      <dd><a class="el" href="ShapeBase.html#aaa72197dd49e93b06f7b0c07db6e7fd9" title="Get the muzzle vector of the Image mounted in the specified slot.">ShapeBase::getMuzzleVector()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="ab1efd6f6efa304680c64fc2e177eb4e3"></a>
+                <!-- doxytag: member="ShapeBaseImageData::emap" ref="ab1efd6f6efa304680c64fc2e177eb4e3" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">bool <a class="el" href="ShapeBaseImageData.html#ab1efd6f6efa304680c64fc2e177eb4e3">ShapeBaseImageData::emap</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Whether to enable environment mapping on this Image. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a913cfb8e4212cd6a9b2ef55124560a18"></a>
+                <!-- doxytag: member="ShapeBaseImageData::eyeOffset" ref="a913cfb8e4212cd6a9b2ef55124560a18" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">MatrixPosition <a class="el" href="ShapeBaseImageData.html#a913cfb8e4212cd6a9b2ef55124560a18">ShapeBaseImageData::eyeOffset</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>&quot;X Y Z&quot; translation offset from the <a class="el" href="ShapeBase.html" title="A scriptable, renderable shape.">ShapeBase</a> model's eye node. </p>
+                    <p>When in first person view, this is the offset from the eye node to place the gun. This gives the gun a fixed point in space, typical of a lot of FPS games. </p>
+                    <dl class="see">
+                      <dt><b>See also:</b></dt>
+                      <dd><a class="el" href="ShapeBaseImageData.html#a6186bde3f0652e210b5c7885ac16f5ce" title="&quot;X Y Z ANGLE&quot; rotation offset from the ShapeBase model's eye node.">eyeRotation</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="a6186bde3f0652e210b5c7885ac16f5ce"></a>
+                <!-- doxytag: member="ShapeBaseImageData::eyeRotation" ref="a6186bde3f0652e210b5c7885ac16f5ce" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">MatrixRotation <a class="el" href="ShapeBaseImageData.html#a6186bde3f0652e210b5c7885ac16f5ce">ShapeBaseImageData::eyeRotation</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>&quot;X Y Z ANGLE&quot; rotation offset from the <a class="el" href="ShapeBase.html" title="A scriptable, renderable shape.">ShapeBase</a> model's eye node. </p>
+                    <p>When in first person view, this is the rotation from the eye node to place the gun. </p>
+                    <dl class="see">
+                      <dt><b>See also:</b></dt>
+                      <dd><a class="el" href="ShapeBaseImageData.html#a913cfb8e4212cd6a9b2ef55124560a18" title="&quot;X Y Z&quot; translation offset from the ShapeBase model's eye node.">eyeOffset</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="ac78abd2fa1fc84a4fd67457c35c8a11f"></a>
+                <!-- doxytag: member="ShapeBaseImageData::firstPerson" ref="ac78abd2fa1fc84a4fd67457c35c8a11f" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">bool <a class="el" href="ShapeBaseImageData.html#ac78abd2fa1fc84a4fd67457c35c8a11f">ShapeBaseImageData::firstPerson</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Set to true to render the image in first person. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a92a2a53429ae64144097d828fac30288"></a>
+                <!-- doxytag: member="ShapeBaseImageData::imageAnimPrefix" ref="a92a2a53429ae64144097d828fac30288" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">caseString <a class="el" href="ShapeBaseImageData.html#a92a2a53429ae64144097d828fac30288">ShapeBaseImageData::imageAnimPrefix</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Passed along to the mounting shape to modify animation sequences played in third person. [optional]. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="aba96fd8430031921813a91907b8a48df"></a>
+                <!-- doxytag: member="ShapeBaseImageData::imageAnimPrefixFP" ref="aba96fd8430031921813a91907b8a48df" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">caseString <a class="el" href="ShapeBaseImageData.html#aba96fd8430031921813a91907b8a48df">ShapeBaseImageData::imageAnimPrefixFP</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Passed along to the mounting shape to modify animation sequences played in first person. [optional]. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="af8ce8483961f42c0635062a36e217901"></a>
+                <!-- doxytag: member="ShapeBaseImageData::lightBrightness" ref="af8ce8483961f42c0635062a36e217901" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">float <a class="el" href="ShapeBaseImageData.html#af8ce8483961f42c0635062a36e217901">ShapeBaseImageData::lightBrightness</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Brightness of the light this Image emits. </p>
+                    <p>Only valid for WeaponFireLight.</p>
+                    <dl class="see">
+                      <dt><b>See also:</b></dt>
+                      <dd><a class="el" href="ShapeBaseImageData.html#acfc894659a60a9f20f58a62815c783aa" title="The type of light this Image emits.">lightType</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="a7eeaed257f004e01af490ab01c6cdd87"></a>
+                <!-- doxytag: member="ShapeBaseImageData::lightColor" ref="a7eeaed257f004e01af490ab01c6cdd87" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">ColorF <a class="el" href="ShapeBaseImageData.html#a7eeaed257f004e01af490ab01c6cdd87">ShapeBaseImageData::lightColor</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>The color of light this Image emits. </p>
+                    <dl class="see">
+                      <dt><b>See also:</b></dt>
+                      <dd><a class="el" href="ShapeBaseImageData.html#acfc894659a60a9f20f58a62815c783aa" title="The type of light this Image emits.">lightType</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="ac2e23bfe8ce499f19f8e0e270da2a38a"></a>
+                <!-- doxytag: member="ShapeBaseImageData::lightDuration" ref="ac2e23bfe8ce499f19f8e0e270da2a38a" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">int <a class="el" href="ShapeBaseImageData.html#ac2e23bfe8ce499f19f8e0e270da2a38a">ShapeBaseImageData::lightDuration</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Duration in SimTime of Pulsing and WeaponFire type lights. </p>
+                    <dl class="see">
+                      <dt><b>See also:</b></dt>
+                      <dd><a class="el" href="ShapeBaseImageData.html#acfc894659a60a9f20f58a62815c783aa" title="The type of light this Image emits.">lightType</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="aca8f7fcad3986ca6bc664529487fb5c6"></a>
+                <!-- doxytag: member="ShapeBaseImageData::lightRadius" ref="aca8f7fcad3986ca6bc664529487fb5c6" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">float <a class="el" href="ShapeBaseImageData.html#aca8f7fcad3986ca6bc664529487fb5c6">ShapeBaseImageData::lightRadius</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Radius of the light this Image emits. </p>
+                    <dl class="see">
+                      <dt><b>See also:</b></dt>
+                      <dd><a class="el" href="ShapeBaseImageData.html#acfc894659a60a9f20f58a62815c783aa" title="The type of light this Image emits.">lightType</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="acfc894659a60a9f20f58a62815c783aa"></a>
+                <!-- doxytag: member="ShapeBaseImageData::lightType" ref="acfc894659a60a9f20f58a62815c783aa" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname"><a class="el" href="group__gameObjects.html#gae57203d62ba4020eb2a14e2720a68f63">ShapeBaseImageLightType</a> <a class="el" href="ShapeBaseImageData.html#acfc894659a60a9f20f58a62815c783aa">ShapeBaseImageData::lightType</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>The type of light this Image emits. </p>
+                    <dl class="see">
+                      <dt><b>See also:</b></dt>
+                      <dd><a class="el" href="group__gameObjects.html#gae57203d62ba4020eb2a14e2720a68f63" title="The type of light to attach to this ShapeBaseImage.">ShapeBaseImageLightType</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="a9d967209722c12577e1b0773b65d670e"></a>
+                <!-- doxytag: member="ShapeBaseImageData::mass" ref="a9d967209722c12577e1b0773b65d670e" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">float <a class="el" href="ShapeBaseImageData.html#a9d967209722c12577e1b0773b65d670e">ShapeBaseImageData::mass</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Mass of this Image. </p>
+                    <p>This is added to the total mass of the <a class="el" href="ShapeBase.html" title="A scriptable, renderable shape.">ShapeBase</a> object. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="ac79708e5d837dbc6af20a175884a1357"></a>
+                <!-- doxytag: member="ShapeBaseImageData::maxConcurrentSounds" ref="ac79708e5d837dbc6af20a175884a1357" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">int <a class="el" href="ShapeBaseImageData.html#ac79708e5d837dbc6af20a175884a1357">ShapeBaseImageData::maxConcurrentSounds</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Maximum number of sounds this Image can play at a time. </p>
+                    <p>Any value &lt;= 0 indicates that it can play an infinite number of sounds. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a0c76338eba8789368ea5aaf65b9277d4"></a>
+                <!-- doxytag: member="ShapeBaseImageData::minEnergy" ref="a0c76338eba8789368ea5aaf65b9277d4" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">float <a class="el" href="ShapeBaseImageData.html#a0c76338eba8789368ea5aaf65b9277d4">ShapeBaseImageData::minEnergy</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Minimum Image energy for it to be operable. </p>
+                    <dl class="see">
+                      <dt><b>See also:</b></dt>
+                      <dd><a class="el" href="ShapeBaseImageData.html#a0390132bb22c1e8cec74d2d8adbbbdc2" title="Flag indicating whether this Image uses energy instead of ammo. The energy level...">usesEnergy</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="a50cc87b4d15aff2f4686dd8e59e789e6"></a>
+                <!-- doxytag: member="ShapeBaseImageData::mountPoint" ref="a50cc87b4d15aff2f4686dd8e59e789e6" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">int <a class="el" href="ShapeBaseImageData.html#a50cc87b4d15aff2f4686dd8e59e789e6">ShapeBaseImageData::mountPoint</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Mount node # to mount this Image to. </p>
+                    <p>This should correspond to a mount# node on the <a class="el" href="ShapeBase.html" title="A scriptable, renderable shape.">ShapeBase</a> derived object we are mounting to. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="ac4406e729b2ebf20b4885327c806b65c"></a>
+                <!-- doxytag: member="ShapeBaseImageData::offset" ref="ac4406e729b2ebf20b4885327c806b65c" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">MatrixPosition <a class="el" href="ShapeBaseImageData.html#ac4406e729b2ebf20b4885327c806b65c">ShapeBaseImageData::offset</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>&quot;X Y Z&quot; translation offset from this Image's <em>mountPoint</em> node to attach to. </p>
+                    <p>Defaults to &quot;0 0 0&quot;. ie. attach this Image's <em>mountPoint</em> node to the <a class="el" href="ShapeBase.html" title="A scriptable, renderable shape.">ShapeBase</a> model's mount# node without any offset. </p>
+                    <dl class="see">
+                      <dt><b>See also:</b></dt>
+                      <dd><a class="el" href="ShapeBaseImageData.html#a87eb1853865f7ba27c29cc23b2aede7b" title="&quot;X Y Z ANGLE&quot; rotation offset from this Image's mountPoint node to...">rotation</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="ac46682509ad342d8a5a34f35cac39390"></a>
+                <!-- doxytag: member="ShapeBaseImageData::Projectile" ref="ac46682509ad342d8a5a34f35cac39390" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname"><a class="el">ProjectileData</a> <a class="el" href="ShapeBaseImageData.html#ac46682509ad342d8a5a34f35cac39390">ShapeBaseImageData::Projectile</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>The projectile fired by this Image. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a87eb1853865f7ba27c29cc23b2aede7b"></a>
+                <!-- doxytag: member="ShapeBaseImageData::rotation" ref="a87eb1853865f7ba27c29cc23b2aede7b" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">MatrixRotation <a class="el" href="ShapeBaseImageData.html#a87eb1853865f7ba27c29cc23b2aede7b">ShapeBaseImageData::rotation</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>&quot;X Y Z ANGLE&quot; rotation offset from this Image's <em>mountPoint</em> node to attach to. </p>
+                    <p>Defaults to &quot;0 0 0&quot;. ie. attach this Image's <em>mountPoint</em> node to the <a class="el" href="ShapeBase.html" title="A scriptable, renderable shape.">ShapeBase</a> model's mount# node without any additional rotation. </p>
+                    <dl class="see">
+                      <dt><b>See also:</b></dt>
+                      <dd><a class="el" href="ShapeBaseImageData.html#ac4406e729b2ebf20b4885327c806b65c" title="&quot;X Y Z&quot; translation offset from this Image's mountPoint node to attach...">offset</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="a62c53567867bdcdd3ed26ad6253d6916"></a>
+                <!-- doxytag: member="ShapeBaseImageData::scriptAnimTransitionTime" ref="a62c53567867bdcdd3ed26ad6253d6916" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">float <a class="el" href="ShapeBaseImageData.html#a62c53567867bdcdd3ed26ad6253d6916">ShapeBaseImageData::scriptAnimTransitionTime</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>The amount of time to transition between the previous sequence and new sequence when the script prefix has changed. </p>
+                    <p>When setImageScriptAnimPrefix() is used on a <a class="el" href="ShapeBase.html" title="A scriptable, renderable shape.">ShapeBase</a> that has this image mounted, the image will attempt to switch to the new animation sequence based on the given script prefix. This is the amount of time it takes to transition from the previously playing animation sequence tothe new script prefix-based animation sequence. </p>
+                    <dl class="see">
+                      <dt><b>See also:</b></dt>
+                      <dd><a class="el" href="ShapeBase.html#af32f35605ca8fb4653c2381271f09a72" title="Set the script animation prefix for the Image mounted in the specified slot.">ShapeBase::setImageScriptAnimPrefix()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="a648390fa8001bc948fb9ee98f9c55480"></a>
+                <!-- doxytag: member="ShapeBaseImageData::shakeCamera" ref="a648390fa8001bc948fb9ee98f9c55480" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">bool <a class="el" href="ShapeBaseImageData.html#a648390fa8001bc948fb9ee98f9c55480">ShapeBaseImageData::shakeCamera</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Flag indicating whether the camera should shake when this Image fires. </p>
+                    <dl class="note">
+                      <dt><b>Note:</b></dt>
+                      <dd><a class="el" 
+                              title="Represents a position, direction and field of view to render a scene from.">Camera</a> shake only works properly if the player is in control of the one and only shapeBase object in the scene which fires an Image that uses camera shake. </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="a1a4d17551b261665e1b54656227de848"></a>
+                <!-- doxytag: member="ShapeBaseImageData::shapeFile" ref="a1a4d17551b261665e1b54656227de848" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">filename <a class="el" href="ShapeBaseImageData.html#a1a4d17551b261665e1b54656227de848">ShapeBaseImageData::shapeFile</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>The DTS or DAE model to use for this Image. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a31231cc35845f73a38aeeeaebac1f367"></a>
+                <!-- doxytag: member="ShapeBaseImageData::shapeFileFP" ref="a31231cc35845f73a38aeeeaebac1f367" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">filename <a class="el" href="ShapeBaseImageData.html#a31231cc35845f73a38aeeeaebac1f367">ShapeBaseImageData::shapeFileFP</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>The DTS or DAE model to use for this Image when in first person. </p>
+                    <p>This is an optional parameter that also requires either eyeOffset or useEyeNode to be set. If none of these conditions is met then shapeFile will be used for all cases.</p>
+                    <p>Typically you set a first person image for a weapon that includes the player's arms attached to it for animating while firing, reloading, etc. This is typical of many FPS games.</p>
+                    <dl class="see">
+                      <dt><b>See also:</b></dt>
+                      <dd><a class="el" href="ShapeBaseImageData.html#a913cfb8e4212cd6a9b2ef55124560a18" title="&quot;X Y Z&quot; translation offset from the ShapeBase model's eye node.">eyeOffset</a> </dd>
+                      <dd> <a class="el" href="ShapeBaseImageData.html#ac398de7e09bdd5c0713af499ae56508c" title="Mount image using image's eyeMount node and place the camera at the image's...">useEyeNode</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="ae7e117b394d720b7f4a46b1fb195a0d7"></a>
+                <!-- doxytag: member="ShapeBaseImageData::shellExitDir" ref="ae7e117b394d720b7f4a46b1fb195a0d7" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">Point3F <a class="el" href="ShapeBaseImageData.html#ae7e117b394d720b7f4a46b1fb195a0d7">ShapeBaseImageData::shellExitDir</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Vector direction to eject shell casings. </p>
+                    <dl class="see">
+                      <dt><b>See also:</b></dt>
+                      <dd><a class="el" href="ShapeBaseImageData.html#a3f54f20c648793e7187a239acacecde8" title="DebrisData datablock to use for ejected casings.">casing</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="aa96d818d41552d6913ddeef6fe5319d4"></a>
+                <!-- doxytag: member="ShapeBaseImageData::shellExitVariance" ref="aa96d818d41552d6913ddeef6fe5319d4" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">float <a class="el" href="ShapeBaseImageData.html#aa96d818d41552d6913ddeef6fe5319d4">ShapeBaseImageData::shellExitVariance</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Variance (in degrees) from the shellExitDir vector to eject casings. </p>
+                    <dl class="see">
+                      <dt><b>See also:</b></dt>
+                      <dd><a class="el" href="ShapeBaseImageData.html#ae7e117b394d720b7f4a46b1fb195a0d7" title="Vector direction to eject shell casings.">shellExitDir</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="a8a722795e018f3d9fb2c5a5072811c9a"></a>
+                <!-- doxytag: member="ShapeBaseImageData::shellVelocity" ref="a8a722795e018f3d9fb2c5a5072811c9a" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">float <a class="el" href="ShapeBaseImageData.html#a8a722795e018f3d9fb2c5a5072811c9a">ShapeBaseImageData::shellVelocity</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Speed at which to eject casings. </p>
+                    <dl class="see">
+                      <dt><b>See also:</b></dt>
+                      <dd><a class="el" href="ShapeBaseImageData.html#a3f54f20c648793e7187a239acacecde8" title="DebrisData datablock to use for ejected casings.">casing</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="a873d4da0b59683b8130f15e47c82a425"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateAllowImageChange" ref="a873d4da0b59683b8130f15e47c82a425" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">bool <a class="el" href="ShapeBaseImageData.html#a873d4da0b59683b8130f15e47c82a425">ShapeBaseImageData::stateAllowImageChange</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>If false, other Images will temporarily be blocked from mounting while the state machine is executing the tasks in this state. </p>
+                    <p>For instance, if we have a rocket launcher, the player shouldn't be able to switch out <em>while</em> firing. So, you'd set stateAllowImageChange to false in firing states, and true the rest of the time. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a2068bc6ec9ac59d8841e3c73c58ed79f"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateAlternateFire" ref="a2068bc6ec9ac59d8841e3c73c58ed79f" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">bool <a class="el" href="ShapeBaseImageData.html#a2068bc6ec9ac59d8841e3c73c58ed79f">ShapeBaseImageData::stateAlternateFire</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>The first state with this set to true is the state entered by the client when it receives the 'altFire' event. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a63c6b05e866da4a973713938c9197b99"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateDirection" ref="a63c6b05e866da4a973713938c9197b99" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">bool <a class="el" href="ShapeBaseImageData.html#a63c6b05e866da4a973713938c9197b99">ShapeBaseImageData::stateDirection</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Direction of the animation to play in this state. </p>
+                    <p>True is forward, false is backward. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="ac6ae7a6d797ff9ebb7c2ad2f5a95428b"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateEjectShell" ref="ac6ae7a6d797ff9ebb7c2ad2f5a95428b" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">bool <a class="el" href="ShapeBaseImageData.html#ac6ae7a6d797ff9ebb7c2ad2f5a95428b">ShapeBaseImageData::stateEjectShell</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>If true, a shell casing will be ejected in this state. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="ac6c00ec752f875d63b897ee96aa17d37"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateEmitter" ref="ac6c00ec752f875d63b897ee96aa17d37" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname"><a class="el" href="classParticleEmitterData.html">ParticleEmitterData</a> <a class="el" href="ShapeBaseImageData.html#ac6c00ec752f875d63b897ee96aa17d37">ShapeBaseImageData::stateEmitter</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Emitter to generate particles in this state (from muzzle point or specified node). </p>
+                    <dl class="see">
+                      <dt><b>See also:</b></dt>
+                      <dd><a class="el" href="ShapeBaseImageData.html#af574baec05b3aa233578e98efd5f06a4" title="Name of the node to emit particles from.">stateEmitterNode</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="af574baec05b3aa233578e98efd5f06a4"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateEmitterNode" ref="af574baec05b3aa233578e98efd5f06a4" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">string <a class="el" href="ShapeBaseImageData.html#af574baec05b3aa233578e98efd5f06a4">ShapeBaseImageData::stateEmitterNode</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Name of the node to emit particles from. </p>
+                    <dl class="see">
+                      <dt><b>See also:</b></dt>
+                      <dd><a class="el" href="ShapeBaseImageData.html#ac6c00ec752f875d63b897ee96aa17d37" title="Emitter to generate particles in this state (from muzzle point or specified node)...">stateEmitter</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="a32bfb16395f63bfaa92bf679aa17d53c"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateEmitterTime" ref="a32bfb16395f63bfaa92bf679aa17d53c" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">float <a class="el" href="ShapeBaseImageData.html#a32bfb16395f63bfaa92bf679aa17d53c">ShapeBaseImageData::stateEmitterTime</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>How long (in seconds) to emit particles on entry to this state. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="ab563eb973c255100b1eec0b4fdfdf0bd"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateEnergyDrain" ref="ab563eb973c255100b1eec0b4fdfdf0bd" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">float <a class="el" href="ShapeBaseImageData.html#ab563eb973c255100b1eec0b4fdfdf0bd">ShapeBaseImageData::stateEnergyDrain</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Amount of energy to subtract from the Image in this state. </p>
+                    <p>Energy is drained at stateEnergyDrain units/tick as long as we are in this state. </p>
+                    <dl class="see">
+                      <dt><b>See also:</b></dt>
+                      <dd><a class="el" href="ShapeBaseImageData.html#a0390132bb22c1e8cec74d2d8adbbbdc2" title="Flag indicating whether this Image uses energy instead of ammo. The energy level...">usesEnergy</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="af73b18eddbee50d234eec20b4db22915"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateFire" ref="af73b18eddbee50d234eec20b4db22915" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">bool <a class="el" href="ShapeBaseImageData.html#af73b18eddbee50d234eec20b4db22915">ShapeBaseImageData::stateFire</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>The first state with this set to true is the state entered by the client when it receives the 'fire' event. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="acdfc7f076ebfe72e7e1d0821b3f989be"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateIgnoreLoadedForReady" ref="acdfc7f076ebfe72e7e1d0821b3f989be" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">bool <a class="el" href="ShapeBaseImageData.html#acdfc7f076ebfe72e7e1d0821b3f989be">ShapeBaseImageData::stateIgnoreLoadedForReady</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>If set to true, and both ready and loaded transitions are true, the ready transition will be taken instead of the loaded transition. </p>
+                    <p>A state is 'ready' if pressing the fire trigger in that state would transition to the fire state. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="aaab162c0d7ee91f21a0606a83080ea6e"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateLoadedFlag" ref="aaab162c0d7ee91f21a0606a83080ea6e" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname"><a class="el" href="group__gameObjects.html#gaf1b62c6105b0d129cbd256d5c7e5e5f4">ShapeBaseImageLoadedState</a> <a class="el" href="ShapeBaseImageData.html#aaab162c0d7ee91f21a0606a83080ea6e">ShapeBaseImageData::stateLoadedFlag</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Set the loaded state of the Image. </p>
+                    <ul>
+                      <li> IgnoreLoaded: Don't change Image loaded state.</li>
+                      <li> Loaded: Set Image loaded state to true.</li>
+                      <li> NotLoaded: Set Image loaded state to false.</li>
+                    </ul>
+                    <dl class="see">
+                      <dt><b>See also:</b></dt>
+                      <dd><a class="el" href="group__gameObjects.html#gaf1b62c6105b0d129cbd256d5c7e5e5f4" title="The loaded state of this ShapeBaseImage.">ShapeBaseImageLoadedState</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="add69872cef7088b412af9a714be1c8cb"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateName" ref="add69872cef7088b412af9a714be1c8cb" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">caseString <a class="el" href="ShapeBaseImageData.html#add69872cef7088b412af9a714be1c8cb">ShapeBaseImageData::stateName</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Name of this state. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="abcc87dac9415a7827dc9ac8167d6b3d4"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateRecoil" ref="abcc87dac9415a7827dc9ac8167d6b3d4" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname"><a class="el" href="group__gameObjects.html#gaadeb409ab8118b044d7a57d3443cb40f">ShapeBaseImageRecoilState</a> <a class="el" href="ShapeBaseImageData.html#abcc87dac9415a7827dc9ac8167d6b3d4">ShapeBaseImageData::stateRecoil</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Type of recoil sequence to play on the <a class="el" href="ShapeBase.html" title="A scriptable, renderable shape.">ShapeBase</a> object on entry to this state. </p>
+                    <ul>
+                      <li> NoRecoil: Do not play a recoil sequence.</li>
+                      <li> LightRecoil: Play the light_recoil sequence.</li>
+                      <li> MediumRecoil: Play the medium_recoil sequence.</li>
+                      <li> HeavyRecoil: Play the heavy_recoil sequence.</li>
+                    </ul>
+                    <dl class="see">
+                      <dt><b>See also:</b></dt>
+                      <dd><a class="el" href="group__gameObjects.html#gaadeb409ab8118b044d7a57d3443cb40f" title="What kind of recoil this ShapeBaseImage should emit when fired.">ShapeBaseImageRecoilState</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="adaa7065e8bf62c69c04698030445a5a1"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateReload" ref="adaa7065e8bf62c69c04698030445a5a1" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">bool <a class="el" href="ShapeBaseImageData.html#adaa7065e8bf62c69c04698030445a5a1">ShapeBaseImageData::stateReload</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>The first state with this set to true is the state entered by the client when it receives the 'reload' event. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a2bae392c7ac0039f4b2b214f21ca0b79"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateScaleAnimation" ref="a2bae392c7ac0039f4b2b214f21ca0b79" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">bool <a class="el" href="ShapeBaseImageData.html#a2bae392c7ac0039f4b2b214f21ca0b79">ShapeBaseImageData::stateScaleAnimation</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>If true, the timeScale of the stateSequence animation will be adjusted such that the sequence plays for stateTimeoutValue seconds. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a6efa6d2f92a68dec3bf4f70632f4e3d9"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateScaleAnimationFP" ref="a6efa6d2f92a68dec3bf4f70632f4e3d9" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">bool <a class="el" href="ShapeBaseImageData.html#a6efa6d2f92a68dec3bf4f70632f4e3d9">ShapeBaseImageData::stateScaleAnimationFP</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>If true, the timeScale of the first person stateSequence animation will be adjusted such that the sequence plays for stateTimeoutValue seconds. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="ae4183857de134666e3947310b86bbb11"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateScaleShapeSequence" ref="ae4183857de134666e3947310b86bbb11" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">bool <a class="el" href="ShapeBaseImageData.html#ae4183857de134666e3947310b86bbb11">ShapeBaseImageData::stateScaleShapeSequence</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Indicates if the sequence to be played on the mounting shape should be scaled to the length of the state. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a61b1e6ea47b9d81a7e7e051ba91bd04a"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateScript" ref="a61b1e6ea47b9d81a7e7e051ba91bd04a" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">caseString <a class="el" href="ShapeBaseImageData.html#a61b1e6ea47b9d81a7e7e051ba91bd04a">ShapeBaseImageData::stateScript</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Method to execute on entering this state. </p>
+                    <p>Scoped to this image class name, then <a class="el" href="ShapeBaseImageData.html" title="Represents geometry to be mounted to a ShapeBase object.">ShapeBaseImageData</a>. The script callback function takes the same arguments as the onMount callback. </p>
+                    <dl class="see">
+                      <dt><b>See also:</b></dt>
+                      <dd><a class="el" href="ShapeBaseImageData.html#a95c29d9f866cbd16a1dac481567fcee8" title="Called when the Image is first mounted to the object.">onMount()</a> for the same arguments as this callback. </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="a2cc77806e23f8227757fa836621a7485"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateSequence" ref="a2cc77806e23f8227757fa836621a7485" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">string <a class="el" href="ShapeBaseImageData.html#a2cc77806e23f8227757fa836621a7485">ShapeBaseImageData::stateSequence</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Name of the sequence to play on entry to this state. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="ac3880ab0c320b828a6030c6be4ff3db2"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateSequenceNeverTransition" ref="ac3880ab0c320b828a6030c6be4ff3db2" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">bool <a class="el" href="ShapeBaseImageData.html#ac3880ab0c320b828a6030c6be4ff3db2">ShapeBaseImageData::stateSequenceNeverTransition</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Never allow a transition to this sequence. Often used for a fire sequence. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a8b3fc24f850a9305cbe1ef9ae2350891"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateSequenceRandomFlash" ref="a8b3fc24f850a9305cbe1ef9ae2350891" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">bool <a class="el" href="ShapeBaseImageData.html#a8b3fc24f850a9305cbe1ef9ae2350891">ShapeBaseImageData::stateSequenceRandomFlash</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>If true, the muzzle flash sequence will be played while in this state. </p>
+                    <p>The name of the muzzle flash sequence is the same as stateSequence, with &quot;_vis&quot; at the end. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a6bc5211dc30f7b5c953c4f31b66f4b25"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateSequenceTransitionIn" ref="a6bc5211dc30f7b5c953c4f31b66f4b25" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">bool <a class="el" href="ShapeBaseImageData.html#a6bc5211dc30f7b5c953c4f31b66f4b25">ShapeBaseImageData::stateSequenceTransitionIn</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Do we transition to the state's sequence when we enter the state? </p>
+                  </div>
+                </div>
+                <a class="anchor" id="ae6672f9d5a9eb6fd32259e5744ec9536"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateSequenceTransitionOut" ref="ae6672f9d5a9eb6fd32259e5744ec9536" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">bool <a class="el" href="ShapeBaseImageData.html#ae6672f9d5a9eb6fd32259e5744ec9536">ShapeBaseImageData::stateSequenceTransitionOut</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Do we transition to the new state's sequence when we leave the state? </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a63b40e58463836e12a2366351adbc84c"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateSequenceTransitionTime" ref="a63b40e58463836e12a2366351adbc84c" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">float <a class="el" href="ShapeBaseImageData.html#a63b40e58463836e12a2366351adbc84c">ShapeBaseImageData::stateSequenceTransitionTime</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>The time to transition in or out of a sequence. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a9237b86de8f8163ce1216c895967d1fc"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateShapeSequence" ref="a9237b86de8f8163ce1216c895967d1fc" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">string <a class="el" href="ShapeBaseImageData.html#a9237b86de8f8163ce1216c895967d1fc">ShapeBaseImageData::stateShapeSequence</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Name of the sequence that is played on the mounting shape. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a1077edf291b0a9896cb3939b8525b31d"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateSound" ref="a1077edf291b0a9896cb3939b8525b31d" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname"><a class="el">SFXTrack</a> <a class="el" href="ShapeBaseImageData.html#a1077edf291b0a9896cb3939b8525b31d">ShapeBaseImageData::stateSound</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Sound to play on entry to this state. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a3f55030ac885557ef13b2fdc2ce92376"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateSpinThread" ref="a3f55030ac885557ef13b2fdc2ce92376" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname"><a class="el" href="group__gameObjects.html#gac8fce086e3b8d37230c2290edf6a4734">ShapeBaseImageSpinState</a> <a class="el" href="ShapeBaseImageData.html#a3f55030ac885557ef13b2fdc2ce92376">ShapeBaseImageData::stateSpinThread</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Controls how fast the 'spin' animation sequence will be played in this state. </p>
+                    <ul>
+                      <li> Ignore: No change to the spin sequence.</li>
+                      <li> Stop: Stops the spin sequence at its current position.</li>
+                      <li> SpinUp: Increase spin sequence timeScale from 0 (on state entry) to 1 (after stateTimeoutValue seconds).</li>
+                      <li> SpinDown: Decrease spin sequence timeScale from 1 (on state entry) to 0 (after stateTimeoutValue seconds).</li>
+                      <li> FullSpeed: Resume the spin sequence playback at its current position with timeScale=1.</li>
+                    </ul>
+                    <dl class="see">
+                      <dt><b>See also:</b></dt>
+                      <dd><a class="el" href="group__gameObjects.html#gac8fce086e3b8d37230c2290edf6a4734" title="How the spin animation should be played.">ShapeBaseImageSpinState</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="a2b1f004c6324ea1739a2af79cbdffc25"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateTimeoutValue" ref="a2b1f004c6324ea1739a2af79cbdffc25" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">float <a class="el" href="ShapeBaseImageData.html#a2b1f004c6324ea1739a2af79cbdffc25">ShapeBaseImageData::stateTimeoutValue</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Time in seconds to wait before transitioning to stateTransitionOnTimeout. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="ac8bfe247a0fdd9f24785cd0b8fc032cd"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateTransitionGeneric0In" ref="ac8bfe247a0fdd9f24785cd0b8fc032cd" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">string <a class="el" href="ShapeBaseImageData.html#ac8bfe247a0fdd9f24785cd0b8fc032cd">ShapeBaseImageData::stateTransitionGeneric0In</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Name of the state to transition to when the generic trigger 0 state changes to true. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a9ccd915aa8706a55627ed9258078f5f1"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateTransitionGeneric0Out" ref="a9ccd915aa8706a55627ed9258078f5f1" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">string <a class="el" href="ShapeBaseImageData.html#a9ccd915aa8706a55627ed9258078f5f1">ShapeBaseImageData::stateTransitionGeneric0Out</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Name of the state to transition to when the generic trigger 0 state changes to false. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="acee86acf96cb1863097d676bee4f3add"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateTransitionGeneric1In" ref="acee86acf96cb1863097d676bee4f3add" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">string <a class="el" href="ShapeBaseImageData.html#acee86acf96cb1863097d676bee4f3add">ShapeBaseImageData::stateTransitionGeneric1In</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Name of the state to transition to when the generic trigger 1 state changes to true. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a97cad11998ab9ee3c90a7e7d382063d4"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateTransitionGeneric1Out" ref="a97cad11998ab9ee3c90a7e7d382063d4" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">string <a class="el" href="ShapeBaseImageData.html#a97cad11998ab9ee3c90a7e7d382063d4">ShapeBaseImageData::stateTransitionGeneric1Out</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Name of the state to transition to when the generic trigger 1 state changes to false. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="aca13f4d8d2c5061be6537a4a9cd85330"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateTransitionGeneric2In" ref="aca13f4d8d2c5061be6537a4a9cd85330" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">string <a class="el" href="ShapeBaseImageData.html#aca13f4d8d2c5061be6537a4a9cd85330">ShapeBaseImageData::stateTransitionGeneric2In</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Name of the state to transition to when the generic trigger 2 state changes to true. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="ac42886f8fff0a748a4b49a855a41fbc0"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateTransitionGeneric2Out" ref="ac42886f8fff0a748a4b49a855a41fbc0" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">string <a class="el" href="ShapeBaseImageData.html#ac42886f8fff0a748a4b49a855a41fbc0">ShapeBaseImageData::stateTransitionGeneric2Out</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Name of the state to transition to when the generic trigger 2 state changes to false. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a3219df3847fa0f5fcddeb7ce48afafc4"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateTransitionGeneric3In" ref="a3219df3847fa0f5fcddeb7ce48afafc4" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">string <a class="el" href="ShapeBaseImageData.html#a3219df3847fa0f5fcddeb7ce48afafc4">ShapeBaseImageData::stateTransitionGeneric3In</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Name of the state to transition to when the generic trigger 3 state changes to true. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a914715aafa9df586164d3be140bbd6b5"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateTransitionGeneric3Out" ref="a914715aafa9df586164d3be140bbd6b5" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">string <a class="el" href="ShapeBaseImageData.html#a914715aafa9df586164d3be140bbd6b5">ShapeBaseImageData::stateTransitionGeneric3Out</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Name of the state to transition to when the generic trigger 3 state changes to false. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a2ae0a0ab9513a052fbc0fc14dee0254f"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateTransitionOnAltTriggerDown" ref="a2ae0a0ab9513a052fbc0fc14dee0254f" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">string <a class="el" href="ShapeBaseImageData.html#a2ae0a0ab9513a052fbc0fc14dee0254f">ShapeBaseImageData::stateTransitionOnAltTriggerDown</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Name of the state to transition to when the alt trigger state of the Image changes to false (alt fire button up). </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a6bf9ad4366887433c210b7d4dc2b8b3c"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateTransitionOnAltTriggerUp" ref="a6bf9ad4366887433c210b7d4dc2b8b3c" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">string <a class="el" href="ShapeBaseImageData.html#a6bf9ad4366887433c210b7d4dc2b8b3c">ShapeBaseImageData::stateTransitionOnAltTriggerUp</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Name of the state to transition to when the alt trigger state of the Image changes to true (alt fire button down). </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a4770df0484785bb6e0048ca289a3dd25"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateTransitionOnAmmo" ref="a4770df0484785bb6e0048ca289a3dd25" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">string <a class="el" href="ShapeBaseImageData.html#a4770df0484785bb6e0048ca289a3dd25">ShapeBaseImageData::stateTransitionOnAmmo</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Name of the state to transition to when the ammo state of the Image changes to true. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a9f24d7fc5684fb9cf175d0ed3f87d19b"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateTransitionOnLoaded" ref="a9f24d7fc5684fb9cf175d0ed3f87d19b" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">string <a class="el" href="ShapeBaseImageData.html#a9f24d7fc5684fb9cf175d0ed3f87d19b">ShapeBaseImageData::stateTransitionOnLoaded</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Name of the state to transition to when the loaded state of the Image changes to 'Loaded'. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="ad063928b911db9ce2724fdfc89c43f2d"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateTransitionOnMotion" ref="ad063928b911db9ce2724fdfc89c43f2d" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">string <a class="el" href="ShapeBaseImageData.html#ad063928b911db9ce2724fdfc89c43f2d">ShapeBaseImageData::stateTransitionOnMotion</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Name of the state to transition to when the <a class="el" href="Player.html" title="A client-controlled player character.">Player</a> moves. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="ae9e0e65296e76355fb7011de57e589eb"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateTransitionOnNoAmmo" ref="ae9e0e65296e76355fb7011de57e589eb" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">string <a class="el" href="ShapeBaseImageData.html#ae9e0e65296e76355fb7011de57e589eb">ShapeBaseImageData::stateTransitionOnNoAmmo</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Name of the state to transition to when the ammo state of the Image changes to false. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="aaa5e22ed2c52f3699c5acf8c9b95cd2d"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateTransitionOnNoMotion" ref="aaa5e22ed2c52f3699c5acf8c9b95cd2d" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">string <a class="el" href="ShapeBaseImageData.html#aaa5e22ed2c52f3699c5acf8c9b95cd2d">ShapeBaseImageData::stateTransitionOnNoMotion</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Name of the state to transition to when the <a class="el" href="Player.html" title="A client-controlled player character.">Player</a> stops moving. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a9f5d2e936930b5642af844bafddcb783"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateTransitionOnNoTarget" ref="a9f5d2e936930b5642af844bafddcb783" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">string <a class="el" href="ShapeBaseImageData.html#a9f5d2e936930b5642af844bafddcb783">ShapeBaseImageData::stateTransitionOnNoTarget</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Name of the state to transition to when the Image loses a target. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="aaaebcbc1e739fe4ea549383086a546ef"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateTransitionOnNotLoaded" ref="aaaebcbc1e739fe4ea549383086a546ef" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">string <a class="el" href="ShapeBaseImageData.html#aaaebcbc1e739fe4ea549383086a546ef">ShapeBaseImageData::stateTransitionOnNotLoaded</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Name of the state to transition to when the loaded state of the Image changes to 'Empty'. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="ac7746a77d895987f7d6d2764ca0cb7f1"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateTransitionOnNotWet" ref="ac7746a77d895987f7d6d2764ca0cb7f1" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">string <a class="el" href="ShapeBaseImageData.html#ac7746a77d895987f7d6d2764ca0cb7f1">ShapeBaseImageData::stateTransitionOnNotWet</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Name of the state to transition to when the Image exits the water. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="ad397da4d7f798f6bfd7b44b821e2d0c8"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateTransitionOnTarget" ref="ad397da4d7f798f6bfd7b44b821e2d0c8" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">string <a class="el" href="ShapeBaseImageData.html#ad397da4d7f798f6bfd7b44b821e2d0c8">ShapeBaseImageData::stateTransitionOnTarget</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Name of the state to transition to when the Image gains a target. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a9639909ea6a7989daca29e186cd6117d"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateTransitionOnTimeout" ref="a9639909ea6a7989daca29e186cd6117d" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">string <a class="el" href="ShapeBaseImageData.html#a9639909ea6a7989daca29e186cd6117d">ShapeBaseImageData::stateTransitionOnTimeout</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Name of the state to transition to when we have been in this state for stateTimeoutValue seconds. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="ade3a437205e84c0901f4d69d76e64969"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateTransitionOnTriggerDown" ref="ade3a437205e84c0901f4d69d76e64969" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">string <a class="el" href="ShapeBaseImageData.html#ade3a437205e84c0901f4d69d76e64969">ShapeBaseImageData::stateTransitionOnTriggerDown</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Name of the state to transition to when the trigger state of the Image changes to false (fire button released). </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a17c3a8adf831514fdebd776650c61993"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateTransitionOnTriggerUp" ref="a17c3a8adf831514fdebd776650c61993" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">string <a class="el" href="ShapeBaseImageData.html#a17c3a8adf831514fdebd776650c61993">ShapeBaseImageData::stateTransitionOnTriggerUp</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Name of the state to transition to when the trigger state of the Image changes to true (fire button down). </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a1be212611a0c618484b318f117694eda"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateTransitionOnWet" ref="a1be212611a0c618484b318f117694eda" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">string <a class="el" href="ShapeBaseImageData.html#a1be212611a0c618484b318f117694eda">ShapeBaseImageData::stateTransitionOnWet</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Name of the state to transition to when the Image enters the water. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a7646d4be89d4e594cb2fc0741951487d"></a>
+                <!-- doxytag: member="ShapeBaseImageData::stateWaitForTimeout" ref="a7646d4be89d4e594cb2fc0741951487d" args="[31]" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">bool <a class="el" href="ShapeBaseImageData.html#a7646d4be89d4e594cb2fc0741951487d">ShapeBaseImageData::stateWaitForTimeout</a>[31]</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>If false, this state ignores stateTimeoutValue and transitions immediately if other transition conditions are met. </p>
+                  </div>
+                </div>
+                <a class="anchor" id="ac398de7e09bdd5c0713af499ae56508c"></a>
+                <!-- doxytag: member="ShapeBaseImageData::useEyeNode" ref="ac398de7e09bdd5c0713af499ae56508c" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">bool <a class="el" href="ShapeBaseImageData.html#ac398de7e09bdd5c0713af499ae56508c">ShapeBaseImageData::useEyeNode</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Mount image using image's eyeMount node and place the camera at the image's eye node (or at the eyeMount node if the eye node is missing). </p>
+                    <p>When in first person view, if an 'eyeMount' node is present in the image's shape, this indicates that the image should mount eyeMount node to <a class="el" href="Player.html" title="A client-controlled player character.">Player</a> eye node for image placement. The Player's camera should also mount to the image's eye node to inherit any animation (or the eyeMount node if the image doesn't have an eye node).</p>
+                    <dl class="note">
+                      <dt><b>Note:</b></dt>
+                      <dd>Used instead of eyeOffset.</dd>
+                      <dd> Read about the animateOnServer field as you may want to set it to true if you're using useEyeNode.</dd>
+                    </dl>
+                    <dl class="see">
+                      <dt><b>See also:</b></dt>
+                      <dd><a class="el" href="ShapeBaseImageData.html#a913cfb8e4212cd6a9b2ef55124560a18" title="&quot;X Y Z&quot; translation offset from the ShapeBase model's eye node.">eyeOffset</a></dd>
+                      <dd> <a class="el" href="ShapeBaseImageData.html#a5d4857c07d7a6fa214c899f0f9ef79fd" title="Indicates that the image should be animated on the server.">animateOnServer</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a class="anchor" id="a9775fe3683dfb37290da8b1127b92095"></a>
+                <!-- doxytag: member="ShapeBaseImageData::useRemainderDT" ref="a9775fe3683dfb37290da8b1127b92095" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">bool <a class="el" href="ShapeBaseImageData.html#a9775fe3683dfb37290da8b1127b92095">ShapeBaseImageData::useRemainderDT</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>If true, allow multiple timeout transitions to occur within a single tick (useful if states have a very small timeout). </p>
+                  </div>
+                </div>
+                <a class="anchor" id="a0390132bb22c1e8cec74d2d8adbbbdc2"></a>
+                <!-- doxytag: member="ShapeBaseImageData::usesEnergy" ref="a0390132bb22c1e8cec74d2d8adbbbdc2" args="" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">bool <a class="el" href="ShapeBaseImageData.html#a0390132bb22c1e8cec74d2d8adbbbdc2">ShapeBaseImageData::usesEnergy</a></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Flag indicating whether this Image uses energy instead of ammo. The energy level comes from the <a class="el" href="ShapeBase.html" title="A scriptable, renderable shape.">ShapeBase</a> object we're mounted to. </p>
+                    <dl class="see">
+                      <dt><b>See also:</b></dt>
+                      <dd><a class="el" href="ShapeBase.html#a53d5751801cfc542768fe5e6e4a1c346" title="Set this object's current energy level.">ShapeBase::setEnergyLevel()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+        <div class="memitem"><div class="memdoc"></div>
+</div>
+</div></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

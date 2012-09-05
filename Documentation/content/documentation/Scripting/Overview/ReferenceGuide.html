@@ -1,0 +1,1873 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 50;
+   parent.leftFrame.expandToItem('tree2', 'doc50');
+   var element = parent.leftFrame.document.getElementById('doc50');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+
+<title>Torque 3D - Torque Script Introduction</title>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_Scripting_Overview_ReferenceGuide skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Language_Features"><span class="tocnumber">1</span> <span class="toctext">Language Features</span></a></li>
+                          <li class="toclevel-1"><a href="#Variable_Names"><span class="tocnumber">2</span> <span class="toctext">Variable Names</span></a></li>
+                          <li class="toclevel-1"><a href="#Constants"><span class="tocnumber">3</span> <span class="toctext">Constants</span></a></li>
+                          <li class="toclevel-1"><a href="#Operators"><span class="tocnumber">4</span> <span class="toctext">Operators</span></a></li>
+                          <li class="toclevel-1"><a href="#Keywords"><span class="tocnumber">5</span> <span class="toctext">Keywords</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#break"><span class="tocnumber">5.1</span> <span class="toctext">break</span></a></li>
+                              <li class="toclevel-2"><a href="#case"><span class="tocnumber">5.2</span> <span class="toctext">case</span></a></li>
+                              <li class="toclevel-2"><a href="#continue"><span class="tocnumber">5.3</span> <span class="toctext">continue</span></a></li>
+                              <li class="toclevel-2"><a href="#datablock"><span class="tocnumber">5.4</span> <span class="toctext">datablock</span></a></li>
+                              <li class="toclevel-2"><a href="#default"><span class="tocnumber">5.5</span> <span class="toctext">default</span></a></li>
+                              <li class="toclevel-2"><a href="#else"><span class="tocnumber">5.6</span> <span class="toctext">else</span></a></li>
+                              <li class="toclevel-2"><a href="#FALSE"><span class="tocnumber">5.7</span> <span class="toctext">FALSE</span></a></li>
+                              <li class="toclevel-2"><a href="#for"><span class="tocnumber">5.8</span> <span class="toctext">for</span></a></li>
+                              <li class="toclevel-2"><a href="#function"><span class="tocnumber">5.9</span> <span class="toctext">function</span></a></li>
+                              <li class="toclevel-2"><a href="#if"><span class="tocnumber">5.10</span> <span class="toctext">if</span></a></li>
+                              <li class="toclevel-2"><a href="#new"><span class="tocnumber">5.11</span> <span class="toctext">new</span></a></li>
+                              <li class="toclevel-2"><a href="#package"><span class="tocnumber">5.12</span> <span class="toctext">package</span></a></li>
+                              <li class="toclevel-2"><a href="#parent"><span class="tocnumber">5.13</span> <span class="toctext">parent</span></a></li>
+                              <li class="toclevel-2"><a href="#return"><span class="tocnumber">5.14</span> <span class="toctext">return</span></a></li>
+                              <li class="toclevel-2"><a href="#switch"><span class="tocnumber">5.15</span> <span class="toctext">switch</span></a></li>
+                              <li class="toclevel-2"><a href="#switch.24"><span class="tocnumber">5.16</span> <span class="toctext">switch$</span></a></li>
+                              <li class="toclevel-2"><a href="#TRUE"><span class="tocnumber">5.17</span> <span class="toctext">TRUE</span></a></li>
+                              <li class="toclevel-2"><a href="#while"><span class="tocnumber">5.18</span> <span class="toctext">while</span></a></li>
+                            </ul>
+                          </li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p>&nbsp;</p>
+                <p><strong>IMPORTANT:</strong> You can download and view the Full TorqueScript Manual by clicking here: <a href="../Torque 3D - Script Manual.chm" class="downloads">TorqueScript Reference Manual</a></p><br />
+                <p><strong>Note for Windows Users:</strong> Due to security measures, the OS may block the CHM after you download it. To unblock it, perform the following steps:<br /></p>
+                <p>1. Locate CHM on your hard drive<br />
+                2. Right click on the CHM, then click Properties<br />
+                3. At the bottom, click the "Unblock" button<br />
+                4. Apply and close the properties<br /><br /></p>
+                  <strong>Note for OSX Users:</strong> There is no default CHM viewer installed with Mac OSX. There are several free options available for download:<br />
+                    <ul><li><a href="http://chmox.sourceforge.net/" class="external">Chmox</a></li>
+                    <li><a href="http://www.robinlu.com/blog/ichm" class="external">iChm</a></li>
+                </ul>
+                <br />
+                <p><a name="Language_Features" id="Language_Features"></a>
+                </p>
+                <h2> <span class="mw-headline">Language Features</span></h2>
+                <p>TorqueScript is a typeless scripting language, with similarities in
+                  syntax to C/C++. In TorqueScript, you will find that most C/C++
+                  operators work in the familiar way (with important exceptions, as noted
+                  here). Besides a subset of C/C++, TorqueScript provides: </p>
+                <ul>
+                  <li>Case-insensitive symbols; keywords <i>false</i> and <i>FALSE</i> are identical. </li>
+                  <li>Auto creation and destruction of local/global variables and their storage. </li>
+                  <li>String concatenation, comparison, and auto-string-constant creation. </li>
+                  <li>Function packaging. </li>
+                </ul><br />
+                <a name="Variable_Names" id="Variable_Names"></a>
+                <h2> <span class="mw-headline">Variable Names</span></h2></td>
+            </tr>
+          </tbody>
+        </table>
+        <table bgcolor="#eeeeee" border="1" cellpadding="4" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <th bgcolor="#6699ff" width="10%"><b>Type</b></th>
+              <th width="10%"><b>Syntax</b></th>
+              <th><b>Example</b></th>
+              <th><b>Explanation</b></th>
+            </tr>
+            <tr>
+              <td bgcolor="#6699ff"><b>
+                
+                  Global
+                
+                </b></td>
+              <td>
+                  prefix $
+                </td>
+              <td>
+                  $a
+                </td>
+              <td>
+                  $a is a global variable
+                </td>
+            </tr>
+            <tr>
+              <td bgcolor="#6699ff"><b>
+                
+                  Local
+                
+                </b></td>
+              <td>
+                  prefix %
+                </td>
+              <td>
+                  %b
+                </td>
+              <td>
+                  %b is a local variable
+                </td>
+            </tr>
+            <tr>
+              <td rowspan="3" bgcolor="#6699ff" valign="top"><b>Array</b><br />
+                  (Global<br />
+                  or Local)
+                </td>
+              <td rowspan="2" bgcolor="#eeeeee" valign="top">
+                  postfix []
+                </td>
+              <td>
+                  $MyArray[n]
+                </td>
+              <td>
+                  Array
+                </td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top">
+                  $MyMultiArray[n,m]
+                
+                
+                  $MyMultiArrayn_m
+                </td>
+              <td align="left" bgcolor="#eeeeee" valign="top">
+                  Multi-dimensional array
+                </td>
+            </tr>
+            <tr>
+              <td colspan="3" bgcolor="#eeeeee"><p><b>Note:</b> TorqueScript does not have support for arrays as such.
+                  Instead, the bracket notation is a shorthand for creating a variable
+                  name. $a[0] is synonymous with $a0, and $M[1,4] with $M1_4. You must
+                  not think of $a as the name of the array containing $a[5]. TorqueScript
+                  arrays provide the means for creating variable names dynamically: if $i
+                  is 5, then $a[$i] is synonymous with $a5. </p></td>
+            </tr>
+          </tbody>
+        </table><br />
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><a name="Constants" id="Constants"></a>
+                <h2> <span class="mw-headline">Constants</span></h2></td>
+            </tr>
+          </tbody>
+        </table>
+        <table bgcolor="#eeeeee" border="1" cellpadding="4" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <th bgcolor="#6699ff" width="10%"><b>Type</b></th>
+              <th bgcolor="#eeeeee" width="20%"><b>Example</b></th>
+              <th bgcolor="#eeeeee"><b>Explanation</b></th>
+            </tr>
+            <tr>
+              <td rowspan="2" bgcolor="#6699ff" valign="top"><b>
+                
+                  Boolean
+                
+                </b></td>
+              <td>
+                  TRUE
+                </td>
+              <td>
+                  1
+                </td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top">
+                  FALSE
+                </td>
+              <td align="left" bgcolor="#eeeeee" valign="top">
+                  0
+                </td>
+            </tr>
+            <tr>
+              <td rowspan="2" bgcolor="#6699ff" valign="top"><b>
+                
+                  Integer
+                
+                </b></td>
+              <td>
+                  123
+                </td>
+              <td>
+                  decimal
+                </td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top">
+                  0xabc
+                </td>
+              <td align="left" bgcolor="#eeeeee" valign="top">
+                  hexadecimal
+                </td>
+            </tr>
+            <tr>
+              <td rowspan="3" bgcolor="#6699ff" valign="top"><b>
+                
+                  Float
+                
+                </b></td>
+              <td align="left" bgcolor="#eeeeee" valign="top">
+                  1.23
+                </td>
+              <td align="left" bgcolor="#eeeeee" valign="top">
+                  floating-point
+                </td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top">
+                  1.00E-003
+                </td>
+              <td align="left" bgcolor="#eeeeee" valign="top">
+                  scientific notation
+                </td>
+            </tr>
+            <tr>
+              <td colspan="2" bgcolor="#eeeeee"><b>Note</b>: If the float is less
+                than 1, explicitly include the leading "0" before the ".", e.g., "0.2".
+                Entering ".2" will not work in every circumstance.</td>
+            </tr>
+            <tr>
+              <td rowspan="10" bgcolor="#6699ff" valign="top"><b>
+                
+                  Character
+                
+                </b></td>
+              <td>
+                  \n
+                </td>
+              <td>
+                  newline
+                </td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top">
+                  \r
+                </td>
+              <td align="left" bgcolor="#eeeeee" valign="top">
+                  carriage return
+                </td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top">
+                  \t
+                </td>
+              <td align="left" bgcolor="#eeeeee" valign="top">
+                  tab
+                </td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top">
+                  \c0 .. \c9
+                </td>
+              <td align="left" bgcolor="#eeeeee" valign="top">
+                  colorize subsequent console output
+                </td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top">
+                  \cr
+                </td>
+              <td align="left" bgcolor="#eeeeee" valign="top">
+                  reset to default color
+                </td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top">
+                  \cp
+                </td>
+              <td align="left" bgcolor="#eeeeee" valign="top">
+                  push color from color stack
+                </td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top">
+                  \co
+                </td>
+              <td align="left" bgcolor="#eeeeee" valign="top">
+                  pop color from color stack
+                </td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top">
+                  \xhh
+                </td>
+              <td align="left" bgcolor="#eeeeee" valign="top">
+                  two-digit hex value ASCII code
+                </td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top">
+                  \\
+                </td>
+              <td align="left" bgcolor="#eeeeee" valign="top">
+                  backslash
+                </td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top">
+                  \"
+                </td>
+              <td align="left" bgcolor="#eeeeee" valign="top">
+                  double-quotes
+                </td>
+            </tr>
+            <tr>
+              <td rowspan="2" bgcolor="#6699ff" valign="top"><b>
+                
+                  String
+                
+                </b></td>
+              <td>
+                  "Hello world"
+                </td>
+              <td>
+                  Normal string
+                </td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top">
+                  'Torque Rocks'
+                </td>
+              <td align="left" bgcolor="#eeeeee" valign="top">
+                  A tagged
+                  string, as used in communication between client and server. The value
+                  of a tagged string is sent only once; subsequently, only the tag is
+                  sent. Clients will store the string at an index identified by the tag
+                  and can look up the value, avoiding the need for it to be sent
+                  repeatedly.
+                </td>
+            </tr>
+            <tr>
+              <td rowspan="2" bgcolor="#6699ff" valign="top"><b>
+                
+                  Vector
+                
+                </b></td>
+              <td>
+                  "1.0 2.0 1.0 2.0"
+                </td>
+              <td>
+                  4-element vector
+                </td>
+            </tr>
+            <tr>
+              <td colspan="2" bgcolor="#eeeeee"><p><b>Note:</b> TorqueScript does not have support for vectors as such.
+                  The vector exemplified here is simply a space-separated string. Space-,
+                  tab-, and newline-separated strings crop up in the calling sequence of
+                  certain functions, notably in the return value, which technically is a
+                  scalar, but may be a string that can be interpreted as a vector. </p></td>
+            </tr>
+          </tbody>
+        </table><br />
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><a name="Operators" id="Operators"></a>
+                <h2> <span class="mw-headline">Operators</span></h2></td>
+            </tr>
+          </tbody>
+        </table>
+        <table bgcolor="#eeeeee" border="1" cellpadding="4" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <th bgcolor="#eeeeee" width="15%"><b>
+                
+                  Operator
+                
+                </b></th>
+              <th bgcolor="#eeeeee" width="20%"><b>
+                
+                  Name
+                
+                </b></th>
+              <th bgcolor="#eeeeee" width="20%"><b>
+                
+                  Example
+                
+                </b></th>
+              <th bgcolor="#eeeeee" width="45%"><b>
+                
+                  Explanation
+                
+                </b></th>
+            </tr>
+            <tr>
+              <td colspan="4" bgcolor="#6699ff"><b>Arithmetic Operators</b>
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  *
+                </td>
+              <td>
+                  multiplication
+                </td>
+              <td>
+                  $a * $b
+                </td>
+              <td>
+                  Multiply $a and $b.
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  /
+                </td>
+              <td>
+                  division
+                </td>
+              <td>
+                  $a / $b
+                </td>
+              <td>
+                  Divide $a by $b.
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  %
+                </td>
+              <td>
+                  modulo
+                </td>
+              <td>
+                  $a % $b
+                </td>
+              <td>
+                  Remainder of $a divided by $b.
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  +
+                </td>
+              <td>
+                  addition
+                </td>
+              <td>
+                  $a + $b
+                </td>
+              <td>
+                  Add $a and $b.
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  -
+                </td>
+              <td>
+                  subtraction
+                </td>
+              <td>
+                  $a - $b
+                </td>
+              <td>
+                  Subtract $b from $a.
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  ++
+                </td>
+              <td>
+                  auto-increment<br />
+                  (post-fix only)
+                </td>
+              <td>
+                  $a++
+                </td>
+              <td>
+                  Increment $a. Note: ++$a is illegal.
+                
+                <b>Note:</b> the value of $a++ is that of the incremented variable: auto-increment
+                  is post-fix in syntax, but pre-increment in semantics (the variable is
+                  incremented, <i>before</i> the return value is calculated). This behavior is unlike that of C and C++.
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  - -
+                </td>
+              <td>
+                  auto-decrement<br />
+                  (post-fix only)
+                </td>
+              <td>
+                  $b--
+                </td>
+              <td>
+                  Decrement $b. Note: --$b is illegal.
+                
+                <b>Note:</b> the value of $a-- is that of the decremented variable: auto-decrement
+                  is post-fix in syntax, but pre-decrement in semantics (the variable is
+                  decremented, <i>before</i> the return value is calculated). This behavior is unlike that of C and C++.
+                </td>
+            </tr>
+            <tr>
+              <td colspan="4" bgcolor="#6699ff"><b>Relations (Arithmetic, Logical, and String)</b>
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  &lt;
+                </td>
+              <td>
+                  Less than
+                </td>
+              <td>
+                  $a &lt; $b
+                </td>
+              <td>
+                  1 if $a is less than % b (0 otherwise.)
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  &gt;
+                </td>
+              <td>
+                  More than
+                </td>
+              <td>
+                  $a &gt; $b
+                </td>
+              <td>
+                  1 if $a is greater than % b (0 otherwise.)
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  &lt;=
+                </td>
+              <td>
+                  Less than or Equal to
+                </td>
+              <td>
+                  $a &lt;= $b
+                </td>
+              <td>
+                  1 if $a is less than or equal to % b (0 otherwise.)
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  &gt;=
+                </td>
+              <td>
+                  More than or Equal to
+                </td>
+              <td>
+                  $a &gt;= $b
+                </td>
+              <td>
+                  1 if $a is greater than or equal to % b (0 otherwise.)
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  ==
+                </td>
+              <td>
+                  Equal to
+                </td>
+              <td>
+                  $a == $b
+                </td>
+              <td>
+                  1 if $a is equal to % b (0 otherwise.)
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  !=
+                </td>
+              <td>
+                  Not equal to
+                </td>
+              <td>
+                  $a != $b
+                </td>
+              <td>
+                  1 if $a is not equal to % b (0 otherwise.)
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  !
+                </td>
+              <td>
+                  Logical NOT
+                </td>
+              <td>
+                  !$a
+                </td>
+              <td>
+                  1 if $a is 0 (0 otherwise.)
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  &amp;&amp;
+                </td>
+              <td>
+                  Logical AND
+                </td>
+              <td>
+                  $a &amp;&amp; $b
+                </td>
+              <td>
+                  1 if $a and $b are both non-zero (0 otherwise.)
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  ||
+                </td>
+              <td>
+                  Logical OR
+                </td>
+              <td>
+                  $a || $b
+                </td>
+              <td>
+                  1 if either $a or $b is non-zero (0 otherwise.)
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  $=
+                </td>
+              <td>
+                  String equal to
+                </td>
+              <td>
+                  $c $= $d
+                </td>
+              <td>
+                  1 if $c equal to $d .
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  !$=
+                </td>
+              <td>
+                  String not equal to
+                </td>
+              <td>
+                  $c !$= $d
+                </td>
+              <td>
+                  1 if $c not equal to $d.
+                </td>
+            </tr>
+            <tr>
+              <td colspan="4" bgcolor="#6699ff"><b>Bitwise Operators</b>
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  ~
+                </td>
+              <td>
+                  Bitwise complement
+                </td>
+              <td>
+                  ~$a
+                </td>
+              <td>
+                  flip bits 1 to 0 and 0 to 1. (i.e. ~10b  == 01b)
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  &amp;
+                </td>
+              <td>
+                  Bitwise AND
+                </td>
+              <td>
+                  $a &amp; $b
+                </td>
+              <td>
+                  composite of elements where bits in same position are 1. (i.e. 1b &amp; 1b == 1b)
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  |
+                </td>
+              <td>
+                  Bitwise OR
+                </td>
+              <td>
+                  $a | $b
+                </td>
+              <td>
+                  composite of elements where bits 1 in either of the two elements. (i.e. 100b &amp; 001b == 101b)
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  ^
+                </td>
+              <td>
+                  Bitwise XOR
+                </td>
+              <td>
+                  $a ^ $b
+                </td>
+              <td>
+                  composite of elements where bits in same position are opposite.  (i.e. 100b &amp; 101b == 001b)
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  &lt;&lt;
+                </td>
+              <td>
+                  Left Shift
+                </td>
+              <td>
+                  $a &lt;&lt; 3
+                </td>
+              <td>
+                  element shifted left by 3 and padded with zeros. (i.e. 11b &lt;&lt; 3d == 11000b)
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  &gt;&gt;
+                </td>
+              <td>
+                  Right Shift
+                </td>
+              <td>
+                  $a &gt;&gt; 3
+                </td>
+              <td>
+                  element shifted right by 3 and padded with zeros. (i.e. 11010b &gt;&gt; 3d == 00011b)
+                </td>
+            </tr>
+            <tr>
+              <td colspan="4" bgcolor="#6699ff"><b>Assignment and  Assignment Operators</b>
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  =
+                </td>
+              <td>
+                  Assignment
+                </td>
+              <td>
+                  $a = $b;
+                </td>
+              <td>
+                  Assign value of $b to $a.
+                
+                <b>Note</b>:  the value of an assignment is the value being assigned, so $a = $b = $c is legal.
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  op=
+                </td>
+              <td>
+                  Assignment Operators
+                </td>
+              <td>
+                  $a <i>op</i>= $b;
+                </td>
+              <td>
+                  Equivalent to $a = $a <i>op</i> $b, where <i>op</i> can be any of:<br />
+                  *  /  %  +  -  &amp;  |  ^  &lt;&lt;  &gt;&gt;
+                </td>
+            </tr>
+            <tr>
+              <td colspan="4" bgcolor="#6699ff"><b>String Operators</b>
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  @
+                </td>
+              <td>
+                  String concatenation
+                </td>
+              <td>
+                  $c @ $d
+                </td>
+              <td>
+                  Concatenates strings $c and $d into a single string. Numeric literals/variables convert to strings.
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  NL
+                </td>
+              <td>
+                  New Line
+                </td>
+              <td>
+                  $c NL $d
+                </td>
+              <td>
+                  Concatenates strings $c and $d into a single string separated by new-line.
+                
+                <b>Note</b>: such a string can be decomposed with getRecord()
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  TAB
+                </td>
+              <td>
+                  Tab
+                </td>
+              <td>
+                  $c TAB $d
+                </td>
+              <td>
+                  Concatenates strings $c and $d into a single string separated by tab.
+                
+                <b>Note</b>: such a string can be decomposed with getField()
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  SPC
+                </td>
+              <td>
+                  Space
+                </td>
+              <td>
+                  $c SPC $d
+                </td>
+              <td>
+                  Concatenates strings $c and $d into a single string separated by space.
+                
+                <b>Note</b>: such a string can be decomposed with getWord()
+                </td>
+            </tr>
+            <tr>
+              <td colspan="4" bgcolor="#6699ff"><b>Miscellaneous</b>
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  ? :
+                </td>
+              <td>
+                  Conditional
+                </td>
+              <td>
+                  x ? y : z
+                </td>
+              <td>
+                  Evaluates to y if x equal to 1, else evaluates to z.
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  []
+                </td>
+              <td>
+                  Array element
+                </td>
+              <td>
+                  $a[5]
+                </td>
+              <td>
+                  Synonymous with $a5.
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  ( )
+                </td>
+              <td>
+                  Delimiting,<br />
+                  <br />
+                  Grouping
+                </td>
+              <td>
+                  t2dGetMin(%a, %b)<br />
+                  if ( $a == $b )<br />
+                  ($a+$b)*($c-$d)
+                </td>
+              <td>
+                  Argument list for function call
+                
+                
+                  Used with <i>if</i>, <i>for</i>, <i>while</i>, <i>switch</i> keywords.
+                
+                
+                  Control associatively in expressions
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  {}
+                </td>
+              <td>
+                  Compound statement<br />
+                  (Block)
+                </td>
+              <td>
+                  if (1) {$a = 1; $b = 2;}
+                
+                
+                  function foo() {$a = 1;}
+                </td>
+              <td>
+                  Delimit multiple statements
+                
+                
+                  optional for <i>if</i>, <i>else</i>, <i>for</i>, <i>while</i>
+                
+                
+                  Required for <i>switch</i>, <i>datablock</i>, <i>new</i>, <i>function</i>
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  ,
+                </td>
+              <td>
+                  Listing
+                </td>
+              <td>
+                  t2dGetMin(%a, %b)<br />
+                  %M[1,2]
+                </td>
+              <td>
+                  Delimiter for arguments
+                
+                <b>Note</b>: there is no "comma operator", as defined in C/C++; $a = 1, $b = 2; is a parse error
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  ::
+                </td>
+              <td>
+                  Namespace
+                </td>
+              <td>
+                  Item::onCollision()
+                </td>
+              <td>
+                  This definition of the onCollision() function is in the Item namespace.
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  .
+                </td>
+              <td>
+                  Field/Method selection
+                </td>
+              <td>
+                  %obj.field <br />
+                   %obj.method()
+                </td>
+              <td>
+                  Select a console method or field
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  //
+                </td>
+              <td>
+                  Single-line comment
+                </td>
+              <td>
+                  // This is a  comment
+                </td>
+              <td>
+                  Used to comment out a single line of code.
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  /* */
+                </td>
+              <td>
+                  Multi-line comment
+                </td>
+              <td>
+                  /*This is a a<br />
+                  multi-line<br />
+                  comment*/<br />
+                </td>
+              <td>
+                  Used to comment out multiple consecutive lines.<br />
+                  /* opens the comment, and */ closes it.
+                </td>
+            </tr>
+          </tbody>
+        </table><br /><br />
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><a name="Keywords" id="Keywords"></a>
+                <h2> <span class="mw-headline">Keywords</span></h2>
+                <p><b>Note:</b> Although keywords are not reserved, it is considered bad practice to use variables that have the same spelling as a keyword. </p><br /></td>
+            </tr>
+          </tbody>
+        </table>
+        <table border="1" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td bgcolor="#6699ff" width="700"><b> <a name="break" id="break"></a>
+                <h3> <span class="mw-headline">break</span></h3>
+                </b></td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top" width="700"><p><b>Purpose</b> Use <i>break</i> to exit the innermost while loop.  
+                  Unlike C and C++, <i>break</i> has no effect in a switch or switch$ statement.<br />
+                </p>
+                <pre>%count = 0; 
+while( 1 ) 
+{  
+   echo(%count++); 
+   if (%count &gt; 2) 
+   break; 
+}
+</pre>
+                <p><b>See Also<br />
+                  </b><a href="#for">for</a> and <a href="#while">while</a><br />
+                </p></td>
+            </tr>
+          </tbody>
+        </table><br /><br />
+        <table border="1" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td bgcolor="#6699ff" width="700"><b> <a name="case" id="case"></a>
+                <h3> <span class="mw-headline">case</span></h3>
+                </b></td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top" width="700"><p><b>Purpose</b> Used to label cases in a switch or switch$ statement.<br />
+                  <b>Syntax</b><br />
+                  <b>case</b> <i>expression</i> <b>:</b>(colon character)<br />
+                  The argument of the enclosing switch or switch$ statement is evaluated and compared to the value of <i>expression</i> using operator <b>==</b> or <b>$=</b>, respectively. <br />
+                  If true, execute the statements up to the next case statement and exit the switch. <br />
+                  If false, skip to the next case statement.<br />
+                  <b>See Also<br />
+                  </b><a href="#switch">switch</a> and <a href="#switch.24">switch$</a><br />
+                </p></td>
+            </tr>
+          </tbody>
+        </table><br /><br />
+        <table border="1" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td bgcolor="#6699ff" width="700"><b> <a name="continue" id="continue"></a>
+                <h3> <span class="mw-headline">continue</span></h3>
+                </b></td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top" width="700"><p><b>Purpose</b> Causes the script to skip to the next iteration of the for or while loop in which it appears; <br />
+                </p>
+                <pre>%count = 0; 
+while(%count++ &lt; 8) 
+{ 
+   if ( %count &gt; 2 )
+      continue; // echo will not be executed
+   echo(%count); 
+}
+</pre>
+                <p><b>See Also<br />
+                  </b><a href="#for">for</a> and <a href="#while">while</a><br />
+                </p></td>
+            </tr>
+          </tbody>
+        </table><br /><br />
+        <table border="1" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td bgcolor="#6699ff" width="700"><b> <a name="datablock" id="datablock"></a>
+                <h3> <span class="mw-headline">datablock</span></h3>
+                </b></td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top" width="700"><p><b>Purpose</b> The datablock keyword is used to declare a new datablock. A datablock
+                  object is used in the declaration and initialization of a special set
+                  of classes that take a datablock(s). Datablocks are created on the
+                  server and ghosted to clients.<br />
+                  <br />
+                  <b>Syntax</b><br />
+                  <br />
+                </p>
+                <pre>datablock DatablockClass ( NewDatablockName : InheritDatablock ) 
+{
+   className = "SomeName";
+
+   DataBlockBody
+};
+</pre>
+                <ul>
+                  <li>DatablockClass - A predefined engine class which inherits from SimDataBlock or one of it's children.</li>
+                </ul>
+                <ul>
+                  <li>NewDatablockName - The name for this datablock.  Must be unique.</li>
+                </ul>
+                <ul>
+                  <li>InheritDatablock - Previously defined datablock to inherit (copy) DataBlockBody values from. Optional.</li>
+                </ul>
+                <ul>
+                  <li>className - This is a special field which can be initialized
+                    with the name of a previously defined [in Torque Script] datablock. In
+                    effect, this inserts the "SomeName" name into the namespace calling
+                    sequence between NewDatablockName and DatablockClass. For some
+                    datablock classes, className can be a non-datablock name, but it isn't
+                    guaranteed to work for all calling sequences or classes. </li>
+                </ul>
+                <ul>
+                  <li>DataBlockBody - Fields and the values that will be assigned for this datablock.</li>
+                </ul>
+                <pre>datablock SimDataBlock( myDataBlock ) 
+{
+   newField = "Hello";
+   newField2 = 10;
+}; 
+</pre>
+                <p>Here we have declared a new SimDataBlock datablock named
+                  myDataBlock. Additionally, we have given it a new field named newField,
+                  initialized to "Hello" and a new field named newField2 initialized to
+                  10. The namespace calling sequence for this datablock is: <b>myDataBlock -&gt; SimDataBlock</b><br />
+                </p>
+                <pre>datablock SimDataBlock( mySecondDataBlock : myDataBlock) 
+{
+   className = "myDataBlock";
+   newField2 = 15;
+}; 
+</pre>
+                <p>Here we have declared a new SimDataBlock datablock named
+                  mySecondDataBlock that derives from myDataBlock. Because it is deriving
+                  from a prior datablock, it will copy any fields that were declared
+                  and/or initialized in the parent datablock. However, because we are
+                  re-declaring the field newField2. The new initialization value is taken
+                  in preference to the copied value, meaning that newField has the value
+                  "Hello" and newField2 has the value 15. Finally, we have defined
+                  className as myDataBlock, making the namespace calling sequence for
+                  mySecondDataBlock:<br />
+                  <br />
+                  <b>mySecondDataBlock -&gt; myDataBlock -&gt; SimDataBlock<br />
+                  <br />
+                  See Also<br />
+                  </b><a href="#new">new</a> and <a href="#parent">parent</a><br />
+                </p></td>
+            </tr>
+          </tbody>
+        </table><br /><br />
+        <table border="1" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td bgcolor="#6699ff" width="700"><b> <a name="default" id="default"></a>
+                <h3> <span class="mw-headline">default</span></h3>
+                </b></td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top" width="700"><p><b>Purpose</b> The default case in a switch or switch$ statement,  i.e., the case that is executed if no other cases are chosen.<br />
+                  <b>Syntax</b><br />
+                  <b>default :</b>(colon character)<br />
+                  <b>Note:</b> The <i>default</i> keyword must be listed after all case keywords.  It is a syntax error to place it before subsequent case keywords.<br />
+                  <br />
+                  <b>See Also<br />
+                  </b><a href="#switch">switch</a> and <a href="#switch.24">switch$</a><br />
+                </p></td>
+            </tr>
+          </tbody>
+        </table><br /><br />
+        <table border="1" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td bgcolor="#6699ff" width="700"><b> <a name="else" id="else"></a>
+                <h3> <span class="mw-headline">else</span></h3>
+                </b></td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top" width="700"><p><b>Purpose</b> The <i>else</i> keyword is used with the if keyword
+                  to control the flow of a script. The general form of the well known
+                  if-then-else construct is as follows:<br />
+                </p>
+                <pre>if (expression) 
+{ 
+   statement(s); 
+} 
+else 
+{ 
+   alternate statement(s); 
+}
+</pre>
+                <p>Where the alternate statement(s) are executed if the expression evaluates to 0.<br />
+                  <br />
+                  See (link to if) example.<br />
+                  <br />
+                  <b>See Also<br />
+                  </b><a href="#if">if reference</a><br />
+                </p></td>
+            </tr>
+          </tbody>
+        </table><br /><br />
+        <table border="1" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td bgcolor="#6699ff" width="700"><b> <a name="FALSE" id="FALSE"></a>
+                <h3> <span class="mw-headline">FALSE</span></h3>
+                </b></td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top" width="700"><p><b>Purpose</b> The false keyword is used for boolean comparison and evaluates to 0.<br />
+                </p>
+                <pre>if( false == 0 ) 
+{ 
+   echo( "false evaluates to" SPC 0 ); 
+}
+</pre>
+                <p><b>See Also<br />
+                  </b><a href="#if">if</a> and <a href="#TRUE">true</a><br />
+                </p></td>
+            </tr>
+          </tbody>
+        </table><br /><br />
+        <table border="1" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td bgcolor="#6699ff" width="700"><b> <a name="for" id="for"></a>
+                <h3> <span class="mw-headline">for</span></h3>
+                </b></td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top" width="700"><p><b>Purpose</b> A looping construct, whose general form is:<br />
+                  <b>for</b> ( <i>statement0</i> ; <i>expression1</i> ; <i>statement2</i> ) <br />
+                  {<br />
+                  <i> statements(s)</i><br />
+                  }<br />
+                  where, </p>
+                <ul>
+                  <li><i>statement0</i> - Usually an assignment. </li>
+                  <li><i>expression1</i> - An expression, usually of the form: <i>variable</i> <b>compare op</b> <i>value</i> </li>
+                  <li><i>statement2</i> - Usually an assignment. </li>
+                </ul>
+                <p><b>Execution</b> </p>
+                <ol>
+                  <li>To begin, <i> statement0 </i> is executed.<br />
+                  </li>
+                  <li>Then, <i>expression1</i> is tested. If false, end the <b>for</b> loop. </li>
+                  <li>Execute statement(s), then execute <i>statement2</i>. </li>
+                  <li>Continue with Step 2 and 3. </li>
+                </ol>
+                <p><b>Notes</b> </p>
+                <ul>
+                  <li>All three of <i>statement0</i>, <i>expression1</i>, and <i>statement2</i> are <b>required</b>.  If you need <i>statement0</i> or <i>statement2</i> to be empty, just insert a 0. </li>
+                  <li>Composite expressions of the form ( <i>sub_expression0</i> , <i>sub_expression1</i> , <i>sub_expressionN</i> ) are illegal. </li>
+                </ul>
+                <p><b>Example 1</b> </p>
+                <pre>for( %val = 0 ; %val &lt;  3 ; %val++ ) 
+{ 
+   echo( %val );
+}
+</pre>
+                <p><b>Example 2</b> Empty <i>statement0</i> and <i>statement2</i><br />
+                </p>
+                <pre>%value = 0; 
+for( 0 ; %val &lt; 3 ; 0 ) 
+{ 
+   echo( %val ); 
+   %val ++;
+}
+</pre>
+                <p><b>Example 3</b> Illegal sub-expressions (would produce an error while compiling): </p>
+                <pre>%val = 0; 
+for( %val0 = 0 , %val1 = 3 ; %val0 &lt;  3 ; %val0++, %val1-- )  
+{ 
+   echo( %val0 );
+   echo( %val1 );
+}
+</pre>
+                <p><b>See Also<br />
+                  </b><a href="#break">break</a>, <a href="#continue">continue</a>, and <a href="#while">while</a><br />
+                </p></td>
+            </tr>
+          </tbody>
+        </table><br /><br />
+        <table border="1" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td bgcolor="#6699ff" width="700"><b> <a name="function" id="function"></a>
+                <h3> <span class="mw-headline">function</span></h3>
+                </b></td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top" width="700"><p><b>Purpose</b> The <i>function</i> keyword is used to define a new
+                  console function or method. Unlike a language like C or C++, functions
+                  are not declared in one place and defined in another, but defined <u>only</u>.
+                  Redeclaring a named function later in script over-rides the previous
+                  definition. The format of a function takes one of two forms:<br />
+                  <br />
+                  <b>Function definition</b> </p>
+                <pre>function func_name( [arg0] , ... , [argn] ) 
+{
+   statements;
+   [return val;]
+}
+</pre>
+                <ul>
+                  <li>func_name - Name by which this function will be subsequently called.<br />
+                  </li>
+                  <li>[arg0] , ... , [argn] - Optional arguments.<br />
+                  </li>
+                  <li>statements - Any number of statements may be contained within the body of the function.<br />
+                  </li>
+                  <li>val - Functions may optionally return a value; </li>
+                </ul>
+                <p><br />
+                  <b>Console method definition</b> </p>
+                <pre>function namespace::func_name( %this, [arg0] , ... , [argn] ) 
+{
+   statements;
+   [return val;]
+}
+</pre>
+                <ul>
+                  <li>namespace - The name of a datablock or object classname.<br />
+                  </li>
+                  <li>:: - Namespace resolution operator.<br />
+                  </li>
+                  <li>%this - The first argument of a console method is always the handle to the object which is calling the method.</li>
+                </ul>
+                <p><br />
+                  <b>Defining a function</b> </p>
+                <pre>function test( %val ) 
+{
+  echo( "test(" SPC %val SPC ")" );
+
+  if( 10 == %val ) return true;
+
+  return false;
+}
+</pre>
+                <p><b>Defining a console method</b> </p>
+                <pre>function Item::test( %this , %val ) 
+{
+  echo( "Item::test(" SPC %this SPC "," SPC %val SPC ")" );
+
+  if( 10 = %val ) return true;
+
+  return false;
+}
+</pre>
+                <p><b>Instantiating a console object</b> </p>
+                <pre>%obj = new Item(MyItem)
+{
+  // ..
+};
+</pre>
+                <p><b>Invoking a console method</b> </p>
+                <pre>Item::test( %obj, 10 ) ; 	
+%obj.test( 10 ) ;   		
+MyItem.test( 10 ) ; 
+%obj.getName().test( 10 ) ; 
+</pre>
+                <ul>
+                  <li>In the first example of invoking, it should be clear that we have simply defined a function in the <i>Item,</i> namespace and are now invoking it in the normal way. </li>
+                  <li>In the second example, which is equivalent to the first, the
+                    syntax used automatically passes the object's handle as the first
+                    argument to the function. </li>
+                  <li>In the third example, we take advantage of the ability of the <b>.</b>(dot) operator to use the name of an object in lieu of its handle. </li>
+                  <li>The fourth example illustrates a different way of doing the
+                    same thing, this time using the SimObject::getName() function, defined
+                    for every console class. </li>
+                </ul></td>
+            </tr>
+          </tbody>
+        </table><br /><br />
+        <table border="1" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td bgcolor="#6699ff" width="700"><b> <a name="if" id="if"></a>
+                <h3> <span class="mw-headline">if</span></h3>
+                </b></td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top" width="700"><p><b>Purpose</b>The if keyword is used with or without the else
+                  keyword to control the flow of a script. The general form of the well
+                  known if-then-else construct is as follows,<br />
+                </p>
+                <pre>if (expression) 
+{ 
+   statement(s); 
+}
+else 
+{ 
+   alternate statement(s); 
+}
+</pre>
+                <p>Where the statement(s) are executed if the expression evaluates to a non-zero value.<br />
+                </p>
+                <pre>if(0) 
+{ 
+   echo( "hello" ); 
+} 
+else 
+{ 
+   echo( "goodbye" ); 
+}
+
+if(5) 
+{ 
+   echo( "hello" ); 
+} 
+else 
+{ 
+   echo( "goodbye" ); 
+}
+</pre>
+                <p><b>See Also<br />
+                  </b><a href="#else">else</a><br />
+                </p></td>
+            </tr>
+          </tbody>
+        </table><br /><br />
+        <table border="1" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td bgcolor="#6699ff" width="700"><b> <a name="new" id="new"></a>
+                <h3> <span class="mw-headline">new</span></h3>
+                </b></td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top" width="700"><p><b>Purpose</b> The <i>new</i> keyword is used to instantiate (create) a new copy of a conobject.  A conobject is:<br />
+                  <br />
+                </p>
+                <ul>
+                  <li>an engine class available in the console (Item(), Player(), etc.), or<br />
+                  </li>
+                  <li>a datablock (derived or otherwise).</li>
+                </ul>
+                <pre>// New non-datablock (using) object
+%obj = new ScriptObject();
+
+//New datablock (using) object
+datablock ItemData( GoldCoin ) 
+{
+...
+};
+
+%coin = new Item( myGoldCoin ) 
+{
+  // ...
+  datablock = GoldCoin;
+};
+</pre>
+                <p><b>See Also<br />
+                  </b><a href="#datablock">datablock</a><br />
+                </p></td>
+            </tr>
+          </tbody>
+        </table><br /><br />
+        <table border="1" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td bgcolor="#6699ff" width="700"><b> <a name="package" id="package"></a>
+                <h3> <span class="mw-headline">package</span></h3>
+                </b></td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top" width="700"><p><b>Purpose</b> The package keyword tells the console that the subsequent block of code
+                  is to be declared but not loaded. Packages provide dynamic
+                  function-polymorphism in TorqueScript. In short, a function defined in
+                  a package will over-ride the prior definition of a same named function
+                  when the is activated. When the package is subsequently de-activated,
+                  the previous definition of any overridden functions will be
+                  re-asserted. </p>
+                <p>A package will have the following syntax: </p>
+                <pre>package package_name 
+{
+	function function_definition0() 
+	{
+		[statements;]
+	}
+	...
+	function function_definitionN() 
+	{
+		[statements;]
+	}
+};
+</pre>
+                <p>Things to know: </p>
+                <ul>
+                  <li>The same function can be defined in multiple packages. </li>
+                  <li>Only functions can be packaged. </li>
+                  <li>Datablocks cannot be packaged. </li>
+                  <li>Packages 'stack' meaning that deactivating packages activated
+                    prior to the currently active (s) will deactivate all packages
+                    activated prior to the being deactivated (see example below). </li>
+                  <li>Functions activate and deactivate packages. </li>
+                </ul>
+                <p><b>Activating</b><br />
+                  In order to use the functions in a package, the package must be activated:<br />
+                </p>
+                <pre>ActivatePackage(_name);
+</pre>
+                <p><b>Deactivating</b> <br />
+                  Subsequently a package can be deactivated:<br />
+                </p>
+                <pre>DeactivatePackage(_name);
+</pre>
+                <p><b>Usage</b> <br />
+                  First, define a function and 
+                    then two packages, each of which provides an alternative definition by the same name. </p>
+                <pre>function testFunction() 
+{
+   echo( "testFunction() - unpackaged." );
+}
+
+package MyPackage0
+{
+  function testFunction() 
+  {
+      echo( "testFunction() - MyPackage0." );
+  }
+};
+
+MyPackage1
+{
+  function testFunction() 
+  {
+      echo( "testFunction() - MyPackage1." );
+  }
+};
+</pre>
+                <p>Next, invoke that function under three different conditions. The
+                  following is as if run in the console, with our input set off by
+                  '==&gt;' </p>
+                <pre>==&gt; testFunction(); 
+testFunction() - unpackaged.
+
+==&gt; ActivatePackage( MyPackage0 );
+
+==&gt; testFunction(); 
+testFunction() - MyPackage0.
+
+==&gt; ActivatePackage( MyPackage1 );
+
+==&gt; testFunction(); 
+testFunction() - MyPackage1.
+
+==&gt; DeactivatePackage( MyPackage0 );  // MyPackage1 is automatically deactivated.
+
+==&gt; testFunction(); 
+testFunction() - unpackaged.
+</pre>
+                <p><b>See Also<br />
+                  </b><a href="#function">function</a> and <a href="#parent">Parent</a><br />
+                </p></td>
+            </tr>
+          </tbody>
+        </table><br /><br />
+        <table border="1" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td bgcolor="#6699ff" width="700"><b> <a name="parent" id="parent"></a>
+                <h3> <span class="mw-headline">parent</span></h3>
+                </b></td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top" width="700"><p><b>Purpose</b> The <i>Parent</i> keyword is used with the namespace operator (<b>::</b>) to reference the previous definition of a function 
+                  that has been over-ridden either through inheritance or packaging.  The <i>Parent</i> keyword can only be used within specific contexts:<br />
+                  <br />
+                </p>
+                <ul>
+                  <li>From within a consoleMethod, or<br />
+                  </li>
+                  <li>from within a packaged function.</li>
+                </ul>
+                <pre>// Calling an inherited parent
+datablock ItemData( GoldCoin ) 
+{
+...
+};
+
+function ItemData::onAdd( %db, %obj ) 
+{
+   echo( "ItemData::onAdd()" );
+}
+
+function GoldCoin::onAdd( %db, %obj ) 
+{
+   Parent::onAdd( %db, %obj );
+
+   echo( "GoldCoin::onAdd()" );
+}
+
+// Calling a  parent
+function testFunction() 
+{
+   echo( "testFunction() - unpackaged." );
+}
+
+MyPackage0
+{
+  function testFunction() 
+  {
+     Parent::testFunction();
+     echo( "testFunction() - MyPackage0." );
+  }
+};
+
+...
+
+testFunction(); 
+// prints =&gt; testFunction() - unpackaged.
+
+ActivatePackage( MyPackage0 );
+
+testFunction(); 
+// prints =&gt; testFunction() - unpackaged.
+// prints =&gt; testFunction() - MyPackage0.
+</pre>
+                <p><b>See Also<br />
+                  </b><a href="#datablock">datablock</a> and <a href="#function">function</a><br />
+                </p></td>
+            </tr>
+          </tbody>
+        </table><br /><br />
+        <table border="1" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td bgcolor="#6699ff" width="700"><b> <a name="return" id="return"></a>
+                <h3> <span class="mw-headline">return</span></h3>
+                </b></td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top" width="700"><p><b>Purpose</b> The <i>return</i> keyword is used to return a value from a function<br />
+                </p>
+                <pre>function equal_to( %arg0 , %arg1 ) 
+{ 
+   return ( %arg0 == %arg1 ); 
+}
+
+echo( equal_to(10,11) ); // prints 0
+
+echo( equal_to(11,11) ); // prints 1
+</pre>
+                <p><b>See Also<br />
+                  </b><a href="#function">function</a><br />
+                </p></td>
+            </tr>
+          </tbody>
+        </table><br /><br />
+        <table border="1" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td bgcolor="#6699ff" width="700"><b> <a name="switch" id="switch"></a>
+                <h3> <span class="mw-headline">switch</span></h3>
+                </b></td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top" width="700"><p><b>Purpose</b> The <i>switch</i> keyword is used to control the flow of a script.  
+                  It is like the switch$ statement, but intended for numeric comparisons instead of string comparisons. </p>
+                <p>The general form of a switch statement is as follows:<br />
+                </p>
+                <pre>switch ( numeric expression ) 
+{
+case value0:
+   statement(s);
+   break;
+case value1:
+   statement(s);
+   break;
+. . .
+case valueN:
+   statement(s);
+   break;
+default:
+   statement(s);
+}
+</pre>
+                <p><b>Execution</b> </p>
+                <ol>
+                  <li>First, <i>numeric expression</i> is evaluated and compared with <i>value0</i>. </li>
+                  <li>If the result is <i>true</i>, the statement(s) associated with that case are executed, and the <i>switch</i> statement is exited. </li>
+                  <li>If not, control passes to the next case statement, where <i>numeric expression</i> is again evaluated, this time being compared to <i>value1</i>. </li>
+                  <li>If control falls through to the default case, its statements will be executed. </li>
+                </ol>
+                <p><i>switch</i> is intended for use <u>ONLY</u> with numerical comparisons (<b>==</b>). If string comparisons are desired, use switch$. <br />
+                  Note: Unlike C/C++, the break statement is not for use in <i>switch</i>.  TorqueScript will only execute matching cases and will <u>NOT</u> automatically execute all subsequent cases.  This is proven in the example below.<br />
+                </p>
+                <pre>%tmp = 1;
+
+switch( %tmp  ) 
+{ 
+case 0: 
+   echo( 0 ); 
+case 1: 
+   echo( 1 ); 
+default: 
+   echo( "proof" ); 
+}
+</pre>
+                <p><b>See Also<br />
+                  </b><a href="#case">case</a>, <a href="#default">default</a>, and <a href="#switch">switch</a><br />
+                </p></td>
+            </tr>
+          </tbody>
+        </table><br /><br />
+        <table border="1" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td bgcolor="#6699ff" width="700"><b> <a name="switch.24" id="switch.24"></a>
+                <h3> <span class="mw-headline">switch$</span></h3>
+                </b></td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top" width="700"><p><b>Purpose</b> The <i>switch$</i> keyword is used to control the flow of a script.  
+                  It is like the switch statement, but intended for string comparisons instead of numeric comparisons. </p>
+                <p>The general form of the <i>switch$</i> statement is:<br />
+                </p>
+                <pre>switch$ ( string expression ) 
+{
+case string_value0:
+   statement(s);
+
+case string_value1:
+   statement(s);
+. . .
+case string_valueN:
+   statement(s);
+
+default:
+   statement(s);
+}
+</pre>
+                <p><b>Execution</b> </p>
+                <ol>
+                  <li>First, <i>string expression</i> is evaluated and compared with <i>value0</i>. </li>
+                  <li>If the result is <i>true</i>, the statement(s) associated with that case are executed, and the <i>switch$</i> statement is exited. </li>
+                  <li>If not, control passes to the next case statement, where <i>string expression</i> is again evaluated, this time being compared to <i>value1</i>. </li>
+                  <li>If control falls through to the default case, its statements will be executed. </li>
+                </ol>
+                <p><i>switch$</i> is intended for use <u>ONLY</u> with string comparisons (<b>$=</b>). If numeric comparisons are desired, use switch. <br />
+                  Note: Unlike C/C++, the break statement has no role in <i>switch$</i>, see switch. <br />
+                  <b>See Also<br />
+                  </b><a href="#case">case</a>, <a href="#default">default</a>, <a href="#switch">switch</a>, and <a href="#switch.24">switch$</a><br />
+                </p></td>
+            </tr>
+          </tbody>
+        </table><br /><br />
+        <table border="1" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td bgcolor="#6699ff" width="700"><b> <a name="TRUE" id="TRUE"></a>
+                <h3> <span class="mw-headline">TRUE</span></h3>
+                </b></td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top" width="700"><p><b>Purpose</b> The true keyword is used for boolean comparison and evaluates to 1.<br />
+                </p>
+                <pre>if(true == 1) 
+{ 
+   echo( "true evaluates to" SPC 1 ); 
+}
+</pre>
+                <p><b>See Also<br />
+                  </b><a href="#if">if</a> and <a href="#FALSE">false</a><br />
+                </p></td>
+            </tr>
+          </tbody>
+        </table><br /><br />
+        <table border="1" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td bgcolor="#6699ff" width="700"><b> <a name="while" id="while"></a>
+                <h3> <span class="mw-headline">while</span></h3>
+                </b></td>
+            </tr>
+            <tr>
+              <td align="left" bgcolor="#eeeeee" valign="top" width="700"><p><b>Purpose</b> The <i>while</i> keyword is a looping construct whose general form is:<br />
+                </p>
+                <pre>while (expression)
+{
+   statements(s); 
+}
+</pre>
+                <p>Where expression is usually of the form: variable <i>compare op</i> value, and the loop continues to execute statement(s) until expression evaluates to false (i.e. 0).<br />
+                </p>
+                <pre>%val=5; 
+
+while( %val ) 
+{ 
+   echo( %val-- ); 
+}
+</pre>
+                <p><b>See Also<br />
+                  </b><a href="#break">break</a>, <a href="#continue">continue</a>, and <a href="#for">for</a><br />
+                </p></td>
+            </tr>
+          </tbody>
+        </table>
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"> </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

@@ -1,0 +1,229 @@
+@page {
+   size: 8.5in 11in; 
+   margin-left: 1.25in; 
+   margin-right: 1.25in; 
+   margin-top: 0.5in; 
+   margin-bottom: 0.5in;
+}
+
+p
+{
+   margin-top: 0;
+}
+
+body 
+{
+   font-family: Arial, Helvetica, sans-serif;
+	background-attachment: fixed;
+	background-image: url(docTheme/bg.jpg);
+	background-repeat: no-repeat;
+	background-position: right 0px;
+   background-color: #FFFFFF;
+	margin: 12px;
+	padding-top: 5;
+	padding-left: 10;
+}
+
+a.methodTag {
+      position:relative;
+      /*z-index:24;*/
+      cursor:pointer;
+      cursor:hand;
+      border: 1px dotted #FFFFFF;
+      border-bottom: 1px dashed #D0E0C2;
+      padding: 0px 2px;
+}
+
+pre a.methodTag {
+      border: 1px dotted #F4F4F4;
+      border-bottom: 1px dashed #D0E0C2;
+}
+td a.methodTag, .note a.methodTag {
+      border: 1px dotted #F4F5FF;
+      border-bottom: 1px dashed #AEB7FF;
+}
+
+a.methodTag:hover{
+      /*z-index:25;*/ 
+      background: #FFFFC0;
+      border: 1px dashed #D0E0C2;
+}
+
+pre a.methodTag:hover {
+      background: #FFFFC0;
+}
+
+td a.methodTag:hover, .note a.methodTag:hover {
+      border: 1px dashed #AEB7FF;
+      border-bottom: 1px dashed #AEB7FF;
+      background: #FFF1BB;
+}
+
+a.methodTag span{
+      display: none;
+      white-space:normal;
+      font: 11px Arial, Helvetica, sans-serif;
+      line-height: 1.3em;
+      font-weight: bold;
+      border: 1px dotted #A6C291;
+      padding: 0.5em;
+      background: #FFFFC0;
+} 
+
+pre a.methodTag span{
+      background: #FFFFC0;
+}
+
+a.methodTag:hover span{
+      z-index:1;
+      display:block;
+      position:absolute;
+      top:-5.45em; left:-3em; width:15em;
+      text-align: center;
+}
+
+pre.code 
+{
+   font-size: 12px; 
+	background-color: #F4F4F4;
+	padding: 8px;
+	border: 1px dashed #D0E0C2;
+	margin: 16px 10px 16px 10px;
+	background-attachment: scroll;
+	background-image: url(../images/code_bg.jpg);
+	background-repeat: repeat-y;
+	background-position: right;
+	line-height: 1.3em; 
+}
+
+#highLightHUD {
+	background-color: #AFC99C;
+	padding: 0px;
+	height: 28px;
+	width: 136px;
+	margin-bottom: 15px;
+	border: 1px dashed #D0E0C2;
+	background-attachment: scroll;
+	background-image: url(../images/code_bg.jpg);
+	background-repeat: repeat-y;
+	background-position: right;
+	font-size: 10px;
+	text-align: left; 
+}
+
+#highLightHUD a, #highLightHUD div {
+	text-align: center; 
+	text-decoration: underline;
+	font-weight: bold;
+   height: 18px;
+	width: 128px;
+   position: absolute;
+   top: 4px;
+   left: 4px;
+	display: block;
+	padding-top: 3px;
+}
+#highLightHUD a {
+	background-color: yellow;   
+}
+
+.footer
+{
+	font-size: 11px;
+   width: 99%;
+	background-image: url(../images/code_bg.jpg);
+	background-repeat: repeat-y;
+	margin: 50px 0px 0px 0px;
+	padding: 8px;
+	text-align: left;
+}
+
+.footer .copy
+{
+   display: block; 
+	text-align: right;
+   float: right;
+}
+
+.footer a 
+{
+	margin: 0px 5px 0px 5px;   
+}
+.imageright {
+	float: right;
+	margin: 20px;
+	margin-top: 5px;
+	background-color: #FFFFFF;
+	padding: 8px;
+	border: 1px dashed #D0E0C2;
+}
+
+td.infoTD {
+   vertical-align: top;
+	padding: 15px;
+}
+
+.warningBox {
+   position: relative;
+   display: block;
+   background-color: #F9F2F2;
+   border: 3px dashed #DD0000;
+   padding: 20px;
+   margin-bottom: 50px;
+}
+.warningBox H2 {
+   color: red;
+   margin-top: -10px;   
+}
+
+.titleText
+{
+   font: normal normal bold 26px Arial;  
+}
+
+.tagBox
+{
+   width: 99%;
+   background-image: url(../images/code_bg.jpg);
+	background-repeat: repeat-y;
+	border-style: none;
+	border-width: 1px;
+}
+
+.functionalityBox, .genreBox
+{
+   width: 50%;
+	border-style: none;
+	border-width: 1px;
+}
+
+.functionalityBox
+{
+   border-color: Green;
+}
+
+.genreBox
+{
+   border-color: Blue; 
+}
+
+.genreTitle, .functionalityTitle
+{
+   font-size: 13px;
+   font-weight: bold;
+}
+
+.genreTagSubTitle, .functionalityTagSubTitle
+{
+   display: block;
+   font-size: 13px;
+   font-weight: bold;
+   margin-top: 3px;
+}
+
+.functionalityEntry, .genreEntry
+{
+   display: block;
+   font-family: Arial;
+   font-size: 13px;
+}

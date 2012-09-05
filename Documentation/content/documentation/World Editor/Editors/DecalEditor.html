@@ -1,0 +1,294 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 83;
+   parent.leftFrame.expandToItem('tree2', 'doc83');
+   var element = parent.leftFrame.document.getElementById('doc83');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D - Decal Editor</title>
+
+</head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject  page-Torque3D_WorldEditor_Editors_DecalRoadEditor skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <br /><a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          </div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Setup"><span class="tocnumber">2</span> <span class="toctext">Setup</span></a></li>
+                          <li class="toclevel-1"><a href="#Interface"><span class="tocnumber">3</span> <span class="toctext">Interface</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#Adding_a_New_Decal_datablock_to_the_Library"><span class="tocnumber">3.1</span> <span class="toctext">Adding a New Decal 
+                                datablock to the Library</span></a></li>
+                              <li class="toclevel-2"><a href="#Naming_A_New_Decal_Datablock"><span class="tocnumber">3.2</span> <span class="toctext">Naming A New Decal 
+                                Datablock</span></a></li>
+                              <li class="toclevel-2"><a href="#Removing_Decal_datablock_from_the_library"><span class="tocnumber">3.3</span> <span class="toctext">Removing Decal 
+                                datablock from the library</span></a></li>
+                              <li class="toclevel-2"><a href="#Missing_Decals"><span class="tocnumber">3.4</span> <span class="toctext">Missing Decals</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Editing_Tools"><span class="tocnumber">4</span> <span class="toctext">Editing Tools</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#Adding_a_Decal"><span class="tocnumber">4.1</span> <span class="toctext">Adding a Decal</span></a></li>
+                              <li class="toclevel-2"><a href="#Selecting_a_Decal"><span class="tocnumber">4.2</span> <span class="toctext">Selecting a Decal</span></a></li>
+                              <li class="toclevel-2"><a href="#Deleting_a_Decal_Instance"><span class="tocnumber">4.3</span> <span class="toctext">Deleting a Decal 
+                                Instance</span></a></li>
+                              <li class="toclevel-2"><a href="#Moving_a_Decal"><span class="tocnumber">4.4</span> <span class="toctext">Moving a Decal</span></a></li>
+                              <li class="toclevel-2"><a href="#Scaling_a_Decal"><span class="tocnumber">4.5</span> <span class="toctext">Scaling a Decal</span></a></li>
+                              <li class="toclevel-2"><a href="#Rotating_a_Decal"><span class="tocnumber">4.6</span> <span class="toctext">Rotating a Decal</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Properties"><span class="tocnumber">5</span> <span class="toctext">Properties</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">6</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table><br />
+                <p><br /><i>(click to enlarge)</i> </p>
+                <a href="images/Decal_Header.jpg" class="livethumbnail"><img src="images/Decal_Header.jpg" width="400" height="225" largewidth="800" largeheight="450" /></a><br />
+                <br /><a name="Introduction" id="Introduction"></a>
+                <h1> <span class="mw-headline">Introduction</span></h1>
+                <p>Decals in Torque 3D refer to image textures that are overlaid on objects such as the terrain or players to give the appearance of surface affects such as leaves, flowers, or litter on the ground, or for dynamic changes to the environment, such as foot prints, or burn marks from explosions without the need to create and place special terrain materials or objects to represent the effects. Torque 3D's Decal Editor provides you with control over decals of any type, including placement and other attributes. Decals can be placed via the editor to any visible surface within the world.</p>
+                <p>As with the other Torque 3D editors this can be easily achieved by using the built-in WYSIWYG (What-You-See-Is-What-You-Get) editing tools. </p>
+                <br /><a name="Setup" id="Setup"></a>
+                <h1> <span class="mw-headline">Setup</span></h1>
+                <p>From the Toolbox, select your project and load the Empty Terrain level. </p>
+                <p>You can use the basic terrain for our upcoming decal experiments in this article. If you want to use your own decals you will need to add them to the project materials first. Please see the  <a href="MaterialEditor.html"  title="http://docs.torquepowered.com/torque-3d/official/content/documentation/World%20Editor/Editors/MaterialEditor.html" rel="nofollow">material editor</a> for more information on how to add materials. </p>
+                <p>The decal system can handle single images or multiple images with transparency separating the materials within the image. </p>
+                  <p><br /><i>(click to enlarge)</i> </p>
+                <a href="images/Decal_Setup.jpg" class="livethumbnail"><img src="images/Decal_Setup.jpg" width="300" height="150" largewidth="600" largeheight="300" /></a><br />
+                <br /><a name="Interface" id="Interface"></a>
+                <h1> <span class="mw-headline">Interface</span></h1>
+                <p>To access the Decal Editor press the F7 key or select it from the drop down menu at the top of the World Editor, by choosing Editors > Decal Editor:</p>
+                <p><img alt="Image:Decal_menu.jpg" src="images/Decal_menu.jpg" border="0" height="311" width="370" /> </p><br />
+                <p>Or select the Decal icon from the World Editor tool bar.</p>
+                <p><img alt="Image:Decal_toolbar.jpg" src="images/Decal_toolbar.jpg" border="0" height="31" width="441" /> </p><br />
+                <p>The Decal editor has two main parts, one where you can add and manipulate the size, rotation and position of the decal, and the other for adjusting the decal properties. </p>
+                <p><br />
+                  On the upper-left hand side of your screen, you'll see a toolbar which provides tools for decal placement and manipulation. </p>
+                <p><img alt="Image:DecalToolbar.jpg" src="images/DecalToolbar.jpg" border="0" height="146" width="200" /> </p><br />
+                <p><br />On the right of the screen, there is the Decal Editor pane which displays a list of decals, and the Template Properties pane below it, which displays properties of the selected decal along with a texture preview. </p>
+                <p><br />In the Decal Editor pane on the top right, under the Library tab, is a list of the decal datablocks defined in the system, which are really decal descriptions. In the Instances tab, there is a list of all decals that have been created within the current project. </p>
+                  <img alt="Image:Decal_prop.jpg" src="images/Decal_prop.jpg" border="0" height="681" width="249" /> </p>
+                <br /><a name="Adding_a_New_Decal_datablock_to_the_Library" id="Adding_a_New_Decal_datablock_to_the_Library"></a>
+                <h2> <span class="mw-headline">Adding a New Decal Datablock to the Library</span></h2>
+                <p>Before you can paint a decal to your world, the datablock needs to exist in the decal library. To add a new decal, simply press the New Decal icon at the top of the Decal Editor pane. </p>
+                <p><img alt="Image:Decal_new.jpg" src="images/Decal_new.jpg" border="0" height="151" width="260" /> </p><br />
+                <p>This will add a new blank decal to the library, ready for you to select or add a material and set up its properties. </p>
+                <br /><a name="Naming_A_New_Decal_Datablock" id="Naming_A_New_Decal_Datablock"></a>
+                <h2> <span class="mw-headline">Naming a New Decal Datablock</span></h2>
+                <p>After creating a new decal you will want to name it. This can be achieved by selecting the name property and entering a new name, then pressing the Enter key. </p>
+                <p><img alt="Image:Decal_name.jpg" src="images/Decal_name.jpg" border="0" height="75" width="234" /> </p>
+                <br /><a name="Removing_Decal_datablock_from_the_library" id="Removing_Decal_datablock_from_the_library"></a>
+                <h2> <span class="mw-headline">Removing Decal Datablock from the Library</span></h2>
+                <p>To remove an existing decal from the library simply select the decal in the list then click the Delete icon. </p>
+                <p><img alt="Image:Decal_remove.jpg" src="images/Decal_remove.jpg" border="0" height="145" width="280" /> </p><br />
+                <p>If you select Yes all instances of the selected decal will be removed. The datablock will continue to exist until the World Editor is restarted.</p>
+                <p><br />
+                  <img alt="Image:Decal_remove2.jpg" src="images/Decal_remove2.jpg" border="0" height="156" width="298" /> </p>
+                <br /><a name="Missing_Decals" id="Missing_Decals"></a>
+                <h2> <span class="mw-headline">Missing Decals</span></h2>
+                <p>If a decal exists in the level, but is not rendering, it means the datablock for it has either been deleted, renamed, or corrupted. The Retarget button allows you to assign an existing datablock to a missing decal. </p>
+                <p><br />
+                  To open the retarget dialogue, select the decal that you wish to fix then click the Retarget icon at the top of the Decal Library pane. </p>
+                <p><img alt="Image:Decal_missing.jpg" src="images/Decal_missing.jpg" border="0" height="134" width="252" /> </p><br />
+                <p><br />
+                  The Retarget Decal Instances dialog box will open. From here you can reassign the decal datablock. </p>
+                  <p><br /><img alt="Image:Decal_missing2.jpg" src="images/Decal_missing2.jpg" border="0" height="127" width="253" /> </p>
+                  <p><br />Select a Decal Datablock from the drop down list that you wish to use for the selected decal.</p>
+                
+                <br /><a name="Editing_Tools" id="Editing_Tools"></a>
+                <h1> <span class="mw-headline">Editing Tools</span></h1>
+                <p>The Decal Editor placement and manipulation tools appear on the toolbar down the left of your screen whenever the Decal Editor is active. Each tool can be activated by clicking the appropriate icons or by pressing its hotkey. Hotkeys are assigned 1 through 5 from top to bottom in the toolbar and are visible by hovering the mouse over the icon.</p>
+                <p><br />
+                  These tools will enable you to quickly place, scale and rotate your decals. </p>
+                <p><br />
+                  <img alt="Image:Decal_edit1.jpg" src="images/Decal_edit1.jpg" border="0" height="146" width="200" /> </p><br />
+                <p>These tools will enable you to quickly place, scale and rotate your decals. </p>
+                <br /><a name="Adding_a_Decal" id="Adding_a_Decal"></a>
+                <h2> <span class="mw-headline">Adding a Decal</span></h2>
+                <p><img alt="Image:Decal_icon1.jpg" src="images/Decal_icon1.jpg" border="0" height="26" width="31" />Before adding a decal, a datablock for the decal must exist in the Decal Library. Please see the section "Adding a New Decal Datablock to the Library" above. </p>
+                                  <p><br />To add a decal to a level select a decal from the Library tab of the Decal editor pane, click the Add Decal tool, and then click on the terrain where you would like to see your decal instance appear. The same decal can be placed in a level multiple times. Each such copy is referred to as an instance of the decal.</p>
+                <br /><a name="Selecting_a_Decal" id="Selecting_a_Decal"></a>
+                <h2> <span class="mw-headline">Selecting a Decal</span></h2>
+                <p><img alt="Image:Decal_icon2.jpg" src="images/Decal_icon2.jpg" border="0" height="26" width="31" />The selection tool enables you to directly select a decal instance that has already been placed in the level by simply clicking on it. Its datablock properties will then be shown in the Template Properties pane for viewing and/or editing. </p>
+                <p><img alt="Image:Decal_select.jpg" src="images/Decal_select.jpg" border="0" height="247" width="400" /> </p>
+                <br /><a name="Deleting_a_Decal_Instance" id="Deleting_a_Decal_Instance"></a>
+                <h2> <span class="mw-headline">Deleting a Decal Instance</span></h2>
+                <p>There will be times when you need to delete an a decal instance. The decal can be selected by the Selection tool (see the "Selecting a Decal" section) and then pressing the Delete key.  Or you can select the required decal from the Instances tab in the Decal Editor pane, then press the Delete key or press the Delete button, represented by the trash can icon. </p>
+                <p><br />
+                  Note: This will only delete the selected decal instance in the world, not the decal’s datablock listed on the Library tab. </p>
+                <p><br />
+                  <img alt="Image:Decal_del.jpg" src="images/Decal_del.jpg" border="0" height="237" width="253" /> </p>
+                <br /><a name="Moving_a_Decal" id="Moving_a_Decal"></a>
+                <h2> <span class="mw-headline">Moving a Decal</span></h2>
+                <p><img alt="Image:Decal_icon4.jpg" src="images/Decal_icon4.jpg" border="0" height="26" width="31" /> To move a decal instance simply select the decal using any method described above then click the Move tool icon. The normal Object Editor movement gizmo will appear. Click any axis arrow using the left mouse button, then hold the button down and drag the mouse to move the decal in that direction. Release the mouse button to drop the decal at the new location. </p>
+                <p><img alt="Image:Decal_mov.jpg" src="images/Decal_mov.jpg" border="0" height="247" width="400" /> </p>
+                <br /><a name="Scaling_a_Decal" id="Scaling_a_Decal"></a>
+                <h2> <span class="mw-headline">Scaling a Decal</span></h2>
+                <p><img alt="Image:Decal_icon5.jpg" src="images/Decal_icon5.jpg" border="0" height="26" width="31" />If you find that the decal is either too small or too large you can use the Scale tool to resize the decal. This uses the standard world gizmo, but will not scale on the vertical axis due to decals being restricted to two-dimensions. Click any axis cube using the left mouse button, then hold the button down and drag the mouse to scale the decal in that direction. Release the mouse button to leave the decal at the new scale.</p>
+                <p><br />
+                  <img alt="Image:Decal_scale.jpg" src="images/Decal_scale.jpg" border="0" height="247" width="400" /> </p>
+                <br /><a name="Rotating_a_Decal" id="Rotating_a_Decal"></a>
+                <h2> <span class="mw-headline">Rotating a Decal</span></h2>
+                <p><img alt="Image:Decal_icon6.jpg" src="images/Decal_icon6.jpg" border="0" height="26" width="31" />If for any reason you find that you need to rotate a decal, you can use the Rotate Tool do so. To rotate a decal, select the decal by any method described above, and then click the Rotate Tool icon. The standard world rotational gizmo will appear. Click any rotation circle using the left mouse button, then hold the button down and drag the mouse to rotate the decal in that direction. Release the mouse button to leave the decal at the new location. </p>
+                <p><img alt="Image:Decal_rotate.jpg" src="images/Decal_rotate.jpg" border="0" height="247" width="400" /> </p>
+                <p>Note: Because decals are two-dimensional rotating a decal will never cause the decal to “leave” the surface upon which it has been placed. Rather, when a decal is rotated by any axis the decal will rotate in two-dimensions locked to that surface. This can cause some strange effects if the surface that contains a decal is curved with a radius less than the size of the decal. As with all the other T3D editors, the more that you experiment and use the tools the more familiar you will be with them. With practice and time you will find many uses for the Torque 3D decal system. </p>
+                <p>If at any time you make a mistake you can press CTRL+Z to undo it. </p>
+                <br /><a name="Properties" id="Properties"></a>
+                <h1> <span class="mw-headline">Properties</span></h1>
+                <p>A Decal has only a small amount of properties which can be edited using the Template Properties pane: </p>
+                <p><img alt="Image:Decal_prop1.jpg" src="images/Decal_prop1.jpg" border="0" height="237" width="232" /> </p>
+                <p><br />
+                  <b>Size:</b> The size of the decal rendered onto the surface. </p>
+                <p><b>Material:</b> Specifies the Material selected to display as the decal. </p>
+                <p><b>Lifespan:</b> Time in Ms (milliseconds) that the decal will exist in the world after being placed dynamically. </p>
+                <p><b>FadeTime:</b> Time for the decal to fade out in Ms (milliseconds). </p>
+                <p><br />
+                  <b>Frame: </b>Index of texture rectangle to use for this decal, if the texture consists of multiple images. </p>
+                <p><b>Randomize: </b>Randomizes the texture rectangle (frame) used 
+                  for each instance of the decal. So it essentially uses a random frame. </p>
+                <p><b>TexRows: </b>Defines the number of image rows in a multiple 
+                  image material. </p>
+                <p><b>TexCols: </b>Defines the number of image columns in a multiple
+                  image material. </p>
+                <p><img alt="Image:Decal_RC.jpg" src="images/Decal_RC.jpg" border="0" height="250" width="500" /> </p>
+                <p><br />
+                  <b>ScreenStartRadius: </b>Distance check for rendering the alpha channel
+                  of the decal.Visibility check based on the scale of the decal </p>
+                <p><b>ScreenEndRadius: </b>Distance check for rendering the alpha 
+                  channel of the decal.Visibility check based on the scale of the decal </p>
+                <p><b>Render Priority: </b>If more than one decal are on top of each other the decal with the higher 
+                  priority will rendered first </p>
+                <p>Clipping Angle: The angle in degrees used to display geometry that 
+                  faces away from the decal projection direction. </p>
+                <br /><a name="Conclusion" id="Conclusion"></a>
+                <h1> <span class="mw-headline">Conclusion</span></h1>
+                <p>This article covered the Decal Editor and how to use its features. With planning and a good set of materials, you can add variety to any scene by breaking up repeating textures with interesting ground cover such as leaves, adding litter to city pavements or even breaking up a wall with a bit of graffiti. Not only this, you now have full control over the parameters of any dynamically added decals such as weapon damage marks and bullet holes. </p>
+                <p><br />
+                  As with all projects though, please remember to save regularly! </p></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

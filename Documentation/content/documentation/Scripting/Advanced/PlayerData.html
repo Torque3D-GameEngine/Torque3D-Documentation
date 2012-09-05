@@ -1,0 +1,2378 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 41;
+   parent.leftFrame.expandToItem('tree2', 'doc41');
+   var element = parent.leftFrame.document.getElementById('doc41');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<title>Torque 3D - PlayerData Overview</title>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style type="text/css">
+        .style1
+        {
+            height: 18px;
+        }
+    </style>
+</head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_Scripting_Overview_Introduction skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+        <table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          </div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Detailed_Description"><span class="tocnumber">1</span> <span class="toctext">Detailed Description</span></a></li>
+                          <li class="toclevel-2"><a href="#Member_Function_Documentation"><span class="tocnumber">2</span> <span class="toctext">Member Function Documentation</span></a></li>
+                          <li class="toclevel-2"><a href="#Member_Data_Documentation"><span class="tocnumber">3</span> <span class="toctext">Member Data Documentation</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+    <a name="Detailed_Description"></a><h2>Detailed Description</h2>
+<p>Defines properties for a <a class="el" 
+        title="A client-controlled player character.">Player</a> object. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="A client-controlled player character.">Player</a> </dd></dl>
+<a name="Member_Function_Documentation"></a><hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a5cd4ca581192ffeb92bd880a00a594a6"></a><!-- doxytag: member="PlayerData::animationDone" ref="a5cd4ca581192ffeb92bd880a00a594a6" args="(Player obj)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PlayerData::animationDone </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el">Player</a>&nbsp;</td>
+          <td class="paramname"> <em>obj</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Called on the server when a scripted animation completes. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>obj</em>&nbsp;</td><td>The 
+        <a class="el" title="A client-controlled player character.">Player</a> object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Set the main action sequence to play for this player.">Player::setActionThread()</a> for setting a scripted animation and its 'hold' parameter to determine if this callback is used. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab703c60b45314943afa255a758933704"></a><!-- doxytag: member="PlayerData::doDismount" ref="ab703c60b45314943afa255a758933704" args="(Player obj)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PlayerData::doDismount </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el">Player</a>&nbsp;</td>
+          <td class="paramname"> <em>obj</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Called when attempting to dismount the player from a vehicle. </p>
+<p>It is up to the <a class="el" 
+        title="Called when attempting to dismount the player from a vehicle.">doDismount()</a> method to actually perform the dismount. Often there are some conditions that prevent this, such as the vehicle moving too fast. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>obj</em>&nbsp;</td><td>The 
+        <a class="el" title="A client-controlled player character.">Player</a> object </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ac7d73bca86a8ecd7cf62a5dd1c5627ca"></a><!-- doxytag: member="PlayerData::onEnterLiquid" ref="ac7d73bca86a8ecd7cf62a5dd1c5627ca" args="(Player obj, float coverage, string type)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PlayerData::onEnterLiquid </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el">Player</a>&nbsp;</td>
+          <td class="paramname"> <em>obj</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&nbsp;</td>
+          <td class="paramname"> <em>coverage</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&nbsp;</td>
+          <td class="paramname"> <em>type</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Called when the player enters a liquid. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>obj</em>&nbsp;</td><td>The 
+        <a class="el" title="A client-controlled player character.">Player</a> object </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>coverage</em>&nbsp;</td><td>Percentage of the player's bounding box covered by the liquid </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>type</em>&nbsp;</td><td>The type of liquid the player has entered </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a6c580d34386448f224edf2cb0b323728"></a><!-- doxytag: member="PlayerData::onEnterMissionArea" ref="a6c580d34386448f224edf2cb0b323728" args="(Player obj)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PlayerData::onEnterMissionArea </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el">Player</a>&nbsp;</td>
+          <td class="paramname"> <em>obj</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Called when the player enters the mission area. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>obj</em>&nbsp;</td><td>The 
+        <a class="el" title="A client-controlled player character.">Player</a> object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Level object which defines the boundaries of the level.">MissionArea</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a4d02640d54f663201b2c9c59781e95f7"></a><!-- doxytag: member="PlayerData::onLeaveLiquid" ref="a4d02640d54f663201b2c9c59781e95f7" args="(Player obj, string type)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PlayerData::onLeaveLiquid </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el">Player</a>&nbsp;</td>
+          <td class="paramname"> <em>obj</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&nbsp;</td>
+          <td class="paramname"> <em>type</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Called when the player leaves a liquid. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>obj</em>&nbsp;</td><td>The 
+        <a class="el" title="A client-controlled player character.">Player</a> object </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>type</em>&nbsp;</td><td>The type of liquid the player has left </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a57447ff2b0486d93439f4fa0d3366244"></a><!-- doxytag: member="PlayerData::onLeaveMissionArea" ref="a57447ff2b0486d93439f4fa0d3366244" args="(Player obj)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PlayerData::onLeaveMissionArea </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el">Player</a>&nbsp;</td>
+          <td class="paramname"> <em>obj</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Called when the player leaves the mission area. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>obj</em>&nbsp;</td><td>The 
+        <a class="el" title="A client-controlled player character.">Player</a> object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Level object which defines the boundaries of the level.">MissionArea</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="af9d38556789c0d9099efc0f312e35626"></a><!-- doxytag: member="PlayerData::onPoseChange" ref="af9d38556789c0d9099efc0f312e35626" args="(Player obj, string oldPose, string newPose)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="style1">void PlayerData::onPoseChange </td>
+          <td class="style1">(</td>
+          <td class="style1"><a class="el">Player</a>&nbsp;</td>
+          <td class="style1"> <em>obj</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&nbsp;</td>
+          <td class="paramname"> <em>oldPose</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&nbsp;</td>
+          <td class="paramname"> <em>newPose</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Called when the player changes poses. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>obj</em>&nbsp;</td><td>The 
+        <a class="el" title="A client-controlled player character.">Player</a> object </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>oldPose</em>&nbsp;</td><td>The pose the player is switching from. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>newPose</em>&nbsp;</td><td>The pose the player is switching to. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a511628f59d301358228fee48f4957c29"></a><!-- doxytag: member="PlayerData::onStartSprintMotion" ref="a511628f59d301358228fee48f4957c29" args="(Player obj)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PlayerData::onStartSprintMotion </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el">Player</a>&nbsp;</td>
+          <td class="paramname"> <em>obj</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Called when the player starts moving while in a Sprint pose. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>obj</em>&nbsp;</td><td>The 
+        <a class="el" title="A client-controlled player character.">Player</a> object </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="aadca7f7157d098fe9863f838a8b724e5"></a><!-- doxytag: member="PlayerData::onStartSwim" ref="aadca7f7157d098fe9863f838a8b724e5" args="(Player obj)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PlayerData::onStartSwim </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el">Player</a>&nbsp;</td>
+          <td class="paramname"> <em>obj</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Called when the player starts swimming. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>obj</em>&nbsp;</td><td>The 
+        <a class="el" title="A client-controlled player character.">Player</a> object </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a3eb187262ec9d6d4f03fe56b6da6b4a6"></a><!-- doxytag: member="PlayerData::onStopSprintMotion" ref="a3eb187262ec9d6d4f03fe56b6da6b4a6" args="(Player obj)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PlayerData::onStopSprintMotion </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el">Player</a>&nbsp;</td>
+          <td class="paramname"> <em>obj</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Called when the player stops moving while in a Sprint pose. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>obj</em>&nbsp;</td><td>The 
+        <a class="el" title="A client-controlled player character.">Player</a> object </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a499212262bfcb9d7e25b665283d2ad34"></a><!-- doxytag: member="PlayerData::onStopSwim" ref="a499212262bfcb9d7e25b665283d2ad34" args="(Player obj)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PlayerData::onStopSwim </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el">Player</a>&nbsp;</td>
+          <td class="paramname"> <em>obj</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Called when the player stops swimming. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>obj</em>&nbsp;</td><td>The 
+        <a class="el" title="A client-controlled player character.">Player</a> object </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>
+<a name="Member_Data_Documentation"></a><h2>Member Data Documentation</h2>
+<a class="anchor" id="a31c85023a4dabae4058ee8e9d2f4265a"></a><!-- doxytag: member="PlayerData::airControl" ref="a31c85023a4dabae4058ee8e9d2f4265a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::airControl</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Amount of movement control the player has when in the air. </p>
+<p>This is applied as a multiplier to the player's x and y motion. </p>
+
+</div>
+</div>
+<a class="anchor" id="a5e29f6c8c9993f2bd70cd0c47c77fd0b"></a><!-- doxytag: member="PlayerData::allowImageStateAnimation" ref="a5e29f6c8c9993f2bd70cd0c47c77fd0b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el">PlayerData::allowImageStateAnimation</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Allow mounted images to request a sequence be played on the <a class="el" 
+        title="A client-controlled player character.">Player</a>. </p>
+<p>When true a new thread is added to the player to allow for mounted images to request a sequence be played on the player through the image's state machine. It is only optional so that we don't create a TSThread on the player if we don't need to. </p>
+
+</div>
+</div>
+<a class="anchor" id="acf7d9aff9fc8f318520c2836c9d52d8d"></a><!-- doxytag: member="PlayerData::boundingBox" ref="acf7d9aff9fc8f318520c2836c9d52d8d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Point3F <a class="el">PlayerData::boundingBox</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Size of the bounding box used by the player for collision. </p>
+<p>Dimensions are given as "width depth height". </p>
+
+</div>
+</div>
+<a class="anchor" id="af29c3aeea35439967aacb6f498f519a4"></a><!-- doxytag: member="PlayerData::boxHeadBackPercentage" ref="af29c3aeea35439967aacb6f498f519a4" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::boxHeadBackPercentage</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Percentage of the player's bounding box depth that represents the back side of the head. </p>
+<p>Used when computing the damage location. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Get the named damage location and modifier for a given world position.">Player::getDamageLocation</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="af6f63c9d5bdf230a0171c4f35e5b0898"></a><!-- doxytag: member="PlayerData::boxHeadFrontPercentage" ref="af6f63c9d5bdf230a0171c4f35e5b0898" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::boxHeadFrontPercentage</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Percentage of the player's bounding box depth that represents the front side of the head. </p>
+<p>Used when computing the damage location. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Get the named damage location and modifier for a given world position.">Player::getDamageLocation</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a9cf9b1befa83c39fd254b4eab761f04c"></a><!-- doxytag: member="PlayerData::boxHeadLeftPercentage" ref="a9cf9b1befa83c39fd254b4eab761f04c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::boxHeadLeftPercentage</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Percentage of the player's bounding box width that represents the left side of the head. </p>
+<p>Used when computing the damage location. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Get the named damage location and modifier for a given world position.">Player::getDamageLocation</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a60425ecbba57bbda8cc3e3b287d6d5e5"></a><!-- doxytag: member="PlayerData::boxHeadPercentage" ref="a60425ecbba57bbda8cc3e3b287d6d5e5" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::boxHeadPercentage</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Percentage of the player's bounding box height that represents the head. </p>
+<p>Used when computing the damage location. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Get the named damage location and modifier for a given world position.">Player::getDamageLocation</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a8ef11b6338954a9711896bafc099b475"></a><!-- doxytag: member="PlayerData::boxHeadRightPercentage" ref="a8ef11b6338954a9711896bafc099b475" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::boxHeadRightPercentage</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Percentage of the player's bounding box width that represents the right side of the head. </p>
+<p>Used when computing the damage location. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Get the named damage location and modifier for a given world position.">Player::getDamageLocation</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab456dc81a8e24f9815623228167684ec"></a><!-- doxytag: member="PlayerData::boxTorsoPercentage" ref="ab456dc81a8e24f9815623228167684ec" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::boxTorsoPercentage</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Percentage of the player's bounding box height that represents the torso. </p>
+<p>Used when computing the damage location. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Get the named damage location and modifier for a given world position.">Player::getDamageLocation</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a704fd0cdf14e7b15d291d598bce732e6"></a><!-- doxytag: member="PlayerData::bubbleEmitTime" ref="a704fd0cdf14e7b15d291d598bce732e6" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::bubbleEmitTime</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Time in seconds to generate bubble particles after entering the water. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae074423f259a894b1b42582fd55c281e"></a><!-- doxytag: member="PlayerData::crouchBoundingBox" ref="ae074423f259a894b1b42582fd55c281e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Point3F <a class="el">PlayerData::crouchBoundingBox</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Collision bounding box used when the player is crouching. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Size of the bounding box used by the player for collision.">boundingBox</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aee572d096fc3007cae4d19de9100075b"></a><!-- doxytag: member="PlayerData::crouchForce" ref="aee572d096fc3007cae4d19de9100075b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::crouchForce</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Force used to accelerate the player when crouching. </p>
+
+</div>
+</div>
+<a class="anchor" id="aad478f4a65b0c7ec40a0660a22607ed8"></a><!-- doxytag: member="PlayerData::DecalData" ref="aad478f4a65b0c7ec40a0660a22607ed8" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el">DecalData</a> <a class="el">PlayerData::DecalData</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Decal to place on the ground for player footsteps. </p>
+
+</div>
+</div>
+<a class="anchor" id="adce8cdc56b286966e48bc3aaf93a71c7"></a><!-- doxytag: member="PlayerData::decalOffset" ref="adce8cdc56b286966e48bc3aaf93a71c7" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::decalOffset</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Distance from the center of the model to the right foot. </p>
+<p>While this defines the distance to the right foot, it is also used to place the left foot decal as well. Just on the opposite side of the player. </p>
+
+</div>
+</div>
+<a class="anchor" id="af3232c3c42f91a727972e2830828c4e5"></a><!-- doxytag: member="PlayerData::dustEmitter" ref="af3232c3c42f91a727972e2830828c4e5" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el">ParticleEmitterData</a> <a class="el">PlayerData::dustEmitter</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Emitter used to generate dust particles. </p>
+<dl class="note"><dt><b>Note:</b></dt><dd>Currently unused. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ade55388943db1a9990cb63086c48c39a"></a><!-- doxytag: member="PlayerData::exitingWater" ref="ade55388943db1a9990cb63086c48c39a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el">SFXTrack</a> <a class="el">PlayerData::exitingWater</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Sound to play when exiting the water with velocity &gt;= exitSplashSoundVelocity. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Minimum velocity when leaving the water for the exitingWater sound to play.">exitSplashSoundVelocity</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a65baa477cb55c3b081fa33ba0ab5708d"></a><!-- doxytag: member="PlayerData::exitSplashSoundVelocity" ref="a65baa477cb55c3b081fa33ba0ab5708d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::exitSplashSoundVelocity</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Minimum velocity when leaving the water for the exitingWater sound to play. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Sound to play when exiting the water with velocity &gt;= exitSplashSoundVelocity...">exitingWater</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a3462af4fc90a3c9b758196fb9f7f2ba9"></a><!-- doxytag: member="PlayerData::fallingSpeedThreshold" ref="a3462af4fc90a3c9b758196fb9f7f2ba9" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::fallingSpeedThreshold</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Downward speed at which we consider the player falling. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae05c248c4518f0f31a2d6ed57004caab"></a><!-- doxytag: member="PlayerData::FootBubblesSound" ref="ae05c248c4518f0f31a2d6ed57004caab" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el">SFXTrack</a> <a class="el">PlayerData::FootBubblesSound</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Sound to play when walking in water and coverage equals 1.0 (fully underwater). </p>
+
+</div>
+</div>
+<a class="anchor" id="aaa6a2d9cf4570ea2619521c024517342"></a><!-- doxytag: member="PlayerData::FootHardSound" ref="aaa6a2d9cf4570ea2619521c024517342" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el">SFXTrack</a> <a class="el">PlayerData::FootHardSound</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Sound to play when walking on a surface with <a class="el" 
+        title="A material in Torque 3D is a data structure that describes a surface.">Material</a> footstepSoundId 1. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac154731dceaae3bf9aba7ef7a57e78db"></a><!-- doxytag: member="PlayerData::FootMetalSound" ref="ac154731dceaae3bf9aba7ef7a57e78db" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el">SFXTrack</a> <a class="el">PlayerData::FootMetalSound</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Sound to play when walking on a surface with <a class="el" 
+        title="A material in Torque 3D is a data structure that describes a surface.">Material</a> footstepSoundId 2. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa4fdb580a4f88d06fb7c3dbf56a273a6"></a><!-- doxytag: member="PlayerData::footPuffEmitter" ref="aa4fdb580a4f88d06fb7c3dbf56a273a6" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el">ParticleEmitterData</a> <a class="el">PlayerData::footPuffEmitter</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Particle emitter used to generate footpuffs (particles created as the player walks along the ground). </p>
+<dl class="note"><dt><b>Note:</b></dt><dd>The generation of foot puffs requires the appropriate triggeres to be defined in the player's animation sequences. Without these, no foot puffs will be generated. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab02fbc1c5f2e6d08eda6b281030f81fc"></a><!-- doxytag: member="PlayerData::footPuffNumParts" ref="ab02fbc1c5f2e6d08eda6b281030f81fc" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el">PlayerData::footPuffNumParts</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Number of footpuff particles to generate each step. </p>
+<p>Each foot puff is randomly placed within the defined foot puff radius. This includes having footPuffNumParts set to one. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Particle creation radius for footpuff particles.">footPuffRadius</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a293b467d9827c2220402c45a9a6f5b6b"></a><!-- doxytag: member="PlayerData::footPuffRadius" ref="a293b467d9827c2220402c45a9a6f5b6b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::footPuffRadius</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Particle creation radius for footpuff particles. </p>
+<p>This is applied to each foot puff particle, even if footPuffNumParts is set to one. So set this value to zero if you want a single foot puff placed at exactly the same location under the player each time. </p>
+
+</div>
+</div>
+<a class="anchor" id="aafaab09112ce8ea02aed1fa93a1d2418"></a><!-- doxytag: member="PlayerData::FootShallowSound" ref="aafaab09112ce8ea02aed1fa93a1d2418" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el">SFXTrack</a> <a class="el">PlayerData::FootShallowSound</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Sound to play when walking in water and coverage is less than footSplashHeight. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd>footSplashHeight </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aac930bf0417485367352a1d5917586a9"></a><!-- doxytag: member="PlayerData::FootSnowSound" ref="aac930bf0417485367352a1d5917586a9" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el">SFXTrack</a> <a class="el">PlayerData::FootSnowSound</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Sound to play when walking on a surface with <a class="el" 
+        title="A material in Torque 3D is a data structure that describes a surface.">Material</a> footstepSoundId 3. </p>
+
+</div>
+</div>
+<a class="anchor" id="a85335e213a8174af640a398eb6e84438"></a><!-- doxytag: member="PlayerData::FootSoftSound" ref="a85335e213a8174af640a398eb6e84438" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el">SFXTrack</a> <a class="el">PlayerData::FootSoftSound</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Sound to play when walking on a surface with <a class="el" 
+        title="A material in Torque 3D is a data structure that describes a surface.">Material</a> footstepSoundId 0. </p>
+
+</div>
+</div>
+<a class="anchor" id="a73c8c467c677a50daea86047cc14e85b"></a><!-- doxytag: member="PlayerData::footstepSplashHeight" ref="a73c8c467c677a50daea86047cc14e85b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::footstepSplashHeight</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Water coverage level to choose between FootShallowSound and FootWadingSound. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Sound to play when walking in water and coverage is less than footSplashHeight.">FootShallowSound</a> </dd>
+<dd>
+<a class="el" 
+        title="Sound to play when walking in water and coverage is less than 1, but &gt; footSplashHeight...">FootWadingSound</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a9352fafe58a3e3cafdaf837e885e69dc"></a><!-- doxytag: member="PlayerData::FootUnderwaterSound" ref="a9352fafe58a3e3cafdaf837e885e69dc" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el">SFXTrack</a> <a class="el">PlayerData::FootUnderwaterSound</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Sound to play when walking in water and coverage equals 1.0 (fully underwater). </p>
+
+</div>
+</div>
+<a class="anchor" id="a73a29f16eadf3650fa7626b223142bba"></a><!-- doxytag: member="PlayerData::FootWadingSound" ref="a73a29f16eadf3650fa7626b223142bba" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el">SFXTrack</a> <a class="el">PlayerData::FootWadingSound</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Sound to play when walking in water and coverage is less than 1, but &gt; footSplashHeight. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd>footSplashHeight </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a8ed82e7f8b18d33b7d10714768238894"></a><!-- doxytag: member="PlayerData::groundImpactMinSpeed" ref="a8ed82e7f8b18d33b7d10714768238894" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::groundImpactMinSpeed</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Minimum falling impact speed to apply damage and initiate the camera shaking effect. </p>
+
+</div>
+</div>
+<a class="anchor" id="aaba812617c613c047179e097dcfb4d2d"></a><!-- doxytag: member="PlayerData::groundImpactShakeAmp" ref="aaba812617c613c047179e097dcfb4d2d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Point3F <a class="el">PlayerData::groundImpactShakeAmp</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Amplitude of the camera shake effect after falling. </p>
+<p>This is how much to shake the camera. </p>
+
+</div>
+</div>
+<a class="anchor" id="a96709d09c59a1c6784c6dfa4a395ce07"></a><!-- doxytag: member="PlayerData::groundImpactShakeDuration" ref="a96709d09c59a1c6784c6dfa4a395ce07" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::groundImpactShakeDuration</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Duration (in seconds) of the camera shake effect after falling. </p>
+<p>This is how long to shake the camera. </p>
+
+</div>
+</div>
+<a class="anchor" id="a3961146cd0b24b035f1008bb6c50224c"></a><!-- doxytag: member="PlayerData::groundImpactShakeFalloff" ref="a3961146cd0b24b035f1008bb6c50224c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::groundImpactShakeFalloff</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Falloff factor of the camera shake effect after falling. </p>
+<p>This is how to fade the camera shake over the duration. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae8220503326e866339ad279fd55af3ac"></a><!-- doxytag: member="PlayerData::groundImpactShakeFreq" ref="ae8220503326e866339ad279fd55af3ac" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Point3F <a class="el">PlayerData::groundImpactShakeFreq</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Frequency of the camera shake effect after falling. </p>
+<p>This is how fast to shake the camera. </p>
+
+</div>
+</div>
+<a class="anchor" id="a5770d3765ce198d4be67cfab97ca7963"></a><!-- doxytag: member="PlayerData::hardSplashSoundVelocity" ref="a5770d3765ce198d4be67cfab97ca7963" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::hardSplashSoundVelocity</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Minimum velocity when entering the water for choosing between the impactWaterMedium and impactWaterHard sound to play. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Sound to play when entering the water with velocity &gt;= mediumSplashSoundVelocity...">impactWaterMedium</a> </dd>
+<dd>
+<a class="el" 
+        title="Sound to play when entering the water with velocity &gt;= hardSplashSoundVelocity...">impactWaterHard</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad2db6d6ea7c56527da895d049f364c90"></a><!-- doxytag: member="PlayerData::horizMaxSpeed" ref="ad2db6d6ea7c56527da895d049f364c90" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::horizMaxSpeed</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Maximum horizontal speed. </p>
+<dl class="note"><dt><b>Note:</b></dt><dd>This limit is only enforced if the player's horizontal speed exceeds horizResistSpeed. </dd></dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Horizontal speed at which resistence will take place.">horizResistSpeed</a> </dd>
+<dd>
+<a class="el" title="Factor of resistence once horizResistSpeed has been reached.">horizResistFactor</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a4ec5260e4c2eaf37bd27570530e0b713"></a><!-- doxytag: member="PlayerData::horizResistFactor" ref="a4ec5260e4c2eaf37bd27570530e0b713" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::horizResistFactor</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Factor of resistence once horizResistSpeed has been reached. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Maximum horizontal speed.">horizMaxSpeed</a> </dd>
+<dd>
+<a class="el" title="Horizontal speed at which resistence will take place.">horizResistSpeed</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aa0e5d4e6598ce40794735d9ff158fdd8"></a><!-- doxytag: member="PlayerData::horizResistSpeed" ref="aa0e5d4e6598ce40794735d9ff158fdd8" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::horizResistSpeed</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Horizontal speed at which resistence will take place. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Maximum horizontal speed.">horizMaxSpeed</a> </dd>
+<dd>
+<a class="el" title="Factor of resistence once horizResistSpeed has been reached.">horizResistFactor</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a62e6af3513336f676ab9a8977494bcc6"></a><!-- doxytag: member="PlayerData::imageAnimPrefix" ref="a62e6af3513336f676ab9a8977494bcc6" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">caseString <a class="el">PlayerData::imageAnimPrefix</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Optional prefix to all mounted image animation sequences in third person. </p>
+<p>This defines a prefix that will be added when looking up mounted image animation sequences while in third person. It allows for the customization of a third person image based on the type of player. </p>
+
+</div>
+</div>
+<a class="anchor" id="a9165d0bf16023f932773b25c5ad508d3"></a><!-- doxytag: member="PlayerData::imageAnimPrefixFP" ref="a9165d0bf16023f932773b25c5ad508d3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">caseString <a class="el">PlayerData::imageAnimPrefixFP</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Optional prefix to all mounted image animation sequences in first person. </p>
+<p>This defines a prefix that will be added when looking up mounted image animation sequences while in first person. It allows for the customization of a first person image based on the type of player. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa1a5940bb981f0da34608d4052e0f478"></a><!-- doxytag: member="PlayerData::impactHardSound" ref="aa1a5940bb981f0da34608d4052e0f478" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el">SFXTrack</a> <a class="el">PlayerData::impactHardSound</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Sound to play after falling on a surface with <a class="el" 
+        title="A material in Torque 3D is a data structure that describes a surface.">Material</a> footstepSoundId 1. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac9bffe3b9337f1a55865442d0e6cb4ba"></a><!-- doxytag: member="PlayerData::impactMetalSound" ref="ac9bffe3b9337f1a55865442d0e6cb4ba" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el">SFXTrack</a> <a class="el">PlayerData::impactMetalSound</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Sound to play after falling on a surface with <a class="el" 
+        title="A material in Torque 3D is a data structure that describes a surface.">Material</a> footstepSoundId 2. </p>
+
+</div>
+</div>
+<a class="anchor" id="a16a044cf0c8b38648a8ac5cc09a95194"></a><!-- doxytag: member="PlayerData::impactSnowSound" ref="a16a044cf0c8b38648a8ac5cc09a95194" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el">SFXTrack</a> <a class="el">PlayerData::impactSnowSound</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Sound to play after falling on a surface with <a class="el" 
+        title="A material in Torque 3D is a data structure that describes a surface.">Material</a> footstepSoundId 3. </p>
+
+</div>
+</div>
+<a class="anchor" id="a170e4e8527d4fae754369dfaf175645e"></a><!-- doxytag: member="PlayerData::impactSoftSound" ref="a170e4e8527d4fae754369dfaf175645e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el">SFXTrack</a> <a class="el">PlayerData::impactSoftSound</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Sound to play after falling on a surface with <a class="el" 
+        title="A material in Torque 3D is a data structure that describes a surface.">Material</a> footstepSoundId 0. </p>
+
+</div>
+</div>
+<a class="anchor" id="a919de6b3105e59b6c42597934d4aa77f"></a><!-- doxytag: member="PlayerData::impactWaterEasy" ref="a919de6b3105e59b6c42597934d4aa77f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el">SFXTrack</a> <a class="el">PlayerData::impactWaterEasy</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Sound to play when entering the water with velocity &lt; mediumSplashSoundVelocity. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Minimum velocity when entering the water for choosing between the impactWaterEasy...">mediumSplashSoundVelocity</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="afc1f9304996cd3e5ec710f0cebadaf68"></a><!-- doxytag: member="PlayerData::impactWaterHard" ref="afc1f9304996cd3e5ec710f0cebadaf68" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el">SFXTrack</a> <a class="el">PlayerData::impactWaterHard</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Sound to play when entering the water with velocity &gt;= hardSplashSoundVelocity. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Minimum velocity when entering the water for choosing between the impactWaterMedium...">hardSplashSoundVelocity</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a694ab1cbb5b94e45efdaa7a6c38e0a6e"></a><!-- doxytag: member="PlayerData::impactWaterMedium" ref="a694ab1cbb5b94e45efdaa7a6c38e0a6e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el">SFXTrack</a> <a class="el">PlayerData::impactWaterMedium</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Sound to play when entering the water with velocity &gt;= mediumSplashSoundVelocity and &lt; hardSplashSoundVelocity. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Minimum velocity when entering the water for choosing between the impactWaterEasy...">mediumSplashSoundVelocity</a> </dd>
+<dd>
+<a class="el" 
+        title="Minimum velocity when entering the water for choosing between the impactWaterMedium...">hardSplashSoundVelocity</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a4987347ed8bc5838adac3a28e3ae0fe2"></a><!-- doxytag: member="PlayerData::jetJumpEnergyDrain" ref="a4987347ed8bc5838adac3a28e3ae0fe2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::jetJumpEnergyDrain</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Energy level drained each time the player jet jumps. </p>
+<dl class="note"><dt><b>Note:</b></dt><dd>Setting this to zero will disable any energy drain </dd></dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Minimum energy level required to jet jump.">jetMinJumpEnergy</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a97b5b55e159c2453bb6a2f02f8b55954"></a><!-- doxytag: member="PlayerData::jetJumpForce" ref="a97b5b55e159c2453bb6a2f02f8b55954" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::jetJumpForce</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Force used to accelerate the player when a jet jump is initiated. </p>
+
+</div>
+</div>
+<a class="anchor" id="a3568ac8e75760ae6b25cb1e7ffa60f18"></a><!-- doxytag: member="PlayerData::jetJumpSurfaceAngle" ref="a3568ac8e75760ae6b25cb1e7ffa60f18" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::jetJumpSurfaceAngle</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Angle from vertical (in degrees) where the player can jet jump. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8e995225d718d349c992374bc3a328b0"></a><!-- doxytag: member="PlayerData::jetMaxJumpSpeed" ref="a8e995225d718d349c992374bc3a328b0" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::jetMaxJumpSpeed</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Maximum vertical speed before the player can no longer jet jump. </p>
+
+</div>
+</div>
+<a class="anchor" id="a46025ce6ef605d1217b63e1d2e582a3b"></a><!-- doxytag: member="PlayerData::jetMinJumpEnergy" ref="a46025ce6ef605d1217b63e1d2e582a3b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::jetMinJumpEnergy</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Minimum energy level required to jet jump. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Energy level drained each time the player jet jumps.">jetJumpEnergyDrain</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="accb7e79cba23a1bee72f3018a0c3d2ef"></a><!-- doxytag: member="PlayerData::jetMinJumpSpeed" ref="accb7e79cba23a1bee72f3018a0c3d2ef" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::jetMinJumpSpeed</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Minimum speed needed to jet jump. </p>
+<p>If the player's own z velocity is greater than this, then it is used to scale the jet jump speed, up to jetMaxJumpSpeed. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Maximum vertical speed before the player can no longer jet jump.">jetMaxJumpSpeed</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a7c9f303698521a55d33ca3287e6a18ef"></a><!-- doxytag: member="PlayerData::jumpDelay" ref="a7c9f303698521a55d33ca3287e6a18ef" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el">PlayerData::jumpDelay</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Delay time in number of ticks ticks between jumps. </p>
+
+</div>
+</div>
+<a class="anchor" id="a3fcdd3c68cd8b6cfd0b7664558bea739"></a><!-- doxytag: member="PlayerData::jumpEnergyDrain" ref="a3fcdd3c68cd8b6cfd0b7664558bea739" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::jumpEnergyDrain</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Energy level drained each time the player jumps. </p>
+<dl class="note"><dt><b>Note:</b></dt><dd>Setting this to zero will disable any energy drain </dd></dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Minimum energy level required to jump.">minJumpEnergy</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a53fc5d8c3180608b754fa745a69f2ae6"></a><!-- doxytag: member="PlayerData::jumpForce" ref="a53fc5d8c3180608b754fa745a69f2ae6" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::jumpForce</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Force used to accelerate the player when a jump is initiated. </p>
+
+</div>
+</div>
+<a class="anchor" id="a5f28c4e65c56e0f15e840b3246b2565e"></a><!-- doxytag: member="PlayerData::jumpSurfaceAngle" ref="a5f28c4e65c56e0f15e840b3246b2565e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::jumpSurfaceAngle</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Angle from vertical (in degrees) where the player can jump. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1b8144e2338abf80c6a2935dd336c85b"></a><!-- doxytag: member="PlayerData::jumpTowardsNormal" ref="a1b8144e2338abf80c6a2935dd336c85b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el">PlayerData::jumpTowardsNormal</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Controls the direction of the jump impulse. </p>
+<p>When false, jumps are always in the vertical (+Z) direction. When true jumps are in the direction of the ground normal so long as the player is not directly facing the surface. If the player is directly facing the surface, then they will jump straight up. </p>
+
+</div>
+</div>
+<a class="anchor" id="a17268508a717f6446859fb2c5bf10d64"></a><!-- doxytag: member="PlayerData::landSequenceTime" ref="a17268508a717f6446859fb2c5bf10d64" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::landSequenceTime</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Time of land sequence play back when using new recover system. </p>
+<p>If greater than 0 then the legacy fall recovery system will be bypassed in favour of just playing the player's land sequence. The time to recover from a fall then becomes this parameter's time and the land sequence's playback will be scaled to match. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="When going from a fall to a land, should we transition between the two.">transitionToLand</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="afec58c6ad9afd1eee23ad568ffb95422"></a><!-- doxytag: member="PlayerData::maxBackwardSpeed" ref="afec58c6ad9afd1eee23ad568ffb95422" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::maxBackwardSpeed</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Maximum backward speed when running. </p>
+
+</div>
+</div>
+<a class="anchor" id="a75ab341a1cbfd958a5e75a31b358467c"></a><!-- doxytag: member="PlayerData::maxCrouchBackwardSpeed" ref="a75ab341a1cbfd958a5e75a31b358467c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::maxCrouchBackwardSpeed</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Maximum backward speed when crouching. </p>
+
+</div>
+</div>
+<a class="anchor" id="a929e32ac238bf5251e6aa5483687ee86"></a><!-- doxytag: member="PlayerData::maxCrouchForwardSpeed" ref="a929e32ac238bf5251e6aa5483687ee86" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::maxCrouchForwardSpeed</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Maximum forward speed when crouching. </p>
+
+</div>
+</div>
+<a class="anchor" id="a052ca21934c40ea4a65d973e6ea5b0e2"></a><!-- doxytag: member="PlayerData::maxCrouchSideSpeed" ref="a052ca21934c40ea4a65d973e6ea5b0e2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::maxCrouchSideSpeed</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Maximum sideways speed when crouching. </p>
+
+</div>
+</div>
+<a class="anchor" id="a95e0d3b819c5ec2646ea7a676fbeb84b"></a><!-- doxytag: member="PlayerData::maxForwardSpeed" ref="a95e0d3b819c5ec2646ea7a676fbeb84b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::maxForwardSpeed</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Maximum forward speed when running. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8cacfd0f68740e3d32753582f4a49567"></a><!-- doxytag: member="PlayerData::maxFreelookAngle" ref="a8cacfd0f68740e3d32753582f4a49567" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::maxFreelookAngle</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Defines the maximum left and right angles (in radians) the player can look in freelook mode. </p>
+
+</div>
+</div>
+<a class="anchor" id="a106a5ff3d0c12e99b2a866eba535b451"></a><!-- doxytag: member="PlayerData::maxJumpSpeed" ref="a106a5ff3d0c12e99b2a866eba535b451" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::maxJumpSpeed</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Maximum vertical speed before the player can no longer jump. </p>
+
+</div>
+</div>
+<a class="anchor" id="a6c4b4206a86395b4cf8c0368585a8183"></a><!-- doxytag: member="PlayerData::maxLookAngle" ref="a6c4b4206a86395b4cf8c0368585a8183" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::maxLookAngle</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Highest angle (in radians) the player can look. </p>
+<dl class="note"><dt><b>Note:</b></dt><dd>An angle of zero is straight ahead, with positive up and negative down. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a6967374ed97e7e02bbcc4af880ff94e3"></a><!-- doxytag: member="PlayerData::maxProneBackwardSpeed" ref="a6967374ed97e7e02bbcc4af880ff94e3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::maxProneBackwardSpeed</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Maximum backward speed when prone (laying down). </p>
+
+</div>
+</div>
+<a class="anchor" id="a0a9c891eeac351ee262f2b6a379a8dd2"></a><!-- doxytag: member="PlayerData::maxProneForwardSpeed" ref="a0a9c891eeac351ee262f2b6a379a8dd2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::maxProneForwardSpeed</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Maximum forward speed when prone (laying down). </p>
+
+</div>
+</div>
+<a class="anchor" id="aa10193d152e1336b6ddb923af63a465e"></a><!-- doxytag: member="PlayerData::maxProneSideSpeed" ref="aa10193d152e1336b6ddb923af63a465e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::maxProneSideSpeed</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Maximum sideways speed when prone (laying down). </p>
+
+</div>
+</div>
+<a class="anchor" id="a7ddcb339a1a1c237f4b7974d2eafa7f2"></a><!-- doxytag: member="PlayerData::maxSideSpeed" ref="a7ddcb339a1a1c237f4b7974d2eafa7f2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::maxSideSpeed</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Maximum sideways speed when running. </p>
+
+</div>
+</div>
+<a class="anchor" id="a68d623747103d9d2b47279d45f62f819"></a><!-- doxytag: member="PlayerData::maxSprintBackwardSpeed" ref="a68d623747103d9d2b47279d45f62f819" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::maxSprintBackwardSpeed</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Maximum backward speed when sprinting. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1680f8cd4eb8412a912a5673f4c0da1a"></a><!-- doxytag: member="PlayerData::maxSprintForwardSpeed" ref="a1680f8cd4eb8412a912a5673f4c0da1a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::maxSprintForwardSpeed</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Maximum forward speed when sprinting. </p>
+
+</div>
+</div>
+<a class="anchor" id="aca355cbdf84584f0b768b8e6c9b94954"></a><!-- doxytag: member="PlayerData::maxSprintSideSpeed" ref="aca355cbdf84584f0b768b8e6c9b94954" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::maxSprintSideSpeed</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Maximum sideways speed when sprinting. </p>
+
+</div>
+</div>
+<a class="anchor" id="a78e1199f5ab0a47e05af39007eb927f8"></a><!-- doxytag: member="PlayerData::maxStepHeight" ref="a78e1199f5ab0a47e05af39007eb927f8" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::maxStepHeight</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Maximum height the player can step up. </p>
+<p>The player will automatically step onto changes in ground height less than maxStepHeight. The player will collide with ground height changes greater than this. </p>
+
+</div>
+</div>
+<a class="anchor" id="a0b4d8983c855b6a7e3b9a1e87c239f25"></a><!-- doxytag: member="PlayerData::maxTimeScale" ref="a0b4d8983c855b6a7e3b9a1e87c239f25" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::maxTimeScale</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Maximum time scale for action animations. </p>
+<p>If an action animation has a defined ground frame, it is automatically scaled to match the player's ground velocity. This field limits the maximum time scale used even if the player's velocity exceeds it. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8b4f01c7a2b12e1ae695208dbf09d04a"></a><!-- doxytag: member="PlayerData::maxUnderwaterBackwardSpeed" ref="a8b4f01c7a2b12e1ae695208dbf09d04a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::maxUnderwaterBackwardSpeed</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Maximum backward speed when underwater. </p>
+
+</div>
+</div>
+<a class="anchor" id="aea2c7428c24e7bcd17afcaca8c0e1662"></a><!-- doxytag: member="PlayerData::maxUnderwaterForwardSpeed" ref="aea2c7428c24e7bcd17afcaca8c0e1662" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::maxUnderwaterForwardSpeed</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Maximum forward speed when underwater. </p>
+
+</div>
+</div>
+<a class="anchor" id="a9a54ae5d57804e1d1ca51de3137b6da7"></a><!-- doxytag: member="PlayerData::maxUnderwaterSideSpeed" ref="a9a54ae5d57804e1d1ca51de3137b6da7" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::maxUnderwaterSideSpeed</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Maximum sideways speed when underwater. </p>
+
+</div>
+</div>
+<a class="anchor" id="a232719d05a35089dfb73ebf319462f5e"></a><!-- doxytag: member="PlayerData::mediumSplashSoundVelocity" ref="a232719d05a35089dfb73ebf319462f5e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::mediumSplashSoundVelocity</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Minimum velocity when entering the water for choosing between the impactWaterEasy and impactWaterMedium sounds to play. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Sound to play when entering the water with velocity &lt; mediumSplashSoundVelocity...">impactWaterEasy</a> </dd>
+<dd>
+<a class="el" 
+        title="Sound to play when entering the water with velocity &gt;= mediumSplashSoundVelocity...">impactWaterMedium</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="af68b43a51355cbf7beba0e32d18d5392"></a><!-- doxytag: member="PlayerData::minImpactSpeed" ref="af68b43a51355cbf7beba0e32d18d5392" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::minImpactSpeed</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Minimum impact speed to apply falling damage. </p>
+<p>This field also sets the minimum speed for the onImpact callback to be invoked. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Called when we collide with another object beyond some impact speed.">ShapeBaseData::onImpact()</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ae8e7920b2601e44efb603580ec2517b9"></a><!-- doxytag: member="PlayerData::minJumpEnergy" ref="ae8e7920b2601e44efb603580ec2517b9" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::minJumpEnergy</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Minimum energy level required to jump. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Energy level drained each time the player jumps.">jumpEnergyDrain</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a972d75c8c1c5648d0db627061909cdb7"></a><!-- doxytag: member="PlayerData::minJumpSpeed" ref="a972d75c8c1c5648d0db627061909cdb7" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::minJumpSpeed</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Minimum speed needed to jump. </p>
+<p>If the player's own z velocity is greater than this, then it is used to scale the jump speed, up to maxJumpSpeed. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Maximum vertical speed before the player can no longer jump.">maxJumpSpeed</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a8c846390f932375fe03860837c710985"></a><!-- doxytag: member="PlayerData::minLateralImpactSpeed" ref="a8c846390f932375fe03860837c710985" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::minLateralImpactSpeed</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Minimum impact speed to apply non-falling damage. </p>
+<p>This field also sets the minimum speed for the onLateralImpact callback to be invoked. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd>ShapeBaseData::onLateralImpact() </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ac225e192c1c7034ff313e508f835b000"></a><!-- doxytag: member="PlayerData::minLookAngle" ref="ac225e192c1c7034ff313e508f835b000" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::minLookAngle</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Lowest angle (in radians) the player can look. </p>
+<dl class="note"><dt><b>Note:</b></dt><dd>An angle of zero is straight ahead, with positive up and negative down. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab7ba3c2e9b368ba4d37f089d64889a87"></a><!-- doxytag: member="PlayerData::minRunEnergy" ref="ab7ba3c2e9b368ba4d37f089d64889a87" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::minRunEnergy</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Minimum energy level required to run or swim. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Energy value drained each tick that the player is moving.">runEnergyDrain</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="acaacd9c99ee72e1add897493b65cedda"></a><!-- doxytag: member="PlayerData::minSprintEnergy" ref="acaacd9c99ee72e1add897493b65cedda" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::minSprintEnergy</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Minimum energy level required to sprint. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Energy value drained each tick that the player is sprinting.">sprintEnergyDrain</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="af7a207fcd2a09353161df2d253e9e5ca"></a><!-- doxytag: member="PlayerData::movingBubblesSound" ref="af7a207fcd2a09353161df2d253e9e5ca" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el">SFXTrack</a> <a class="el">PlayerData::movingBubblesSound</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Sound to play when in water and coverage equals 1.0 (fully underwater). </p>
+<p>Note that unlike FootUnderwaterSound, this sound plays even if the player is not moving around in the water. </p>
+
+</div>
+</div>
+<a class="anchor" id="a9b618b8345105f9b6dd7fa9273083bd2"></a><!-- doxytag: member="PlayerData::physicsPlayerType" ref="a9b618b8345105f9b6dd7fa9273083bd2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string <a class="el">PlayerData::physicsPlayerType</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Specifies the type of physics used by the player. </p>
+<p>This depends on the physics module used. An example is 'Capsule'. </p>
+<dl class="note"><dt><b>Note:</b></dt><dd>Not current used. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad4efd44ac9915e9fd67362016a36d640"></a><!-- doxytag: member="PlayerData::pickupRadius" ref="ad4efd44ac9915e9fd67362016a36d640" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::pickupRadius</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Radius around the player to collide with Items in the scene (on server). </p>
+<p>Internally the pickupRadius is added to the larger side of the initial bounding box to determine the actual distance, to a maximum of 2 times the bounding box size. The initial bounding box is that used for the root pose, and therefore doesn't take into account the change in pose. </p>
+
+</div>
+</div>
+<a class="anchor" id="ab52bc5b592556b6372b624b895c4be5c"></a><!-- doxytag: member="PlayerData::proneBoundingBox" ref="ab52bc5b592556b6372b624b895c4be5c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Point3F <a class="el">PlayerData::proneBoundingBox</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Collision bounding box used when the player is prone (laying down). </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Size of the bounding box used by the player for collision.">boundingBox</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a1417c0fb2ce2b619053e309b6dbed4d2"></a><!-- doxytag: member="PlayerData::proneForce" ref="a1417c0fb2ce2b619053e309b6dbed4d2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::proneForce</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Force used to accelerate the player when prone (laying down). </p>
+
+</div>
+</div>
+<a class="anchor" id="a694fd522257e9f2e19cfb944f27d7cd9"></a><!-- doxytag: member="PlayerData::recoverDelay" ref="a694fd522257e9f2e19cfb944f27d7cd9" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el">PlayerData::recoverDelay</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Number of ticks for the player to recover from falling. </p>
+
+</div>
+</div>
+<a class="anchor" id="a7460076e0231238b267c76bcaf441a14"></a><!-- doxytag: member="PlayerData::recoverRunForceScale" ref="a7460076e0231238b267c76bcaf441a14" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::recoverRunForceScale</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Scale factor applied to runForce while in the recover state. </p>
+<p>This can be used to temporarily slow the player's movement after a fall, or prevent the player from moving at all if set to zero. </p>
+
+</div>
+</div>
+<a class="anchor" id="abe34210b353398121e82188d2d38c7ee"></a><!-- doxytag: member="PlayerData::renderFirstPerson" ref="abe34210b353398121e82188d2d38c7ee" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el">PlayerData::renderFirstPerson</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Flag controlling whether to render the player shape in first person view. </p>
+
+</div>
+</div>
+<a class="anchor" id="a0d5bf78f809e58334fd5ae542d5df7e0"></a><!-- doxytag: member="PlayerData::runEnergyDrain" ref="a0d5bf78f809e58334fd5ae542d5df7e0" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::runEnergyDrain</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Energy value drained each tick that the player is moving. </p>
+<p>The player will not be able to move when his energy falls below minRunEnergy. </p>
+<dl class="note"><dt><b>Note:</b></dt><dd>Setting this to zero will disable any energy drain. </dd></dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Minimum energy level required to run or swim.">minRunEnergy</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ac87c8b0639dfbd8b72ebf31033304263"></a><!-- doxytag: member="PlayerData::runForce" ref="ac87c8b0639dfbd8b72ebf31033304263" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::runForce</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Force used to accelerate the player when running. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae59b8212fa74d741d927ebb5377ac013"></a><!-- doxytag: member="PlayerData::runSurfaceAngle" ref="ae59b8212fa74d741d927ebb5377ac013" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::runSurfaceAngle</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Maximum angle from vertical (in degrees) the player can run up. </p>
+
+</div>
+</div>
+<a class="anchor" id="a4ac8a781f4532e7b725144d36ba638aa"></a><!-- doxytag: member="PlayerData::shapeNameFP" ref="a4ac8a781f4532e7b725144d36ba638aa" args="[4]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">filename <a class="el">PlayerData::shapeNameFP</a>[4]</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>File name of this player's shape that will be used in conjunction with the corresponding mounted image. </p>
+<p>These optional parameters correspond to each mounted image slot to indicate a shape that is rendered in addition to the mounted image shape. Typically these are a player's arms (or arm) that is animated along with the mounted image's state animation sequences. </p>
+
+</div>
+</div>
+<a class="anchor" id="a05e0a0419cbb55e256f39ae14d98d0b1"></a><!-- doxytag: member="PlayerData::Splash" ref="a05e0a0419cbb55e256f39ae14d98d0b1" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el">SplashData</a> <a class="el">PlayerData::Splash</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><a class="el" 
+        title="Acts as the physical point in space in white a Splash is created from.">SplashData</a> datablock used to create splashes when the player moves through water. </p>
+
+</div>
+</div>
+<a class="anchor" id="a36c661018b9cbffbf7905eb57313fe5d"></a><!-- doxytag: member="PlayerData::splashAngle" ref="a36c661018b9cbffbf7905eb57313fe5d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::splashAngle</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Maximum angle (in degrees) from pure vertical movement in water to generate splashes. </p>
+
+</div>
+</div>
+<a class="anchor" id="a4f8e5b07c051fe071c6a50248fec876d"></a><!-- doxytag: member="PlayerData::splashEmitter" ref="a4f8e5b07c051fe071c6a50248fec876d" args="[3]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el">ParticleEmitterData</a> <a class="el">PlayerData::splashEmitter</a>[3]</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Particle emitters used to generate splash particles. </p>
+
+</div>
+</div>
+<a class="anchor" id="af4e75a62e65157fd57fb815cebaf223f"></a><!-- doxytag: member="PlayerData::splashFreqMod" ref="af4e75a62e65157fd57fb815cebaf223f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::splashFreqMod</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Multipled by speed to determine the number of splash particles to generate. </p>
+
+</div>
+</div>
+<a class="anchor" id="a3cc29c00431b40da9eb7430baf9a8ea3"></a><!-- doxytag: member="PlayerData::splashVelEpsilon" ref="a3cc29c00431b40da9eb7430baf9a8ea3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::splashVelEpsilon</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Minimum speed to generate splash particles. </p>
+
+</div>
+</div>
+<a class="anchor" id="a2c878856d663f8fdf4c36c3d8d228795"></a><!-- doxytag: member="PlayerData::splashVelocity" ref="a2c878856d663f8fdf4c36c3d8d228795" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::splashVelocity</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Minimum velocity when moving through water to generate splashes. </p>
+
+</div>
+</div>
+<a class="anchor" id="a9f9c6cc56d84e92f9b1acb136eda55c7"></a><!-- doxytag: member="PlayerData::sprintCanJump" ref="a9f9c6cc56d84e92f9b1acb136eda55c7" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el">PlayerData::sprintCanJump</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Can the player jump while sprinting. </p>
+
+</div>
+</div>
+<a class="anchor" id="a3cf7ee9e047cf4f4f2bc6928f3fefd6d"></a><!-- doxytag: member="PlayerData::sprintEnergyDrain" ref="a3cf7ee9e047cf4f4f2bc6928f3fefd6d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::sprintEnergyDrain</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Energy value drained each tick that the player is sprinting. </p>
+<p>The player will not be able to move when his energy falls below sprintEnergyDrain. </p>
+<dl class="note"><dt><b>Note:</b></dt><dd>Setting this to zero will disable any energy drain. </dd></dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Minimum energy level required to sprint.">minSprintEnergy</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a87a94cd22cccb45240de55a371f68bd1"></a><!-- doxytag: member="PlayerData::sprintForce" ref="a87a94cd22cccb45240de55a371f68bd1" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::sprintForce</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Force used to accelerate the player when sprinting. </p>
+
+</div>
+</div>
+<a class="anchor" id="a3860d6d228e8cb4329ac281b05d5fcfd"></a><!-- doxytag: member="PlayerData::sprintPitchScale" ref="a3860d6d228e8cb4329ac281b05d5fcfd" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::sprintPitchScale</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Amount to scale pitch motion while sprinting. </p>
+
+</div>
+</div>
+<a class="anchor" id="ad6ae424987cd954d8f2f39c2723d8e54"></a><!-- doxytag: member="PlayerData::sprintStrafeScale" ref="ad6ae424987cd954d8f2f39c2723d8e54" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::sprintStrafeScale</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Amount to scale strafing motion vector while sprinting. </p>
+
+</div>
+</div>
+<a class="anchor" id="aedbc4fef40848ba7ab77d051c5b404db"></a><!-- doxytag: member="PlayerData::sprintYawScale" ref="aedbc4fef40848ba7ab77d051c5b404db" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::sprintYawScale</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Amount to scale yaw motion while sprinting. </p>
+
+</div>
+</div>
+<a class="anchor" id="acb0d218a2cca84621729c3242560600e"></a><!-- doxytag: member="PlayerData::swimBoundingBox" ref="acb0d218a2cca84621729c3242560600e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Point3F <a class="el">PlayerData::swimBoundingBox</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Collision bounding box used when the player is swimming. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Size of the bounding box used by the player for collision.">boundingBox</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a1f4817a2e3b9cfb6bf6db66846de2c98"></a><!-- doxytag: member="PlayerData::swimForce" ref="a1f4817a2e3b9cfb6bf6db66846de2c98" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::swimForce</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Force used to accelerate the player when swimming. </p>
+
+</div>
+</div>
+<a class="anchor" id="a9927da5f221f287a8b435d436e1b6f53"></a><!-- doxytag: member="PlayerData::transitionToLand" ref="a9927da5f221f287a8b435d436e1b6f53" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el">PlayerData::transitionToLand</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>When going from a fall to a land, should we transition between the two. </p>
+<dl class="note"><dt><b>Note:</b></dt><dd>Only takes affect when landSequenceTime is greater than 0. </dd></dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Time of land sequence play back when using new recover system.">landSequenceTime</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aa1abe3ef0b028defd97837954d785f6e"></a><!-- doxytag: member="PlayerData::upMaxSpeed" ref="aa1abe3ef0b028defd97837954d785f6e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::upMaxSpeed</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Maximum upwards speed. </p>
+<dl class="note"><dt><b>Note:</b></dt><dd>This limit is only enforced if the player's upward speed exceeds upResistSpeed. </dd></dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Upwards speed at which resistence will take place.">upResistSpeed</a> </dd>
+<dd>
+<a class="el" title="Factor of resistence once upResistSpeed has been reached.">upResistFactor</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a92a0df03195415c6d0ca2b530256df0f"></a><!-- doxytag: member="PlayerData::upResistFactor" ref="a92a0df03195415c6d0ca2b530256df0f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::upResistFactor</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Factor of resistence once upResistSpeed has been reached. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Maximum upwards speed.">upMaxSpeed</a> </dd>
+<dd>
+<a class="el" title="Upwards speed at which resistence will take place.">upResistSpeed</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a52dc65a2fb2a71b5a092c9da62eb833c"></a><!-- doxytag: member="PlayerData::upResistSpeed" ref="a52dc65a2fb2a71b5a092c9da62eb833c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el">PlayerData::upResistSpeed</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Upwards speed at which resistence will take place. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Maximum upwards speed.">upMaxSpeed</a> </dd>
+<dd>
+<a class="el" title="Factor of resistence once upResistSpeed has been reached.">upResistFactor</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="af51f4d4c921108ba894b7acfad43e3a0"></a><!-- doxytag: member="PlayerData::waterBreathSound" ref="af51f4d4c921108ba894b7acfad43e3a0" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el">SFXTrack</a> <a class="el">PlayerData::waterBreathSound</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Sound to play when in water and coverage equals 1.0 (fully underwater). </p>
+<p>Note that unlike FootUnderwaterSound, this sound plays even if the player is not moving around in the water. </p>
+
+</div>
+</div>
+</div>
+<p>&nbsp;</p>
+</div>
+</div>
+</div></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

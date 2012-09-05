@@ -1,0 +1,172 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 43;
+   parent.leftFrame.expandToItem('tree2', 'doc43');
+   var element = parent.leftFrame.document.getElementById('doc43');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<title>Torque 3D - Proximity Mines</title>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_Scripting_Overview_Introduction skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+                <h2>Detailed Description</h2>
+                <p>A simple proximity mine. </p>
+                <p>Proximity mines can be deployed using the world editor or thrown by an in-game object. Once armed, any 
+                    <a class="el" title="A client-controlled player character.">Player</a> or 
+                    <a class="el" 
+                        title="Base functionality shared by all Vehicles (FlyingVehicle, HoverVehicle, WheeledVehicle)...">Vehicle</a> object that moves within the mine's trigger area will cause it to explode.</p>
+                <p>Internally, the <a class="el" title="A simple proximity mine.">ProximityMine</a> object transitions through the following states: </p>
+                <ol>
+                  <li> <b>Thrown</b>: Mine has been thrown, but has not yet attached to a surface </li>
+                  <li> <b>Deployed</b>: Mine has attached to a surface but is not yet armed. Start playing the armingSound and <em>armed</em> sequence. </li>
+                  <li> <b>Armed</b>: Mine is armed and will trigger if a <a class="el" 
+                          title="Base functionality shared by all Vehicles (FlyingVehicle, HoverVehicle, WheeledVehicle)...">Vehicle</a> or 
+                      <a class="el" title="A client-controlled player character.">Player</a> object moves within the trigger area. </li>
+                  <li> <b>Triggered</b>: Mine has been triggered and will explode soon. Invoke the onTriggered callback, and start playing the triggerSound and <em>triggered</em> sequence. </li>
+                  <li> <b>Exploded</b>: Mine has exploded and will be deleted on the server shortly. Invoke the onExplode callback on the server and generate the explosion effects on the client. </li>
+                </ol>
+                <dl class="note">
+                  <dt><b>Note:</b></dt>
+                  <dd>Proximity mines with the <a class="el" 
+                          title="If true, the object is not moving in the world (and will not be updated through the...">static</a> field set to true will start in the <b>Armed</b> state. Use this for mines placed with the World Editor.</dd>
+                </dl>
+                <p>The shape used for the mine may optionally define the following sequences: </p>
+                <dl>
+                  <dt>armed</dt>
+                  <dd>Sequence to play when the mine is deployed, but before it becomes active and triggerable (armingDelay should be set appropriately). </dd>
+                  <dt>triggered</dt>
+                  <dd>Sequence to play when the mine is triggered, just before it explodes (triggerDelay should be set appropriately). </dd>
+                </dl>
+                <dl class="user">
+                  <dt><b>Example:</b></dt>
+                  <dd>
+                    <div class="fragment">
+                      <pre class="fragment">datablock <a class="code" 
+                            title="Stores common properties for a ProximityMine.">ProximityMineData</a>( SimpleMine )
+{
+   <span class="comment">// ShapeBaseData fields</span>
+   category = <span class="stringliteral">&quot;Weapon&quot;</span>;
+   shapeFile = <span class="stringliteral">&quot;art/shapes/weapons/misc/proximityMine.dts&quot;</span>;
+
+   <span class="comment">// ItemData fields</span>
+   sticky = <span class="keyword">true</span>;
+
+   <span class="comment">// ProximityMineData fields</span>
+   armingDelay = 0.5;
+   armingSound = MineArmedSound;
+
+   autoTriggerDelay = 0;
+   triggerOnOwner = <span class="keyword">true</span>;
+   triggerRadius = 5.0;
+   triggerSpeed = 1.0;
+   triggerDelay = 0.5;
+   triggerSound = MineTriggeredSound;
+   explosion = RocketLauncherExplosion;
+
+   <span class="comment">// dynamic fields</span>
+   pickUpName = <span class="stringliteral">&quot;Proximity Mines&quot;</span>;
+   maxInventory = 20;
+
+   damageType = <span class="stringliteral">&quot;MineDamage&quot;</span>; <span class="comment">// type of damage applied to objects in radius</span>
+   radiusDamage = 30;           <span class="comment">// amount of damage to apply to objects in radius</span>
+   damageRadius = 8;            <span class="comment">// search radius to damage objects when exploding</span>
+   areaImpulse = 2000;          <span class="comment">// magnitude of impulse to apply to objects in radius</span>
+};
+
+function <a class="code" title="Callback invoked when an object triggers the ProximityMine.">ProximityMineData::onTriggered</a>( %<span class="keyword">this</span>, %obj, %target )
+{
+   <a class="code" title="Logs a message to the console.">echo</a>( %this.name SPC <span class="stringliteral">&quot;triggered by &quot;</span> @ %target.getClassName() );
+}
+
+function <a class="code" title="Callback invoked when a ProximityMine is about to explode.">ProximityMineData::onExplode</a>( %<span class="keyword">this</span>, %obj, %position )
+{
+   <span class="comment">// Damage objects within the mine&#39;s damage radius</span>
+   <span class="keywordflow">if</span> ( %this.damageRadius &gt; 0 )
+      radiusDamage( %obj.sourceObject, %position, %<span class="keyword">this</span>.damageRadius, 
+      %<span class="keyword">this</span>.radiusDamage, %<span class="keyword">this</span>.damageType, %<span class="keyword">this</span>.areaImpulse );
+}
+
+function ProximityMineData::damage( %<span class="keyword">this</span>, %obj, %position, %source, %amount, %damageType )
+{
+   <span class="comment">// Explode if any damage is applied to the mine</span>
+   %obj.schedule(50 + <a class="code" title="Returns a random number based on parameters passed in..">getRandom</a>(50), explode);
+}
+
+%obj = <span class="keyword">new</span> <a class="code" title="A simple proximity mine.">ProximityMine</a>()
+{
+   dataBlock = SimpleMine;
+};
+                </pre>
+                    </div>
+                  </dd>
+                </dl>
+                <dl class="see">
+                  <dt><b>See also:</b></dt>
+                  <dd><a class="el" title="Stores common properties for a ProximityMine.">ProximityMineData</a> </dd>
+                </dl>
+                <hr/>
+                <h2>Member Function Documentation</h2>
+                <a class="anchor" id="a63b594a517babd672362dc504f8bfa72"></a>
+                <!-- doxytag: member="ProximityMine::explode" ref="a63b594a517babd672362dc504f8bfa72" args="()" -->
+                <div class="memitem">
+                  <div class="memproto">
+                    <table class="memname">
+                      <tr>
+                        <td class="memname">void ProximityMine::explode </td>
+                        <td>(</td>
+                        <td class="paramname"></td>
+                        <td>&nbsp;)&nbsp;</td>
+                        <td></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="memdoc">
+                    <p>Manually cause the mine to explode. </p>
+                  </div>
+                </div>
+        <div class="memitem"><div class="memdoc"><p>&nbsp;</p>
+</div>
+</div>
+</div></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

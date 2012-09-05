@@ -1,0 +1,282 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 87;
+   parent.leftFrame.expandToItem('tree2', 'doc87');
+   var element = parent.leftFrame.document.getElementById('doc87');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D - Mesh Road Editor</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject  page-Torque3D_WorldEditor_Editors_MeshRoadEditor skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <br /><a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          </div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Setup"><span class="tocnumber">2</span> <span class="toctext">Setup</span></a></li>
+                          <li class="toclevel-1"><a href="#Interface"><span class="tocnumber">3</span> <span class="toctext">Interface</span></a></li>
+                          <li class="toclevel-1"><a href="#Adding_a_Mesh_Road"><span class="tocnumber">4</span> <span class="toctext">Adding a Road Mesh</span></a>
+                          <li class="toclevel-1"><a href="#Editing_a_Mesh_Road"><span class="tocnumber">5</span> <span class="toctext">Editing a Mesh Road</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#Selection_Tool"><span class="tocnumber">5.1</span> <span class="toctext">Selection Tool</span></a></li>
+                              <li class="toclevel-2"><a href="#Moving_a_Road"><span class="tocnumber">5.2</span> <span class="toctext">Moving a Road</span></a></li>
+                              <li class="toclevel-2"><a href="#Scaling_a_Road"><span class="tocnumber">5.3</span> <span class="toctext">Scaling the Road</span></a></li>
+                              <li class="toclevel-2"><a href="#Rotate_a_Road"><span class="tocnumber">5.4</span> <span class="toctext">Rotate a Road</span></a></li>
+                              <li class="toclevel-2"><a href="#Adding_extra_Points"><span class="tocnumber">5.5</span> <span class="toctext">Inserting Extra Points</span></a></li>
+                              <li class="toclevel-2"><a href="#Removing_Points"><span class="tocnumber">5.6</span> <span class="toctext">Removing Points</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Properties"><span class="tocnumber">6</span> <span class="toctext">Properties</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#Transform"><span class="tocnumber">6.1</span> <span class="toctext">Transform</span></a></li>
+                              <li class="toclevel-2"><a href="#Mesh_Road"><span class="tocnumber">6.2</span> <span class="toctext">Mesh Road</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">6</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p><br /><i>(click to enlarge)</i> </p>
+                <a href="images/Roadmeshheader.jpg" class="livethumbnail"><img src="images/Roadmeshheader.jpg" width="400" height="199" largewidth="800" largeheight="399" /></a><br />
+                <br /><a name="Introduction" id="Introduction"></a>
+                <h1> <span class="mw-headline">Introduction</span></h1>
+                <p>The Mesh Road editor will help you create a solid mesh road structure upon your terrain. A mesh road is actually a 3D model representation of your road and is not solely dependent upon the terrain height. A mesh road can be raised above the terrain, or suspended between hills unlike a decal road, which painted on the surface of your terrain as a texture, and must follow the terrain exactly. Decal roads are created with the 
+                    <a href="DecalRoadEditor.html">Decal Road Editor</a>.</p>
+                  <p><br /><i>(click to enlarge)</i> </p>
+                <a href="images/Roadmeshintro.jpg" class="livethumbnail"><img src="images/Roadmeshintro.jpg" width="400" height="226" largewidth="800" largeheight="453" /></a><br />
+                <br /><a name="Setup" id="Setup"></a>
+                <h1> <span class="mw-headline">Setup</span></h1>
+                <p>To use the Mesh Road Editor we will need some terrain to place our road upon. From the Toolbox, create a new project using the Full template, and then load the Empty Terrain level. This level has an adequate sample terrain to use when following this article. </p>
+                <p><img alt="Image:roadmeshsetup.jpg" src="images/Roadmeshsetup.jpg" border="0" height="176" width="611" /> </p>
+                <br /><a name="Interface" id="Interface"></a>
+                <h1> <span class="mw-headline">Interface</span></h1>
+                <p>To access the Mesh Road Editor press the F9 key or activate it from the main menu of the World Editor by selecting Editors>Mesh Road Editor: </p>
+                <p><br />
+                  <i>menu&gt;Editors&gt;Mesh Road Editor</i> </p>
+                <p><img alt="Image:roadmeshMenu.jpg" src="images/RoadmeshMenu.jpg" border="0" height="309" width="371" /> </p><br />
+                <p><br />
+                  Alternatively you can click the Mesh Road icon from the World Editor Tool Selector Bar: </p>
+                <p><img alt="Image:roadmeshToolBar.jpg" src="images/RoadmeshToolBar.jpg" border="0" height="30" width="441" /> </p><br />
+                <p><br />
+                  Whenever the Mesh Road Editor is active three sections of the screen are updated to contain the editors tool.</p>
+                  <p><br />On the right side of the screen are the Mesh Roads pane and the Properties pane. At the top is the Mesh Roads pane which contains a list of all the road meshes currently in the level, if any are present.  At the bottom is the Properties Pane which displays the properties of the currently selected road mesh. </p>
+                <p><img alt="Image:roadmeshP.jpg" src="images/RoadmeshP.jpg" border="0" height="443" width="251" /> </p>
+                <p><br />At the left of the screen the Mesh Road placement tools will appear and are used to create and modify road meshes</p>
+                <p><br /><em>Hint: These tool bars are floating and can be moved to any part of your screen. 
+                    </em> </p>
+                    <p><img alt="Image:RoadmeshTools.jpg" src="images/RoadmeshTools.jpg" border="0" height="200" width="194" /> </p>
+                    <p><br />At the top of the screen in the World Editor Tool Settings bar, a new set of icons will appear. </p>
+                    <p><br /><img alt="Image:RoadmeshToolbar2.jpg" src="images/RoadmeshToolbar2.jpg" border="0" height="30" width="690" /></p>
+                    <p><br />These icons and their associated values will enable you to quickly set up the width and depth of the control points and modify the editor to show and hide some visual aids which can be used to guide your road placement. </p>
+                <br /><a name="Adding_a_Mesh_Road" id="Adding_a_Mesh_Road"></a>
+                <h1> <span class="mw-headline">Adding a Mesh Road</span></h1>
+                <p>A road mesh is created by placing a number of control points across the terrain. Each point can be edited for Road height, Road width and Road depth. By adjusting these points we have full control over how our road will look</p>
+                <p>The default width and depth of control points can be set using the <strong>Default Width</strong> and 
+                    <strong>Default Height</strong> properties on the Tool Settings Bar at the top of the editor window. Any new road meshes will be created using these settings until you change their values again.</p>
+                    <p><br />To create a new road mesh select the Create Road icon <img alt="Image:roadmeshIcon1.jpg" src="images/RoadmeshIcon1.jpg" border="0" height="27" width="30" /> from the tool bar then click on the terrain with the left mouse button where you would like to start your road. Move the mouse away from the clicked location to see the results. Each time you click the terrain you will see three things: (1) a green square which represents the road location that you just placed; (2) a blue square which represents the next location that will be placed the road if you press mouse button again; (3) the surface of the road that will be placed the next time you click the button. Move the mouse to the next point on the terrain that you wish your road to travel to and then click again. Continue moving and clicking until you are finished with the initial placement of your road.</p>
+                    <p><br />To complete the road placement process press the ESC key. This action will exit the Create 
+                        Road tool leaving your new road selected and ready for adjustments. </p>
+                    <p><br />To abort a road creation operation without placing a road at all press the Esc key before selecting a second 
+                        road point. Once a second road point has been placed the only way to remove the 
+                        road completely is to delete it, as explained later.</p>
+                        <p><br />
+                  <img alt="Image:roadmeshpath.jpg" src="images/Roadmeshpath.jpg" border="0" height="282" width="600" /></p>
+                  <p><br />The new road will also show up in the Roads Mesh pane above the road Properties pane.</p>
+                <h2><a name="Editing_a_Mesh_Road"><span class="mw-headline">Editing a Mesh Road</span></a></h2>
+                <p><br />The Road Mesh Editor provides several tools for modifying roads after they have been created. If at any time you make a mistake with any tool, you can press CTRL+Z to undo it.</p>
+                <p><br /><h2><a name="Selection_Tool"><span class="mw-headline">Selection Tool</span></a></h2></p>
+                <p><br />
+                  OOnce you have created your initial road you may need to edit some or all of the control points. This tool will allow you to directly select any created point for further editing. To activate the Selection Tool click its icon <img alt="Image:RoadmeshIcon4.jpg" src="images/RoadmeshIcon4.jpg" border="0" height="27" width="30" /> on the Tool Selector bar. Note that the Road Mesh Editor will automatically select this tool when you have finished creating a new road.</p>
+                <p><br />
+                  An entire road mesh can be selected by clicking anywhere on a road mesh other than one of its control points. This type of selection will result in the road being highlighted with a "spline", which is a curved line that runs along the center line of the road, and a series of green squares which represent the roads control points. There are no operations that can be performed on a road as a whole within the Mesh Road Editor. Selecting a road allows you to see its centerline and it control points for individual selection and manipulation. To perform operations on the entire road such as moving it to a new location use the Object Editors tools as with any other shape in your level.</p>
+                <p><br />
+                  Control points can be selected individually to adjust each point as necessary. To select a control point left click on one of the colored squares that represent a roads control points. The selected control point will turn blue.</p>
+                <p><img alt="Image:Roadmeshselect.jpg" src="images/Roadmeshselect.jpg" border="0" height="233" width="331" /></p>
+                <p><br />Selecting a control point also causes the Properties pane on the right of the screen to be updated to display the current property values of the control point. The Node Properties section will display the position, rotation, width and depth of the selected control point. Values can be directly entered into these fields to modify the point or the Move Tool can be used to manipulate the point using the mouse. </p>
+                <p><br /><img alt="Image:RoadmeshNodeP.jpg" src="images/RoadmeshNodeP.jpg" border="0" height="85" width="254" /></p>
+                <h2><a name="Moving_a_Road"><span class="mw-headline">Moving a Road</span></a></h2>
+                <p><br />If at any time you are unhappy with the placement of a selected Road Mesh control point you can use the Move Tool to adjust its position. To activate the Move Tool click its icon <img alt="Image:RoadmeshIcon5.jpg" src="images/RoadmeshIcon5.jpg" border="0" height="27" width="30" /> in the Tool Selector bar. The move gizmo will appear:</p>
+                <p><br /><img alt="Image:roadmeshMove.jpg" src="images/RoadmeshMove.jpg" border="0" height="233" width="331" /> </p>
+                <p><br />The move gizmo is used to move the road point to a new location. Left mouse click on any arrowhead then drag the mouse to move the point along that arrows axis. Release the mouse button to relocate the control point to that new location. Left mouse click on the colored square at the origin of the axes then drag the mouse to freely move the point to without regard to any axis.</p>
+                <h2><a name="Scaling_a_Road"><span class="mw-headline">Scaling a Road</span></a></h2>
+                <p><br />The width and depth of a road can be directly adjusted at a selected control point by using the Scale tool. To activate the Scale Tool click on its icon <img alt="Image:RoadmeshIcon6.jpg" src="images/RoadmeshIcon6.jpg" border="0" height="27" width="30" /> on the Tool Selector. The scaling gizmo will appear:</p>
+                <p><br /><img alt="Image:roadmeshScale.jpg" src="images/RoadmeshScale.jpg" border="0" height="233" width="331" /> </p>
+                <p><br />Left mouse click on the colored cube at the end of any axis then drag the mouse while holding the button down to increase or decrease the size of the road along that axis. Note that if you drag the blue cube to adjust the depth of the road you may not visibly see the adjustment take place because the road depth may be increasing down into the terrain. To adjust the width and depth at the same time left mouse click on the colored cube at the origin of the axes then drag the mouse while holding down the button. Release the mouse button to change the road to that new width and depth. </p>
+                <h2><a name="Rotate_a_Road"><span class="mw-headline">Rotate a Road</span></a></h2>
+                <p><br />The Rotate Tool can be used to rotate a road at any selected control point. To activate the Rotate Tool click its icon   on the Tool Selector. The rotate gizmo  will appear.</p>
+                <p><img alt="Image:roadmeshRotate.jpg" src="images/RoadmeshRotate.jpg" border="0" height="233" width="331" /> </p>
+                <p><br />Left click on any colored circle then drag the mouse while holding the button down to rotate the roads surface around that axis at the control point.  </p>
+                <br /><a name="Adding_extra_Points" id="Adding_extra_Points"></a>
+                <h2> <span class="mw-headline">Inserting Extra Points</span></h2>
+                <p> The Insert Point tool can be used to add extra points in a road to create a smoother curve. In order to insert a new point into a road the road must first be selected. See the Selection Tool above for details on how to select a road. To activate the Insert Point tool once a road has been selected click its icon <img alt="Image:roadmeshIcon2.jpg" src="images/RoadmeshIcon2.jpg" border="0" height="27" width="30" />  on the Tool Selector bar. To place a new point on the selected road click on the road where you would like the new point to be placed. A new point will be added to the road mesh and will immediately the currently selected point as indicated by the blue square.</p>
+                <br /><a name="Removing_Points" id="Removing_Points"></a>
+                <h2> <span class="mw-headline">Removing Points</span></h2>
+                <p> The Remove Point tool can be used to delete a control from a road mesh. In order to remove a new point from a road the road must first be selected. See the Selection Tool above for details on how to select a road. To activate the Remove Point tool click its icon <img alt="Image:roadmeshIcon3.jpg" src="images/RoadmeshIcon3.jpg" border="0" height="27" width="30" />  on the Tool Selector bar. To remove a control from the selected road point click on the control point. This will remove only the selected point leaving all the others in place. No adjustments will be performed on the other existing control points.</p>
+                <br /><a name="Properties" id="Properties"></a>
+                <h1> <span class="mw-headline">Properties</span></h1>
+                <p>The Properties pane on the right side of the screen can be used to configure a Mesh Road:</p>
+                <p><img alt="Image:roadmeshP1.jpg" src="images/RoadmeshP1.jpg" border="0" height="278" width="247" /> </p>
+                <br /><a name="Transform" id="Transform"></a>
+                <h2> <span class="mw-headline">Transform</span></h2>
+                <p>The transform section contains properties which control the placement, rotation and scale of the Road Mesh as a whole. </p>
+                <p><br />
+                  <b>Position:</b> The transform section contains properties which control the placement, rotation and scale of the Road Mesh as a whole. </p>
+                <p><b>Rotation:</b> Indicates the rotation of the entire Road Mesh in the level. </p>
+                <p><b>Scale:</b> Indicates the scale of the entire Road Mesh in the level.  </p>
+                <br /><a name="Mesh_Road" id="Mesh_Road"></a>
+                <h2> <span class="mw-headline">Mesh
+                  Road</span></h2>
+                <p>The Mesh Road section contains properties which determine and control the textures used to display the Road Mesh. </p>
+                <p>To change any of the textures for the Road mesh click the globe icon to its right:  </p>
+                <p><img alt="Image:roadmeshMat1.jpg" src="images/RoadmeshMat1.jpg" border="0" height="129" width="232" /> </p>
+                <p><br />
+                  Clicking one of these icons you will open up the Material Selection window. </p>
+                  <p><br /><i>(click to enlarge)</i> </p>
+                <a href="images/RoadmeshMat2.jpg" class="livethumbnail"><img src="images/RoadmeshMat2.jpg" width="300" height="216" largewidth="600" largeheight="433" /></a><br />
+                <p><br />
+                  Click on the material you want to use for the road mesh property then click the Select button. The material will be entered in the propertys field and will be used as the material for that portion of the Road Mesh. </p>
+                <p>Please see <a href="MaterialEditor.html"  title="http://docs.torquepowered.com/torque-3d/official/content/documentation/World%20Editor/Editors/MaterialEditor.html" rel="nofollow">Material Editor</a> section of the documentation for more information on the Material Editor.</p>
+                <p><br />
+                  <b>Top Material:</b> Indicates the Material to use for the top surface of the road mesh. </p>
+                <p><b>Bottom Material:</b> Indicates the Material to use for the underside surface of the road mesh. </p>
+                <p><b>Side Material:</b> Indicates the Material to use for the sides of the road mesh. </p>
+                <p><b>Texture Length:</b> Indicates the size in meters of the texture measured along the road center. </p>
+                <p><img alt="Image:roadmeshTexL.jpg" src="images/RoadmeshTexL.jpg" border="0" height="196" width="660" /> </p>
+                <p><br />
+                  <b>Break Angle:</b> Indicates the angle in degrees that the mesh roads spline will be subdivided into if its curve becomes greater than this threshold. </p>
+                <p><img alt="Image:roadmeshBa.jpg" src="images/RoadmeshBa.jpg" border="0" height="169" width="610" /> </p>
+                <p><br />
+                  <b>Width Subdivisions:</b> Subdivide segments width-wise this many times when generating vertices. </p>
+                <br /><a name="Conclusion" id="Conclusion"></a>
+                <h1> <span class="mw-headline">Conclusion</span></h1>
+                <p>In this article we covered the use of the Mesh Road Editor and its tool set for constructing a mesh based road for your projects. With practice and a bit of creativity you can create many types of roads, bridges, and railway tracks. </p>
+                <p><br />
+                  Remember to save your work often and have fun building your new highway. </p></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

@@ -1,0 +1,349 @@
+﻿<html>
+<HEAD><SCRIPT SRC="../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../";</SCRIPT><link href="../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 36;
+   parent.leftFrame.expandToItem('tree2', 'doc36');
+   var element = parent.leftFrame.document.getElementById('doc36');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../include/content.css" />
+
+<title>Torque 3D - Web Publishing</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_Introduction_WebPublishing skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          </div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Getting_Started"><span class="tocnumber">2</span> <span class="toctext">Getting Started</span></a></li>
+                          <li class="toclevel-1"><a href="#Package_Project_Dialog"><span class="tocnumber">3</span> <span class="toctext">Package Project Dialog</span></a></li>
+                          <li class="toclevel-1"><a href="#Packaging_Advanced_Settings"><span class="tocnumber">4</span> <span class="toctext">Packaging Advanced Settings</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#Buttons"><span class="tocnumber">4.1</span> <span class="toctext">Buttons</span></a>
+                                <ul>
+                                  <li class="toclevel-3"><a href="#Every_time_you_make_a_change"><span class="tocnumber">4.1.1</span> <span class="toctext">Every time you make a change</span></a></li>
+                                </ul>
+                              </li>
+                              <li class="toclevel-2"><a href="#General"><span class="tocnumber">4.2</span> <span class="toctext">General</span></a></li>
+                              <li class="toclevel-2"><a href="#Firefox.2FChrome.2FSafari"><span class="tocnumber">4.3</span> <span class="toctext">Firefox/Chrome/Safari</span></a></li>
+                              <li class="toclevel-2"><a href="#Internet_Explorer"><span class="tocnumber">4.4</span> <span class="toctext">Internet Explorer</span></a>
+                                <ul>
+                                  <li class="toclevel-3"><a href="#Generating_new_UUIDs"><span class="tocnumber">4.4.1</span> <span class="toctext">Generating new UUIDs</span></a></li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Build_Package"><span class="tocnumber">5</span> <span class="toctext">Build Package</span></a></li>
+                          <li class="toclevel-1"><a href="#Testing_locally"><span class="tocnumber">6</span> <span class="toctext">Testing locally</span></a></li>
+                          <li class="toclevel-1"><a href="#Distributing_from_your_website"><span class="tocnumber">7</span> <span class="toctext">Distributing from your website</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">8</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline"> Introduction </span></h2>
+                <p>This tutorial will cover the web packaging process, allowing you to run your finished Torque 3D projects inside a web-browser.  All you need is a working Torque 3D project 
+                (we'll use the FPS Example for this tutorial) and a website to host your packaged files from. </p>
+                <a name="Getting_Started" id="Getting_Started"></a>
+                <br><h2> <span class="mw-headline"> Getting Started </span></h2>
+                <p>Open the Torque 3D Toolbox. Windows users can do this by launching the program from the Start menu. </p>
+                <p><img alt="Image:Launch_Toolbox.jpg" src="images/Launch_Toolbox.jpg" border="0" height="347" width="266" /> </p>
+                <p><br />
+                  Make sure the Projects tab is selected. </p>
+                <p>Select the FPS Example project by clicking once on its picture in the list on the left hand side. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/Toolbox_SelectFPSExample.jpg" class="livethumbnail"><img src="images/Toolbox_SelectFPSExample.jpg" width="340" height="266" largewidth="680" largeheight="532" /></a><br />
+                <p><br />
+                  To make sure the project is ready to go, play it in our web browser. </p>
+                <p>With the FPS Example still selected, press the Play in Web button. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/Toolbox_PlayInWeb.jpg" class="livethumbnail"><img src="images/Toolbox_PlayInWeb.jpg" width="340" height="264" largewidth="680" largeheight="529" /></a><br />
+                <a name="Package_Project_Dialog" id="Package_Project_Dialog"></a>
+                <br><h2> <span class="mw-headline"> Package Project Dialog </span></h2>
+                <p>Now we're ready to package up the project for others to download and 
+                  play. Open the Package Project dialog by clicking on the Package Project
+                  button in the Toolbox. </p>
+                <p><img alt="Image:PackageProjectButton.jpg" src="images/PackageProjectButton.jpg" border="0" height="36" width="366" /> </p>
+                <p><br />
+                  Inside the Package Project dialog, check the Web box under Target Formats
+                  and either the Windows or Mac box under Target Platforms (depending on 
+                  which platform you're using).
+                  All the other boxes should be unchecked. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/PackageProjectDialog.jpg" class="livethumbnail"><img src="images/PackageProjectDialog.jpg" width="256" height="194" largewidth="513" largeheight="388" /></a><br />
+                <p><br />
+                  For now, we will keep the other values at their defaults, but we'll 
+                  cover what they're used for in case you want to change them later. </p>
+                <ul>
+                  <li><b>Destination URL</b> - Used to load the game after the player downloads and installs your plug-in. </li>
+                </ul>
+                <ul>
+                  <li><b>Name</b> - The final name of your game. </li>
+                </ul>
+                <ul>
+                  <li><b>Target Location</b> - The folder where your packaged web project will end up. </li>
+                </ul>
+                <a name="Packaging_Advanced_Settings" id="Packaging_Advanced_Settings"></a>
+                <br><h2> <span class="mw-headline"> Packaging Advanced Settings </span></h2>
+                <p>Select the Configure button next to the Web Target Format label to open the Packaging Advanced Setting dialog to the web tab. </p>
+                <br><p><i>(click to enlarge)</i> </p>
+                <a href="images/PackagingAdvancedSettings.jpg" class="livethumbnail"><img src="images/PackagingAdvancedSettings.jpg" width="325" height="271" largewidth="650" largeheight="543" /></a><br />
+                <a name="Buttons" id="Buttons"></a>
+                <h3> <span class="mw-headline"> Buttons </span></h3>
+                <p>Before you change any values, you need to understand the buttons near the bottom of the dialog and the order to use them in. </p>
+                <br><p><i>(click to enlarge)</i> </p>
+                <a href="images/PackagingAdvancedSettings_buttons.jpg" class="livethumbnail"><img src="images/PackagingAdvancedSettings_buttons.jpg" width="337" height="271" largewidth="675" largeheight="543" /></a><br /><br>
+                <ol>
+                  <li><b>Load from File</b> - Loads all the fields in this dialog tab 
+                    from your project. This will overwrite any changes you've made with 
+                    whatever is currently saved in your project files, so don't do this 
+                    after editing the values unless you want to revert your changes. </li>
+                  <li><b>Save to File</b> - Saves all the fields in this dialog tab to your project. Do this after you make any changes to this dialog you want to keep. </li>
+                  <li><b>Generate Source Project</b> - After you save your changes, 
+                    you need to re-generate the source project to reflect those changes. 
+                    Note: If you have any of your project source files open in any other 
+                    editor, close them before pressing this button. </li>
+                  <li><b>Open Source Project</b> - After you make changes to your 
+                    Source Project, you need to re-compile your project. This button is a 
+                    shortcut to reopen your source project.  Make sure everything builds 
+                    properly before continuing. </li>
+                </ol><br>
+                <a name="Every_time_you_make_a_change" id="Every_time_you_make_a_change"></a>
+                <h4> <span class="mw-headline"> Every time you make a change </span></h4>
+                <p>Every time you make a change to <b>any</b> value in this tab you must following steps 2-4 above. </p><br>
+                <a name="General" id="General"></a>
+                <h3> <span class="mw-headline"> General </span></h3>
+                <p>We're not going to change any of the General settings right now. But 
+                  we'll go over the values since you'll want to change them for your own 
+                  projects. </p>
+                <ul>
+                  <li><b>Company Name</b> - Your company name. Used for copyright. </li>
+                </ul>
+                <ul>
+                  <li><b>Company Key</b> - Used to organize the plug-in location on the host machine. This should be an <a href="http://en.wikipedia.org/wiki/Alphanumeric" class="external" title="http://en.wikipedia.org/wiki/Alphanumeric" rel="nofollow">alphanumeric</a> string with no spaces. </li>
+                </ul>
+                <ul>
+                  <li><b>Plug-in Name</b> - Name of the plug-in in the resource file. </li>
+                </ul>
+                <ul>
+                  <li><b>Product Name</b> - Name of your project. </li>
+                </ul>
+                <ul>
+                  <li><b>Version</b> - The project version number. When you release an update, increase this value. Note: This <b>must</b> be a number, otherwise your project will not build. </li>
+                </ul>
+                <ul>
+                  <li><b>Description</b> - A short description of your project. </li>
+                </ul><br>
+                <a name="Firefox.2FChrome.2FSafari" id="Firefox.2FChrome.2FSafari"></a>
+                <h3> <span class="mw-headline"> Firefox/Chrome/Safari </span></h3>
+                <ul>
+                  <li><b>MIME Type</b> - The 'Multipurpose Internet Mail Extension' 
+                    used by many browsers to identify which plug-in should be used. Unless 
+                    you register your MIME type with the <a href="http://www.ietf.org/" class="external" title="http://www.ietf.org/" rel="nofollow">Internet Engineering Task Force</a> it should be an alphanumeric string which starts with the preface "x-". </li>
+                </ul>
+                <ul>
+                  <li><b>Safari Identifier</b> - Identity used by the Apple Safari browser. This is a <a href="http://en.wikipedia.org/wiki/Fully_qualified_domain_name" class="external" title="http://en.wikipedia.org/wiki/Fully_qualified_domain_name" rel="nofollow">fully qualified domain name</a> to your project, but in reverse order to what you would normally enter into a web-browser (e.g. com.mycompany.myproject). </li>
+                </ul><br>
+                <a name="Internet_Explorer" id="Internet_Explorer"></a>
+                <h3> <span class="mw-headline"> Internet Explorer </span></h3>
+                <p>Internet Explorer requires additional <a href="http://en.wikipedia.org/wiki/Universally_unique_identifier" class="external" title="http://en.wikipedia.org/wiki/Universally_unique_identifier" rel="nofollow">Universally Unique Identifiers (UUIDs)</a> for certification.  Unless you have a specific reason to enter your own
+                  values, you should use the ones provided by the Generate UUIDs button. </p>
+                <ul>
+                  <li><b>App UUID</b> - Application id. </li>
+                </ul>
+                <ul>
+                  <li><b>Web Game UUID</b> - Id used to define the interface between client (the browser) and server (the project). </li>
+                </ul>
+                <ul>
+                  <li><b>Web Ctrl UUID</b> - Id used by the web based controller. </li>
+                </ul>
+                <ul>
+                  <li><b>Web Game Lib UUID</b> - Project library COM id. </li>
+                </ul><br>
+                <a name="Generating_new_UUIDs" id="Generating_new_UUIDs"></a>
+                <h4> <span class="mw-headline"> Generating new UUIDs </span></h4>
+                <p>Click the Generate UUIDs button once and used the <a href="#Buttons" title="">Buttons</a> to save, generate, and re-build the project with the following steps: </p>
+                <ol>
+                  <li> <b>Close all external editors</b> - If you have any of the 
+                    project files open in any editor other then the current Torque Toolbox 
+                    (e.g., Visual Studio, Torsion, etc.), you need to close those out now. </li>
+                  <li> <b>Save</b> - Click the <b>Save to File</b> button to save your changes to the webdeploy config file. </li>
+                  <li> <b>Generate</b> - Click the <b>Generate Source Project</b> button. This step may take some time since it is updating several files. </li>
+                  <li> <b>Build</b> - Click the <b>Open Source Project</b> button and select the version of Visual Studio you what to open your project in. Build the entire solution. </li>
+                </ol>
+                <br><p><i>(click to enlarge)</i> </p>
+                <a href="images/VS2010_BuildSolution.jpg" class="livethumbnail"><img src="images/VS2010_BuildSolution.jpg" width="234" height="251" largewidth="469" largeheight="503" /></a><br />
+                <p>Once Visual Studio has finished the build with no errors, return 
+                  to the Toolbox and close the Packaging Advanced Settings dialog to 
+                  return to the Package Project dialog. </p>
+                <a name="Build_Package" id="Build_Package"></a>
+                <br><h2> <span class="mw-headline"> Build Package </span></h2>
+                <p>Now we're ready to build the project by clicking the Build button. </p>
+                <br><p><i>(click to enlarge)</i> </p>
+                <a href="images/PackingProgress.jpg" class="livethumbnail"><img src="images/PackingProgress.jpg" width="318" height="186" largewidth="637" largeheight="372" /></a><br />
+                <p>This process may take some time but, if all goes well, at the end
+                  you will get the Packaging Complete dialog with the option to Open 
+                  Folder for your finished project. </p>
+                <br>
+                <p><img alt="Image:PackagingComplete.jpg" src="images/PackagingComplete.jpg" border="0" height="144" width="328" /> </p>
+                <a name="Testing_locally" id="Testing_locally"></a>
+                <br><h2> <span class="mw-headline"> Testing locally </span></h2>
+                <p>Before deploying to the World Wide Web,  test the install locally. </p>
+                <p>Open up the web folder generated in the last step and open sample.html in your web browser. </p>
+                <br><p><i>(click to enlarge)</i> </p>
+                <a href="images/InWeb_GetThePlugin.jpg" class="livethumbnail"><img src="images/InWeb_GetThePlugin.jpg" width="314" height="299" largewidth="629" largeheight="599" /></a><br />
+                <p><br />
+                  Clicking the link will download the project web plug-in installer. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/PluginInstaller.jpg" class="livethumbnail"><img src="images/PluginInstaller.jpg" width="256" height="199" largewidth="513" largeheight="399" /></a><br />
+                <p><br />
+                  After you install your plug-in, your browser will run your project whenever you view the associated web page. </p>
+                <br><p><i>(click to enlarge)</i> </p>
+                <a href="images/InWeb_PluginInstalled.jpg" class="livethumbnail"><img src="images/InWeb_PluginInstalled.jpg" width="302" height="329" largewidth="604" largeheight="659" /></a><br />
+                <a name="Distributing_from_your_website" id="Distributing_from_your_website"></a>
+                <br><h2> <span class="mw-headline"> Distributing from your website </span></h2>
+                <p>Assuming you have a website, distributing your finished project is as
+                  easy as uploading your files and making sure they have the correct 
+                  permissions set. </p><br>
+                <p>The following picture is an example of the web-based FTP utility at <a href="http://www.godaddy.com/" class="external" title="http://www.godaddy.com" rel="nofollow">GoDaddy.com</a> (not associated with GarageGames, please use whatever hosting solution you wish). </p>
+                <br><p><i>(click to enlarge)</i> </p>
+                <a href="images/UploadFiles.jpg" class="livethumbnail"><img src="images/UploadFiles.jpg" width="340" height="231" largewidth="680" largeheight="463" /></a><br />
+                <p><br />
+                  Since every hosting provider manages their site differently, you will 
+                  need to check their documentation if you are having problems with 
+                  uploads or permissions. </p>
+                <a name="Conclusion" id="Conclusion"></a>
+                <br><h2> <span class="mw-headline"> Conclusion </span></h2>
+                <p>So now that you've seen how easy it is to package your Torque3D 
+                  project for the web, you have a new option to distribute your next hit 
+                  game. </p></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

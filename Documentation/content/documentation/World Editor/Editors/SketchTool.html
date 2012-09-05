@@ -1,0 +1,393 @@
+<html>
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 91;
+   parent.leftFrame.expandToItem('tree2', 'doc91');
+   var element = parent.leftFrame.document.getElementById('doc91');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D - Sketch Tool</title>
+
+</head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_WorldEditor_SketchTool skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2></div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Setup"><span class="tocnumber">2</span> <span class="toctext">Setup</span></a></li>
+                          <li class="toclevel-1"><a href="#Interface"><span class="tocnumber">3</span> <span class="toctext">Interface</span></a></li>
+                          <li class="toclevel-1"><a href="#Creating_a_Convex_Shape"><span class="tocnumber">4</span> <span class="toctext">Creating a Convex Shape</span></a></li>
+                          <li class="toclevel-1"><a href="#Editing_a_Convex_Shape"><span class="tocnumber">5</span> <span class="toctext">Editing a Convex Shape</span></a></li>
+                          <li class="toclevel-1"><a href="#Object_Manipulation"><span class="tocnumber">6</span> <span class="toctext">Object Manipulation</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">7</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p>The Sketch Tool is a tool that allows you to quickly generate meshes
+                  without going to 3rd party modeling applications, such as Maya or 3DS
+                  Max. It is not meant to create final or game ready art, just rough
+                  shapes that are placeholders for your real art. For example, you can use
+                  this tool to sketch the shape of a building you want. The rough design
+                  can fit your needs for a simple design and estimated measurements. </p><br>
+                <a name="Setup" id="Setup"></a>
+                <h2> <span class="mw-headline">Setup</span></h2>
+                <p>This article was written using a newly generated project with the
+                  Full Template, which ships with plenty of free assets for testing and
+                  learning. To save time and focus on this specific section of the
+                  documentation, we are going to bypass asset creation until later on. </p>
+                <p><br />
+                  None of the modifications you are about to make are
+                  required for future tutorials, so feel free to create a new level or
+                  use an existing one for testing. As long as you have a flat surface to
+                  work with, as a reference. </p>
+                  <br />
+                  If you don't have a previous level you'd like to work with, you need to create a new one. To create a new level, choose File > New Level.
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/STBlankLevel.jpg" class="livethumbnail"><img src="images/STBlankLevel.jpg" border="0" width="320" height="246" largewidth="640" largeheight="493" /></a><br /><br>
+                <a name="Interface" id="Interface"></a>
+                <h2> <span class="mw-headline">Interface</span></h2>
+                <p>To switch to the Material Editor press the F4 key or from the main menu select Editors > Material Editor or click on the orange box icon to get started 
+                <img alt="Image:STIcon.jpg" src="images/STIcon.jpg" border="0" height="29" width="31" />. The Tools Palette will populate with basic manipulation icons: </p>
+                <p><br />
+                  <img alt="Image:STPalette.jpg" src="images/STPalette.jpg" border="0" height="121" width="36" /> </p>
+                <p><br />
+                  <b>Tool Descriptions</b> (top to bottom): </p>
+                <ul>
+                  <li> Select Object - Select a convex object or individual face </li>
+                </ul>
+                <ul>
+                  <li> Translate - Move an individual face </li>
+                </ul>
+                <ul>
+                  <li> Rotate Object - Rotate an individual face </li>
+                </ul>
+                <ul>
+                  <li> Scale Object - Grow or shrink an individual face </li>
+                </ul>
+                <p><br />
+                  As with the other editors, extremely helpful usage hints will be
+                  displayed in the bottom left corner of the editor. Shortcuts and basic
+                  descriptions will appear based on which tool you are using: </p>
+                <p><br />
+                  <img alt="Image:STHints.jpg" src="images/STHints.jpg" border="0" height="63" width="336" /> </p><br>
+                <a name="Creating_a_Convex_Shape" id="Creating_a_Convex_Shape"></a>
+                <h2> <span class="mw-headline">Creating a Convex Shape</span></h2>
+                <p>The very basic interface allows you to quickly sketch out convex
+                  shapes. All of your editing can be performed via mouse actions. To
+                  begin creating a convex shape, hold down the Alt key and left mouse
+                  button to begin drawing a base. The base will follow where your mouse
+                  cursor is being dragged, shrinking or growing as it goes. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/STCreateBase.jpg" class="livethumbnail"><img src="images/STCreateBase.jpg" border="0" width="320" height="246" largewidth="640" largeheight="493" /></a><br />
+                <p><br />
+                  Once you let go of your mouse button, the base will stop
+                  growing. From here you can move your mouse cursor up and down to change
+                  the height of your new box. You do not have to hold down the mouse
+                  button during this time. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/STCreateHeight.jpg" class="livethumbnail"><img src="images/STCreateHeight.jpg" border="0" width="320" height="246" largewidth="640" largeheight="493" /></a><br />
+                <p><br />
+                  Once you are happy with your convex shape's height, left
+                  click one last time. The box will become a solid object and
+                  automatically be selected. If you make a mistake, hit Ctrl-Z to undo and erase the shape then repeat the process.
+                  <p>
+                  When you are ready to begin shaping the box,
+                  left click one of its faces. The currently selected face will be
+                  highlighted in bright pink: </p>
+                <p><br /><img src="images/STSelectFace.jpg" width="320" height="246" largewidth="640" largeheight="493" />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/STSelectFace.jpg" class="livethumbnail"></a><br />
+                <p><br />
+                  At this point, you can start using the Sketch tools to edit the specific face you have selected. </p><br>
+                <a name="Editing_a_Convex_Shape" id="Editing_a_Convex_Shape"></a>
+                <h2> <span class="mw-headline">Editing a Convex Shape</span></h2>
+                <p>Let's move some surfaces around. Start by selecting a faceof the object  by (left clicking on it). 
+                Three colored lines will now extend from the center of that face - these represent the axes for the 
+                three dimensions x, y and z. This is called the axis gizmo. Activate the Move Selection tool by clicking the icon
+                <img alt="Image:move_selection_tool.png" src="images/move_selection_tool.png" border="0" height="24" width="27" />
+                on the Tools Palette on the left of the screen (or press the shortcut key, which is the number 2): </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/STSelectFace.jpg" class="livethumbnail"><img src="images/STSelectFace.jpg" border="0" width="320" height="246" largewidth="640" largeheight="493" /></a><br />
+                <p><br />
+                  Once the Move Selection tool is activated, arrows will appear on the ends of the axis gizmo. Click on the X-axis
+                  and drag it outward. Your face will move in the direction you are
+                  dragging your mouse. The entire convex shape will adjust according to
+                  where the face as moved. You will be able to move the face in any
+                  direction in three-space: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/STTranslateFace.jpg" class="livethumbnail"><img src="images/STTranslateFace.jpg" border="0" width="320" height="246" largewidth="640" largeheight="493" /></a><br />
+                <p><br />
+                  Next, activate the Rotate Selection tool by clicking the icon 
+                  <img alt="Image:rotate_selection_tool.png" src="images/rotate_selection_tool.png" border="0" height="24" width="23" />
+                  on the Tools Palette on the left of the screen (or press the shortcut 
+                  key, which is the number 3). A spherical gizmo will appear representing the orientation manipulators.
+                  The axis gizmo straight lines will now be displayed as three curved colored lines: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/STRotateBefore.jpg" class="livethumbnail"><img src="images/STRotateBefore.jpg" border="0" width="320" height="246" largewidth="640" largeheight="493" /></a><br />
+                <p><br />
+                  Click and hold one of the colored lines (an axis), and drag it in a direction. The selected face will begin to slope according to the new orientation: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/STRotateAfter.jpg" class="livethumbnail"><img src="images/STRotateAfter.jpg" border="0" width="320" height="246" largewidth="640" largeheight="493" /></a><br />
+                <p><br />
+                  Finally, activate the Scale Selection tool by clicking the icon 
+                  <img alt="Image:scale_selection_tool.png" src="images/scale_selection_tool.png" border="0" height="26" width="26" />
+                   on the Tools Palette on the left of the screen (or pressing the shortcut key, which is 3the number 4). Click on the
+                  top face of the box. A squared like gizmo will appear which will allow you
+                  to choose what parameters to adjust. You can adjust the (width, height, depth, or any 
+                  combination of the three): </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/STScaleBefore.jpg" class="livethumbnail"><img src="images/STScaleBefore.jpg" border="0" width="320" height="246" largewidth="640" largeheight="493" /></a><br />
+                <p><br />
+                  Instead of adjusting one parameter at a time, we are going
+                  to adjust width and height. Move your mouse over the different squares to see how they highlight. Click the bottom square of
+                  the gizmo, in between the red X and yellow Y axis and hold down the mouse button. Drag your mouse in either direction
+                  to shrink or grow the face. The more you shrink, the more like a
+                  pyramid it will be come: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/STScaleAfter.jpg" class="livethumbnail"><img src="images/STScaleAfter.jpg" border="0" width="320" height="246" largewidth="640" largeheight="493" /></a><br />
+                <p><br />
+                  The last action this guide will address is <b>extruding</b>.
+                  The Sketch Tool extruding feature creates new geometry from a selected a
+                  face. Start by creating a new convex shape - review the section, 
+                  <a href="SketchTool.html#Creating_a_Convex_Shape">Creating a Convex Shape,</a> 
+                  if you don't remember how. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/STNewConvex.jpg" class="livethumbnail"><img src="images/STNewConvex.jpg" border="0" width="320" height="246" largewidth="640" largeheight="493" /></a><br />
+                <p><br />
+                  Next click on a single face of the shape. Make sure you have a face selected, and not the entire object. 
+                  The selected face should be highlighted with a in bright pink. Activate the Move Selection
+                  tool. A hint will display at the bottom of the editor: "Move
+                  selection. SHIFT while beginning a drag EXTRUDES a new convex." </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/STExtrudeBefore.jpg" class="livethumbnail"><img src="images/STExtrudeBefore.jpg" border="0" width="320" height="246" largewidth="640" largeheight="493" /></a><br />
+                <p><br />
+                  Perform this action as described. With the face selected,
+                  hold down the SHIFT key, move the mouse over one of the colored arrows, and click and drag outwards from the object. The
+                  exact dimensions of the original face will be duplicated, constructing
+                  a new convex based on those parameters. This may not be apparent until you click on a face and see that the area of the new face is separate from the original: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/STExtrudeAfter.jpg" class="livethumbnail"><img src="images/STExtrudeAfter.jpg" border="0" width="320" height="246" largewidth="640" largeheight="493" /></a><br />
+                <p><br />
+                  You can now select faces on the new convex object and continue editing it as a new object: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/STExtrudeAfter2.jpg" class="livethumbnail"><img src="images/STExtrudeAfter2.jpg" border="0" width="320" height="246" largewidth="640" largeheight="493" /></a><br />
+                <a name="Object_Manipulation" id="Object_Manipulation"></a>
+                <h2> <span class="mw-headline">Object Manipulation</span></h2>
+                <p>When you are finished sculpting a convex shape, you can manipulate it as you would with any other
+                  game object using the Object Editor. This includes selection, translation/rotation/scaling, and
+                  editing specific properties. </p>
+                <p><br />
+                  Unlike the Sketch Tool, selecting a convex
+                  shape using the Object Editor it treats the object as a whole. There is no
+                  individual face selection. Switch to the Object Editor by pressing the F1 key then click on one of your objects: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/STObject.jpg" class="livethumbnail"><img src="images/STObject.jpg" border="0" width="320" height="246" largewidth="640" largeheight="493" /></a><br />
+                <p><br />
+                  You may then manipulate the object using the normal Move Selection, Rotate Selection, 
+                  and Scale Selection tools of the Object Editor. You can even use the other more complex 
+                  Object Editor commands such as copying an object. To copy the 
+                  object: hold the SHIFT key; activate the Move Selection tool 
+                  by pressing (the 2 hotkey); press and hold the SHIFT key; then drag the mouse to a 
+                  new position in any direction. When you release 
+                  the mouse button you will have a new duplicate copy of the original object:  </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/STDuplicate.jpg" class="livethumbnail"><img src="images/STDuplicate.jpg" border="0" width="320" height="246" largewidth="640" largeheight="493" /></a><br />
+                <p><br />
+                  This can also be used for mass production of objects by copying multiple objects at once. 
+                  Change back to the Select Arrow tool by pressing the (1 hotkey). 
+                  Click one of your objects to select it. Take note of the position of the gizmo that appears 
+                  and the little cube at the gizmo’s origin. Now select the other object. Again take note of 
+                  the position of the gizmo and the cube for this object. Now press and hold down the SHIFT 
+                  key then click your other object again. You will notice there are now two small cubes, 
+                  one over each object, and one gizmo relatively near the center of the two objects. This 
+                  indicates that both objects are currently selected. You now have a selection group. </p> 
+                  <p>
+                  Change to the Move Tool by pressing the (2 hotkey). The cubes will disappear, and large 
+                  arrows will appear on the ends of the gizmo. If you mouse over either object, you will 
+                  see a faint transparent cube pop up. This indicates that object is a part of the selection 
+                  group. Clicking any arrow and dragging the mouse will not move all the objects at once. 
+                  Likewise, pressing and holding down the 
+                  SHIFT key, then clicking and drag will duplicate all the objects in the 
+                  selection group:
+                </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/STDuplicate2.jpg" class="livethumbnail"><img src="images/STDuplicate2.jpg" border="0" width="320" height="246" largewidth="640" largeheight="493" /></a><br />
+                <p><br />
+                  The new copy of the objects will now be the current selection and they 
+                  can be moved as a group or immediately copied again with another SHIFT-drag 
+                  operation. The above method combined with rearranging the individual objects 
+                  after copying them is a great way to piece together multiple convex shapes 
+                  to create more complex arrangements. For example, you might have unique convex 
+                  objects for a roof, wall, chimney, and so on. You could only create 
+                  one wall, then duplicate it four 
+                  times so that they are all the same size then arrange them into a building 
+                  with the Move Selection tool:  </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/STHouse.jpg" class="livethumbnail"><img src="images/STHouse.jpg" border="0" width="320" height="246" largewidth="640" largeheight="493" /></a><br />
+                <p>Once you get the hang of the Sketch Tool, you can sculpt unique
+                  and complex shapes. Entire levels can be prototyped to use placeholder
+                  art, created right inside Torque 3D, while you or your artists work on the final
+                  assets using the tools that they are familiar with: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/STFinal.jpg" class="livethumbnail"><img src="images/STFinal.jpg" border="0" width="320" height="246" largewidth="640" largeheight="493" /></a><br /><br>
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>Unless your game is specifically designed to make use of rough,
+                  convex shapes, your main interaction with the Sketch Tool will be
+                  limited to rapidly prototyping meshes within Torque 3D. It is
+                  absolutely possible to create more advanced structures with time, but this
+                  goes outside of the tool's focus. </p>
+                <p><br />
+                  Take time to experiment with the Sketch Tool. Find an image
+                  of a structure you wish to recreate, such as a house or bunker. Try
+                  sculpting the object in Torque 3D to see how close you can get to the
+                  original image. From there you can then import that into a modeling 
+                  application such as Maya or 3DS Max. You
+                  may find this flow is actually very useful for content creation. </p>
+                  
+                  </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

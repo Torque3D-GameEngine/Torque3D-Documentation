@@ -1,0 +1,3903 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 45;
+   parent.leftFrame.expandToItem('tree2', 'doc45');
+   var element = parent.leftFrame.document.getElementById('doc45');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<title>Torque 3D - ShapeBase Reference</title>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_Scripting_Overview_Introduction skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+        <table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          </div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Detailed_Description"><span class="tocnumber">1</span> <span class="toctext">Detailed Description</span></a></li>
+                          <li class="toclevel-1"><a href="#Control_Object"><span class="tocnumber">2</span> <span class="toctext">Control Object</span></a></li>
+                          <li class="toclevel-1"><a href="#Energy"><span class="tocnumber">3</span> <span class="toctext">Energy/Damage</span></a></li>
+                          <li class="toclevel-2"><a href="#Member_Function_Documentation"><span class="tocnumber">4</span> <span class="toctext">Member Function Documentation</span></a></li>
+                          <li class="toclevel-2"><a href="#Member_Data_Documentation"><span class="tocnumber">5</span> <span class="toctext">Member Data Documentation</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Detailed_Description"></a><h2>Detailed Description</h2>
+                <p>A scriptable, renderable shape. </p>
+                <p><a href="ShapeBase.html" title="A scriptable, renderable shape.">ShapeBase</a> is the renderable shape from which most of the scriptable, game objects are derived, including the <a href="Player.html" title="A client-controlled player character.">Player</a>, 
+                    <a title="Base functionality shared by all Vehicles (FlyingVehicle, HoverVehicle, WheeledVehicle)...">Vehicle</a> and 
+                    <a title="Base Item class. Uses the ItemData datablock for common properties.">Item</a> classes. <a href="ShapeBase.html" title="A scriptable, renderable shape.">ShapeBase</a> provides collision detection, audio channels, and animation as well as   damage (and damage states), energy, and the ability to mount Images and   objects.</p>
+                <p><a href="ShapeBase.html" title="A scriptable, renderable shape.">ShapeBase</a> objects are not normally instantiated in the scene; derived classes such as <a href="Player.html" title="A client-controlled player character.">Player</a>, 
+                    <a title="A wheeled vehicle.">WheeledVehicle</a>, and, 
+                    <a title="The most basic 3D shape with a datablock available in Torque 3D.">StaticShape</a> are used instead. But <a href="ShapeBase.html" title="A scriptable, renderable shape.">ShapeBase</a> (and the associated datablock, 
+                    <a title="Defines properties for a ShapeBase object.">ShapeBaseData</a>) may be used to provide functionality common to all derived objects.</p>
+                <p>A <a href="ShapeBase.html" title="A scriptable, renderable shape.">ShapeBase</a> object consists of a DTS or DAE shape file. This file has the following requirements:</p>
+                <ul>
+                  <li>
+                    <p>Nodes</p>
+                    <dl>
+                      <dt>cam</dt>
+                      <dd>This node is used as the 3rd person camera position. If this is not found the 'eye' node is used instead. </dd>
+                      <dt>eye</dt>
+                      <dd>This node is used as the 1st person camera position. </dd>
+                      <dt>ear</dt>
+                      <dd>This node is where the SFX listener is mounted on. If this is not found the 'eye' node is used instead. </dd>
+                      <dt>mountN</dt>
+                      <dd>Nodes used for mounting ShapeBaseImages to this object. N is an integer from 0 to 31 </dd>
+                      <dt>AIRepairNode</dt>
+                      <dd>This node is where AI should stand to repair the object. If not found, the object's origin is used. </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <p>Sequences Indicating Condition</p>
+                    <dl>
+                      <dt>visibility</dt>
+                      <dd>A two frame sequence used to show object damage when the object is   destroyed (start=no damage, end=destroyed). This sequence is optional. </dd>
+                      <dt>damage</dt>
+                      <dd>Sequence used to show object damage, such as a vehicle getting more   dents (start=no damage, end=fully damaged). When the object is fully   destroyed this sequence returns to the start and the visibility sequence   kicks in. This sequence is optional. </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <p>Detail Levels</p>
+                    <dl>
+                      <dt>collision-N</dt>
+                      <dd>Convex geometry used for collision detection. N is a integer from 1   to 8. For classes that support polysoup collision, this geometry need   not be convex. </dd>
+                      <dt>LOS-N</dt>
+                      <dd>Convex geometry used for line-of-sight collision detection. N is an integer from 9 to 16. </dd>
+                    </dl>
+                  </li>
+                </ul>
+                <a name="Control_Object"></a><h2>Control Object</h2>
+                <p>Generally in a Torque game, each client is in control of a single game object (such as a <a href="Player.html" title="A client-controlled player character.">Player</a> in an FPS game, or a 
+                    <a title="A wheeled vehicle.">WheeledVehicle</a> in a racing game). In a game where the client has control over multiple   objects (such as units in an RTS), the control object may be the 
+                    <a title="Represents a position, direction and field of view to render a scene from.">Camera</a> that determines the client's view of the world (although in general,   the client's camera object does not need to be the same as the control   object).</p>
+                <p>The object controlled by the client is important for several reasons:</p>
+                <ol>
+                  <li> The control object receives Moves from the client 
+                      <a title="The game-specific subclass of NetConnection.">GameConnection</a> (such as keyboard or gamepad input). </li>
+                  <li> The control object is used to 'scope' the client, that is, to determine   what else in the world is significant for the client, and which objects   the server should give priority when sending network updates to the   client. </li>
+                </ol>
+                <a name="Energy"></a><h2>Energy/Damage</h2>
+                <p><a href="ShapeBase.html" title="A scriptable, renderable shape.">ShapeBase</a> includes basic enery and damage systems that may be used by derived classes as required. For example, the <a href="Player.html" title="A client-controlled player character.">Player</a> class uses energy to determine whether the character is capabable of   running and jumping, which can be used to mimic the character getting   tired and having to rest before continuing. The <a href="Player.html" title="A client-controlled player character.">Player</a> class also uses the damage system 
+                    <a title="Called when the object damage state changes to Destroyed.">PlayerData::onDestroyed</a> callback to trigger a death animation. The 
+                    <a title="Base functionality shared by all Vehicles (FlyingVehicle, HoverVehicle, WheeledVehicle)...">Vehicle</a> classes use the current damage level to trigger particle emitters, so a   vehicle could progressively generate more smoke as it becomes more   damaged.</p>
+                <p><a href="ShapeBase.html" title="A scriptable, renderable shape.">ShapeBase</a> also includes parameters to 'blow up' the object when it is Destroyed (damage level above 
+                    <a title="Damage level above which the object is destroyed.">ShapeBaseData::destroyedLevel</a>). Blowing up an object can generate an explosion and debris, as well as exclude the object from rendering.</p>
+                <p>Parameters to control the object's energy and damage functionality can be found in the 
+                    <a title="Defines properties for a ShapeBase object.">ShapeBaseData</a> datablock.</p>
+                <dl>
+                  <dt><strong>See also:</strong></dt>
+                  <dd><a title="Maximum energy level for this object.">ShapeBaseData::maxEnergy</a> </dd>
+                  <dd> <a title="Maximum damage level for this object.">ShapeBaseData::maxDamage</a> </dd>
+                </dl>
+                <hr />
+                <a name="Member_Function_Documentation"></a><h2>Member Function Documentation</h2>
+                <a id="a54e98d53e2d56abd5a163bf20cfab57b"></a>
+                <!-- doxytag: member="ShapeBase::applyDamage" ref="a54e98d53e2d56abd5a163bf20cfab57b" args="(float amount)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>void ShapeBase::applyDamage </td>
+                          <td>(</td>
+                          <td>float </td>
+                          <td><em>amount</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Increment the current damage level by the specified amount. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>amount</em> </td>
+                              <td>value to add to current damage level </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a0769ff3f5fc79c7e2ce9ebb617d04469"></a>
+                <!-- doxytag: member="ShapeBase::applyImpulse" ref="a0769ff3f5fc79c7e2ce9ebb617d04469" args="(Point3F pos, Point3F vec)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::applyImpulse </td>
+                          <td>(</td>
+                          <td>Point3F </td>
+                          <td><em>pos</em>, </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td>Point3F </td>
+                          <td><em>vec</em></td>
+                          <td> </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td>)</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Apply an impulse to the object. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>pos</em> </td>
+                              <td>world position of the impulse </td>
+                            </tr>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>vec</em> </td>
+                              <td>impulse momentum (velocity * mass) </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>true </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="aea404d0f7052a77a192242b3737184a2"></a>
+                <!-- doxytag: member="ShapeBase::applyRepair" ref="aea404d0f7052a77a192242b3737184a2" args="(float amount)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>void ShapeBase::applyRepair </td>
+                          <td>(</td>
+                          <td>float </td>
+                          <td><em>amount</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Repair damage by the specified amount. </p>
+                    <p>Note that the damage level is only reduced by repairRate per tick, so   it may take several ticks for the total repair to complete. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>amount</em> </td>
+                              <td>total repair value (subtracted from damage level over time) </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a3476f6b15b5e75d4f148e3218043304f"></a>
+                <!-- doxytag: member="ShapeBase::canCloak" ref="a3476f6b15b5e75d4f148e3218043304f" args="()" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::canCloak </td>
+                          <td>(</td>
+                          <td></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Check if this object can cloak. </p>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>true </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Note:</strong></dt>
+                      <dd>Not implemented as it always returns true. </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a05a17062cc317831ff91e97f48ef2ec2"></a>
+                <!-- doxytag: member="ShapeBase::changeMaterial" ref="a05a17062cc317831ff91e97f48ef2ec2" args="(string mapTo, Material oldMat, Material newMat)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>void ShapeBase::changeMaterial </td>
+                          <td>(</td>
+                          <td>string </td>
+                          <td><em>mapTo</em>, </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td><a>Material</a> </td>
+                          <td><em>oldMat</em>, </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td><a>Material</a> </td>
+                          <td><em>newMat</em></td>
+                          <td> </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td>)</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Change one of the materials on the shape. </p>
+                    <p>This method changes materials per mapTo with others. The material   that is being replaced is mapped to unmapped_mat as a part of this   transition. </p>
+                    <dl>
+                      <dt><strong>Note:</strong></dt>
+                      <dd>Warning, right now this only sort of works. It doesn't do a live update like it should. </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>mapTo</em> </td>
+                              <td>the name of the material target to remap (from getTargetName) </td>
+                            </tr>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>oldMat</em> </td>
+                              <td>the old <a href="Material.html" title="A material in Torque 3D is a data structure that describes a surface.">Material</a> that was mapped </td>
+                            </tr>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>newMat</em> </td>
+                              <td>the new <a href="Material.html" title="A material in Torque 3D is a data structure that describes a surface.">Material</a> to map</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Example:</strong></dt>
+                      <dd>
+                        <div>
+<pre>
+// remap the first material in the shape  
+%mapTo = %obj.getTargetName( 0 );  %obj.changeMaterial( %mapTo, 0, MyMaterial );  </pre>
+                        </div>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a3bcf9cc18b04a67229f19eb50455585d"></a>
+                <!-- doxytag: member="ShapeBase::destroyThread" ref="a3bcf9cc18b04a67229f19eb50455585d" args="(int slot)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::destroyThread </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Destroy an animation thread, which prevents it from playing. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>thread slot to destroy </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>true if successful, false if failed</dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#a784f509485e77520544d72bf92e6a388" title="Start a new animation thread, or restart one that has been paused or stopped.">playThread</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="af9987d41d972aa20c09ab03e90d43d90"></a>
+                <!-- doxytag: member="ShapeBase::dumpMeshVisibility" ref="af9987d41d972aa20c09ab03e90d43d90" args="()" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>void ShapeBase::dumpMeshVisibility </td>
+                          <td>(</td>
+                          <td></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Print a list of visible and hidden meshes in the shape to the console for debugging purposes. </p>
+                    <dl>
+                      <dt><strong>Note:</strong></dt>
+                      <dd>Only in a SHIPPING build. </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a83e48a5d8d54b969b26131cac20fc7e5"></a>
+                <!-- doxytag: member="ShapeBase::getAIRepairPoint" ref="a83e48a5d8d54b969b26131cac20fc7e5" args="()" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>Point3F ShapeBase::getAIRepairPoint </td>
+                          <td>(</td>
+                          <td></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the position at which the AI should stand to repair things. </p>
+                    <p>If the shape defines a node called &quot;AIRepairNode&quot;, this method will   return the current world position of that node, otherwise &quot;0 0 0&quot;. </p>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the AI repair position </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="abb45d2b623911175958ff4b560f27da2"></a>
+                <!-- doxytag: member="ShapeBase::getCameraFov" ref="abb45d2b623911175958ff4b560f27da2" args="()" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>float ShapeBase::getCameraFov </td>
+                          <td>(</td>
+                          <td></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Returns the vertical field of view in degrees for this object if used as a camera. </p>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>current FOV as defined in 
+                          <a title="The default camera vertical FOV in degrees.">ShapeBaseData::cameraDefaultFov</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a87c9b522b89c3049593faa79713a7e6d"></a>
+                <!-- doxytag: member="ShapeBase::getControllingClient" ref="a87c9b522b89c3049593faa79713a7e6d" args="()" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>int ShapeBase::getControllingClient </td>
+                          <td>(</td>
+                          <td></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the client (if any) that controls this object. </p>
+                    <p>The controlling client is the one that will send moves to us to act on. </p>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the ID of the controlling 
+                          <a title="The game-specific subclass of NetConnection.">GameConnection</a>, or 0 if this object is not controlled by any client. </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a title="The game-specific subclass of NetConnection.">GameConnection</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a24e67f83af57b20553239728c248426d"></a>
+                <!-- doxytag: member="ShapeBase::getControllingObject" ref="a24e67f83af57b20553239728c248426d" args="()" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>int ShapeBase::getControllingObject </td>
+                          <td>(</td>
+                          <td></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the object (if any) that controls this object. </p>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the ID of the controlling <a href="ShapeBase.html" title="A scriptable, renderable shape.">ShapeBase</a> object, or 0 if this object is not controlled by another object. </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="aaf888632db5a42115e80d9efccc35bc4"></a>
+                <!-- doxytag: member="ShapeBase::getDamageFlash" ref="aaf888632db5a42115e80d9efccc35bc4" args="()" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>float ShapeBase::getDamageFlash </td>
+                          <td>(</td>
+                          <td></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the damage flash level. </p>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>flash level </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#ab6ce0ad64a4e0f1a346a9b370d679792" title="Set the damage flash level.">setDamageFlash</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a4d9d7c13996270af6e875a8fc91ad3fb"></a>
+                <!-- doxytag: member="ShapeBase::getDamageLevel" ref="a4d9d7c13996270af6e875a8fc91ad3fb" args="()" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>float ShapeBase::getDamageLevel </td>
+                          <td>(</td>
+                          <td></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the object's current damage level. </p>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>damage level </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#a9253aaf0aaa65c58d5ebb0973fb4046b" title="Set the object's current damage level.">setDamageLevel()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="abf890f4097e385bd619b9b45f63fb077"></a>
+                <!-- doxytag: member="ShapeBase::getDamagePercent" ref="abf890f4097e385bd619b9b45f63fb077" args="()" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>float ShapeBase::getDamagePercent </td>
+                          <td>(</td>
+                          <td></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the object's current damage level as a percentage of maxDamage. </p>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>damageLevel / datablock.maxDamage </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#a9253aaf0aaa65c58d5ebb0973fb4046b" title="Set the object's current damage level.">setDamageLevel()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="aef8cb80865ebedcae4625455c576d28b"></a>
+                <!-- doxytag: member="ShapeBase::getDamageState" ref="aef8cb80865ebedcae4625455c576d28b" args="()" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>string ShapeBase::getDamageState </td>
+                          <td>(</td>
+                          <td></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the object's damage state. </p>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the damage state; one of &quot;Enabled&quot;, &quot;Disabled&quot;, &quot;Destroyed&quot; </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#a0659a047ee59bbda54da708e1e11e66a" title="Set the object's damage state.">setDamageState()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a622d1984e402ddb15961af85caff5ec2"></a>
+                <!-- doxytag: member="ShapeBase::getDefaultCameraFov" ref="a622d1984e402ddb15961af85caff5ec2" args="()" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>float ShapeBase::getDefaultCameraFov </td>
+                          <td>(</td>
+                          <td></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Returns the default vertical field of view in degrees for this object if used as a camera. </p>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>Default FOV </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a804172db08d5b994601afb5fbdea134c"></a>
+                <!-- doxytag: member="ShapeBase::getEnergyLevel" ref="a804172db08d5b994601afb5fbdea134c" args="()" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>float ShapeBase::getEnergyLevel </td>
+                          <td>(</td>
+                          <td></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the object's current energy level. </p>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>energy level </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#a53d5751801cfc542768fe5e6e4a1c346" title="Set this object's current energy level.">setEnergyLevel()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a0c6512eece476490739f48ffb8b91e94"></a>
+                <!-- doxytag: member="ShapeBase::getEnergyPercent" ref="a0c6512eece476490739f48ffb8b91e94" args="()" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>float ShapeBase::getEnergyPercent </td>
+                          <td>(</td>
+                          <td></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the object's current energy level as a percentage of maxEnergy. </p>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>energyLevel / datablock.maxEnergy </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#a53d5751801cfc542768fe5e6e4a1c346" title="Set this object's current energy level.">setEnergyLevel()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a1052a294f5a334e877cadd3276906a9f"></a>
+                <!-- doxytag: member="ShapeBase::getEyePoint" ref="a1052a294f5a334e877cadd3276906a9f" args="()" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>Point3F ShapeBase::getEyePoint </td>
+                          <td>(</td>
+                          <td></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the position of the 'eye' for this object. </p>
+                    <p>If the object model has a node called 'eye', this method will return   that node's current world position, otherwise it will return the   object's current world position. </p>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the eye position for this object </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#a5414b4e23092f82bb2d97763772a43d0" title="Get the forward direction of the 'eye' for this object.">getEyeVector</a> </dd>
+                      <dd> <a href="ShapeBase.html#a91892f0d850f607e11da3f1ef08ff0c4" title="Get the 'eye' transform for this object.">getEyeTransform</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a91892f0d850f607e11da3f1ef08ff0c4"></a>
+                <!-- doxytag: member="ShapeBase::getEyeTransform" ref="a91892f0d850f607e11da3f1ef08ff0c4" args="()" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>TransformF ShapeBase::getEyeTransform </td>
+                          <td>(</td>
+                          <td></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the 'eye' transform for this object. </p>
+                    <p>If the object model has a node called 'eye', this method will return   that node's current transform, otherwise it will return the object's   current transform. </p>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the eye transform for this object </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#a5414b4e23092f82bb2d97763772a43d0" title="Get the forward direction of the 'eye' for this object.">getEyeVector</a> </dd>
+                      <dd> <a href="ShapeBase.html#a1052a294f5a334e877cadd3276906a9f" title="Get the position of the 'eye' for this object.">getEyePoint</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a5414b4e23092f82bb2d97763772a43d0"></a>
+                <!-- doxytag: member="ShapeBase::getEyeVector" ref="a5414b4e23092f82bb2d97763772a43d0" args="()" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>VectorF ShapeBase::getEyeVector </td>
+                          <td>(</td>
+                          <td></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the forward direction of the 'eye' for this object. </p>
+                    <p>If the object model has a node called 'eye', this method will return   that node's current forward direction vector, otherwise it will return   the object's current forward direction vector. </p>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the eye vector for this object </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#a1052a294f5a334e877cadd3276906a9f" title="Get the position of the 'eye' for this object.">getEyePoint</a> </dd>
+                      <dd> <a href="ShapeBase.html#a91892f0d850f607e11da3f1ef08ff0c4" title="Get the 'eye' transform for this object.">getEyeTransform</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="aaa8f406b084818aee3ba75773a71f099"></a>
+                <!-- doxytag: member="ShapeBase::getImageAltTrigger" ref="aaa8f406b084818aee3ba75773a71f099" args="(int slot)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::getImageAltTrigger </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the alt trigger state of the Image mounted in the specified slot. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>Image slot to query </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the Image's current alt trigger state </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a96aefe7d3f87027036aa8aa681c859a8"></a>
+                <!-- doxytag: member="ShapeBase::getImageAmmo" ref="a96aefe7d3f87027036aa8aa681c859a8" args="(int slot)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::getImageAmmo </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the ammo state of the Image mounted in the specified slot. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>Image slot to query </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the Image's current ammo state </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a183a0939dd05b332e61e2814764e9423"></a>
+                <!-- doxytag: member="ShapeBase::getImageGenericTrigger" ref="a183a0939dd05b332e61e2814764e9423" args="(int slot, int trigger)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::getImageGenericTrigger </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em>, </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td>int </td>
+                          <td><em>trigger</em></td>
+                          <td> </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td>)</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the generic trigger state of the Image mounted in the specified slot. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>Image slot to query </td>
+                            </tr>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>trigger</em> </td>
+                              <td>Generic trigger number </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the Image's current generic trigger state </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a4b645792fddfcbd7fdc6c8f63ac2bfd6"></a>
+                <!-- doxytag: member="ShapeBase::getImageLoaded" ref="a4b645792fddfcbd7fdc6c8f63ac2bfd6" args="(int slot)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::getImageLoaded </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the loaded state of the Image mounted in the specified slot. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>Image slot to query </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the Image's current loaded state </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a4f209c9457e050d8118a56172bb28aa3"></a>
+                <!-- doxytag: member="ShapeBase::getImageScriptAnimPrefix" ref="a4f209c9457e050d8118a56172bb28aa3" args="(int slot)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>string ShapeBase::getImageScriptAnimPrefix </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the script animation prefix of the Image mounted in the specified slot. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>Image slot to query </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the Image's current script animation prefix </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a88377f44cdad7bb139bacf42488a5f51"></a>
+                <!-- doxytag: member="ShapeBase::getImageSkinTag" ref="a88377f44cdad7bb139bacf42488a5f51" args="(int slot)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>int ShapeBase::getImageSkinTag </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the skin tag ID for the Image mounted in the specified slot. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>Image slot to query </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the skinTag value passed to mountImage when the image was mounted </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a78ec08bf43ac4b91313f817cb931dc9e"></a>
+                <!-- doxytag: member="ShapeBase::getImageState" ref="a78ec08bf43ac4b91313f817cb931dc9e" args="(int slot)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>string ShapeBase::getImageState </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the name of the current state of the Image in the specified slot. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>Image slot to query </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>name of the current Image state, or &quot;Error&quot; if slot is invalid </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="aabd1513e3ab63dd36817125fd9d6d913"></a>
+                <!-- doxytag: member="ShapeBase::getImageTarget" ref="aabd1513e3ab63dd36817125fd9d6d913" args="(int slot)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::getImageTarget </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the target state of the Image mounted in the specified slot. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>Image slot to query </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the Image's current target state </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a4015d2b6bf37d8aa12671ddeac08a097"></a>
+                <!-- doxytag: member="ShapeBase::getImageTrigger" ref="a4015d2b6bf37d8aa12671ddeac08a097" args="(int slot)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::getImageTrigger </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the trigger state of the Image mounted in the specified slot. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>Image slot to query </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the Image's current trigger state </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a1a0e0df4ae6e636bed87a3ad86f7e699"></a>
+                <!-- doxytag: member="ShapeBase::getLookAtPoint" ref="a1a0e0df4ae6e636bed87a3ad86f7e699" args="(float distance=2000, int typeMask=0xFFFFFFFF)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>string ShapeBase::getLookAtPoint </td>
+                          <td>(</td>
+                          <td>float </td>
+                          <td><em>distance</em> = 2000, </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td>int </td>
+                          <td><em>typeMask</em> = 0xFFFFFFFF</td>
+                          <td> </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td>)</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the world position this object is looking at. </p>
+                    <p>Casts a ray from the eye and returns information about what the ray hits. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>distance</em> </td>
+                              <td>maximum distance of the raycast </td>
+                            </tr>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>typeMask</em> </td>
+                              <td>typeMask of objects to include for raycast collision testing </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>look-at information as &quot;Object HitX HitY HitZ [Material]&quot; or empty string for no hit</dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Example:</strong></dt>
+                      <dd>
+                        <div>
+                          <pre>%lookat = %obj.getLookAtPoint();  <a title="Logs a message to the console.">echo</a>( &quot;Looking at: &quot; @ <a 
+                                title="Extract a range of words from the given startIndex onwards thru endIndex.">getWords</a>( %lookat, 1, 3 ) );  </pre>
+                        </div>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a881a46e998b9709d46d679385673096c"></a>
+                <!-- doxytag: member="ShapeBase::getModelFile" ref="a881a46e998b9709d46d679385673096c" args="()" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>string ShapeBase::getModelFile </td>
+                          <td>(</td>
+                          <td></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the model filename used by this shape. </p>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the shape filename </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a380eddae445de76d0ce42f71b0b3dfd1"></a>
+                <!-- doxytag: member="ShapeBase::getMountedImage" ref="a380eddae445de76d0ce42f71b0b3dfd1" args="(int slot)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>int ShapeBase::getMountedImage </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the Image mounted in the specified slot. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>Image slot to query </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>ID of the <a href="ShapeBaseImageData.html" title="Represents geometry to be mounted to a ShapeBase object.">ShapeBaseImageData</a> datablock mounted in the slot, or 0 if no Image is mounted there. </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="addbee2958caa0d14e8112c89924a9e46"></a>
+                <!-- doxytag: member="ShapeBase::getMountSlot" ref="addbee2958caa0d14e8112c89924a9e46" args="(ShapeBaseImageData image)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>int ShapeBase::getMountSlot </td>
+                          <td>(</td>
+                          <td><a href="ShapeBaseImageData.html">ShapeBaseImageData</a> </td>
+                          <td><em>image</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the first slot the given datablock is mounted to on this object. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>image</em> </td>
+                              <td><a href="ShapeBaseImageData.html" title="Represents geometry to be mounted to a ShapeBase object.">ShapeBaseImageData</a> datablock to query </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>index of the first slot the Image is mounted in, or -1 if the Image is not mounted in any slot on this object. </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a99236dd13c137e9f5dbc1fe20e95590a"></a>
+                <!-- doxytag: member="ShapeBase::getMuzzlePoint" ref="a99236dd13c137e9f5dbc1fe20e95590a" args="(int slot)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>Point3F ShapeBase::getMuzzlePoint </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the muzzle position of the Image mounted in the specified slot. </p>
+                    <p>If the Image shape contains a node called 'muzzlePoint', then the   muzzle position is the position of that node in world space. If no such   node is specified, the slot's mount node is used instead. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>Image slot to query </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the muzzle position, or &quot;0 0 0&quot; if the slot is invalid </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="aaa72197dd49e93b06f7b0c07db6e7fd9"></a>
+                <!-- doxytag: member="ShapeBase::getMuzzleVector" ref="aaa72197dd49e93b06f7b0c07db6e7fd9" args="(int slot)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>VectorF ShapeBase::getMuzzleVector </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the muzzle vector of the Image mounted in the specified slot. </p>
+                    <p>If the Image shape contains a node called 'muzzlePoint', then the   muzzle vector is the forward direction vector of that node's transform   in world space. If no such node is specified, the slot's mount node is   used instead.</p>
+                    <p>If the correctMuzzleVector flag (correctMuzzleVectorTP in 3rd person)   is set in the Image, the muzzle vector is computed to point at whatever   object is right in front of the object's 'eye' node. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>Image slot to query </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the muzzle vector, or &quot;0 1 0&quot; if the slot is invalid </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="aefdb87e9edb34064be0ac9471b5d46f2"></a>
+                <!-- doxytag: member="ShapeBase::getPendingImage" ref="aefdb87e9edb34064be0ac9471b5d46f2" args="(int slot)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>int ShapeBase::getPendingImage </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the Image that will be mounted next in the specified slot. </p>
+                    <p>Calling mountImage when an Image is already mounted does one of two things: </p>
+                    <ol>
+                      <li> Mount the new Image immediately, the old Image is discarded and whatever state it was in is ignored.</li>
+                      <li> If the current Image state does not allow Image changes, the new Image   is marked as pending, and will not be mounted until the current state   completes. eg. if the user changes weapons, you may wish to ensure that   the current weapon firing state plays to completion first.</li>
+                    </ol>
+                    <p>This command retrieves the ID of the pending Image (2nd case above). </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>Image slot to query </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>ID of the pending <a href="ShapeBaseImageData.html" title="Represents geometry to be mounted to a ShapeBase object.">ShapeBaseImageData</a> datablock, or 0 if none. </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a742edf99bd827d498bb330b03f792f5e"></a>
+                <!-- doxytag: member="ShapeBase::getRechargeRate" ref="a742edf99bd827d498bb330b03f792f5e" args="()" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>float ShapeBase::getRechargeRate </td>
+                          <td>(</td>
+                          <td></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the current recharge rate. </p>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the recharge rate (per tick) </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#acbdd8cae5c3e7bdc809be733ad09c68d" title="Set the recharge rate.">setRechargeRate()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a7f06be3afe565a3ffbdbe91d44a9ed44"></a>
+                <!-- doxytag: member="ShapeBase::getRepairRate" ref="a7f06be3afe565a3ffbdbe91d44a9ed44" args="()" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>float ShapeBase::getRepairRate </td>
+                          <td>(</td>
+                          <td></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the per-tick repair amount. </p>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the current value to be subtracted from damage level each tick </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#ad2cb7f411d26af3ca7ce4b68db9d537e" title="Set amount to repair damage by each tick.">setRepairRate</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a3e23844d4d5eee1ae24e84b3d6bf1400"></a>
+                <!-- doxytag: member="ShapeBase::getShapeName" ref="a3e23844d4d5eee1ae24e84b3d6bf1400" args="()" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>string ShapeBase::getShapeName </td>
+                          <td>(</td>
+                          <td></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the name of the shape. </p>
+                    <dl>
+                      <dt><strong>Note:</strong></dt>
+                      <dd>This is the name of the shape object that is sent to the client, not the DTS or DAE model filename. </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the name of the shape</dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#abb1cdacbcfccb1f1df34d1440348cff9" title="Set the name of this shape.">setShapeName()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a26deff2e973d35558f35fbc863a14ae4"></a>
+                <!-- doxytag: member="ShapeBase::getSkinName" ref="a26deff2e973d35558f35fbc863a14ae4" args="()" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>string ShapeBase::getSkinName </td>
+                          <td>(</td>
+                          <td></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the name of the skin applied to this shape. </p>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the name of the skin</dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#a4b3fff86e853f74be02f746cc735d5a3" title="The skin applied to the shape.">skin</a> </dd>
+                      <dd> <a href="ShapeBase.html#a9ce8c294790f721caa77d8d49c8d39f0" title="Apply a new skin to this shape.">setSkinName()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="ae55c4603b2149af31499e871361b4a26"></a>
+                <!-- doxytag: member="ShapeBase::getSlotTransform" ref="ae55c4603b2149af31499e871361b4a26" args="(int slot)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>TransformF ShapeBase::getSlotTransform </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the world transform of the specified mount slot. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>Image slot to query </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the mount transform </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a1f92e01987fa71bed0bb9af5a5991973"></a>
+                <!-- doxytag: member="ShapeBase::getTargetCount" ref="a1f92e01987fa71bed0bb9af5a5991973" args="()" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>int ShapeBase::getTargetCount </td>
+                          <td>(</td>
+                          <td></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the number of materials in the shape. </p>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the number of materials in the shape.</dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#ac20c519903c80b439a60e94104846570" title="Get the name of the indexed shape material.">getTargetName()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="ac20c519903c80b439a60e94104846570"></a>
+                <!-- doxytag: member="ShapeBase::getTargetName" ref="ac20c519903c80b439a60e94104846570" args="(int index)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>string ShapeBase::getTargetName </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>index</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the name of the indexed shape material. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>index</em> </td>
+                              <td>index of the material to get (valid range is 0 - <a href="ShapeBase.html#a1f92e01987fa71bed0bb9af5a5991973" title="Get the number of materials in the shape.">getTargetCount()</a>-1). </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the name of the indexed material.</dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#a1f92e01987fa71bed0bb9af5a5991973" title="Get the number of materials in the shape.">getTargetCount()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a5807333d6b9a9253351cb1f54406a63c"></a>
+                <!-- doxytag: member="ShapeBase::getVelocity" ref="a5807333d6b9a9253351cb1f54406a63c" args="()" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>VectorF ShapeBase::getVelocity </td>
+                          <td>(</td>
+                          <td></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the object's current velocity. </p>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the current velocity </dd>
+                    </dl>
+                    <p>Reimplemented in <a>Camera</a>.</p>
+                  </div>
+                </div>
+                <a id="aba67f98ddb5f0b473f1d1297a490e326"></a>
+                <!-- doxytag: member="ShapeBase::getWhiteOut" ref="aba67f98ddb5f0b473f1d1297a490e326" args="()" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>float ShapeBase::getWhiteOut </td>
+                          <td>(</td>
+                          <td></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Get the white-out level. </p>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>white-out level </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#a07d663ad4895e3fee3892ca84d127349" title="Set the white-out level.">setWhiteOut</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a41860208babd4e8a712c46e41099cba7"></a>
+                <!-- doxytag: member="ShapeBase::hasImageState" ref="a41860208babd4e8a712c46e41099cba7" args="(int slot, string state)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::hasImageState </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em>, </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td>string </td>
+                          <td><em>state</em></td>
+                          <td> </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td>)</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Check if the given state exists on the mounted Image. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>Image slot to query </td>
+                            </tr>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>state</em> </td>
+                              <td>Image state to check for </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>true if the Image has the requested state defined. </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a4b3bd47ff1a4b51b27d1a097eb76b937"></a>
+                <!-- doxytag: member="ShapeBase::isCloaked" ref="a4b3bd47ff1a4b51b27d1a097eb76b937" args="()" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::isCloaked </td>
+                          <td>(</td>
+                          <td></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Check if this object is cloaked. </p>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>true if cloaked, false if not </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#a262749516c37019aee3f7b9345009050" title="Set the cloaked state of this object.">setCloaked()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a778d33137c5a2cd7cdbb0e15d615114a"></a>
+                <!-- doxytag: member="ShapeBase::isDestroyed" ref="a778d33137c5a2cd7cdbb0e15d615114a" args="()" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::isDestroyed </td>
+                          <td>(</td>
+                          <td></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Check if the object is in the Destroyed damage state. </p>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>true if damage state is &quot;Destroyed&quot;, false if not </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#a180edfa2757c86d6685af0d84a7d58e5" title="Check if the object is in the Disabled or Destroyed damage state.">isDisabled()</a> </dd>
+                      <dd> <a href="ShapeBase.html#a26c759fe76f7773804dc358c1f8083b3" title="Check if the object is in the Enabled damage state.">isEnabled()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a180edfa2757c86d6685af0d84a7d58e5"></a>
+                <!-- doxytag: member="ShapeBase::isDisabled" ref="a180edfa2757c86d6685af0d84a7d58e5" args="()" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::isDisabled </td>
+                          <td>(</td>
+                          <td></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Check if the object is in the Disabled or Destroyed damage state. </p>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>true if damage state is not &quot;Enabled&quot;, false if it is </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#a778d33137c5a2cd7cdbb0e15d615114a" title="Check if the object is in the Destroyed damage state.">isDestroyed()</a> </dd>
+                      <dd> <a href="ShapeBase.html#a26c759fe76f7773804dc358c1f8083b3" title="Check if the object is in the Enabled damage state.">isEnabled()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a26c759fe76f7773804dc358c1f8083b3"></a>
+                <!-- doxytag: member="ShapeBase::isEnabled" ref="a26c759fe76f7773804dc358c1f8083b3" args="()" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::isEnabled </td>
+                          <td>(</td>
+                          <td></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Check if the object is in the Enabled damage state. </p>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>true if damage state is &quot;Enabled&quot;, false if not </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#a778d33137c5a2cd7cdbb0e15d615114a" title="Check if the object is in the Destroyed damage state.">isDestroyed()</a> </dd>
+                      <dd> <a href="ShapeBase.html#a180edfa2757c86d6685af0d84a7d58e5" title="Check if the object is in the Disabled or Destroyed damage state.">isDisabled()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a01c2b6809ab61981d5dd72104c4d3027"></a>
+                <!-- doxytag: member="ShapeBase::isHidden" ref="a01c2b6809ab61981d5dd72104c4d3027" args="()" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::isHidden </td>
+                          <td>(</td>
+                          <td></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Check if the object is hidden. </p>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>true if the object is hidden, false if visible. </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a589af0115f603e67d503a9c295721b85"></a>
+                <!-- doxytag: member="ShapeBase::isImageFiring" ref="a589af0115f603e67d503a9c295721b85" args="(int slot)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::isImageFiring </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Check if the current Image state is firing. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>Image slot to query </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>true if the current Image state in this slot has the 'stateFire' flag set. </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a347584128ccba248e9ea93bccac27a5d"></a>
+                <!-- doxytag: member="ShapeBase::isImageMounted" ref="a347584128ccba248e9ea93bccac27a5d" args="(ShapeBaseImageData image)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::isImageMounted </td>
+                          <td>(</td>
+                          <td><a href="ShapeBaseImageData.html">ShapeBaseImageData</a> </td>
+                          <td><em>image</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Check if the given datablock is mounted to any slot on this object. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>image</em> </td>
+                              <td><a href="ShapeBaseImageData.html" title="Represents geometry to be mounted to a ShapeBase object.">ShapeBaseImageData</a> datablock to query </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>true if the Image is mounted to any slot, false otherwise. </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="ab003698139f63c896284ac355c7aa7c2"></a>
+                <!-- doxytag: member="ShapeBase::mountImage" ref="ab003698139f63c896284ac355c7aa7c2" args="(ShapeBaseImageData image, int slot, bool loaded=true, string skinTag=&quot;&quot;)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::mountImage </td>
+                          <td>(</td>
+                          <td><a href="ShapeBaseImageData.html">ShapeBaseImageData</a> </td>
+                          <td><em>image</em>, </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td>int </td>
+                          <td><em>slot</em>, </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td>bool </td>
+                          <td><em>loaded</em> = true, </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td>string </td>
+                          <td><em>skinTag</em> = &quot;&quot;</td>
+                          <td> </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td>)</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Mount a new Image. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>image</em> </td>
+                              <td>the Image to mount </td>
+                            </tr>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>Image slot to mount into (valid range is 0 - 3) </td>
+                            </tr>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>loaded</em> </td>
+                              <td>initial loaded state for the Image </td>
+                            </tr>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>skinTag</em> </td>
+                              <td>tagged string to reskin the mounted Image </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>true if successful, false if failed</dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Example:</strong></dt>
+                      <dd>
+                        <div>
+                          <pre>
+%player.mountImage( PistolImage, 1 );  
+%player.mountImage( CrossbowImage, 0, false );  
+%player.mountImage( RocketLauncherImage, 0, true, 'blue' );  
+</pre>
+                        </div>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#a8844e4c67f8bbb8340c9288e0f3394be" title="Unmount the mounted Image in the specified slot.">unmountImage()</a> </dd>
+                      <dd> <a href="ShapeBase.html#a380eddae445de76d0ce42f71b0b3dfd1" title="Get the Image mounted in the specified slot.">getMountedImage()</a> </dd>
+                      <dd> <a href="ShapeBase.html#aefdb87e9edb34064be0ac9471b5d46f2" title="Get the Image that will be mounted next in the specified slot.">getPendingImage()</a> </dd>
+                      <dd> <a href="ShapeBase.html#a347584128ccba248e9ea93bccac27a5d" title="Check if the given datablock is mounted to any slot on this object.">isImageMounted()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a19b2fc6b79d9dba3a22e7c1d5e23a06a"></a>
+                <!-- doxytag: member="ShapeBase::pauseThread" ref="a19b2fc6b79d9dba3a22e7c1d5e23a06a" args="(int slot)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::pauseThread </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Pause an animation thread. </p>
+                    <p>If restarted using playThread, the animation will resume from the paused position. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>thread slot to stop </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>true if successful, false if failed</dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#a784f509485e77520544d72bf92e6a388" title="Start a new animation thread, or restart one that has been paused or stopped.">playThread</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="ab515fa41dd15b51c863341ba497276bf"></a>
+                <!-- doxytag: member="ShapeBase::playAudio" ref="ab515fa41dd15b51c863341ba497276bf" args="(int slot, SFXTrack track)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::playAudio </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em>, </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td><a>SFXTrack</a> </td>
+                          <td><em>track</em></td>
+                          <td> </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td>)</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Attach a sound to this shape and start playing it. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>Audio slot index for the sound (valid range is 0 - 3) </td>
+                            </tr>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>track</em> </td>
+                              <td><a href="SFXTrack.html" title="Abstract base class for sound data that can be played back by the sound system.">SFXTrack</a> to play </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>true if the sound was attached successfully, false if failed</dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#ab3501961d0ab5913954402ee6027d2f8" title="Stop a sound started with playAudio.">stopAudio()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a784f509485e77520544d72bf92e6a388"></a>
+                <!-- doxytag: member="ShapeBase::playThread" ref="a784f509485e77520544d72bf92e6a388" args="(int slot, string name=&quot;&quot;)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::playThread </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em>, </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td>string </td>
+                          <td><em>name</em> = &quot;&quot;</td>
+                          <td> </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td>)</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Start a new animation thread, or restart one that has been paused or stopped. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>thread slot to play. Valid range is 0 - 3) </td>
+                            </tr>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>name</em> </td>
+                              <td>name   of the animation sequence to play in this slot. If not specified, the   paused or stopped thread in this slot will be resumed. </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>true if successful, false if failed</dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Example:</strong></dt>
+                      <dd>
+                        <div>
+                          <pre>
+%obj.playThread( 0, &quot;ambient&quot; );   // Play the ambient sequence in slot 0  
+%obj.setThreadTimeScale( 0, 0.5 );  // Play at half-speed  
+%obj.pauseThread( 0 );          // Pause the sequence  
+%obj.playThread( 0 );           // Resume playback  
+%obj.playThread( 0, &quot;spin&quot; );     // Replace the sequence in slot 0  </pre>
+                        </div>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#a19b2fc6b79d9dba3a22e7c1d5e23a06a" title="Pause an animation thread.">pauseThread()</a> </dd>
+                      <dd> <a href="ShapeBase.html#a0bcceeb43f1395b9dfd4de69cf5d98d5" title="Stop an animation thread.">stopThread()</a> </dd>
+                      <dd> <a href="ShapeBase.html#a915da43ed71c2f87285cd89c88767a37" title="Set the playback direction of an animation thread.">setThreadDir()</a> </dd>
+                      <dd> <a href="ShapeBase.html#a8e57260eac0d835542939b235587ad11" title="Set the playback time scale of an animation thread.">setThreadTimeScale()</a> </dd>
+                      <dd> <a href="ShapeBase.html#a3bcf9cc18b04a67229f19eb50455585d" title="Destroy an animation thread, which prevents it from playing.">destroyThread()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="ae1e0f79225ced5578d41ee452df8fcf0"></a>
+                <!-- doxytag: member="ShapeBase::setAllMeshesHidden" ref="ae1e0f79225ced5578d41ee452df8fcf0" args="(bool hide)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>void ShapeBase::setAllMeshesHidden </td>
+                          <td>(</td>
+                          <td>bool </td>
+                          <td><em>hide</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Set the hidden state on all the shape meshes. </p>
+                    <p>This allows you to hide all meshes in the shape, for example, and then only enable a few. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>hide</em> </td>
+                              <td>new hidden state for all meshes </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a2fdf7f6cda2700a9da31f6b00bc22085"></a>
+                <!-- doxytag: member="ShapeBase::setCameraFov" ref="a2fdf7f6cda2700a9da31f6b00bc22085" args="(float fov)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>void ShapeBase::setCameraFov </td>
+                          <td>(</td>
+                          <td>float </td>
+                          <td><em>fov</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Set the vertical field of view in degrees for this object if used as a camera. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>fov</em> </td>
+                              <td>new FOV value </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a262749516c37019aee3f7b9345009050"></a>
+                <!-- doxytag: member="ShapeBase::setCloaked" ref="a262749516c37019aee3f7b9345009050" args="(bool cloak)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>void ShapeBase::setCloaked </td>
+                          <td>(</td>
+                          <td>bool </td>
+                          <td><em>cloak</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Set the cloaked state of this object. </p>
+                    <p>When an object is cloaked it is not rendered. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>cloak</em> </td>
+                              <td>true to cloak the object, false to uncloak </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#a4b3bd47ff1a4b51b27d1a097eb76b937" title="Check if this object is cloaked.">isCloaked()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="ab6ce0ad64a4e0f1a346a9b370d679792"></a>
+                <!-- doxytag: member="ShapeBase::setDamageFlash" ref="ab6ce0ad64a4e0f1a346a9b370d679792" args="(float level)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>void ShapeBase::setDamageFlash </td>
+                          <td>(</td>
+                          <td>float </td>
+                          <td><em>level</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Set the damage flash level. </p>
+                    <p>Damage flash may be used as a postfx effect to flash the screen when the client is damaged. </p>
+                    <dl>
+                      <dt><strong>Note:</strong></dt>
+                      <dd>Relies on the flash postFx. </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>level</em> </td>
+                              <td>flash level (0-1) </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#aaf888632db5a42115e80d9efccc35bc4" title="Get the damage flash level.">getDamageFlash()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a9253aaf0aaa65c58d5ebb0973fb4046b"></a>
+                <!-- doxytag: member="ShapeBase::setDamageLevel" ref="a9253aaf0aaa65c58d5ebb0973fb4046b" args="(float level)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>void ShapeBase::setDamageLevel </td>
+                          <td>(</td>
+                          <td>float </td>
+                          <td><em>level</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Set the object's current damage level. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>level</em> </td>
+                              <td>new damage level </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#a4d9d7c13996270af6e875a8fc91ad3fb" title="Get the object's current damage level.">getDamageLevel()</a> </dd>
+                      <dd> <a href="ShapeBase.html#abf890f4097e385bd619b9b45f63fb077" title="Get the object's current damage level as a percentage of maxDamage.">getDamagePercent()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a0659a047ee59bbda54da708e1e11e66a"></a>
+                <!-- doxytag: member="ShapeBase::setDamageState" ref="a0659a047ee59bbda54da708e1e11e66a" args="(string state)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::setDamageState </td>
+                          <td>(</td>
+                          <td>string </td>
+                          <td><em>state</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Set the object's damage state. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>state</em> </td>
+                              <td>should be one of &quot;Enabled&quot;, &quot;Disabled&quot;, &quot;Destroyed&quot; </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>true if successful, false if failed </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#aef8cb80865ebedcae4625455c576d28b" title="Get the object's damage state.">getDamageState()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="af3a1c3f561d9e333a26d49f92be9062f"></a>
+                <!-- doxytag: member="ShapeBase::setDamageVector" ref="af3a1c3f561d9e333a26d49f92be9062f" args="(Point3F vec)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>void ShapeBase::setDamageVector </td>
+                          <td>(</td>
+                          <td>Point3F </td>
+                          <td><em>vec</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Set the damage direction vector. </p>
+                    <p>Currently this is only used to initialise the explosion if this object is blown up. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>vec</em> </td>
+                              <td>damage direction vector</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Example:</strong></dt>
+                      <dd>
+                        <div>
+                          <pre>%obj.setDamageVector( &quot;0 0 1&quot; );  </pre>
+                        </div>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a53d5751801cfc542768fe5e6e4a1c346"></a>
+                <!-- doxytag: member="ShapeBase::setEnergyLevel" ref="a53d5751801cfc542768fe5e6e4a1c346" args="(float level)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>void ShapeBase::setEnergyLevel </td>
+                          <td>(</td>
+                          <td>float </td>
+                          <td><em>level</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Set this object's current energy level. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>level</em> </td>
+                              <td>new energy level </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#a804172db08d5b994601afb5fbdea134c" title="Get the object's current energy level.">getEnergyLevel()</a> </dd>
+                      <dd> <a href="ShapeBase.html#a0c6512eece476490739f48ffb8b91e94" title="Get the object's current energy level as a percentage of maxEnergy.">getEnergyPercent()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a4ddd3c2c54f05032df9a33e4154a877a"></a>
+                <!-- doxytag: member="ShapeBase::setHidden" ref="a4ddd3c2c54f05032df9a33e4154a877a" args="(bool show)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>void ShapeBase::setHidden </td>
+                          <td>(</td>
+                          <td>bool </td>
+                          <td><em>show</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Add or remove this object from the scene. </p>
+                    <p>When removed from the scene, the object will not be processed or rendered. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>show</em> </td>
+                              <td>False to hide the object, true to re-show it </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <p>Reimplemented from <a>SimObject</a>.</p>
+                  </div>
+                </div>
+                <a id="ae052f4964353f7f3fc9e171cbc7a55d3"></a>
+                <!-- doxytag: member="ShapeBase::setImageAltTrigger" ref="ae052f4964353f7f3fc9e171cbc7a55d3" args="(int slot, bool state)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::setImageAltTrigger </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em>, </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td>bool </td>
+                          <td><em>state</em></td>
+                          <td> </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td>)</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Set the alt trigger state of the Image mounted in the specified slot. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>Image slot to modify </td>
+                            </tr>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>state</em> </td>
+                              <td>new alt trigger state for the Image </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the Image's new alt trigger state </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a6fc37b6101b21a449c9bd789cc5138e3"></a>
+                <!-- doxytag: member="ShapeBase::setImageAmmo" ref="a6fc37b6101b21a449c9bd789cc5138e3" args="(int slot, bool state)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::setImageAmmo </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em>, </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td>bool </td>
+                          <td><em>state</em></td>
+                          <td> </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td>)</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Set the ammo state of the Image mounted in the specified slot. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>Image slot to modify </td>
+                            </tr>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>state</em> </td>
+                              <td>new ammo state for the Image </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the Image's new ammo state </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="abdb3bc06931e045064a658b3e8b2b5d2"></a>
+                <!-- doxytag: member="ShapeBase::setImageGenericTrigger" ref="abdb3bc06931e045064a658b3e8b2b5d2" args="(int slot, int trigger, bool state)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>int ShapeBase::setImageGenericTrigger </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em>, </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td>int </td>
+                          <td><em>trigger</em>, </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td>bool </td>
+                          <td><em>state</em></td>
+                          <td> </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td>)</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Set the generic trigger state of the Image mounted in the specified slot. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>Image slot to modify </td>
+                            </tr>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>trigger</em> </td>
+                              <td>Generic trigger number </td>
+                            </tr>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>state</em> </td>
+                              <td>new generic trigger state for the Image </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the Image's new generic trigger state or -1 if there was a problem. </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a1889850532107e5e92c39d8397a0590d"></a>
+                <!-- doxytag: member="ShapeBase::setImageLoaded" ref="a1889850532107e5e92c39d8397a0590d" args="(int slot, bool state)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::setImageLoaded </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em>, </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td>bool </td>
+                          <td><em>state</em></td>
+                          <td> </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td>)</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Set the loaded state of the Image mounted in the specified slot. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>Image slot to modify </td>
+                            </tr>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>state</em> </td>
+                              <td>new loaded state for the Image </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the Image's new loaded state </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="af32f35605ca8fb4653c2381271f09a72"></a>
+                <!-- doxytag: member="ShapeBase::setImageScriptAnimPrefix" ref="af32f35605ca8fb4653c2381271f09a72" args="(int slot, string prefix)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>void ShapeBase::setImageScriptAnimPrefix </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em>, </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td>string </td>
+                          <td><em>prefix</em></td>
+                          <td> </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td>)</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Set the script animation prefix for the Image mounted in the specified slot. </p>
+                    <p>This is used to further modify the prefix used when deciding which animation sequence to play while this image is mounted. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>Image slot to modify </td>
+                            </tr>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>prefix</em> </td>
+                              <td>The prefix applied to the image </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a90532c8072caefec0f97e0009294d4b6"></a>
+                <!-- doxytag: member="ShapeBase::setImageTarget" ref="a90532c8072caefec0f97e0009294d4b6" args="(int slot, bool state)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::setImageTarget </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em>, </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td>bool </td>
+                          <td><em>state</em></td>
+                          <td> </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td>)</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Set the target state of the Image mounted in the specified slot. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>Image slot to modify </td>
+                            </tr>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>state</em> </td>
+                              <td>new target state for the Image </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the Image's new target state </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a021cb29b0ebca37eb9fb6d334b59e6d6"></a>
+                <!-- doxytag: member="ShapeBase::setImageTrigger" ref="a021cb29b0ebca37eb9fb6d334b59e6d6" args="(int slot, bool state)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::setImageTrigger </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em>, </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td>bool </td>
+                          <td><em>state</em></td>
+                          <td> </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td>)</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Set the trigger state of the Image mounted in the specified slot. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>Image slot to modify </td>
+                            </tr>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>state</em> </td>
+                              <td>new trigger state for the Image </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>the Image's new trigger state </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a42651be76111daf1a0463e047ca55131"></a>
+                <!-- doxytag: member="ShapeBase::setInvincibleMode" ref="a42651be76111daf1a0463e047ca55131" args="(float time, float speed)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>void ShapeBase::setInvincibleMode </td>
+                          <td>(</td>
+                          <td>float </td>
+                          <td><em>time</em>, </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td>float </td>
+                          <td><em>speed</em></td>
+                          <td> </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td>)</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Setup the invincible effect. </p>
+                    <p>This effect is used for HUD feedback to the user that they are invincible. </p>
+                    <dl>
+                      <dt><strong>Note:</strong></dt>
+                      <dd>Currently not implemented </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>time</em> </td>
+                              <td>duration in seconds for the invincible effect </td>
+                            </tr>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>speed</em> </td>
+                              <td>speed at which the invincible effect progresses </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="afc2e0fe4cf77133172d1930fbb35b9fb"></a>
+                <!-- doxytag: member="ShapeBase::setMeshHidden" ref="afc2e0fe4cf77133172d1930fbb35b9fb" args="(string name, bool hide)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>void ShapeBase::setMeshHidden </td>
+                          <td>(</td>
+                          <td>string </td>
+                          <td><em>name</em>, </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td>bool </td>
+                          <td><em>hide</em></td>
+                          <td> </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td>)</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Set the hidden state on the named shape mesh. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>name</em> </td>
+                              <td>name of the mesh to hide/show </td>
+                            </tr>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>hide</em> </td>
+                              <td>new hidden state for the mesh </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="acbdd8cae5c3e7bdc809be733ad09c68d"></a>
+                <!-- doxytag: member="ShapeBase::setRechargeRate" ref="acbdd8cae5c3e7bdc809be733ad09c68d" args="(float rate)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>void ShapeBase::setRechargeRate </td>
+                          <td>(</td>
+                          <td>float </td>
+                          <td><em>rate</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Set the recharge rate. </p>
+                    <p>The recharge rate is added to the object's current energy level each tick, up to the maxEnergy level set in the 
+                        <a title="Defines properties for a ShapeBase object.">ShapeBaseData</a> datablock. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>rate</em> </td>
+                              <td>the recharge rate (per tick) </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#a742edf99bd827d498bb330b03f792f5e" title="Get the current recharge rate.">getRechargeRate()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="ad2cb7f411d26af3ca7ce4b68db9d537e"></a>
+                <!-- doxytag: member="ShapeBase::setRepairRate" ref="ad2cb7f411d26af3ca7ce4b68db9d537e" args="(float rate)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>void ShapeBase::setRepairRate </td>
+                          <td>(</td>
+                          <td>float </td>
+                          <td><em>rate</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Set amount to repair damage by each tick. </p>
+                    <p>Note that this value is separate to the repairRate field in 
+                        <a title="Defines properties for a ShapeBase object.">ShapeBaseData</a>. This value will be subtracted from the damage level each tick, whereas the 
+                        <a title="Defines properties for a ShapeBase object.">ShapeBaseData</a> field limits how much of the applyRepair value is subtracted each tick. Both repair types can be active at the same time. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>rate</em> </td>
+                              <td>value to subtract from damage level each tick (must be &gt; 0) </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#a7f06be3afe565a3ffbdbe91d44a9ed44" title="Get the per-tick repair amount.">getRepairRate()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="abb1cdacbcfccb1f1df34d1440348cff9"></a>
+                <!-- doxytag: member="ShapeBase::setShapeName" ref="abb1cdacbcfccb1f1df34d1440348cff9" args="(string name)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>void ShapeBase::setShapeName </td>
+                          <td>(</td>
+                          <td>string </td>
+                          <td><em>name</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Set the name of this shape. </p>
+                    <dl>
+                      <dt><strong>Note:</strong></dt>
+                      <dd>This is the name of the shape object that is sent to the client, not the DTS or DAE model filename. </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>name</em> </td>
+                              <td>new name for the shape</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#a3e23844d4d5eee1ae24e84b3d6bf1400" title="Get the name of the shape.">getShapeName()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a9ce8c294790f721caa77d8d49c8d39f0"></a>
+                <!-- doxytag: member="ShapeBase::setSkinName" ref="a9ce8c294790f721caa77d8d49c8d39f0" args="(string name)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>void ShapeBase::setSkinName </td>
+                          <td>(</td>
+                          <td>string </td>
+                          <td><em>name</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Apply a new skin to this shape. </p>
+                    <p>'Skinning' the shape effectively renames the material targets,   allowing different materials to be used on different instances of the   same model.</p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>name</em> </td>
+                              <td>name of the skin to apply</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#a4b3fff86e853f74be02f746cc735d5a3" title="The skin applied to the shape.">skin</a> </dd>
+                      <dd> <a href="ShapeBase.html#a26deff2e973d35558f35fbc863a14ae4" title="Get the name of the skin applied to this shape.">getSkinName()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a915da43ed71c2f87285cd89c88767a37"></a>
+                <!-- doxytag: member="ShapeBase::setThreadDir" ref="a915da43ed71c2f87285cd89c88767a37" args="(int slot, bool fwd)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::setThreadDir </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em>, </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td>bool </td>
+                          <td><em>fwd</em></td>
+                          <td> </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td>)</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Set the playback direction of an animation thread. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>thread slot to modify </td>
+                            </tr>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>fwd</em> </td>
+                              <td>true to play the animation forwards, false to play backwards </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>true if successful, false if failed</dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#a784f509485e77520544d72bf92e6a388" title="Start a new animation thread, or restart one that has been paused or stopped.">playThread()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a5b61d192d4915726d5291592d237d09d"></a>
+                <!-- doxytag: member="ShapeBase::setThreadPosition" ref="a5b61d192d4915726d5291592d237d09d" args="(int slot, float pos)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::setThreadPosition </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em>, </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td>float </td>
+                          <td><em>pos</em></td>
+                          <td> </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td>)</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Set the position within an animation thread. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>thread slot to modify </td>
+                            </tr>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>pos</em> </td>
+                              <td>position within thread </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>true if successful, false if failed</dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#a784f509485e77520544d72bf92e6a388" title="Start a new animation thread, or restart one that has been paused or stopped.">playThread</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a8e57260eac0d835542939b235587ad11"></a>
+                <!-- doxytag: member="ShapeBase::setThreadTimeScale" ref="a8e57260eac0d835542939b235587ad11" args="(int slot, float scale)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::setThreadTimeScale </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em>, </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td>float </td>
+                          <td><em>scale</em></td>
+                          <td> </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td>)</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Set the playback time scale of an animation thread. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>thread slot to modify </td>
+                            </tr>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>scale</em> </td>
+                              <td>new thread time scale (1=normal speed, 0.5=half speed etc) </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>true if successful, false if failed</dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#a784f509485e77520544d72bf92e6a388" title="Start a new animation thread, or restart one that has been paused or stopped.">playThread</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="af8b97d4df6633d1705cc60f16cb5412e"></a>
+                <!-- doxytag: member="ShapeBase::setVelocity" ref="af8b97d4df6633d1705cc60f16cb5412e" args="(Point3F vel)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::setVelocity </td>
+                          <td>(</td>
+                          <td>Point3F </td>
+                          <td><em>vel</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Set the object's velocity. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>vel</em> </td>
+                              <td>new velocity for the object </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>true </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a07d663ad4895e3fee3892ca84d127349"></a>
+                <!-- doxytag: member="ShapeBase::setWhiteOut" ref="a07d663ad4895e3fee3892ca84d127349" args="(float level)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>void ShapeBase::setWhiteOut </td>
+                          <td>(</td>
+                          <td>float </td>
+                          <td><em>level</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Set the white-out level. </p>
+                    <p>White-out may be used as a postfx effect to brighten the screen in response to a game event. </p>
+                    <dl>
+                      <dt><strong>Note:</strong></dt>
+                      <dd>Relies on the flash postFx. </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>level</em> </td>
+                              <td>flash level (0-1) </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#aba67f98ddb5f0b473f1d1297a490e326" title="Get the white-out level.">getWhiteOut()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="ada9c0e55baac846910357e3fc8a63d67"></a>
+                <!-- doxytag: member="ShapeBase::startFade" ref="ada9c0e55baac846910357e3fc8a63d67" args="(int time, int delay, bool fadeOut)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>void ShapeBase::startFade </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>time</em>, </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td>int </td>
+                          <td><em>delay</em>, </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td>bool </td>
+                          <td><em>fadeOut</em></td>
+                          <td> </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td>)</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Fade the object in or out without removing it from the scene. </p>
+                    <p>A faded out object is still in the scene and can still be collided   with, so if you want to disable collisions for this shape after it fades   out use setHidden to temporarily remove this shape from the scene. </p>
+                    <dl>
+                      <dt><strong>Note:</strong></dt>
+                      <dd>Items have the ability to light their surroundings. When an <a href="Item.html" title="Base Item class. Uses the ItemData datablock for common properties.">Item</a> with an active light is fading out, the light it emits is   correspondingly reduced until it goes out. Likewise, when the item fades   in, the light is turned-up till it reaches it's normal brightntess. </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>time</em> </td>
+                              <td>duration of the fade effect in ms </td>
+                            </tr>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>delay</em> </td>
+                              <td>delay in ms before the fade effect begins </td>
+                            </tr>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>fadeOut</em> </td>
+                              <td>true to fade-out to invisible, false to fade-in to full visibility </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="ab3501961d0ab5913954402ee6027d2f8"></a>
+                <!-- doxytag: member="ShapeBase::stopAudio" ref="ab3501961d0ab5913954402ee6027d2f8" args="(int slot)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::stopAudio </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Stop a sound started with playAudio. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>audio slot index (started with playAudio) </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>true if the sound was stopped successfully, false if failed</dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#ab515fa41dd15b51c863341ba497276bf" title="Attach a sound to this shape and start playing it.">playAudio()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a0bcceeb43f1395b9dfd4de69cf5d98d5"></a>
+                <!-- doxytag: member="ShapeBase::stopThread" ref="a0bcceeb43f1395b9dfd4de69cf5d98d5" args="(int slot)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::stopThread </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Stop an animation thread. </p>
+                    <p>If restarted using playThread, the animation will start from the beginning again. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>thread slot to stop </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>true if successful, false if failed</dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#a784f509485e77520544d72bf92e6a388" title="Start a new animation thread, or restart one that has been paused or stopped.">playThread</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="a8844e4c67f8bbb8340c9288e0f3394be"></a>
+                <!-- doxytag: member="ShapeBase::unmountImage" ref="a8844e4c67f8bbb8340c9288e0f3394be" args="(int slot)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool ShapeBase::unmountImage </td>
+                          <td>(</td>
+                          <td>int </td>
+                          <td><em>slot</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Unmount the mounted Image in the specified slot. </p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>slot</em> </td>
+                              <td>Image slot to unmount </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>true if successful, false if failed</dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a href="ShapeBase.html#ab003698139f63c896284ac355c7aa7c2" title="Mount a new Image.">mountImage()</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <a id="afc7c489eed32127d992522fa0e87d6ff"></a>
+                <!-- doxytag: member="ShapeBase::validateCameraFov" ref="afc7c489eed32127d992522fa0e87d6ff" args="(float fov)" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>float ShapeBase::validateCameraFov </td>
+                          <td>(</td>
+                          <td>float </td>
+                          <td><em>fov</em></td>
+                          <td> ) </td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Called on the server when the client has requested a FOV change. </p>
+                    <p>When the client requests that its field of view should be changed   (because they want to use a sniper scope, for example) this new FOV   needs to be validated by the server. This method is called if it exists   (it is optional) to validate the requested FOV, and modify it if   necessary. This could be as simple as checking that the FOV falls within   a correct range, to making sure that the FOV matches the capabilities   of the current weapon.</p>
+                    <p>Following this method, <a href="ShapeBase.html" title="A scriptable, renderable shape.">ShapeBase</a> ensures that the given FOV still falls within the datablock's   cameraMinFov and cameraMaxFov. If that is good enough for your purposes,   then you do not need to define the <a href="ShapeBase.html#afc7c489eed32127d992522fa0e87d6ff" title="Called on the server when the client has requested a FOV change.">validateCameraFov()</a> callback for your <a href="ShapeBase.html" title="A scriptable, renderable shape.">ShapeBase</a>.</p>
+                    <dl>
+                      <dt><strong>Parameters:</strong></dt>
+                      <dd>
+                        <table border="0" cellpadding="0" cellspacing="2">
+                          <tbody>
+                            <tr>
+                              <td valign="top"></td>
+                              <td valign="top"><em>fov</em> </td>
+                              <td>The FOV that has been requested by the client. </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>Returns:</strong></dt>
+                      <dd>The FOV as validated by the server.</dd>
+                    </dl>
+                    <dl>
+                      <dt><strong>See also:</strong></dt>
+                      <dd><a title="Defines properties for a ShapeBase object.">ShapeBaseData</a> </dd>
+                    </dl>
+                  </div>
+                </div>
+                <hr />
+                <a name="Member_Data_Documentation"></a><h2>Member Data Documentation</h2>
+                <a id="a87225f25241b64dd62758a59377bcf0c"></a>
+                <!-- doxytag: member="ShapeBase::isAIControlled" ref="a87225f25241b64dd62758a59377bcf0c" args="" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>bool <a href="ShapeBase.html#a87225f25241b64dd62758a59377bcf0c">ShapeBase::isAIControlled</a></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>Is this object AI controlled. </p>
+                    <p>If True then this object is considered AI controlled and not player controlled. </p>
+                  </div>
+                </div>
+                <a id="a4b3fff86e853f74be02f746cc735d5a3"></a>
+                <!-- doxytag: member="ShapeBase::skin" ref="a4b3fff86e853f74be02f746cc735d5a3" args="" -->
+                <div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>string <a href="ShapeBase.html#a4b3fff86e853f74be02f746cc735d5a3">ShapeBase::skin</a></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <p>The skin applied to the shape. </p>
+                    <p>'Skinning' the shape effectively renames the material targets,   allowing different materials to be used on different instances of the   same model. Using <a href="ShapeBase.html#a26deff2e973d35558f35fbc863a14ae4" title="Get the name of the skin applied to this shape.">getSkinName()</a> and <a href="ShapeBase.html#a9ce8c294790f721caa77d8d49c8d39f0" title="Apply a new skin to this shape.">setSkinName()</a> is equivalent to reading and writing the skin field directly.</p>
+                    <p>Any material targets that start with the old skin name have that part   of the name replaced with the new skin name. The initial old skin name   is &quot;base&quot;. For example, if a new skin of &quot;blue&quot; was applied to a model   that had material targets <em>base_body</em> and <em>face</em>, the new targets would be <em>blue_body</em> and <em>face</em>. Note that <em>face</em> was not renamed since it did not start with the old skin name of &quot;base&quot;.</p>
+                    <p>To support models that do not use the default &quot;base&quot; naming   convention, you can also specify the part of the name to replace in the   skin field itself. For example, if a model had a material target called <em>shapemat</em>, we could apply a new skin &quot;shape=blue&quot;, and the material target would be renamed to <em>bluemat</em> (note &quot;shape&quot; has been replaced with &quot;blue&quot;).</p>
+                    <p>Multiple skin updates can also be applied at the same time by   separating them with a semicolon. For example:   &quot;base=blue;face=happy_face&quot;.</p>
+                    <p><a title="A material in Torque 3D is a data structure that describes a surface.">Material</a> targets are only renamed if an existing 
+                        <a title="A material in Torque 3D is a data structure that describes a surface.">Material</a> maps to that name, or if there is a diffuse texture in the model folder with the same name as the new target. </p>
+                  </div>
+                </div>
+        <div class="memitem"><div class="memdoc"></div>
+</div>
+</div></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

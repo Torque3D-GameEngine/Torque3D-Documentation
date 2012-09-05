@@ -1,0 +1,323 @@
+<html>
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 30;
+   parent.leftFrame.expandToItem('tree2', 'doc30');
+   var element = parent.leftFrame.document.getElementById('doc30');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D - Simple HUD</title>
+</head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_GUIEditor_Gameoverlay skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2></div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Setting_Up"><span class="tocnumber">2</span> <span class="toctext">Setting Up</span></a></li>
+                          <li class="toclevel-1"><a href="#Adding_Text_Controls"><span class="tocnumber">3</span> <span class="toctext">Adding Text Controls</span></a></li>
+                          <li class="toclevel-1"><a href="#Configuring_Text_Output"><span class="tocnumber">4</span> <span class="toctext">Configuring Text Output</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">5</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p><img alt="Image:4_FinalGui.jpg" src="4_Images/4_FinalGui.jpg" border="0" height="120" width="176" /> </p>
+                <p><br />
+                  With this tutorial you will learn some simple scripts that will be used
+                  to display the game FPS and polygon count as a overlay or HUD (Heads Up Display). We will also cover
+                  how to capture a mouse event and put it to good use while a schedule
+                  timer is used to constantly update the text displayed on our screen. </p>
+                <p><br />
+                  Suggested Reading: </p>
+                <ul>
+                  <li><a href="Introduction.html">GUI Editor Overview</a> </li>
+                  <li><a href="Interface.html">GUI Interface</a> </li>
+                  <li><a href="../Scripting/Overview/Introduction.html">TorqueScript Reference</a> </li>
+                  <li><a href="Firstgui.html">GUI Tutorial 1</a> </li>
+                  <li><a href="Controls.html">GUI Tutorial 2</a></li>
+                  <li><a href="Console.html">GUI Tutorial 3</a> </li>
+                </ul>
+                <p><br />
+                  Covered in this tutorial: </p>
+                <ul>
+                  <li>Display text on the Game screen </li>
+                  <li>Show how to detect a mouse click </li>
+                  <li>Simple use of the schedule timer </li>
+                  <li>Show game fps and poly count </li>
+                  <li>Locate and Edit the playGui </li>
+                </ul><br>
+                <a name="Setting_Up" id="Setting_Up"></a>
+                <h2> <span class="mw-headline">Setting Up</span></h2>
+                <p>Open up your tutorial project and start the GUI editor as we have in
+                  the previous tutorials in the series. This time we are going to edit
+                  the main playGui.gui. This GUI is the main play screen overlay where
+                  your in game HUD for ammo and other player feedback is displayed. </p>
+                <p><br />
+                  The main GUI control in this case is not GuiControl that we
+                  used in a dialog. This one uses GameTSCtrl, which is a GUI for
+                  rendering 3D scenes. Head to the file menu File-&gt;Open From File and
+                  point your file browser to <b>game/art/gui</b>. Load the file <b>playGui.gui</b>. </p>
+                <p><br />
+                  This GUI may have a few controls already but we shall ignore them for now. </p><br>
+                <a name="Adding_Text_Controls" id="Adding_Text_Controls"></a>
+                <h2> <span class="mw-headline">Adding Text Controls</span></h2>
+                <p><b>STEP 1:</b> For this project we are only going to need to display
+                  text so add a new GuiTextCtrl from the control Library. Set its
+                  property to: </p>
+                <p><br />
+                  property text: <b>Time</b> </p>
+                <p><br />
+                  Next resize it to fit the text content. Ensure this control
+                  is selected, then copy andpaste a new control to the right of it and set
+                  this controls property to: </p>
+                <p><br />
+                  property text: <b>00</b> </p>
+                <p>property name: <b>lblTime</b> </p>
+                <p><br />
+                  <b>STEP 2:</b> Select both of the text controls then copy and paste them three more times. Set their properties as follows: </p>
+                <p><br />
+                  <i><b>Below Time</b></i> </p>
+                <p>Left Text property text: <b>Clicks</b>: </p>
+                <p>Right Text property text: <b>00</b> </p>
+                <p>Right Text property name: <b>lblClicks</b> </p>
+                <p><br />
+                  <i><b>Below Clicks</b></i> </p>
+                <p>Left Text property text: <b>FPS</b> </p>
+                <p>Right Text property text: <b>00</b> </p>
+                <p>Right Text property name: <b>lblFps</b> </p>
+                <p><br />
+                  <i><b>Below FPS</b></i> </p>
+                <p>Left Text property text: <b>Poly</b> </p>
+                <p>Right Text property text: <b>00</b> </p>
+                <p>Right Text property name: <b>lblPoly</b> </p>
+                <p><br />
+                  <img alt="Image:4_AddMoreText.jpg" src="4_Images/4_AddMoreText.jpg" border="0" height="101" width="120" /> </p>
+                <p><br />
+                  If you need aid in lining your text controls, the editor has
+                  a few tools to help you. The selected control can be moved / nudged by
+                  pressing the up/down/left/right keys. The tool bar also has a few icons
+                  for aligning up the controls: </p>
+                <p><img alt="Image:4_AlignmentBar.jpg" src="4_Images/4_AlignmentBar.jpg" border="0" height="25" width="330" /> </p>
+                <p><br />
+                  Select all the left text controls and press the <b>Align left</b> icon: </p>
+                <p><img alt="Image:4_AlignLeft.jpg" src="4_Images/4_AlignLeft.jpg" border="0" height="23" width="299" /> </p>
+                <p><br />
+                  This will make their left edges line up nice and neat. If you want the text controls to be evenly spaced vertically, press the <b>Distribute Vertically</b> icon: </p>
+                <p><img alt="Image:4_DistributeVertical.jpg" src="4_Images/4_DistributeVertical.jpg" border="0" height="27" width="351" /> </p>
+                <p><br />
+                  Get to know these layout helpers as they will save you time in a larger GUI. Remember to make a save! </p>
+                <p><br />
+                  <em><strong>Optional</strong>: If you think the black text will not show up in your project you could always add a <b>GuiPanelCtrl</b>, resize it, and send to the back by pressing the tool bar <b>Send To Back</b> icon.</em> </p>
+                <p><img alt="Image:4_SendToBack.jpg" src="4_Images/4_SendToBack.jpg" border="0" height="30" width="330" /> </p>
+                <p><br />
+                  It should look like this: </p>
+                <p><br />
+                  <img alt="Image:4_ViewFinal.jpg" src="4_Images/4_ViewFinal.jpg" border="0" height="99" width="129" /> </p>
+                <p><br />
+                  Save and close down your project. </p>
+                <p><br />
+                  <i><b>HINT</b>: If you can not see all the numbers or text in a
+                  GuiTextCtrl, remember to resize the control until you can see all of
+                  its contents.</i></p><br>
+                <a name="Configuring_Text_Output" id="Configuring_Text_Output"></a>
+                <h2> <span class="mw-headline">Configuring Text Output</span></h2>
+                <p>Now our text controls are in place we need a little bit of script to bring it to life. </p>
+                <p><br />
+                  <b>STEP 1:</b> Open your <b>game/scripts/gui/playGui.cs</b> file in your favorite editor and at the end of the first function (<i>function PlayGui::onWake(%this)</i>) add this
+                  line: </p>
+                <pre>schedule(100,0, updateDisplay);</pre>
+                <p><br />
+                  This method is a type of timer. When the specified amount of time has passed, a call is made to the function. </p><br>
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> schedule( waitTime , objID or 0, functionName, arg0, ... , argN )</b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>Use the function to schedule <i>functionName</i> to be executed with optional arguments at time <i>waitTime</i> (specified in milliseconds) in the future. This function may be
+                          associated with an object ID or not. If it is associated with an object
+                          ID and the object is deleted prior to this event occurring, the event
+                          is automatically canceled.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>schedule(U32 <b>waitTime</b>, SimObject* <b>objID</b>, string <b>functionName</b>, arg0, ... , argN );<br />
+                        </p>
+                        <ul>
+                          <li><b>waitTime</b>: The time to wait (in milliseconds) before executing <b>functionName</b>.<br />
+                          </li>
+                          <li><b>objID</b>: An optional ID to associate this event with.<br />
+                          </li>
+                          <li><b>functionName</b>: An unadorned (flat) function name.<br />
+                          </li>
+                          <li><b>arg0...argN</b>: Any number of optional arguments to be passed to <b>functionName</b>.<br />
+                          </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          S32 Returns a non-zero integer representing the event ID for the scheduled event.<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>// Call the updateDisplay function in 100 milliseconds
+schedule(100,0, updateDisplay);
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br>
+                <p>This is how the function should look with our new line of code at the end. </p>
+                <pre>function PlayGui::onWake(%this)
+{
+   // Turn off any shell sounds...
+   // sfxStop( ... );
+
+   $enableDirectInput = "1";
+   activateDirectInput();
+
+   // just update the action map here
+   moveMap.push();
+
+   // hack city - these controls are floating around and need to be clamped
+   schedule(0, 0, "refreshCenterTextCtrl");
+   schedule(0, 0, "refreshBottomTextCtrl");
+   
+   schedule(100,0, updateDisplay);//our new schedule
+}
+</pre>
+                <p><br />
+                  This schedule is a one-off call, but we want to constantly update our
+                  display with the new values. We make this happen by calling the
+                  schedule method again from our updateDisplay function. </p>
+                <p><br />
+                  <b>STEP 2:</b> At the end of the script page add the following new function: </p>
+                <pre>function updateDisplay()
+{
+   lblTime.setValue((getRealTime()/1000));
+   schedule(100,0, updateDisplay);
+}
+</pre>
+                <p><br />
+                  Here we have made another call to the schedule which will give
+                  us a loop timed at 100ms updating any statements in this function. The
+                  first line sets the <b>GuiTextCtrl</b> named <b>lblTime</b> text content to <b>getRealTime()</b> which is the current time in milliseconds. </p>
+                <p><br />
+                  <b>STEP 3:</b> Next we will set up the text to display the current fps
+                  and poly count of the scene. This is done by looking at the global
+                  variables <b>$fps::real</b> and <b>$GFXDeviceStatistics::polyCount</b>. Add the following lines of script after the time statement: </p>
+                <pre>lblFps.setValue($fps::real);
+lblPoly.setValue($GFXDeviceStatistics::polyCount);
+</pre>
+                <p><br />
+                  Your function should now look like this: </p>
+                <pre>function updateDisplay()
+{
+   lblTime.setValue((getRealTime()));
+   lblFps.setValue($fps::real);
+   lblPoly.setValue($GFXDeviceStatistics::polyCount);
+   schedule(100,0, updateDisplay);
+}
+</pre>
+                <p><br />
+                  Save your script and run your project. All being well and you have no
+                  errors, your display should show the time in ms, fps and poly count.
+                  Next we need to count the mouse clicks. Close down your project so we
+                  can add some more script. </p>
+                <p><br />
+                  <b>STEP 4:</b> To count our mouse clicks we need a way to tell the
+                  system that our mouse button has been pressed. We do this in the same
+                  way as we did for checking for a pressed key, with the bind method.
+                  Open your <b>game/scripts/client/default.bind.cs</b> file for editing. At the end of this file add the following: </p>
+                <pre>function mouseFire()
+{  
+      // add the value of one to our “click” text control     
+      lblClicks.setValue(lblClicks.getValue()+1); 
+}
+
+moveMap.bind(mouse, "button0", mouseFire);
+</pre>
+                <p><br />
+                  We have set the mouse button0 to call mouseFire function every time its
+                  pressed by adding it to the bind method. Run the project and click the
+                  left mouse button. The mouseFire() function sets the text controls body text every
+                  time its called, this counts the mouse down and mouse up events. </p>
+                <p><br />
+                  To stop this and only count the mouse down even we need to modify the
+                  function slightly. Close your project and edit the file as follows: </p>
+                <pre>function mouseFire(%val)
+{  
+   if(%val)
+   {
+      //mouse down
+      // add the value of one to our “click” text control     
+      lblClicks.setValue(lblClicks.getValue()+1); 
+   }else
+   {
+      //mouse up
+   }
+}
+</pre>
+                <p><br />
+                  Now the mouseFire function only counts the mouse down event. Save your files, run the project and test the mouse down counting. </p><br>
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>In this tutorial, you learned the following concepts: </p>
+                <ul>
+                  <li>Display text on the Game screen </li>
+                  <li>Show how to detect a mouse click </li>
+                  <li>Simple use of the schedule timer </li>
+                  <li>Show game fps and poly count </li>
+                  <li>Locate and Edit the playGui </li>
+                </ul>
+                <p><br />
+                  The next Tutorial we will create a more advanced GUI window using List Controls. </p>
+                 </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

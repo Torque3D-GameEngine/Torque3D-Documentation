@@ -1,0 +1,296 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 57;
+   parent.leftFrame.expandToItem('tree2', 'doc57');
+   var element = parent.leftFrame.document.getElementById('doc57');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<title>Torque 3D - String Manipulation</title>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_Scripting_Simple_StringManipulation skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Syntax_Review"><span class="tocnumber">1</span> <span class="toctext">Syntax Review</span></a></li>
+                          <li class="toclevel-1"><a href="#Creating_the_Script"><span class="tocnumber">2</span> <span class="toctext">Creating the Script</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">3</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Syntax_Review" id="Syntax_Review"></a>
+                <h2> <span class="mw-headline">Syntax Review</span></h2>
+                <p>Text, such as names or phrases, are supported as strings. Numbers
+                  can also be stored in string format. Standard strings are stored in
+                  double-quotes. </p>
+                <pre>"abcd"    (string)
+</pre>
+                <p><b>Example:</b> </p>
+                <pre>$UserName = "Heather";
+</pre>
+                <p><br />
+                  Strings with single quotes are called "tagged strings." </p>
+                <pre>'abcd'  (tagged string)
+</pre>
+                <p>Tagged strings are special in that they contain string data, but
+                  also have a special numeric tag associated with them. Tagged strings
+                  are used for sending string data across a network. The value of a
+                  tagged string is only sent once, regardless of how many times you
+                  actually do the sending. </p>
+                <p><br />
+                  On subsequent sends, only the tag value is sent. Tagged
+                  values must be de-tagged when printing. You will not need to use a
+                  tagged string often unless you are in need of sending strings across a
+                  network often, like a chat system. </p>
+                <p><br />
+                  There are special values you can use to concatenate strings
+                  and variables. Concatenation refers to the joining of multiple values
+                  into a single variable. The following is the basic syntax: </p>
+                <pre>"string 1" operation "string 2"</pre>
+                <p>You can use string operators similarly to how you use mathematical
+                  operators (=, +, -, *). You have four operators at your disposal: </p>
+                <pre>@      (concatenates two strings)
+TAB    (concatenation with tab)
+SPC    (concatenation with space)
+NL     (newline)
+</pre>
+                <a name="Creating_the_Script" id="Creating_the_Script"></a>
+                <h2> <span class="mw-headline">Creating the Script</span></h2>
+                <p>First, we need to create a new script: </p>
+                <ol>
+                  <li>Navigate to your project's <b>game/scripts/client</b> directory. </li>
+                  <li>Create a new script file called "stringManip". In Torsion,
+                    right click on the directory, click the "New Script" option, then name
+                    your script. On Windows or OS X, create a new text file and change the
+                    extension to .cs. </li>
+                  <li>Open your new script using a text editor or Torsion. </li>
+                </ol>
+                <p><br />
+                  Before writing any actual script code, we should go ahead and tell the game it should load the script. Open <b>game/scripts/client/init.cs</b>. Scroll down to the <i><b>initClient</b></i> function. Under the // Client scripts section, add the following: </p>
+                <p><br />
+                  <b>Execute our new script</b> </p>
+                <pre>exec("./stringManip.cs");
+</pre>
+                <p><br />
+                  In the new script, define three global variables at the very top as shown in the following code: </p>
+                <pre>$PlayerName = "Player";
+$GameName = "Default";
+$BattleCry = "Hello World";
+</pre>
+                <p><br />
+                  These are the strings that will be manipulated in this script. To test one of the variables, write the following function: </p>
+                <pre>// Print player name string
+function printPlayerName()
+{
+   echo($PlayerName);
+}
+</pre>
+
+
+The printPlayerName() function simply prints out the string value held by $PlayerName to the console. To test your new script:
+
+<ol>
+  <li>Save the script</li>
+  <li>Run your game</li>
+  <li>Open the console by pressing the tilde (~) key</li>
+  <li>Type the following, and press enter:</li>
+</ol>
+<br />
+<pre>printPlayerName();
+</pre>
+                <p><br />
+                  The output is extremely basic. All you will see is the string
+                  held by the variable. We can perform some string manipulation to print
+                  out something more descriptive. Change the function code to the
+                  following: </p>
+                <pre>// Print player name string
+function printPlayerName()
+{
+   // Concatenate "Player's Name" with the variable
+   // Containing the name
+   echo("Player's Name: " @ $PlayerName);
+}
+</pre>
+                <p><br />
+                  Now, when you call the function you will see the following output: </p>
+                <pre>Player's Name: Default
+</pre>
+                <p><br />
+                  This kind of string formatting and manipulation will make
+                  debugging and management a lot easier. Add the following code to
+                  achieve the same affect for the $GameName variable: </p>
+                <pre>// Print game name string
+function printGameName()
+{
+   // Concatenate "Game Name" with the variable
+   // Containing the name
+   echo("Game Name: " @ $GameName);
+}
+</pre>
+                <p><br />
+                  We will do something slightly different with the battle cry. You
+                  can store the result of a string manipulation in a variable before you
+                  use it. This will come in handy for saving permanent changes for
+                  strings and numbers. Use the following code to create a new function: </p>
+                <pre>// Print battle cry string
+function printBattleCry()
+{
+   // Concatenate the string in $PlayerName
+   // with the static string yelled: "
+   %message = $PlayerName @ " yelled: \"";
+
+   // Concatenate the value of %message with
+   // the string in $BattleCry and the " symbol
+   // Store the results in the %message variable
+   %message = %message @ $BattleCry @ "\"";
+   
+   // Print the new string after it
+   // has been manipulated
+   echo(%message);
+}
+</pre>
+                <p><br />
+                  The printBattleCry() function starts by defining a new local
+                  variable (%message) and assigning it the value of the $PlayerName
+                  concatenated with a static string. The second line concatenates the
+                  new %message variable with the contents of $BattleCry, and wraps
+                  the quotation mark around the actual phrase. In the same line,
+                  the %message variable is replaced with itself + the concatenated
+                  string. </p>
+                <p><br />
+                  Let's go ahead and create a function to print all of the
+                  variables out with a little decoration. Add the following to your
+                  script. </p>
+                <pre>// Print all the game strings using a single function
+function printGameStrings()
+{
+   echo("\n***********************************");
+   echo("*         GAME STATS              *");
+   echo("***********************************\n");
+   
+   echo("Game Name: " @ $GameName);
+   echo("Player's Name: " @ $PlayerName);
+   echo($PlayerName @ " battle cry: \"" @ $BattleCry @ "\"");
+}
+</pre>
+                <p><br />
+                  When you call this function in the console, you will get the following output: </p>
+                <pre>***********************************
+*         GAME STATS              *
+***********************************
+
+Game Name: Default
+Player's Name: Player
+Player battle cry: "Hello World"
+</pre>
+                <p><br />
+                  So far we have been concatenating and printing out strings. You
+                  can also assign string values using the assignment operator (=), and
+                  compare string values using the string equality operator ($=). </p>
+                <p><br />
+                  The following function uses the operators to adjust the game string variables: </p>
+                <pre>// Set game strings with other strings
+// %playerName will be assigned to $PlayerName
+// %gameName will be assigned to $GameName
+// %battleCry will be assigned to $BattleCry
+function setGameStrings(%playerName, %gameName, %battleCry)
+{
+   // Check to see if the two strings are identical
+   // If so, do nothing and print a message.
+   // Otherwise, assign the new string
+   if($PlayerName $= %playerName)
+      echo("New player name is identical. Doing nothing");
+   else
+      $PlayerName = %playerName;
+}
+</pre>
+                <p><br />
+                  The above function takes in three variables containing strings, one of which is used initially. The first <i>if(...)</i> check compares $PlayerName to %playerName. If the two are
+                  identical, the assignment of a new value will not occur. A message will
+                  be printed to console instead. </p>
+                <p><br />
+                  You can also apply the logical NOT (!) operator to a comparison to achieve the opposite test: </p>
+                <pre>   // Check to see if the two strings are different
+   // If so, assign the new string
+   // Otherwise, do nothing and print a message.
+   if($GameName !$= %gameName)
+      $GameName = %gameName;
+   else   
+      echo("Game name is identical. Doing nothing");
+</pre>
+                <p><br />
+                  In this check, if the two strings are NOT the same, then the new
+                  value assignment will occur. Otherwise, a message is printed to the
+                  console. You can go ahead and add the last portion of the code handling
+                  the %battleCry assignment: </p>
+                <pre>// Check to see if the two strings are identical
+   // If so, do nothing and print a message.
+   // Otherwise, assign the new string   
+   if($BattleCry $= %battleCry)
+      echo("Battle cry is identical. Doing nothing");
+   else
+      $BattleCry = %battleCry;
+</pre>
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>This guide covered the most popular operators used for string
+                  manipulation: concatenate (@), assignment (=), string equality
+                  ($=), and string inequality (!$=). Outside of simply printing to the console, during development you
+                  will be manipulating strings that directly affect game play, interface
+                  messages, and the saving of important data. </p>
+                <p><br />
+                  You can download the entire script from this lesson by
+                    <a href="stringManip.cs" class="downloads">CLICKING HERE</a>. Save the script as you would any other text file from a
+                  website. </p>
+                  
+                  </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

@@ -1,0 +1,402 @@
+<html>
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 28;
+   parent.leftFrame.expandToItem('tree2', 'doc28');
+   var element = parent.leftFrame.document.getElementById('doc28');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D - Adding Controls</title>
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_GUIEditor_Controls skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2></div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Setting_Up"><span class="tocnumber">2</span> <span class="toctext">Setting Up</span></a></li>
+                          <li class="toclevel-1"><a href="#Adding_Controls"><span class="tocnumber">3</span> <span class="toctext">Adding Controls</span></a></li>
+                          <li class="toclevel-1"><a href="#Bring_the_GUI_to_Life"><span class="tocnumber">4</span> <span class="toctext">Bring the GUI to Life</span></a></li>
+                          <li class="toclevel-1"><a href="#A_New_Window"><span class="tocnumber">5</span> <span class="toctext">A New Window</span></a></li>
+                          <li class="toclevel-1"><a href="#Load_GUI_From_Key_Press"><span class="tocnumber">6</span> <span class="toctext">Load GUI From Key Press</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">7</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p><img alt="Image:2_Images/FinalGUI.jpg" src="2_Images/FinalGUI.jpg" border="0" height="403" width="355" /> </p>
+                <p><br />
+                  By working your way through this project you will learn how to, with
+                  out editing any script, call a GUI dialog to the screen. We will
+                  introduce some new controls and learn how to make them talk to each
+                  other. Every good window has a close button, in this tutorial you will
+                  give your window a close command and also bind this window to a key so
+                  that we can call it from
+                  with in the game. </p>
+                <p><br />
+                  Suggested Reading: </p>
+                <ul>
+                  <li><a href="Introduction.html">GUI Editor Overview</a> </li>
+                  <li><a href="Interface.html">GUI Interface</a> </li>
+                  <li><a href="../Scripting/Overview/Introduction.html">TorqueScript Reference</a> </li>
+                  <li><a href="Firstgui.html">GUI Tutorial 1</a> </li>
+                </ul>
+                <p><br />
+                  Covered in this tutorial: </p>
+                <ul>
+                  <li>Add a graphic to your window </li>
+                  <li>Use the slider control to return a value to a label </li>
+                  <li>How to set up a GUI </li>
+                  <li>Call another gui window from a button </li>
+                  <li>How to use the window min, max and close buttons </li>
+                  <li>Use a key to bring your GUI to the screen </li>
+                </ul><br>
+                <a name="Setting_Up" id="Setting_Up"></a>
+                <h2> <span class="mw-headline">Setting Up</span></h2>
+                <p>Open your tutorial project which we made in the first tutorial and press F10 to open the GUI Editor. Click 
+                <b>File->New Gui</b> and enter testWindow for you new GUI and leave the GUI Class as <b>GuiControl</b>. </p>
+                <p><br />
+                  Alternatively if you have started with the Torque toolbox,
+                  press the GUI Editor button, then select new GUI and as above name your
+                  new GUI testWindow. leave the GUI Class as <b>GuiControl</b>. </p>
+                <p><br />
+                  Next, select Library and then select the Containers category. Then select <b>GuiWindowCtrl</b>.
+                  If you can not see this control use the scroll bar to move
+                  down the list. Move the new window control to the center of your editor
+                  work area and resize it so that it can take a few controls. </p>
+                <p><br />
+                  Set the window text to <b>Controls Tutorial</b>. Do this by selecting the window control in the GUI hierarchical tree. </p>
+                <p><br />
+                  <img alt="Image:2_Images/SelectWindow.jpg" src="2_Images/SelectWindow.jpg" border="0" height="121" width="236" /> </p>
+                <p><br />
+                  Look in the properties pane for the General section and change the property value for text to the new title: </p>
+                <p><br />
+                  <img alt="Image:2_Images/SetWindowText.jpg" src="2_Images/SetWindowText.jpg" border="0" height="275" width="234" /> </p>
+                <p><br />
+                  <b>HINT</b>: You can resize these property panes by hovering your
+                  mouse over the divider bar in the center. Your pointer will then change
+                  to a left/right arrow, when it does you will be able to click and
+                  resize the pane. </p><br>
+                <a name="Adding_Controls" id="Adding_Controls"></a>
+                <h2> <span class="mw-headline">Adding Controls</span></h2>
+                <p><b>STEP 1</b>: Making sure you have the <b>GuiWindow</b> control selected in the controls list as we want to add our new controls to this <b>GuiWindow</b>. </p>
+                <p><br />
+                  <img alt="Image:2_Images/SelectWindow.jpg" src="2_Images/SelectWindow.jpg" border="0" height="121" width="236" /> </p>
+                <p><br />
+                  Again, select the <b>Library</b> tab and Head over to the controls library and select the categorized tab then from the list 
+                  also select <b>Containers</b> then choose the <b>GuiPanel</b> control. </p>
+                <p><br />
+                  <img alt="Image:2_Images/CreateGuiPanel.jpg" src="2_Images/CreateGuiPanel.jpg" border="0" height="375" width="235" /> </p>
+                <p><br />
+                  With this new control still selected look in the properties for the <b>GuiControl</b> section then change the <b>profile</b> entry to <b>GuiFrameSetProfile</b>. 
+                  This will change our <b>GuiPanel</b> to a white background. We will look at profiles and how to make our own in a later tutorial. </p>
+                <p><br />
+                  <img alt="Image:2_Images/SetFrameProfile.jpg" src="2_Images/SetFrameProfile.jpg" border="0" height="250" width="235" /> </p>
+                <p><br />
+                  Resize this panel control and duplicate by Ctrl+C (Cmd+C on Mac) followed by Ctrl+V (Cmd+V on Mac) then move the copy further down the window, repeat once
+                  more so you have 3 panel controls. You should now have something
+                  looking like this: </p>
+                <p><br />
+                  <img alt="Image:2_Images/CreateThreePanels.jpg" src="2_Images/CreateThreePanels.jpg" border="0" height="376" width="392" /> </p>
+                <p><br />
+                  Make a save, <b>File->Save To File</b> point your browser to <b>game/art/gui</b> and give the file the name of <b>testWindow.gui</b>. </p>
+                <p><br />
+                  <b>NOTE</b>: Remember to save frequently. </p>
+                <p><br />
+                  <b>STEP 2</b>: Now we shall add some buttons from the control library. Ensure the GuiWindowCtrl is selected and from the GUI Tree 
+                  add <b>GuiButtonControl</b>. Resize the width of the button slightly, then copy / paste two more buttons, move them to a position like in the image below. </p>
+                <p><br />
+                  <img alt="Image:2_Images/CreateThreeButtons.jpg" src="2_Images/CreateThreeButtons.jpg" border="0" height="452" width="399" /> </p>
+                <p><br />
+                  Change the <b>text</b> property from the <b>GuiButtonBaseCtrl</b> for each of the buttons to: </p>
+                <p>button 1 control text field: <b>Text</b> </p>
+                <p>button 2 control text field: <b>New Window</b> </p>
+                <p>button 3 control text field: <b>Close</b> </p>
+                <p><br />
+                  <b>STEP 3</b>: We shall now add the remaining controls as we did for the button: </p>
+                <ol>
+                  <li><b>GuiSliderCtrl</b> </li>
+                  <li><b>GuiCheckBoxCtrl</b> </li>
+                  <li><b>GuiSeparatorCtrl</b> </li>
+                  <li><b>GuiTextCtrl</b> </li>
+                  <li><b>GuiBitmapCtrl</b> (you will need to look in the 'All' Tab of the library) </li>
+                  <li><b>GuiButtonCtrl</b> (set this controls property text to "<b>Clear</b>" also resize it to half its width. </li>
+                </ol>
+                <p><br />
+                  See image below for layout: </p>
+                <p><br />
+                  <img alt="Image:2_Images/CreateBitmapCtrl.jpg" src="2_Images/CreateBitmapCtrl.jpg" border="0" height="452" width="396" /> </p>
+                <p><br />
+                  Now is a good time to save. </p>
+                <p><br />
+                  STEP 4: Select, copy and paste the <b>GuiTextCtrl</b> and place next to the slider repeat again and place next to the check box. Set the GuiTextCtrl properties as follows: </p>
+                <p><br />
+                  text control 1 text property: <b>Hello from button</b> </p>
+                <p>text control 1 name property: <b>lbltextHello</b> </p>
+                <p><br />
+                  text control 2 text property: Slider Value: &lt;blank&gt; </p>
+                <p>text control 3 text property: Check Value: &lt;blank&gt; </p>
+                <p><br />
+                  You may find that not all the text is showing correctly, in
+                  this case grab the right hand resizing handle, and move right a little
+                  to expand the control. We need two more text controls to display our
+                  values so once again select, copy and paste one of the GuiTextCtrl.
+                  Place one next to the slider text and the other next to the check text.
+                  Set their properties as follows: </p>
+                <p>text control 4 text property: <b>00</b> </p>
+                <p>text control 4 name property: <b>lblSliderValue</b> </p>
+                <p><br />
+                  text control 5 text property: <b>00</b> </p>
+                <p>text control 4 name property: <b>lblCheckValue</b> </p>
+                <p><br />
+                  <b>STEP 5</b>: Set the slider control property: </p>
+                <p>slider control name property: <b>sld1</b> </p>
+                <p><br />
+                  Next, select the <b>GuiBitmapCtrl</b> and in its
+                  properties <b>Bitmap</b> section you will notice the bitmap parameter.
+                  To the right of this section there is a little box, click on this to
+                  open the bitmap browser. </p>
+                <p><br />
+                  <img alt="Image:2_Images/BitmapField.jpg" src="2_Images/BitmapField.jpg" border="0" height="90" width="200" /> </p>
+                <p><br />
+                  Select a bitmap or copy this one to your <b>game/art/gui</b> folder and select from there: </p>
+                <p><br />
+                  (drag this image to your <b>game/art/gui</b> folder or Right Click->Save Image As...) </p>
+                <p><img alt="Image: 2_Images/Torque3D.png" src="2_Images/Torque3D.png" border="0" height="106" width="338" /> </p>
+                <p><br />
+                  You should have something that looks similar to this: </p>
+                <p><br />
+                  <img alt="Image:2_Images/FinalGUI.jpg" src="2_Images/FinalGUI.jpg" border="0" height="403" width="355" /> </p>
+                <p><br />
+                  <b>Now is a good time to save.</b> </p><br>
+                <a name="Bring_the_GUI_to_Life" id="Bring_the_GUI_to_Life"></a>
+                <h2> <span class="mw-headline">Bring the GUI to Life</span></h2>
+                <p>Now that we have added all of our GUI controls, we need to make it
+                  all work. We shall start with the "hello" text, this and the "Clear"
+                  button will be initially hidden from view. When the button is pressed
+                  the text and button will be displayed again. The small button will be
+                  set to hide the text and itself when pressed. </p>
+                <p><br />
+                  Each control has <b>GuiControl.setValue( value )</b> and <b>value = GuiControl.getValue()</b> for setting and receiving its content, be it a value for a slider or
+                  text for a text control etc. We will use these methods to make our GUI
+                  interactive. </p>
+                <p><br />
+                  First we will hide the text and button: </p>
+                <p><br />
+                  button "Clear" property name: <b>btnClear</b> </p>
+                <p>button "Clear" property visible: <b>unchecked</b> (the button should now be hidden) </p>
+                <p><br />
+                  Text "Hello" property visible: <b>unchecked</b> (the text should now be hidden) </p>
+                <p>This next line adds a small script to the button, so when pressed changes the visibility of the controls. </p>
+                <p><br />
+                  <b>NOTE</b>: Remember to press enter after changing a properties parameter. </p>
+                <p><br />
+                  button "Text"property Command: <b>btnClear.visible = true; lbltextHello.visible = true;</b> </p>
+                <p><br />
+                  button "Clear" property Command: <b>btnClear.visible = false; lbltextHello.visible = false;</b> </p>
+                <p><br />
+                  Save and Press F10 to try out the GUI. </p>
+                <p><br />
+                  Next, we will work on the slider. Select the slider control
+                  and set its property so that when we move the slider the text will
+                  display its value. </p>
+                <p><br />
+                  slider control property command: <b>lblSliderValue.setValue(sld1.getValue());</b> </p>
+                <p><br />
+                  You can change the sliders range min / max values and the
+                  way the ticks graphic is displayed by using its Slider property. The
+                  range shows 0 1 this is the min and max value for the control separated
+                  by a space. </p>
+                <p><br />
+                  <img alt="Image:2_Images/SetSliderValues.jpg" src="2_Images/SetSliderValues.jpg" border="0" height="117" width="227" /> </p>
+                <p><br />
+                  We will look at the check box and make it display its current state in the text control next to it. </p>
+                <p><br />
+                  check box control property name: <b>chk1</b> </p>
+                <p>check box control property command: <b>lblCheckValue.setValue(chk1.getValue());</b> </p>
+                <p><br />
+                  Save and Press F10 to try out the GUI. </p>
+                <p><br />
+                  <b>HINT</b>: You could also call a function from the control property command, this we will look at in a later tutorial. </p><br>
+                <a name="A_New_Window" id="A_New_Window"></a>
+                <h2> <span class="mw-headline">A New Window</span></h2>
+                <p>When we press the "New Window" button we want to call another window to our screen, for this we will use the command: </p>
+                <p><br />
+                  <b>Canvas.pushDialog( dialogName )</b> to open a GUI </p>
+                <p><b>Canvas.popDialog( dialogName )</b> to close a GUI </p>
+                <p><br />
+                  Select the "New Window" button and set its properties: </p>
+                <p><br />
+                  button "New Window" property command: <b>Canvas.pushDialog(newWindow);</b> </p>
+                <p><br />
+                  We are going to need this new window to call. Save this GUI, then go to File-&gt;New Gui and make a new GUI named <b>newWindow</b> of a GuiControl class. Add to this a <b>GuiWindowCtrl</b> and in this new window also add a <b>GuiTextCtrl</b>. </p>
+                <p><br />
+                  Set the following properties: </p>
+                <p><br />
+                  GuiTextCtrl Control property text: <b>Hello</b> </p>
+                <p>GuiTextCtrl Control property profile: <b>GuiBigTextProfile</b> </p>
+                <p><br />
+                  GuiWindowCtrl control property text: <b>My Window</b> </p>
+                <p><br />
+                  If you look at the <b>GuiWindowCtrl</b> property General section
+                  you can see check boxes that allow the window to maximize, minimize,
+                  resizeWidth, resizeHeight. For this exercise we can leave these set to
+                  default. What we do want to do is enable the window to be able to close
+                  from the close icon which is top right of all our windows. </p>
+                <p><br />
+                  GuiWindowCtrl control property canClose: <b>checked</b> </p>
+                <p><br />
+                  This next line is not to be confused with the normal control
+                  command but is a special command that is called when the user clicks
+                  the close icon. GuiWindowCtrl control property </p>
+                <p>GuiWindowCtrl control property closeCommand: <b>Canvas.popDialog(newWindow);</b> </p>
+                <p><br />
+                  Save your new window as newWindow.gui to art/gui folder. If you preview
+                  your GUI you can close it by clicking on the close icon. Although you
+                  will have to re-open it from the file menu afterward. Close T3D down
+                  and load up your favorite script editor. Open <b>scripts/client/init.cs</b> and add the following lines after // load up the shell GUIs: </p>
+                <pre>exec("art/gui/newWindow.gui");
+exec("art/gui/testWindow.gui");</pre>
+                <p><br />
+                  This will tell the engine that we will need these guis at some point,
+                  and when we call for them, the engine will know where to look. Open up
+                  our <b>testWindow.gui</b> from the file menu. Press F10 and try out the new window button. All
+                  being well, you will see the new window pop up on your screen. </p><br>
+                <a name="Load_GUI_From_Key_Press" id="Load_GUI_From_Key_Press"></a>
+                <h2> <span class="mw-headline">Load GUI From Key Press</span></h2>
+                <p>This is all ok if we are just testing a GUI, but if we need to use
+                  it in our project we generally need to call it from a key press. This
+                  is done with a little bit of scripting, we are going to use the
+                  following command: </p>
+                <pre>bind(Device, Action, command);</pre></td>
+            </tr>
+          </tbody>
+        </table><br><br>
+        <table border="1" cellpadding="7" cellspacing="0" width="700">
+          <tbody>
+            <tr valign="top">
+              <td bgcolor="#6699ff" width="62"><b>Action Table</b></td>
+              <td bgcolor="#6699ff" width="335"><b>Action Description </b></td>
+            </tr>
+            <tr valign="top">
+              <td bgcolor="#e6e6e6" width="62">button0, buton1, ..., button31 </td>
+              <td bgcolor="#e6e6e6" width="335">This
+                is a mouse, joystick, or gamepad button press. For the mouse, buttons
+                0,1, and 2 are left, right, and middle buttons respectively. </td>
+            </tr>
+            <tr valign="top">
+              <td bgcolor="#e6e6e6" width="62">a .. z, A .. Z, 0..9, F1..F12 </td>
+              <td bgcolor="#e6e6e6" width="335">These
+                are keyboard inputs. Because this list is so long and in order to
+                accomodate possible variances for special keyboards and other devices a
+                same GUI has been provided with the kit that displays the current
+                action, be it keyboard, mouse, joystick/gamepad, or other device.
+                Simple start the kit and click SampleGUIs -&gt; Input. Follow the
+                instructions provided in the sample. </td>
+            </tr>
+            <tr valign="top">
+              <td bgcolor="#e6e6e6" width="62">shift, ctrl, alt </td>
+              <td bgcolor="#e6e6e6" width="335">These
+                are modifiers and are not used standalone, but they are included in the
+                action string, for example: "shift p" is the shift key and the p key
+                pressed at the same time. </td>
+            </tr>
+            <tr valign="top">
+              <td bgcolor="#e6e6e6" width="62">lshift, rshift, lctrl, rctrl, lalt, ralt </td>
+              <td bgcolor="#e6e6e6" width="335">These
+                are special modifier actions. Theye only register as 'break' events
+                when one of these keys: left shift, right shift, left ctrl, right ctrl,
+                left alth, or right alt is released. </td>
+            </tr>
+          </tbody>
+        </table>
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><p><br /><br>
+                  Using your favorite script editor, open the <b>game/scripts/client/default.bind.cs</b> file and at the end of the file add the following lines of script: </p>
+                <pre>function callMyGui()
+{
+   Canvas.pushDialog( testWindow );
+}
+
+GlobalActionMap.bind(keyboard, "ctrl n", callMyGui );
+</pre>
+                <p><br />
+                  Now when you press Ctrl+N your new window will be displayed. One last thing to do, set the Control Tutorial windows close command. Set the following: </p>
+                <p><br />
+                  GuiWindowCtrl property canClose: <b>Checked</b> </p>
+                <p>GuiWindowCtrl property closeCommand: <b>Canvas.popDialog(testWindow);</b> </p>
+                <p><br />
+                  button "Close" property command: <b>Canvas.popDialog(testWindow);</b> </p>
+                <p><br />
+                  <b>Save your final GUI</b> </p>
+                <p><br />
+                  <b>HINT</b>: If the close button does not work, this may be because
+                  of the GuiBitmapCtrl being layered on top of the button. To rectify
+                  this select the GuiBitmapCtrl control and press the <b>Send to Back icon</b>. </p>
+                <p><br />
+                  <img alt="Image:2_Images/SendToBack.jpg" src="2_Images/SendToBack.jpg" border="0" height="33" width="455" /> </p><br>
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>In this tutorial, you learned the following concepts: </p>
+                <ul>
+                  <li>Add a graphic to your window </li>
+                  <li>Use the slider control to return a value to a label </li>
+                  <li>How to set up a GUI </li>
+                  <li>Call another gui window from a button </li>
+                  <li>How to use the window min, max and close buttons </li>
+                  <li>Use a key to bring your GUI to the screen </li>
+                </ul>
+                <p><br />
+                  Now you should be starting to get a hang of Torque 3D's GUI system and editor. The next tutorial will make a mini-console GUI. </p>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

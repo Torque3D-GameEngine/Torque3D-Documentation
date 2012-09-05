@@ -1,0 +1,227 @@
+<html>
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 69;
+   parent.leftFrame.expandToItem('tree2', 'doc69');
+   var element = parent.leftFrame.document.getElementById('doc69');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D - Basic Clouds</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_WorldEditor_BasicCloudLayer_html skin-monobook">
+<script type="text/javascript" src="../../../include/wz_tooltip.js"></script>
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2></div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Adding_Basic_Cloud_Layer"><span class="tocnumber">2</span> <span class="toctext">Adding Basic Cloud Layer</span></a></li>
+                          <li class="toclevel-1"><a href="#Properties"><span class="tocnumber">3</span> <span class="toctext">Properties</span></a></li>
+                          <li class="toclevel-1"><a href="#Cloud_Layers"><span class="tocnumber">4</span> <span class="toctext">Cloud Layers</span></a></li>
+                          <li class="toclevel-1"><a href="#Regarding_Movement"><span class="tocnumber">5</span> <span class="toctext">Regarding Movement</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">6</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p>Once you have decided on your level's sky, whether it's a Skybox or
+                  ScatterSky, you can continue to customize the scene with clouds. There
+                  are two cloud objects you can choose between: Basic and Advanced Clouds. This guide covers the
+                  Basic Clouds object. </p>
+                <p><br />
+                  The Basic Cloud system renders up to three textures to separate layers,
+                  at varying heights, detail levels, and speeds. Though basic and less
+                  memory intensive, you can build very detailed and realistic clouds for
+                  your level. </p><br>
+                <a name="Adding_Basic_Cloud_Layer" id="Adding_Basic_Cloud_Layer"></a>
+                <h2> <span class="mw-headline">Adding a Basic Clouds Object</span></h2>
+                <p>To add a Basic Clouds object: select the Library tab in the Scene Tree panel. Click on the Level tab and then double-click the Environment folder. Locate the Basic Clouds entry. </p>
+                <p><br />
+                  <img alt="Image:BasicCloudLibrary.jpg" src="images/BasicCloudLibrary.jpg" border="0" height="323" width="209" /> </p>
+                <p><br />
+                Double-click the Basic Clouds entry and a dialog will appear: </p>
+                <p><br />
+                  <img alt="Image:CreateBasicCloud.jpg" src="images/CreateBasicCloud.jpg" border="0" height="88" width="256" /> </p>
+                <p><br />Enter a name for your clouds object then click the Create New button. A Basic Clouds object will be added to your level. Three separate cloud layers will be rendering and moving across the sky slowly: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/BasicCloudAdded.jpg" class="livethumbnail"><img src="images/BasicCloudAdded.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  <a name="Properties" id="Properties"></a>                </p>
+                <h2> <span class="mw-headline">Basic Cloud Properties</span></h2>
+                <p><br />Additional properties can be changed with the Inspector pane. To change a Basic Clouds properties using the Inspector Pane click the Scene tab, then click the name of your new Basic Cloud object. The Inspector pane will update to display the current properties of your new sun.</p>
+                <p><br />Hover over each section in the image below to see a description of the fields within it:</p>
+                <p><br />
+                  <img src="images/BasicCloudName.jpg" width="211" border="0" height="81" onMouseOver="Tip('<strong>name</strong>: <i>TypeName</i>. Optional global name of this object.<br><br><strong>id</strong> : <i>TypeCaseString</i>. SimObjectId of this object. Read Only.<br><br><strong>Source Class</strong> : <i>TypeCaseString</i>. Source code class of this object. Read Only.', WIDTH, 450)" onMouseOut="UnTip()" > <br />
+                  <img src="images/BasicCloudTransform.jpg" width="211" border="0" height="75" onMouseOver="Tip('<strong>position</strong>: <i>MatrixPosition</i>. Object world position.<br><br><strong>rotation</strong> : <i>MatrixOrientation</i>. Object world orientation.<br><br><strong>scale</strong> : <i>Point3F</i>. Object world scale.', WIDTH, 450)" onMouseOut="UnTip()" > <br />
+                  <img src="images/BasicCloudObject.jpg" width="211" border="0" height="215" onMouseOver="Tip('<strong>layerEnabled</strong>: <i>TypeBool</i>. Enable or disable rendering of this layer.<br><br><strong>texture</strong> : <i>TypeImageFilename</i>. Texture for this layer.<br><br><strong>texScale</strong> : <i>TypeF32</i>. Texture repeat for this layer.<br><br><strong>texDirection</strong> : <i>TypePoint2F</i>. Direction texture scrolls for this layer.<br><br><strong>texSpeed</strong> : <i>TypeF32</i>. Speed texture scrolls for this layer.<br><br><strong>texOffset</strong> : <i>TypePoint2F</i>. UV offset for this layer.<br><br><strong>height</strong> : <i>TypeF32</i>. Abstract number which controls the curvature and height of the dome mesh.', WIDTH, 450)" onMouseOut="UnTip()" > <br />
+                  <img src="images/BasicCloudMisc.jpg" width="211" border="0" height="39" onMouseOver="Tip('<strong>isRenderEnabled</strong> : <i>TypeBool</i>. Only render if true (and if class is render-enabled, too).', WIDTH, 450)" onMouseOut="UnTip()" > <br />
+                  <img src="images/BasicCloudSimbase.jpg" width="211" border="0" height="74" onMouseOver="Tip('<strong>canSaveDynamicFields</strong>: <i>typeBool</i>. True if dynamic fields (added at runtime) should be saved, defaults to true.<br><br><strong>internalName</strong> : <i>TypeString</i>. Non-unique name used by child objects of a group.<br><br><strong>parentGroup</strong> : <i>TypeString</i>. Group object belongs to.', WIDTH, 450)" onMouseOut="UnTip()" /><br />
+                  <img src="images/BasicCloudNamespace.jpg" width="211" border="0" height="75" onMouseOver="Tip('<strong>superClass</strong>: <i>TypeString</i>. Links object to script super class (parent) namespace.<br><br><strong>class</strong>: <i>TypeString</i>. Links object to script class namespace.<br><br><strong>className</strong>: <i>TypeString</i>. Legacy version of class field.<br><br>', WIDTH, 450)" onMouseOut="UnTip()" ><br />
+                  <img src="images/BasicCloudDynamic.jpg" width="211" border="0" height="70" onMouseOver="Tip('<strong>(n/a)</strong>: <i>*</i>. No stock dynamic values.', WIDTH, 450)" onMouseOut="UnTip()" > <br />
+                </p><br>
+                <a name="Cloud_Layers" id="Cloud_Layers"></a>
+                <h2> <span class="mw-headline">Cloud Layers</span></h2>
+                <p>While editing your Basic Clouds object, you may discover the need to view and edit individual layers. Open the BasicClouds section of the Inspector pane. Under the Layers sub-section you will find three layers labeled by an index. Each index refers to a layer and determines rendering order. The 
+                    <em>layer[0]</em> will be rendered first,<em> layer[1] </em>next, and finally<em> layer[2]</em>. In simpler terms: </p>
+                <ul>
+                  <li>layer[0] is drawn on top of the sky </li>
+                  <li>layer[1] is drawn on top of layer[0] </li>
+                  <li>layer[2] is drawn on top of layer[1]. </li>
+                </ul>
+                <p><br />
+                  You can adjust the visibility of each layer by toggling the <b>layerEnabled</b> 
+                    property. If all three layers are disabled the Basic Clouds object will not be visible at all: </p>
+                <p><br />
+                  <b>Layer 0 Disabled</b> </p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/DisableLayer0.jpg" class="livethumbnail"><img src="images/DisableLayer0.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  <b>Layer 1 Disabled</b> </p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/DisableLayer1.jpg" class="livethumbnail"><img src="images/DisableLayer1.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  <b>Layer 2 Disabled</b> </p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/DisableLayer2.jpg" class="livethumbnail"><img src="images/DisableLayer2.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br /><br>
+          
+                <a name="Regarding_Movement" id="Regarding_Movement"></a>
+                <h2> <span class="mw-headline">Regarding Movement</span></h2>
+                <p>Unfortunately, static images cannot properly show how the remaining fields affect the Basic Cloud layers, since they all pertain to the motion of the clouds. Clouds can only move horizontally, they can not move up and down. This horizontal movement is described in the 
+                    <strong>texDirection</strong> property.</p>
+                <p><br />The <strong>texDirection</strong> property takes two values, separated by a space: "X Y". Each value corresponds to the axis a texture should scroll on as well as the direction of movement on that axis.. The range of each value is -1.0 to 1.0. For example: A value of "1 0" will scroll the texture directly along the X axis in the positive direction with no movement along the Y axis. </p>
+                <p><br />A single property, <strong>texSpeed</strong>, controls how fast the cloud layer moves. If the property is set to 0, the cloud layer will not move. The higher the number, the faster your cloud texture will scroll across the sky.</p>
+                <p><br />With the <strong>texOffset</strong> property you can displace how the multiple textures line up or overlap with each based upon whatever looks visually best. For example, at the seam where the texture repeats, you might want that to be on the horizon rather than directly overhead. Adjusting the texOffset helps you visually adjust this. If you have a grasp of UV animation, this will come naturally. </p><br>
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>In previous guides, you learned how to add different sky and sun objects. Regardless of your choice, a successful simulation of an atmosphere will be enhanced by the presence of clouds. This guide's intention was to introduce you to the Basic Clouds object. </p>
+                <p>&nbsp;</p>
+                <p>You can read through the <a href="../Tutorials/CreatingSky.html">Creating A Sky Tutorial</a> which contains a full walkthrough of creating a sun, sky, and clouds for your level.</p>
+                <p><br />
+                </p>
+                  
+                  </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

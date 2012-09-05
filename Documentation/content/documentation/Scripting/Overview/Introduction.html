@@ -1,0 +1,253 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 49;
+   parent.leftFrame.expandToItem('tree2', 'doc49');
+   var element = parent.leftFrame.document.getElementById('doc49');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<title>Torque3D - Torque Script Introduction</title>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_Scripting_Overview_Introduction skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                        <ul>
+                          <li class="toclevel-1"><a href="#What_is_TorqueScript"><span class="tocnumber">1</span> <span class="toctext">What is TorqueScript</span></a></li>
+                          <li class="toclevel-1"><a href="#Basic_Usage"><span class="tocnumber">2</span> <span class="toctext">Basic Usage</span></a></li>
+                          <li class="toclevel-1"><a href="#Scripting_vs_Engine_Programming"><span class="tocnumber">3</span> <span class="toctext">Scripting vs. Engine Programming</span></a></li>
+                          <li class="toclevel-1"><a href="#TorqueScript_Editors"><span class="tocnumber">4</span> <span class="toctext">TorqueScript Editors</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#On_Windows"><span class="tocnumber">4.1</span> <span class="toctext">On Windows</span></a></li>
+                              <li class="toclevel-2"><a href="#On_OS_X"><span class="tocnumber">4.2</span> <span class="toctext">On OS X</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Getting_Started"><span class="tocnumber">5</span> <span class="toctext">Getting Started</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p>&nbsp;</p>
+                <p><strong>IMPORTANT</strong></p>
+                <p>You can download and view the Full TorqueScript Manual by clicking here: <a href="../Torque 3D - Script Manual.chm" class="downloads">TorqueScript Reference Manual</a></p>
+                <br />
+                <p><strong>Note for Windows Users</strong></p>
+                <p>Due to security measures, the OS may block the CHM after you download it. To unblock it, perform the following steps:<br />
+                </p>
+                <p>1. Locate CHM on your hard drive.<br />
+                2. Right click on the CHM, and then click Properties.<br />
+                3. At the bottom, click the "Unblock" button.<br />
+                4. Apply and close the properties.<br /><br /></p>
+                  <strong>Note for OSX Users:</strong> There is no default CHM viewer installed with Mac OSX. There are several free options available for download:<br />
+                    <ul><li><a href="http://chmox.sourceforge.net/" class="external">Chmox</a></li>
+                    <li><a href="http://www.robinlu.com/blog/ichm" class="external">iChm</a></li>
+                </ul>
+                <br />
+                <a name="What_is_TorqueScript" id="What_is_TorqueScript"></a>
+                <h2> <span class="mw-headline">What is TorqueScript</span></h2>
+                <p align="left">TorqueScript (TS) is a proprietary scripting language developed
+                  specifically for Torque technology. The language itself is derived from
+                  the scripting used for Tribes 2, which was the base tech Torque evolved
+                  from. Scripts are written and stored in <b>.cs</b> files, which are compiled and executed by a binary compiled via the C++ engine (.exe for Windows or .app OS X). The CS extension should not be confused with C# files.</p>
+                <p><br />
+                  The CS extension stands for "C Script," meaning the language 
+                  resembles C programming. Though there is a connection, TorqueScript is
+                  a much higher level language, which is easier to learn than standard C
+                  or C++. </p><br />
+                <a name="Basic_Usage" id="Basic_Usage"></a>
+                <h2> <span class="mw-headline">Basic Usage</span></h2>
+                <p>Like most other scripting languages, such as Python or Java Script,
+                  TorqueScript is a high-level programming language interpreted by Torque
+                  3D at run time. Unlike C++, you can write your code in script and run
+                  it without recompiling your game. </p>
+                <p><br />
+                  All of your interfaces can be built using the GUI Editor,
+                  which saves the data out to TorqueScript. The same goes for data saved
+                  by the World Editor or Material Editor. Most of the editors themselves
+                  are C++ components exposed and constructed via TorqueScript. </p>
+                <p><br />
+                  More importantly, nearly all of your game play programming
+                  will be written in TorqueScript: inventory systems, win/lose scenarios,
+                  AI, weapon functionality, collision response, and game flow. All of these
+                  can be written in TorqueScript. The language will allow you to rapidly
+                  prototype your game without having to be a programming expert or perform
+                  lengthy engine recompiling. </p><br />
+                <a name="Scripting_vs_Engine_Programming" id="Scripting_vs_Engine_Programming"></a>
+                <h2> <span class="mw-headline">Scripting vs. Engine Programming</span></h2>
+                <p>As mentioned above, TorqueScript comprised of the core C++ objects
+                  needed to make your game. For example, you will use the PlayerData
+                  structure to create player objects for your game. This structure was
+                  written in C++: </p>
+                <p><br />
+                  <b>C++ PlayerData Code</b> </p>
+                <pre>struct PlayerData: public ShapeBaseData {
+   typedef ShapeBaseData Parent;
+   bool renderFirstPerson;    ///&lt; Render the player shape in first person
+
+
+   mass = 9.0f;         // from ShapeBase
+   drag = 0.3f;         // from ShapeBase
+   density = 1.1f;      // from ShapeBase
+</pre>
+                <p><br />
+                  Instead of having to go into C++ and create new PlayerData
+                  objects or edit certain fields (such as mass), PlayerData was exposed
+                  to TorqueScript: </p>
+                <p><br />
+                  <b>Example TorqueScript PlayerData Code</b> </p>
+                <pre>datablock PlayerData(DefaultPlayerData)
+{
+   renderFirstPerson = true;
+
+   className = Armor;
+   shapeFile = "art/shapes/actors/gideon/base.dts";
+
+   mass = 100;
+   drag = 1.3;
+   maxdrag = 0.4;
+
+   // Allowable Inventory Items
+   maxInv[Pistol] = 1;
+   maxInv[PistolAmmo] = 50;
+};
+</pre>
+                <p><br />
+                  If you want to change the name of the object, the mass, the
+                  inventory, or anything else, just open the script, make the change, and
+                  save the file. When you run your game, the changes will immediately
+                  take effect. Of course, for this example you could have used the in-game
+                  Datablock Editor, but you should get the point. TorqueScript is the
+                  first place you should go to write your game play code. </p><br />
+                <a name="TorqueScript_Editors" id="TorqueScript_Editors"></a>
+                <h2> <span class="mw-headline">TorqueScript Editors</span></h2>
+                <p>TorqueScript files are essentially text files. This means you have
+                  several editors to choose from. Some users prefer to use the stock OS
+                  text editors: Notepad on Windows or Text Edit on OS X. Others will use
+                  their programming IDEs (Interactive Development Environments), such as
+                  Visual Studio for Windows or Xcode on OS X. Third party applications
+                  are the most popular choice: </p><br />
+                <a name="On_Windows" id="On_Windows"></a>
+                <h3> <span class="mw-headline">On Windows</span></h3>
+                <p><b>Recommended:</b> </p>
+                <ul>
+                  <li><a href="http://www.GarageGames.com/products/torsion" class="external" title="http://www.GarageGames.com/products/torsion" rel="nofollow">Torsion</a> - Torsion is undeniably the best TorqueScript IDE was developed by Torque veterans <a href="http://www.sickhead.com/" class="external" title="http://www.sickhead.com/" rel="nofollow">Sickhead Games</a>.
+                    If you are developing on Windows, this is the first thing you should
+                    purchase after Torque 3D. No other editor offers this level of quality
+                    and functionality:
+                    <ul>
+                      <li>Integrated "One Click" script debugging. </li>
+                      <li>Full control over script execution via step and break commands. </li>
+                      <li>Advanced editor features like code folding, line wrapping,
+                        auto-indent, column marker, automatic bracket matching, and visible
+                        display of tabs and spaces. </li>
+                      <li>Go to line and text searching. </li>
+                      <li>ScriptSense updated dynamically as you type. </li>
+                      <li>Customizable syntax highlighting for TorqueScript. </li>
+                      <li>Unlimited undo/redo buffer. </li>
+                      <li>Code browser window for exploring both engine exports and script symbols in your project. </li>
+                    </ul>
+                  </li>
+                </ul>
+                <p><br />
+                  <b>Alternatives:</b> </p>
+                <ul>
+                  <li><a href="http://notepad-plus.sourceforge.net/uk/site.htm" class="external" title="http://notepad-plus.sourceforge.net/uk/site.htm" rel="nofollow">Notepad++</a> - This is a free (as in "free speech" and also as in "free beer")
+                    source code editor and Notepad replacement that supports several
+                    languages. </li>
+                </ul>
+                <ul>
+                  <li><a href="http://www.ultraedit.com/" class="external" title="http://www.ultraedit.com/" rel="nofollow">UltraEdit</a> - UltraEdit is a powerful disk-based text editor, programmer's editor,
+                    and hex editor that is used to edit TorqueScript, HTML, PHP,
+                    JavaScript, Perl, C/C++, and a multitude of other coding/programming
+                    languages. </li>
+                </ul><br />
+                <a name="On_OS_X" id="On_OS_X"></a>
+                <h3> <span class="mw-headline">On OS X</span></h3>
+                <p><b>Recommended:</b> </p>
+                <ul>
+                  <li><a href="http://developer.apple.com/TOOLS/Xcode/" class="external" title="http://developer.apple.com/TOOLS/Xcode/" rel="nofollow">Xcode</a> - Xcode is Apple's premier development environment for Mac OS X. If
+                    you plan on modifying Torque 3D's source code, you will need this
+                    anyway. Most developers at GarageGames use Xcode to modify their
+                    scripts on a Mac. </li>
+                </ul>
+                <ul>
+                  <li>Text Edit - This is the OS X default text editor. With no bells
+                    or whistles, this is not the best editor you can use on OS X, but it is
+                    free and ships with the OS. </li>
+                </ul>
+                <p><br />
+                  <b>Alternatives:</b> </p>
+                <ul>
+                  <li><a href="http://torqueide.sourceforge.net/" class="external" title="http://torqueide.sourceforge.net/" rel="nofollow">TIDE</a> - Torque Integrated Development Environment (TIDE) is a free,
+                    cross-platform IDE for Torque Game Engine scripting by Paul Dana and
+                    Stefan Moises. It is implemented in Java as a plug-in suite for the
+                    jEdit text editor and contains plug-ins for syntax highlighting,
+                    function browsing, script debugging, etc. </li>
+                </ul>
+                <ul>
+                  <li><a href="http://sourceforge.net/projects/smultron/" class="external" title="http://sourceforge.net/projects/smultron/" rel="nofollow">Smultron</a> - Smultron is a text editor written in Cocoa for Mac OS X Leopard 10.5 which is designed to be both easy to use and powerful. </li>
+                </ul><br />
+                <a name="Getting_Started" id="Getting_Started"></a>
+                <h2> <span class="mw-headline">Getting Started</span></h2>
+                <p>Like the rest of the documentation, the TorqueScript guides should
+                  be read in order (from top to bottom in the table of contents). This
+                  means you should start by reading the <a href="Syntax.html" title="http://www.google.com" rel="nofollow">Syntax Guide</a>. If you have never written TorqueScript before, <b>DO NOT SKIP</b> the <a href="Syntax.html" title="http://www.google.com" rel="nofollow">Syntax Guide</a>. </p>
+                <p><br />
+                  The docs in the <a href="../Simple/Echos.html" title="http://www.google.com" rel="nofollow">Simple Tutorials</a> will provide you with working code meant to show off syntax and basic
+                  TorqueScript structures. This is where you will create, edit, debug,
+                  and execute your first scripts. </p>
+                <p><br />
+                  Finally, the <a href="../Advanced/CameraModes.html"  title="http://www.google.com" rel="nofollow">Advanced Tutorials</a> section will walk you through complex functionality and algorithms.
+                  These tutorials make full use of Torque 3D's editors, networking
+                  structure, input system, and TorqueScript. These examples will even get
+                  into game play mechanics. </p><br />
+                <p>If you simply need a quick reference while writing scripts, you can read through the <a href="ReferenceGuide.html">TorqueScript Reference Guide</a>.<br /> 
+                  <br />
+                </p>                </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

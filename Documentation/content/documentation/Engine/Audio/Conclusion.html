@@ -1,0 +1,199 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 13;
+   parent.leftFrame.expandToItem('tree2', 'doc13');
+   var element = parent.leftFrame.document.getElementById('doc13');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D - SFX Conclusion</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_EngineOverview_SFX_TroubleShooting skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="15" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                        <ul>
+                          <li class="toclevel-1"><a href="#How_Do_I..."><span class="tocnumber">1</span> <span class="toctext">How Do I...</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#..._convert_to.2Ffrom_OGG.3F"><span class="tocnumber">1.1</span> <span class="toctext">... convert to/from OGG?</span></a></li>
+                              <li class="toclevel-2"><a href="#..._see_how_the_system_is_used.__Is_there_an_example_I_can_look_at.3F"><span class="tocnumber">1.2</span> <span class="toctext">... see how the system is used.  Is there an example I can look at?</span></a></li>
+                              <li class="toclevel-2"><a href="#..._create_5.1_or_7.1_surround_sound.3F"><span class="tocnumber">1.3</span> <span class="toctext">... create 5.1 or 7.1 surround sound?</span></a></li>
+                              <li class="toclevel-2"><a href="#..._play_background_music.3F"><span class="tocnumber">1.4</span> <span class="toctext">... play background music?</span></a></li>
+                              <li class="toclevel-2"><a href="#..._tune_stream_buffering.3F"><span class="tocnumber">1.5</span> <span class="toctext">... tune stream buffering?</span></a></li>
+                              <li class="toclevel-2"><a href="#..._stream_custom_audio_data.3F"><span class="tocnumber">1.6</span> <span class="toctext">... stream custom audio data?</span></a></li>
+                              <li class="toclevel-2"><a href="#..._add_support_for_a_new_audio_format.3F"><span class="tocnumber">1.7</span> <span class="toctext">... add support for a new audio format?</span></a></li>
+                              <li class="toclevel-2"><a href="#..._monitor_the_status_of_the_SFX_system.3F"><span class="tocnumber">1.8</span> <span class="toctext">... monitor the status of the SFX system?</span></a></li>
+                              <li class="toclevel-2"><a href="#..._play_multiple_sounds_in_random.2Fsequential_order_on_an_SFXEmitter.3F"><span class="tocnumber">1.9</span> <span class="toctext">... play multiple sounds in random/sequential order on an SFXEmitter?</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Troubleshooting"><span class="tocnumber">2</span> <span class="toctext">Troubleshooting</span></a></li>
+                          <li class="toclevel-1"><a href="#Best_Practices"><span class="tocnumber">3</span> <span class="toctext">Best Practices</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">4</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table><br />
+                <a name="How_Do_I..." id="How_Do_I..."></a>
+                <h2> <span class="mw-headline">How Do I...</span></h2>
+                <a name="..._convert_to.2Ffrom_OGG.3F" id="..._convert_to.2Ffrom_OGG.3F"></a>
+                <h3> <span class="mw-headline">... convert to/from OGG?</span></h3>
+                <p>For Windows, a neat little tool is <a href="http://www.rarewares.org/ogg-oggdropxpd.php" class="external">oggdropXPd</a>. It converts to and
+                  from OGG using various formats and has an interface as straightforward
+                  as it gets. </p><br />
+                <a name="..._see_how_the_system_is_used.__Is_there_an_example_I_can_look_at.3F" id="..._see_how_the_system_is_used.__Is_there_an_example_I_can_look_at.3F"></a>
+                <h3> <span class="mw-headline">... see how the system is used.  Is there an example I can look at?</span></h3>
+                <p>A simple example of how to use the system can be found in the form of the GuiMusicPlayer control found in <b>core/scripts/gui/guiMusicPlayer.cs</b>. </p><br />
+                <a name="..._create_5.1_or_7.1_surround_sound.3F" id="..._create_5.1_or_7.1_surround_sound.3F"></a>
+                <h3> <span class="mw-headline">... create 5.1 or 7.1 surround sound?</span></h3>
+                <p>This is done by the mixer of the sound device you are using. This
+                  mixer will take all the active sound voice (2D and 3D) and mix their
+                  audio signals down into a number of output channels. In plain stereo
+                  playback, this will be two channels: a left one and a right one. </p>
+                <p><br />
+                  With surround systems, a corresponding number of output channels are
+                  fed by the mixer. Note, however, that in order to get surround effects
+                  in your game, you need to properly set up 3D sounds. </p><br />
+                <a name="..._play_background_music.3F" id="..._play_background_music.3F"></a>
+                <h3> <span class="mw-headline">... play background music?</span></h3>
+                <p>One way is to place an SFXEmitter in your level and let it stream a
+                  2D looping music track.Another way is to manually trigger playback
+                  directly from script. </p><br />
+                <a name="..._tune_stream_buffering.3F" id="..._tune_stream_buffering.3F"></a>
+                <h3> <span class="mw-headline">... tune stream buffering?</span></h3>
+                <p>If you experience lag and interruptions with stream sources, set the
+                  streamPacketSize and streamReadAhead properties in SFXDescriptions such
+                  that more data is buffered in advanced. Be careful with
+                  streamPacketSize as it directly affects buffer metrics on the device as
+                  well as the time spend on each individual I/O operation. </p>
+                <p><br />
+                  To directly modify queue length on devices, adjust the following in the engine code: </p>
+                <pre>SFXInternal::SFXAsyncQueue::DEFAULT_STREAM_QUEUE_LENGTH</pre>
+                <p>This will not affect streaming happening directly on the device (FMOD currently). </p>
+                <a name="..._stream_custom_audio_data.3F" id="..._stream_custom_audio_data.3F"></a>
+                <h3> <span class="mw-headline">... stream custom audio data?</span></h3>
+                <p>One way is to derive a class from SFXStream to use it to write the
+                  sample data to the audio buffers. SFXSystem::createSourceFromStream()
+                  can be used here to create an SFXSource from just a plain SFXStream and
+                  an SFXDescription. </p>
+                <p><br />
+                  Another way is to create and feed an SFXPacketStream which
+                  consumes raw, uncompressed sample data in discrete packets and writes
+                  them to the consumer audio buffer as needed. Use the same
+                  SFXSystem::createSourceFromStream() method to create an SFXSource to
+                  control playback. </p><br />
+                <a name="..._add_support_for_a_new_audio_format.3F" id="..._add_support_for_a_new_audio_format.3F"></a>
+                <h3> <span class="mw-headline">... add support for a new audio format?</span></h3>
+                <p>Derive a class from SFXFileStream and register your extension(s)
+                  through SFXFileStream::registerExtension() in SFXSystem::init(). Look
+                  at SFXWavStream and SFXOggStream for examples. </p><br />
+                <a name="..._monitor_the_status_of_the_SFX_system.3F" id="..._monitor_the_status_of_the_SFX_system.3F"></a>
+                <h3> <span class="mw-headline">... monitor the status of the SFX system?</span></h3>
+                <p>Use the "sfx" metrics, for example, by typing 'metrics( "sfx" );' in
+                  the console. This display various live statistics for the SFX system.
+                  To see a detailed listing of all current SFXSources, use
+                  "sfxDumpSources". </p><br />
+                <a name="..._play_multiple_sounds_in_random.2Fsequential_order_on_an_SFXEmitter.3F" id="..._play_multiple_sounds_in_random.2Fsequential_order_on_an_SFXEmitter.3F"></a>
+                <h3> <span class="mw-headline">... play multiple sounds in random/sequential order on an SFXEmitter?</span></h3>
+                <p>Currently, this is not possible without custom scripting. The next
+                  revision of SFX will, however, include playlist support across all
+                  devices. </p><br />
+                <a name="Troubleshooting" id="Troubleshooting"></a>
+                <h2> <span class="mw-headline">Troubleshooting</span></h2>
+                <p><b>I am hearing 3D sounds outside of their set maximum range.  How can I fix this?</b> </p>
+                <p>You are probably using the logarithmic distance model. This is where sounds are not cut off at their maximum distance, but rather retain the attenuated volume that is greater than the specified max distance. To make sounds fade out in time, use proper settings for the min and max distance. Also, to speed up or slow down overall volume falloff with distance, increase or decrease the 3D rolloff factor.  </p>
+                <p><br />
+                  <b>My sounds start with a delay.  What is wrong?</b> </p>
+                <p>The delay is due to the sound taking a certain time to load.
+                  Generally, make sure that either sound data is available before
+                  starting playback or that a short delay is not relevant for a given
+                  sound. </p>
+                <p><br />
+                  <b>I'm seeing an error in the console.log that says "SFXFMODProvider - Could not locate the &lt;fmod.dll&gt;".  What is wrong?</b> </p>
+                <p>This only means that the FMOD sound provider cannot find the
+                  FMOD DLL. If you do not want to use FMOD, then simply ignore this
+                  message. Otherwise, make sure to copy the FMOD DLL (fmodex.dll on
+                  Windows; fmodex.dylib on Mac) to the same folder as your game
+                  executable. This message should then disappear the next time you start
+                  Torque. </p>
+                <p>To download FMOD, visit the <a href="http://www.fmod.org/" class="external" title="http://www.fmod.org/" rel="nofollow">FMOD homepage</a>. To purchase a very friendly priced indie license of FMOD for your game, <a href="http://www.garagegames.com/products/fmod" class="external" title="http://www.garagegames.com/products/fmod" rel="nofollow">visit the Torque store</a>. </p>
+                <p><br />
+                  <b>I'm seeing crashes with XAudio.  What can I do?</b> </p>
+                <p>Head over to <a href="http://www.garagegames.com/community/forums/63" class="external" title="http://www.garagegames.com/community/forums/63" rel="nofollow">Torque 3D Private forum</a> and post a bug report. Our SFX developer will be around to look into the issue. </p>
+                <a name="Best_Practices" id="Best_Practices"></a>
+                <h2> <span class="mw-headline">Best Practices</span></h2>
+                <p><b>Preload or not?</b> </p>
+                <p>Anything that is used often should be preloaded. Rarely used
+                  sounds for which it is okay to start with a short delay need not be
+                  preloaded. Streamed sounds cannot be preloaded (create an SFXSource if
+                  you want to ready them before playing). </p>
+                <p><br />
+                  <b>Lifetimes of SFXProfiles</b> </p>
+                <p>Scope the lifetimes of SFXProfiles to where they are actually
+                  used. Generally, don't put all of the sounds of your game together as
+                  one batch of SFXProfiles. Once its sound data has been loaded, an
+                  SFXProfile for non-streamed sounds will consume resources on the SFX
+                  device. </p>
+                <p><br />
+                  Ambient sounds, for example, that are not used in a
+                  particular level need not have their SFXProfiles loaded. However,
+                  sounds that are used in any level in the game are better loaded once at
+                  startup. For server-side profiles, use the datablock keyword whereas
+                  for client-side profiles, use new or singleton. </p>
+                <p><br />
+                  <b>Stream or not?</b> </p>
+                <p>Stream music/ambient sounds, don't stream effects. Generally WAVs over ~700kb and OGGs over 200k should be streamed </p>
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>This concludes the SFX documentation for Torque 3D. If you wish to
+                  learn more about the system, this is a good time to browse the demos
+                  provided with Torque 3D and see how they are used. Additionally, the
+                  system is very well commented in the engine code and will contain more
+                  detailed information on a per-line basis. </p></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

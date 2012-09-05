@@ -1,0 +1,345 @@
+<html>
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 27;
+   parent.leftFrame.expandToItem('tree2', 'doc27');
+   var element = parent.leftFrame.document.getElementById('doc27');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D - Mini Console Tutorial</title>
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_GUIEditor_Console skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2></div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Setting_Up"><span class="tocnumber">2</span> <span class="toctext">Setting Up</span></a></li>
+                          <li class="toclevel-1"><a href="#Add_the_Controls"><span class="tocnumber">3</span> <span class="toctext">Add the Controls</span></a></li>
+                          <li class="toclevel-1"><a href="#The_GuiTextEdit_Control"><span class="tocnumber">4</span> <span class="toctext">The GuiTextEdit Control</span></a></li>
+                          <li class="toclevel-1"><a href="#Commanding_the_Console"><span class="tocnumber">5</span> <span class="toctext">Commanding the Console</span></a></li>
+                          <li class="toclevel-1"><a href="#Activating_the_Console"><span class="tocnumber">6</span> <span class="toctext">Activating the Console</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">7</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p><img alt="Image:3_FinalGui.jpg" src="3_Images/3_FinalGui.jpg" border="0" height="235" width="571" /> </p>
+                <p><br />
+                  This is a simple tutorial to create a mini Console in a window,
+                  complete with clear button. You will use a small amount of script to
+                  make a toggle key for the mini-console and also look at how to use the
+                  text entry box. </p>
+                <p><br />
+                  Suggested Reading: </p>
+                <ul>
+                  <li><a href="../Introduction.html">GUI Editor Overview</a> </li>
+                  <li><a href="../Interface.html">GUI Interface</a> </li>
+                  <li><a href="../../Scripting/Overview/Introduction.html">TorqueScript Reference</a> </li>
+                  <li><a href="Firstgui.html">GUI Tutorial 1</a> </li>
+                  <li><a href="Controls.html">GUI Tutorial 2</a></li>
+                  </ul>
+                <p><br />
+                  Covered in this tutorial: </p>
+                <ul>
+                  <li>How to setup a small console </li>
+                  <li>Set up a clear button </li>
+                  <li>Bind this dialog to a key </li>
+                  <li>Learn how to use Text entry </li>
+                  <li>Take a Look at profiles and what they are </li>
+                </ul><br>
+                <a name="Setting_Up" id="Setting_Up"></a>
+                <h2> <span class="mw-headline">Setting Up</span></h2>
+                <p>By now you should be use to the setup procedure. Open your tutorial
+                  project and head to the GUI editor or alternatively use
+                  the Torque 3D Toolbox approach. Create a new GUI using the following: </p>
+                <p><br />
+                  New GUI Name: <b>miniConsole</b> </p>
+                <p>Gui Class: <b>GuiControl</b> </p>
+                <p><br />
+                  Select the <b>GuiControl</b> and set its property profile to <b>GuiModelessDialogProfile</b>. </p>
+                <p><br />
+                  <b>NOTE</b>: The GuiModelessDialogProfile sets our GUI so that the
+                  background does not prevent mouse events from reaching objects beneath
+                  it. Simply put, the user can click through the clear parts. </p>
+                <p><br />
+                  Select a <b>GuiWindowCtrl</b> from the library, add it to the editor work area, and resize so that it can contain the console. </p><br>
+                <a name="Add_the_Controls" id="Add_the_Controls"></a>
+                <h2> <span class="mw-headline">Add the Controls</span></h2>
+                <p><b>STEP 1</b>: The next task is adding the controls to our window.
+                  Select the GuiWindowCtrl control from the controls list so that it is
+                  highlighted and add the following controls: </p>
+                <p><b>GuiScrollCtrl</b> </p>
+                <p><b>GuiTextCtrl</b> </p>
+                <p><b>GuiTextEditCtrl</b> </p>
+                <p><b>GUiButtonCtrl</b></p>
+                <p><br />
+                  Move and resize the controls so that they match the image below (text in red is to show where each control is): </p>
+                <p><br />
+                  <img alt="Image:3_CreateNewWindow.jpg" src="3_Images/3_CreateNewWindow.jpg" border="0" height="221" width="459" /> </p>
+                <p><br />
+                  Save your GUI into your project <b>game/art/gui</b> folder with the name of <b>miniConsole.gui</b>. Next we need to set some control properties as follows: </p>
+                <p><br />
+                  <b>GuiWindowCtrl</b> property text: <b>Mini Console</b>
+                  <br /><b>GuiTextCtrl</b> property text: <b>Direct Text</b>
+                  <br /><b>GuiButtonCtrl</b> property text: <b>Clear</b> </p>
+                <p><br />
+                  <b>STEP 2</b>: Select the <b>GuiScrollCtrl</b> control as we are going use it
+                  as a container for our console. With the scroll control selected add a
+                  <b>GuiConsole</b> from the Editor category. In the controls list, the new
+                  console control should be nested inside the scroll control. Do not
+                  worry about resizing the console control. The scroll box will handle
+                  its size. </p>
+                <p><br />
+                  <img alt="Image:3_SelectGuiConsole.jpg" src="3_Images/3_SelectGuiConsole.jpg" border="0" height="256" width="217" /> </p>
+                <p><br />
+                  This will enable us to scroll through the console as it is
+                  larger than our window. If you preview your GUI (F10) you will notice
+                  that the color is wrong for the console and also the window may be a
+                  little to narrow. We can rectify this by changing the <b>GuiScrollCtrl</b>
+                  profile to <b>ConsoleScrollProfile</b> and resize the window and scroll
+                  control horizontal width. </p>
+                <p><br />
+                  You may have to move the other GUI components so that it looks tidy again. </p>
+                <p><br />
+                  <img alt="Image:3_Tweaking.jpg" src="3_Images/3_Tweaking.jpg" border="0" height="258" width="582" /> </p>
+                <p><br />
+                  <b>Do not forget to save often!</b> </p><br>
+                <a name="The_GuiTextEdit_Control" id="The_GuiTextEdit_Control"></a>
+                <h2> <span class="mw-headline">The GuiTextEdit Control</span></h2>
+                <p>What we are going to do now is make our text edit control send its
+                  contents to the console when we press enter. Basically echo to the
+                  console what we type into the text edit control. First set the Clear
+                  button property to: </p>
+                <p>button property Command: <b>cls();</b> </p><br>
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> cls()</b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>Use the cls function to clear the console output.<br />
+                          <br />
+                          <b>Syntax</b><br />
+                        </p>
+                        <p>cls() </p>
+                        <p><br />
+                          <b>Returns</b><br />
+                          No return value<br />
+                          <br />
+                          <b>Examples</b><br />
+                        </p>
+                        <pre>cls();
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br>
+                <p>Now when we press this button the console will be cleared. We can now test the GUI by closing the GUI Editor, press F10 and try it out. </p>
+                <p><br />
+                  GuiTextEditCtrl property name: <b>txtDirect</b> </p>
+                <p>GuiTextEditCtrl property AltCommand: <b>echo(txtDirect.getValue());</b> </p><br>
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> echo(string,all)</b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>Sends output to the console<br />
+                          <br />
+                          <b>Syntax</b><br />
+                        </p>
+                        <p>echo(string <b>text</b>, all <b>[...]</b>);<br />
+                        </p>
+                        <ul>
+                          <li><b>text</b>: Text sent to console<br />
+                          </li>
+                          <li><b>[...]</b>: Optional value, of any type, that will be appended to the text<br />
+                          </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          No return value.<br />
+                          <br />
+                          <b>Examples</b><br />
+                        </p>
+                        <pre>// Print "Hello World" in the console
+echo("Hello World");
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br>
+                <p>You may have noticed that this time our command was placed into
+                  the <b>AltCommand</b> property, the reason for this is so that the control
+                  waits until we press enter to send the command string, instead of
+                  sending the command on each letter entered. </p>
+                <p><br />
+                  It would be good that when we pressed enter that the text
+                  edit control emptied itself, to save us having to highlight and delete
+                  the text ourselves next time we want to enter a new word. Change the
+                  property as follows: </p>
+                <p><br />
+                  GuiTextEditCtrl property AltCommand: <b>echo(txtDirect.getValue()); txtDirect.setValue("");</b> </p>
+                <p><br />
+                  Now when you enter a word and press return the word is
+                  displayed in the console and the text is removed from the edit box. Now
+                  is a good time to save. </p><br>
+                <a name="Commanding_the_Console" id="Commanding_the_Console"></a>
+                <h2> <span class="mw-headline">Commanding the Console</span></h2>
+                <p>To do this we are going to need a new text edit control and a text
+                  label. Select our <b>GuiTextCtrl</b> and <b>GuiTextEditCtrl</b>, then copy and paste.
+                  Move the new copy beneath the first. Change the copied controls
+                  properties as follows: </p>
+                <p><br />
+                  GuiTextCtrl 	property text: <b>Command</b> </p>
+                <p><br />
+                  GuiTextEditCtrl property name: <b>txtEnterCommand</b> </p>
+                <p><br />
+                  GuiTextEditCtrl property AltCommand: <b>eval(txtEnterCommand.getValue()); txtEnterCommand.setValue("");</b> </p>
+                <p><br />
+                  The first command in the script sends the contents of the
+                  text edit control txtEnterCommand to the console to be executed. The
+                  following then clears the text ready for the next command to be
+                  entered. </p><br>
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> eval(script)</b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>Use the eval function to execute any valid script statement<br />
+                          <br />
+                          <b>Syntax</b><br />
+                        </p>
+                        <p>eval(string <b>script</b>);<br />
+                        </p>
+                        <ul>
+                          <li><b>script</b>: A string containing a valid script statement. This may be a single line statement or multiple lines<br />
+                          </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          const char* Returns the result of executing the script statement.<br />
+                          <br />
+                          <b>Examples</b><br />
+                        </p>
+                        <pre>eval("game/scripts/client/test.cs");
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br>
+                <p><br />
+                  <b>Note</b>: If you choose to eval a multi-line statement, be sure
+                  that there are no comments or (\\) comment blocks (\**\) embedded in
+                  the script string. </p>
+                <p><br />
+                  Your mini Console should now look a little like this. </p>
+                <p><br />
+                  <img alt="Image:3_FinalGui.jpg" src="3_Images/3_FinalGui.jpg" border="0" height="235" width="571" /> </p><br>
+                <a name="Activating_the_Console" id="Activating_the_Console"></a>
+                <h2> <span class="mw-headline">Activating the Console</span></h2>
+                <p><b>STEP 1</b>: We are going to call our new console from Ctrl + ~ (tilde) to keep inline with the main console. 
+                Open the file <b>scripts/client/default.bind.cs</b> in Torsion or another text editor. Head to the end of this file and add the following: </p>
+                <pre>function callMiniConsole(%val )
+{
+   if(%val )
+   { 
+      if ( miniConsole.isAwake() )
+      {
+         // close the mini console.
+         Canvas.popDialog( miniConsole );
+      }
+      else
+      {
+	//open the mini console
+         Canvas.pushDialog( miniConsole );         
+      }
+   }
+}
+
+GlobalActionMap.bind(keyboard, "ctrl tilde", callMiniConsole);
+</pre>
+                <p><br />
+                  This function allows us to use the same key press to open / close the dialogue by checking the GUI status <b>guiControl.isAwake</b>. </p>
+                <p><br />
+                  <b>STEP 2</b>: Next open the file <b>game/scripts/client/init.cs</b> and look for the // Execute the GUI scripts and functions section and add the following: </p>
+                <pre>exec("art/gui/miniConsole.gui");</pre>
+                <p><br />
+                  Now run your project and press the Ctrl + ~ (tilde) key to see your mini Console. </p>
+                <p><br />
+                  <b>STEP 3</b>: One last edit to be made with our GUI, to enable the window close icon: </p>
+                <p><br />
+                  GuiWindowCtrl property closeCommand: <b>Canvas.popDialog(miniConsole);</b> </p>
+                <p><br />
+                  Remember to save before testing the close icon. </p>
+                <p><br />
+                  <b>NOTE</b>: If you want to use this as a project console you may
+                  remove the direct text control leaving the command text and text edit.
+                  This would be more useful as the first Text edit control was for
+                  instruction purposes only. </p><br>
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>In this tutorial, you learned the following concepts: </p>
+                <ul>
+                  <li>How to setup a small console </li>
+                  <li>Set up a clear button </li>
+                  <li>Bind this dialog to a key </li>
+                  <li>Learn how to use Text entry </li>
+                  <li>Take a look at profiles and what they are </li>
+                </ul>
+                <p>The next tutorial will show you how to display a GUI while playing
+                  the game, which is the foundation for creating a HUD (Heads Up
+                  Display). </p>
+                  </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

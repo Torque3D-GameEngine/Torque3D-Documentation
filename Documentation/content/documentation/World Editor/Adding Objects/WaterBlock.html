@@ -1,0 +1,285 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 78;
+   parent.leftFrame.expandToItem('tree2', 'doc78');
+   var element = parent.leftFrame.document.getElementById('doc78');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D World Editor - WaterBlock</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_WorldEditor_WaterBlock skin-monobook">
+<script type="text/javascript" src="../../../include/wz_tooltip.js"></script>
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Adding_a_WaterBlock"><span class="tocnumber">2</span> <span class="toctext">Adding a WaterBlock</span></a></li>
+                          <li class="toclevel-1"><a href="#WaterBlock_Properties"><span class="tocnumber">3</span> <span class="toctext">WaterBlock Properties</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">4</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p>The WaterBlock object can add a lot of realism to your level's environment. Primarily, you should use a WaterBlock to simulate isolated bodies of water with a limited size. They do not necessarily need to be small, but a <a href="WaterPlane.html">WaterPlane</a> can simulate a massive/endless body of water.</p>
+                <p>
+                <a name="Adding_a_WaterBlock" id="Adding_a_WaterBlock"></a>
+                <h2> <span class="mw-headline">Adding a WaterBlock</span></h2>
+                <p>To add a water block, switch to the Object Editor tool. Locate the Library panel and click it. Click on the Level tab and then double-click the Environment folder. Locate the WaterBlock entry.</p><br />
+                <p><img alt="Image:LibraryWaterblock.jpg" src="images/LibraryWaterblock.jpg" border="0" width="209" height="323" /> </p>
+                <p><br />
+                  Double-click on the Water Block entry. A dialog box will appear:</p>
+                <br />
+                <p><img alt="Image:AddWater.jpg" src="images/AddWater.jpg" border="0" width="255" height="124" /> </p>
+                <p><br />
+                  Enter a name for your Water Block then click the Create New button. A square body of water will be added to the scene. This is your WaterBlock. Like any other object, you can manipulate its transform using the gizmos. </p><br />
+                <p>(click to enlarge) </p>
+                <a href="images/WaterblockAdded.jpg" class="livethumbnail"><img src="images/WaterblockAdded.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                </p>
+                <a name="WaterBlock_Properties" id="WaterBlock_Properties"></a>
+                <h2> <span class="mw-headline">WaterBlock Properties</span></h2><br />
+                                <p><br />
+                                Additional properties can be accessed with the Inspector pane. To change a WaterBlocks properties using the Inspector Pane click the Scene tab, then click the name of your new Water Block object. The Inspector pane will update to display the current properties of your new sun.</p>
+                <p><br /><img src="images/WaterPlaneInspector.png" width="208" height="1460" /></p>
+                <p><br /><b>Name:</b> <i>TypeName</i>. Optional global name of this object.</p>
+                <p><br /><b>id:</b> <i>TypeCaseString</i>. SimObjectId of this object. Read Only.</p>
+                <p><br /><b>Source Class:</b> <i>TypeCaseString</i>. Source code class of this object. Read Only.</p>
+                <h4>Transform</h4>
+                <p><br /><b>position:</b> <i>MatrixPosition</i>. Object world position.</p>
+                <h4>WaterBlock</h4>
+                <p><br /><b>gridSize:</b> <i>TypeF32</i>. Duplicate of gridElementSize for backwards compatibility.</p>
+                <p><br /><b>gridElementSize:</b> <i>TypeF32</i>. Spacing between vertices in the WaterBlock.</p>
+                <h4>WaterObject</h4>
+                <p><br /><b>density:</b> <i>TypeF32</i>. Affects buoyancy of an object, thus affecting the Z velocity of a player (jumping, falling, etc).</p>
+                <p><br /><b>viscosity:</b> <i>TypeF32</i>. Affects drag force applied to an object submerged in this container.</p>
+                <p><br /><b>liquidType:</b> <i>TypeRealString</i>. Liquid type of WaterBlock, such as water, ocean, lava. Currently only Water is defined and used.</p>
+                <p><br /><b>baseColor:</b> <i>TypeColorI</i>. Changes color of water fog, which is what gives the water its color appearance.</p>
+                <p><br /><b>fresnelBias:</b> <i>TypeF32</i>. Extent of fresnel affecting reflection fogging.</p>
+                <p><br /><b>fresnelPower:</b> <i>TypeF32</i>. Measures intensity of affect on reflection based on fogging.</p>
+                <p><br /><b>specularPower:</b> <i>TypeName</i>. Power used for specularity on the 
+                    water surface (sun only).</p>
+                <p><br /><b>specularColor:</b> <i>TypeColorF</i>. Color used for specularity on the 
+                    water surface (sun only).</p>
+                <p><br /><b>emissive:</b> <i>TypeBool</i>. When true, the water colors do not react 
+                    to changes in environmental lighting.</p>
+                <h4>Waves (vertex undulation)</h4>
+                <p><br /><b>overallWaveMagnitude:</b> <i>TypeF32</i>. Master variable affecting entire body of water undulation.</p>
+                <p><br /><b>rippleTex:</b> <i>TypeImageFilename</i>. Normal map used to simulate small surface ripples.</p>
+                <h4>Ripples (texture undulation)</h4>
+                <p><br /><b>overallRippleMagnitude:</b> <i>TypeF32</i>. Master variable affecting 
+                    the entire surface of the WaterBlock.</p>
+                <p><br /><b>foamTex:</b> <i>TypeImage Filename</i>. Diffuse texture for foam in 
+                    shallow water (advanced lighting only).</p>
+                <h4>Foam</h4>
+                <p><br /><b>overalFoamOpacity:</b> <i>TypeF32</i>. Opacity of foam texture.</p>
+                <p><br /><b>foamMaxDepth:</b> <i>TypeF32</i>. Maximum depth for foam texture 
+                    display.</p>
+                <p><br /><b>foamAmbientLerp:</b> <i>TypeF32</i>. Interpolation for foam settings.</p>
+                <p><br /><b>foamRippleInfluence:</b> <i>TypeF32</i>. Intensity of the ripples.</p>
+                <h4>Reflect</h4>
+                <p><br /><b>cubemap:</b> <i>TypeCubemapName</i>. Cubemap is used instead of 
+                    reflection texture if fullReflect is off.</p>
+                <p><br /><b>fullReflect:</b> <i>TypeBool</i>. Enables dynamic reflection rendering.</p>
+                <p><br /><b>reflectivity:</b> <i>TypeF32</i>. Overall reflectivity of the water 
+                    surface.</p>
+                <p><br /><b>reflectPriority:</b> <i>TypeF32</i>. Affects the sort order of reflected 
+                    objects.</p>
+                <p><br /><b>reflectMaxRateMs:</b> <i>TypeF32</i>. Affects the sort time of reflected 
+                    objects.</p>
+                <p><br /><b>reflectDetailAdjust:</b> <i>TypeF32</i>. Scale up or down the detail 
+                    level for objects rendered in a reflection.</p>
+                <p><br /><b>reflectNormalUp:</b> <i>TypeBool</i>. Always use Z up as the reflection 
+                    normal.</p>
+                <p><br /><b>useOcclusionQuery:</b> <i>TypeBool</i>. Turn off reflection rendering 
+                    when occluded (delayed).</p>
+                <p><br /><b>reflectTexSize:</b> <i>TypeF32</i>. Texure size used for reflections 
+                    (square).</p>
+                <h4>Underwater Fogging</h4>
+                <p><br /><b>waterFogDensity:</b> <i>TypeF32</i>. Intensity of underwater fogging.</p>
+                <p><br /><b>waterFogDensityOffset:</b> <i>TypeF32</i>. Delta, or limit, applied to 
+                    waterFogDensity.</p>
+                <p><br /><b>wetDepth:</b> <i>TypeF32</i>. The depth in world units at which full 
+                    darkening will be received giving a wet appearance.</p>
+                <p><br /><b>wetDarkening:</b> <i>TypeF32</i>. The refract color intensity scaled at 
+                    wetDepth.</p>
+                <h4>Misc</h4>
+                <p><br /><b>depthGradientTex:</b> <i>TypeImage filename</i>. 1D texture defining the 
+                    base water color.</p>
+                <p><br /><b>depthGradientMax:</b> <i>TypeF32</i>. Depth in world units, the max 
+                    range of the color gradient texture.</p>
+                <h4>Distortion</h4>
+                <p><br /><b>distortStartDist:</b> <i>TypeF32</i>. Determines start of distortion 
+                    effect where water surface intersects.</p>
+                <p><br /><b>distortEndDist:</b> <i>TypeF32</i>. Max distance that distortion 
+                    algorithm is performed.</p>
+                <p><br /><b>distortFullDepth:</b> <i>TypeF32</i>. Determines the scaling down of 
+                    distortion in shallow water.</p>
+                <h4>Basic Lighting</h4>
+                <p><br /><b>clarity:</b> <i>TypeF32</i>. Relative opacity or transparency of the 
+                    water surface.</p>
+                <p><br /><b>underwaterColor:</b> <i>TypeColor</i>. Changes the color shading of 
+                    objects beneath the water surface.</p>
+                <h4>Sound</h4>
+                <p><br /><b>soundAmbience:</b> <i>TypeSFXAmbienceName</i>. Ambient sound environment 
+                    when listener is active.</p>
+                <h4>Editing</h4>
+                <p><br /><b>isRenderEnabled:</b> <i>TypeBool</i>. Toggles whether the object is 
+                    rendered.</p>
+                <p><br /><b>isSelectionEnabled:</b> <i>TypeBool</i>. Toggle whether this object can 
+                    be selected in the editor.</p>
+                <p><br /><b>hidden:</b> <i>TypeBool</i>.Toggle visibility in editor.</p>
+                <p><br /><b>locked:</b> <i>TypeBool</i>. Toggle whether the object can be edited.</p>
+                <h4>Mounting</h4>
+                <p><br /><b>mountPID:</b> <i>TypePID</i>. Unique identifier of the mount.</p>
+                <p><br /><b>mountNode:</b> <i>TypeS32</i>. Node where the mount occurs.</p>
+                <p><br /><b>mountPos:</b> <i>TypeS32</i>. Offset for positioning the node.</p>
+                <p><br /><b>mountRot:</b> <i>TypeS32</i>. Rotation of this object in relation to 
+                    the mount node.</p>
+                <h4>Object</h4>
+                <p><br /><b>internalName:</b> <i>TypeString</i>. Non-unique name used by child objects 
+                    of a group.</p>
+                <p><br /><b>parentGroup:</b> <i>TypeString</i>. Group object belongs to.</p>
+                <p><br /><b>class:</b> <i>TypeString</i>. Links object to script class namespace.</p>
+                <p><br /><b>superClass:</b> <i>TypeString</i>. Links object to script super class 
+                    (parent) namespace.</p>
+                <h4>Persistence</h4>
+                <p><br /><b>canSave:</b> <i>TypeBool</i>. Toggle whether the object can be saved in 
+                    the editor.</p>
+                <p><br /><b>canSaveDynamicFields:</b> <i>TypeBool</i>. True if dynamic fields (added at runtime) should be saved, defaults to true.</p>
+                <br />
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>Regarding appearance, your WaterBlock can simulate any body of water you desire. Large or small, murky or clear, wavy or calm, the properties provide an extremely flexible system that can be tweaked to the smallest detail.</p>
+                <p>&nbsp;</p>
+                <p>You can read the <a href="../Tutorials/AddingLake.html">Lake Tutorial</a> for a full walkthrough on using the WaterBlock object.<br />
+                </p>
+                
+                  </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

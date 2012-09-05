@@ -1,0 +1,192 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 42;
+   parent.leftFrame.expandToItem('tree2', 'doc42');
+   var element = parent.leftFrame.document.getElementById('doc42');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque3D - Projectiles</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_Scripting_Advanced_CameraModes skin-monobook">
+<table width="700" cellspacing="0" cellpadding="20" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+
+                <h3> <span class="mw-headline">Introduction</span></h3>
+                <p>This article will discuss the technical aspect of creating custom projectiles for use with custom weapons in your games.</p>
+<a name="Projectiles"></a><h3><span class="mw-headline">Projectiles</span></h3>
+
+<p>Projectiles are what we use in T3D for most bullets, rockets, grenades, and all objects of the like. Typically a projectile is created in the WeaponImage::OnFire call like so:</p>
+<pre>
+// Create the projectile object
+%p = new (%this.projectileType)
+{
+    dataBlock = %this.projectile;
+    initialVelocity = %muzzleVelocity;
+    initialPosition = %obj.getMuzzlePoint(%slot);
+    sourceObject = %obj;
+    sourceSlot = %slot;
+    client = %obj.client;
+};
+MissionCleanup.add(%p); // MissionCleanup is a SimGroup.
+</pre>
+
+<p>Once created, a projectile will move from it's initialPosition in the direction of it's initial velocity. It will travel along this path until it comes in contact with a sceneObject. 
+(This includes the terrain.) where it will either bounce, or explode depending on how the projectile's datablock has been setup. Before the projectile actually explodes, it uses it's 
+onExplode callback in script before actualling the explode() code in C++. This gives scriptors a chance to affect the behavior of the projectile before the engine actually processes an 
+explosion, or to do any last minute tricks, hacks, or checks before it explodes. It's important to keep in mind that the onExplode callback will only be done server side.</p>
+
+<p>While there are many fields and properties to a Projectile's datablock, there are a couple to keep in mind, and have a firm understanding of. (Those closely related will be grouped together.)</p>
+
+<table style="width: 700; border: 1px; border-style:outset"><tbody>
+<tr><td colspan="2" style="border: 1px; border-style: inset"><p align="center"><strong>Important Projectile Datablock Fields</strong></p></td></tr>
+<tr><td style="border: 1px; border-style: inset">projectileShapeName</td><td style="border: 1px; border-style: inset">Path to the shape to be used for the projectile</td></tr>
+<tr><td style="border: 1px; border-style: inset">explosion</td><td style="border: 1px; border-style: inset">Explosion effect to play at the point of the explosion</td></tr>
+<tr><td style="border: 1px; border-style: inset">decal</td><td style="border: 1px; border-style: inset">Decal to leave on walls/terrain/objects when it explodes</td></tr>
+<tr><td style="border: 1px; border-style: inset">particleEmitter</td><td style="border: 1px; border-style: inset">An effect for the trail as the projectile lies through the air</td></tr>
+<tr><td style="border: 1px; border-style: inset">armingDelay</td><td style="border: 1px; border-style: inset">amount of time (In milliseconds) before a projectile is allowed to explode</td></tr>
+<tr><td style="border: 1px; border-style: inset">lifeTime</td><td style="border: 1px; border-style: inset">amount of time (in milliseconds) before a projectile deletes itself from the scene</td></tr>
+</tbody></table>
+
+<p>NOTE: One thing I've noticed is that somewhere down the line in projectiles, we've relied heavily on the use of dynamic fields to handle things in script that would be assumed to be 
+taken care of by the engine. For example, directDamage is in our example datablock, but really is only a dynamic field used later for players hit directly with a rocket.</p>
+
+<p>Most of the processing of a projectile is done from the script side of things. The engine side of things really only updates it's position, calls it's callbacks, networking, exploding 
+when the time is right, etc. Things like damage and pushback must be handled from various callbacks in script.</p>
+
+<p>From a script side of things, when a projectile has been created, the next thing you'll have to do is deal with it's script callback. Depending on the behavior of the projectile, 
+you will be looking to work with onCollision (For ballistic-type weapons), or onExplode (For grenade-type weapons).</p>
+
+<p>At the very least, we want to call some kind of damage() function that will decrement the player's health and update their GUI. In the event of a grenade or rocket, we want to damage 
+the player it hit and likely anything around it. The easiest way to do this is by using a ContainerRadiusSearch, passing in the position of the explosion, the radius of the explosion 
+(usually set as a dynamic field on the projectile's datablock), and $TypeMasks::ShapeBaseObjectType or $TypeMasks::PlayerObjectType. We can do some math on every object the container 
+search returns to determine if we should just outright damage the player, or scale the damage and impulse effects based on their distance from the center of the explosion. (It doesn't 
+make much sense to take full damage when you are on the very edge of an explosion, does it?). You should also make use of calcExplosionCoverage during the container call to make sure 
+that objects aren't damaged if they are covered by walls, or other objects. Distance scale can be calculated as </p>
+<pre>
+scale = (distanceFromExplosion < explosionRadius / 2)? 1.0 : 1.0 
+    - ((distanceFromExplosion – explosionRadius / 2) / explosionRadius / 2);
+</pre>
+         
+                <a name="Conclusion" id="Conclusion"></a>
+                <h3> <span class="mw-headline">Conclusion</span></h3>
+                <p>Having Torque 3D's camera system exposed to script gives you a great
+                  deal of power and flexibility in your game. When you have tested the
+                various modes, you can begin to see how this will affect game play. </p></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

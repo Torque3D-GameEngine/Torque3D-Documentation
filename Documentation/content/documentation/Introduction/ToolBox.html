@@ -1,0 +1,459 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../";</SCRIPT><link href="../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 35;
+   parent.leftFrame.expandToItem('tree2', 'doc35');
+   var element = parent.leftFrame.document.getElementById('doc35');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../include/content.css" />
+<title>Getting Started - ToolBox</title>
+
+<style type="text/css">
+</style>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ns-0 ltr page-Torque3D_BeginnerGuide_Toolbox">
+<script type="text/javascript" src="../../include/wz_tooltip.js"></script>
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: left;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table id="toc" summary="Contents">
+          <tbody>
+            <tr>
+              <td><div id="toctitle">
+                  <h2>Contents</h2>
+                  </div>
+                <ul>
+                  <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                  <li class="toclevel-1"><a href="#Layout"><span class="tocnumber">2</span> <span class="toctext">Layout</span></a></li>
+                  <li class="toclevel-1"><a href="#Demos_Section"><span class="tocnumber">3</span> <span class="toctext">Project Snapshot View</span></a></li>
+                  <li class="toclevel-1"><a href="#Creating_A_New_Project"><span class="tocnumber">4</span> <span class="toctext">Creating A New Project</span></a></li>
+                  <li class="toclevel-1"><a href="#Project_Details"><span class="tocnumber">5</span> <span class="toctext">Project Information</span></a>
+                    <ul>
+                      <li class="toclevel-2"><a href="#World_Editor"><span class="tocnumber">5.1</span> <span class="toctext">World Editor</span></a></li>
+                      <li class="toclevel-2"><a href="#GUI_Editor"><span class="tocnumber">5.2</span> <span class="toctext">GUI Editor</span></a></li>
+                      <li class="toclevel-2"><a href="#Open_Folder"><span class="tocnumber">5.3</span> <span class="toctext">Open Folder</span></a></li>
+                      <li class="toclevel-2"><a href="#Edit_Source"><span class="tocnumber">5.4</span> <span class="toctext">Edit Source</span></a></li>
+                      <li class="toclevel-2"><a href="#Play_Game"><span class="tocnumber">5.5</span> <span class="toctext">Play Game</span></a></li>
+                      <li class="toclevel-2"><a href="#Play_In_Web"><span class="tocnumber">5.6</span> <span class="toctext">Play In Web</span></a></li>
+                      <li class="toclevel-2"><a href="#Torsion"><span class="tocnumber">5.7</span> <span class="toctext">Torsion</span></a></li>
+                      <li class="toclevel-2"><a href="#Regenerate_C.2B.2B"><span class="tocnumber">5.8</span> <span class="toctext">Clean-Up</span></a></li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1"><a href="#Adding_Quick_Links"><span class="tocnumber">6</span> <span class="toctext">Adding Quick Links</span></a></li>
+                  <li class="toclevel-1"><a href="#Package_Project"><span class="tocnumber">7</span> <span class="toctext">Package Project</span></a></li>
+                  <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">8</span> <span class="toctext">Conclusion</span></a></li>
+                </ul></td>
+            </tr>
+          </tbody>
+        </table>
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p>The Toolbox is a stand-alone application that acts as the central hub of Torque 3D game development. Key features of this program include: </p>
+                <ul>
+                  <li><b>Project Management</b> - Create blank projects, generate new projects based on templates and genre kits, and modify an existing game. </li>
+                  <li><b>Editor Shortcuts</b> - Buttons that will launch your selected project in the World Editor, GUI Editor, C++ compiler, Torsion, or basic play mode. </li>
+                  <li><b>Project Deployment</b> - Package your game in zip format, generate an installer, or deploy to a web browser. </li>
+                  <li><b>External Tool Links</b> - Create shortcuts to 3rd party programs that are useful for development, such as Photoshop, Maya, 
+                      3DS Max, ShowTool, and more. </li>
+                </ul>
+                <a name="Layout" id="Layout"></a>
+                <h2> <span class="mw-headline">Layout</span></h2>
+                <p>The main interface for the Toolbox application supplies you with a quick-and-easy environment where you can access the key components of your game. The Toolbox window contains two tabs: <em>Projects</em> and <em>Documentation</em>. The Projects tab provides organization and management of your projects. Documentation contains links  to the documentation included with the engine. The remainder of this document will focus on the Projects tab.</p>
+
+                  <img src="images/ToolboxProject_File.png" onmouseover="Tip('<strong>ToolBox File Menu.</strong> Use this to access the tool options and settings (not related to the game project.).', WIDTH, 450)" onmouseout="UnTip()"/><br />                  <img src="images/ToolboxProject_Left.png"  onmouseover="Tip('<strong>Projects Tab</strong>. Contains a list of examples and user created projects. Clicking on an entry will populate the Project Information section with new details.<br><br><strong>Documentation Tab</strong>. The documentation tab provides links to the offline documentation and quick documentation links.', WIDTH, 450)" onmouseout="UnTip()"/><img src="images/ToolboxProjects_right.png" onmouseover="Tip('<strong>Project Information</strong>. This section contains details about your project, such as date of last modification, number of working levels and their names, and working binaries (debug and release executables).<br><br><strong>Project Properties</strong>. This section contains the main editor shortcut buttons for editing your project, including opening the World and GUI editors, source code, Torsion project, and packagaing your game for deployment.<br><br><strong>Package Project</strong>. The Package Project button will package your project for the end user. Once you have finished developing your game, this will process it and package it as an installer, zip, or web plugin.', WIDTH, 450)" onmouseout="UnTip()"/><br />
+<img src="images/ToolboxProject_QuickLinks.png"  onmouseover="Tip('<strong>Quick Links Bar</strong>. The Quick Link bar can be customized to your liking to include shortcuts to 3rd party applications and utilities you will use throughout development. Examples include Photoshop, Maya, Notepad, and so on.', WIDTH, 450)" onmouseout="UnTip()"/><br />
+                  <br />
+                  <p><br />The Project Snapshot View on the left is a list of all your projects.  On the right is an area that provides more information on the currently selected project. Within this area, you can access that various editors, important functionality such as project cleanup, or testing your game with the Play Game button.</p>
+                  <p><br />Along the bottom of the window is the Editor <A href="#Adding_Quick_Links">Quick Links</A> bar for storing short cuts to commonly used applications (for example: Photoshop or 3DS Max).</p>
+                <a name="Demos_Section" id="Demos_Section"></a>
+                <h2> <span class="mw-headline">Project Snapshot View</span></h2>
+                <p>The Project Snapshot View contains a list of all your projects, as well those that ship with Torque 3D. To begin work on a project you must select it from this list first. </p><br />
+
+                <p><img alt="Image:ToolboxDemos.jpg" src="images/ToolboxDemos.jpg" border="0" width="266" height="236" /> </p><br />
+
+                <p><br />Projects are divided into three categories:</p>
+                <ul>
+                    <li><strong>My Projects</strong> - Projects that you create are listed here. "My Projects" will not appear until you've created your first project, described in detail below.</li>
+                    <li><strong>Demos</strong> – Reserved for stand-alone Torque 3D applications that show off certain aspects of the engine. Demos are not intended to be used as a starting point for a game. </li>
+                    <li><strong>Examples</strong> - Game packages that contain a wealth of assets and 
+                    code that you can use as a starting point for your game. </li>
+                </ul>
+                <p>TIP:  The Project Snapshot list is populated by any projects the Toolbox finds on disk inside the folders named "My Projects", "Demos," or "Examples" in your Torque 3D directory (by default these folders are located in C:\Torque\Torque 3D Pro 1.1\). You can manually add or remove projects by moving them in or out of these folders.</p>
+
+                <a name="Creating_A_New_Project" id="Creating_A_New_Project"></a>
+                <h2> <span class="mw-headline">Creating a New Project</span></h2>
+                <p>Creating a new project is a simple process. To get started, click the New Project button located above the Project List. </p>
+                <p><img alt="Image:ToolboxNewProjectButton.jpg" src="images/ToolboxNewProjectButton.jpg" border="0" width="117" height="28" /> </p>
+                <p><br />
+                  After clicking the button, a dialog will pop up over the main Toolbox window. The project name you choose is important. The Toolbox will use this name in the Project Snapshot list to  change several script variables that customize your game window title bar, server name, and so forth. It will be also be used to name the directory containing your game.</p>
+
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/ToolboxNewProjectDialog.jpg" class="livethumbnail"><img src="images/ToolboxNewProjectDialog.jpg" width="198" height="141" largewidth="396" largeheight="282" /></a><br />
+                <p><br />
+                  The Template drop-down menu will allow you to pick an
+                  existing project type to generate your game on top of. Stock Torque 3D
+                  ships with Full and Empty templates. The Empty template is a completely
+                  bare-bones project with no starting assets or game scripts. The Full
+                  template contains at least one of nearly every asset type and script
+                  example. </p>
+                <p><br />
+                  <img alt="Image:ToolboxNewProjectTemplates.jpg" src="images/ToolboxNewProjectTemplates.jpg" border="0" width="155" height="61" /> </p>
+                <p><br />Go ahead and name your project "Tutorials" and select the Full template. Since a large portion of tutorials and guides found in the rest of this documentation require existing assets (the technical term for models, artwork, and other items used within games), it is best to use this template to save time and allow you to focus on learning the engine. We will learn about generating and importing assets later.  </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/ToolboxTutorialsProject.jpg" class="livethumbnail"><img src="images/ToolboxTutorialsProject.jpg" width="198" height="141" largewidth="396" largeheight="282" /></a><br />
+                <p><br />
+                  When you are ready, click the Create button at the bottom
+                  of the window. A new dialog will appear displaying the project creation
+                  progress. This process includes copying template files, formatting
+                  scripts and assets, and generating project information. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/ToolboxProjectCreation.jpg" class="livethumbnail"><img src="images/ToolboxProjectCreation.jpg" width="318" height="185" largewidth="637" largeheight="370" /></a><br />
+                <p><br />
+                  When the process is finished you will be provided the projects location on disk. </p>
+                <p>&nbsp;</p>
+                <p><img alt="Image:ToolboxProjectCreateFinished.jpg" src="images/ToolboxProjectCreateFinished.jpg" border="0" width="328" height="142" /> </p>
+                <p><br />In addition, the Project Snapshot list will automatically update to include a new section called "My Projects" and your Tutorials project will be added. Any future projects you create will be added here as well. </p>
+                <p><br />
+                  <img alt="Image:ToolboxMyProjects.jpg" src="images/ToolboxMyProjects.jpg" border="0" width="288" height="112" /> </p><br />
+                <a name="Project_Details" id="Project_Details"></a>
+                <h2> <span class="mw-headline">Project Information</span></h2>
+                <p>When you select a project from the Project Snapshot list, the right side of the Toolbox will dynamically update to display information specific that project. Most of your interaction with the Toolbox will be in this area. If you select the "Tutorials" project you just created, you should see something similar to this image:</p>
+                <p><br />
+
+                <p><img alt="Image:TutorialProjectDetails.jpg" src="images/TutorialProjectDetails.jpg" border="0" width="378" height="341" /> </p>
+                <h4>Preview Image</h4>
+                <p>The thumbnail preview image can be set to whatever you like by replacing "thumb.png" in your game root directory (see 'Open Folder below for help navigating quickly to your games root directory). This is not a requirement, but it can help you visually organize your projects in the Toolbox.</p>
+                <h4>Comments</h4>
+                <p>To the right of the preview image is a Comments field. The text in this box is read from a text file in your project directory, which is populated by a call into Subversion source control ("SVN"). If your project is not under SVN source control, the Comments section will default to "No Comments" but the Last Update time will still be accurate. Proper configuration of SVN is beyond the scope of this document.</p>
+                <h4>Project Builds</h4>
+                <p>Before editing or running your game, you can choose how the project should execute. Just below the preview image is a drop-down box called Project Builds. </p>
+                <p><img alt="Image:ProjectBuilds.jpg" src="images/ProjectBuilds.jpg" border="0" width="117" height="175" /> </p>
+                <p><br />
+                  By default, there will be just one option in this list (in our example "Tutorials.exe"). Programmers, who have used an IDE (Integrated Development Environment) like Visual Studio to compile debug and release versions of their game, will see those listed here as well. The executable selected in this list will be used to run the game when that action is invoked from either the Toolbox or from within the World Editor.</p>
+                <h4>Project Levels</h4>
+                <p>The Project Levels list contains all the level files found in your  
+                    <strong>game\levels</strong> directory, which in our example would be: ..\My Projects\Tutorials\game\levels\*.mis (Tip: although we refer to "levels" in this document, the ".mis" extension stands for "mission" - this extension has been retained in Torque 3D to ease the transition for users of our legacy engine products).</p>
+                <p><img alt="Image:ProjectLevels.jpg" src="images/ProjectLevels.jpg" border="0" width="107" height="119" /> </p>
+                <p><br />
+                  The level you select here will be loaded or played when you launch the World Editor. </p>
+                <a name="World_Editor" id="World_Editor"></a>
+                <h3> <span class="mw-headline">World Editor</span></h3>
+                <p><img alt="Image:ToolboxWEButton.jpg" src="images/ToolboxWEButton.jpg" border="0" width="111" height="31" /> </p>
+                <p><br />
+                  To modify your game levels, click on the World Editor button. After you click the button, a dialog will acknowledge your choice, letting you know that the Toolbox is about to be minimized and that your project is launching. </p>
+                <p><br />
+                  <img alt="Image:LaunchingProject.jpg" src="images/LaunchingProject.jpg" border="0" width="283" height="69" /> </p>
+                <p><br />After your project launches, the World Editor will immediately run and load the level you selected in the Project Levels list above. See the <a href="../World%20Editor/Basics/Overview.html">World Editor</a> documentation  for more information. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/ToolboxWorldEditor.jpg" class="livethumbnail"><img src="images/ToolboxWorldEditor.jpg" width="320" height="240" largewidth="640" largeheight="481" /></a><br />
+                <a name="GUI_Editor" id="GUI_Editor"></a><br />
+                <h3> <span class="mw-headline">GUI Editor</span></h3>
+                <p><img alt="Image:ToolboxGUIEditButton.jpg" src="images/ToolboxGUIEditButton.jpg" border="0" width="111" height="31" /> </p>
+                <p><br />Pressing the GUI Editor button will load the <a href="../GUI%20Editor/Overview/Introduction.html">GUI Editor</a> and present the GUI Selector dialog. </p>
+                <p><br />
+                  <img alt="Image:ToolboxGUISelector.jpg" src="images/ToolboxGUISelector.jpg" border="0" width="211" height="351" /> </p>
+                <p><br />From here you can:</p>
+                <ul>
+                <li>Select which GUI to work on, either from the list or by browsing your game folders;</li>
+                <li>Create a new GUI; or</li>
+                <li>Play your game to load the level selected in Toolbox.</li>
+                </ul>
+                <p><br />Selecting a GUI from the list will immediately open it in the GUI Editor as shown below. See the <a href="../GUI Editor/Overview/Introduction.html">GUI Editor</a> documentation  for more information.</p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/ToolboxGUIEditor.jpg" class="livethumbnail"><img src="images/ToolboxGUIEditor.jpg" width="320" height="240" largewidth="640" largeheight="481" /></a><br /><br />
+                <a name="Open_Folder" id="Open_Folder"></a>
+                <h3> <span class="mw-headline">Open Folder</span></h3>
+                <p><img alt="Image:ToolboxOpenFolderButton.jpg" src="images/ToolboxOpenFolderButton.jpg" border="0" width="111" height="31" /> </p>
+                <p><br />
+                The Open Folder button opens up the root directory of your game project for browsing and exploring. It performs no other actions; it is a simple way to navigate to the main game folder for the currently selected project. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/ToolboxOpenfolder.jpg" class="livethumbnail"><img src="images/ToolboxOpenfolder.jpg" width="240" height="180" largewidth="480" largeheight="360" /></a><br /><br />
+                <a name="Edit_Source" id="Edit_Source"></a>
+                <h3> <span class="mw-headline">Edit Source</span></h3>
+                <p><img alt="Image:EditSourceButton.jpg" src="images/EditSourceButton.jpg" border="0" width="111" height="31" /> </p>
+                <p><br />
+                For developers who want to edit the engines source code, the Edit Source button provides a shortcut to launch Visual Studio (for Windows) or Xcode (for Mac).  It is recommended that you follow the Programmer section of the <a href="../Setup/Overview.html">Setup – Overview</a>  instructions before using the Edit Source button.  </p>
+                <p><br />When you click Edit Source, the Toolbox will begin to prepare the developer environment for the currently selected project. This process should not be interrupted.</p>
+                <p><br />
+                  <img alt="Image:OpeningSourceCode.jpg" src="images/OpeningSourceCode.jpg" border="0" width="505" height="154" /> </p>
+                <p><br />
+                  On Windows, after the initial load the Toolbox will prompt you to choose a Visual Studio version. Supported compilers from this window are Visual Studio 2005 or 2008. Both the Express and Full versions of those tools are supported. For Mac OS X, the only supported compiler is Xcode 3. This article only covers development under Visual Studio.</p>
+                <p><br />
+                  <img alt="Image:ToolboxVSVersion.jpg" src="images/ToolboxVSVersion.jpg" border="0" width="216" height="139" /> </p>
+                <p><br />
+                  After the development environment has been prepared by the Toolbox, your C++ solution will be loaded. </p><br />
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/ToolboxEditSource.jpg" class="livethumbnail"><img src="images/ToolboxEditSource.jpg" width="320" height="206" largewidth="640" largeheight="413" /></a><br />
+                <br />
+                <a name="Play_Game" id="Play_Game"></a>
+                <h3> <span class="mw-headline">Play Game</span></h3>
+                <p><img alt="Image:ToolboxPlayButton.jpg" src="images/ToolboxPlayButton.jpg" border="0" width="111" height="31" /> </p>
+                <p><br />
+                  Clicking the Play Game button will run your game binary (executable) as if you were the end user playing the game. Your game will go through the full entry point, unlike the World Editor. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/ToolboxPlayGame.jpg" class="livethumbnail"><img src="images/ToolboxPlayGame.jpg" width="320" height="240" largewidth="640" largeheight="480" /></a><br /><br />
+                <p><br />
+                  When you exit the game, the Toolbox will still be running with your project selected.</p>
+                <a name="Play_In_Web" id="Play_In_Web"></a>
+                <h3> <span class="mw-headline">Play In Web</span></h3>
+                <p><img alt="Image:PlayInWebButton.jpg" src="images/PlayInWebButton.jpg" border="0" width="111" height="31" /> </p>
+                <p><br />Play in Web  is similar to the Play Game button. Clicking <a href="../Introduction/WebPublishing.html">Play in Web</a> will launch your project inside a web browser. NOTE: You may need to compile the web plug-in  for your project before this option becomes available.  </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/ToolboxPlayInWeb.jpg" class="livethumbnail"><img src="images/ToolboxPlayInWeb.jpg" width="320" height="214" largewidth="640" largeheight="428" /></a><br /><br />
+                When you exit your game by closing the browser, the Toolbox will still be running with your project selected.
+                <a name="Torsion" id="Torsion"></a>
+                <h3> <span class="mw-headline">Torsion</span></h3>
+                <p><img alt="Image:ToolboxTorsionButton.jpg" src="images/ToolboxTorsionButton.jpg" border="0" width="111" height="31" /> </p>
+                <p><br />
+                  This button is only applicable if you are on Windows and have Torsion installed - <a href="http://www.garagegames.com/products/torsion" class="external">sold separately</a>. Although TorqueScript files can be edited with any text editor, Torsion is a very useful utility provided by <a href="http://sickheadgames.com/" class="external">Sickhead Games</a> for editing and debugging TorqueScript. Clicking this button will open your Torsion project. After you click the button, the Toolbox will inform you that it has started the launch process and proceed without further interaction. </p>
+                <p><img alt="Image:LaunchingTorsion.jpg" src="images/LaunchingTorsion.jpg" border="0" width="506" height="124" /> </p>
+                <p><br />
+                  After Toolbox is finished, Torsion will automatically run and load your game project. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/ToolboxTorsion.jpg" class="livethumbnail"><img src="images/ToolboxTorsion.jpg" width="320" height="258" largewidth="640" largeheight="516" /></a><br /><br />
+                <p><br />When you exit Torsion, the Toolbox will still be running with your project selected.</p>
+                <a name="Regenerate_C.2B.2B" id="Regenerate_C.2B.2B"></a>
+                <h3> <span class="mw-headline">Cleanup</span></h3>
+                <p><img alt="Image:ToolboxRegenButton.jpg" src="images/ToolboxCleanButton.jpg" border="0" width="111" height="31" /> </p>
+                <p><br /><strong>WARNING</strong>: DO NOT click this button until you understand what it does!</p>
+                <p><br />
+                  The Cleanup action will clean and recreate your C++ projects. This is only needed if you are working with the source code of the engine. If you have made any modifications to the project structure, they will be lost! This includes adding or deleting files, filters, groups, and compiler settings. Once you click the button, the process will begin and should not be interrupted. </p>
+                <p><br />
+                  <img alt="Image:ToolboxRegenerate.jpg" src="images/ToolboxRegenerate.jpg" border="0" width="235" height="63" /> </p>
+                <p><br />
+                  Once the cleanup  is complete, you will be notified by a pop-up box. Your projects should have been restored to its default state. </p>
+                <p><br />
+                  <img alt="Image:ProjectGenSuccess.jpg" src="images/ProjectGenSuccess.jpg" border="0" width="248" height="121" /> </p>
+
+                <a name="Adding_Quick_Links" id="Adding_Quick_Links"></a>
+                <h2> <span class="mw-headline">Adding Quick Links</span></h2>
+                <p>At some point during development, you will need to use tools and programs not provided by Torque 3D to create content for your games (for example 3D modeling software). As the name "Quick Links" implies, the Toolbox allows you to add shortcuts to your favorite tools for quick access. Quick Link shortcuts can be made to any application. </p>
+                <p><br />
+                  There are no default Quick Links in the Toolbox: </p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/ToolboxQuicklinksbar.jpg" class="livethumbnail"><img src="images/ToolboxQuicklinksbar.jpg" width="358" height="45" largewidth="716" largeheight="90" /></a><br />
+                <p><br />To add a quick link, click the "Edit Tool Bar" text on the right side of the bar. This will open the Tool Bar Editor, which will contain a list of any quick links you have already created. From here, you can Add, Edit, or Remove any of these links. </p>
+                <p><br />
+                  <img alt="Image:ToolBarEditor.jpg" src="images/ToolBarEditor.jpg" border="0" width="431" height="247" /> </p>
+                <p><br />Clicking the Add button will open a new dialog that will allow you to add a quick link. </p>
+                <p><img alt="Image:EditQuickLink.jpg" src="images/EditQuickLink.jpg" border="0" width="353" height="223" /> </p>
+                <p><br />You can manually type the complete path and filename of the program you want to add, or click the browse button (the box with the three dots) to find the location of your application by browsing your hard disk. In this example, we have browsed to the binary for GIMP (an image editing application).</p>
+                <p><img alt="Image:ChooseQuickLinkApp.jpg" src="images/ChooseQuickLinkApp.jpg" border="0" width="353" height="223" /> </p>
+                <p><br />After clicking OK, the fields for the quick link will automatically be filled in for you. You can change the name of your quick link by editing the Name field, add execution arguments (usually not required), or use the Icon drop down to change the visual appearance of your quick link.</p>
+                <p><img alt="Image:QuickLinkDetails.jpg" src="images/QuickLinkDetails.jpg" border="0" width="353" height="223" /> </p>
+                <p><br />When you click OK, the application you've chosen will now appear in your Quick Links list.</p>
+                <p><img alt="Image:QuickLinkAdded1.jpg" src="images/QuickLinkAdded1.jpg" border="0" width="431" height="247" /> </p>
+                <p><br />
+                From here you can add, edit, or remove additional links, or simply close the Quick Links Editor by clicking Ok. Your Quick Links bar will now contain shortcuts to the applications you have chosen. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/QuickLinkAdded2.jpg" class="livethumbnail"><img src="images/QuickLinkAdded2.jpg" width="358" height="44" largewidth="716" largeheight="88" /></a><br /><br />
+                <p><br />
+                TIP: If you are not using Torsion (discussed above), you may want to create a Quick Link to a text editor like NotePad++ (Windows) or TextWrangler (Mac) for editing TorqueScript files.</p>
+                
+                <a name="Package_Project" id="Package_Project"></a>
+                <h2> <span class="mw-headline">Package Project</span></h2>
+                <p><img alt="Image:PackageProjectButton.jpg" src="images/PackageProjectButton.jpg" border="0" width="366" height="36" /> </p><br />
+                <p><br />
+                  When you are ready to distribute your final game or a demo, you can make use of the Toolbox Package Project feature. In previous Torque engines, it was up to you to come up with a method of deployment/packaging. This meant manually compiling your project, zipping your files, and acquiring a 3rd party utility to create an installer.</p>
+                <p><br />With Torque 3D and Toolbox, we have provided an automated process that can be kicked off with a few simple button clicks. When you click on the Package Project button, a new dialog will appear. </p>
+                <p><br />
+                </p>
+                <p><img alt="Image:PackageProjectDialog.jpg" src="images/PackageProjectDialog.jpg" border="0" width="388" height="511" /> </p><br />
+                <p><b>Source Code Options</b></p>
+                <p>Checking the box here will cause Toolbox to recompile your project. If you are not using an IDE like Visual Studio to edit source code, there is no reason to check this box. Note: Changes made to TorqueScript using Torsion (or any plain text editor) do not constitute changes to source code.</p>
+                <p><b>Target Formats</b></p>
+                <p>Choose the package type you would like to create by clicking on the check boxes.</p>
+
+                <p><img alt="Image:PackageWithWebCheck.jpg" src="images/PackageWithWebCheck.jpg" border="0" width="388" height="104" /> </p>
+                <ul>
+                <li><strong>Installer</strong>  will create an automated installation utility.</li>
+                <li><strong>Zip</strong> will compress your game files into a single .zip file.</li>
+                <li><strong>Web</strong> will recompile the web plug-in and clean your game files for easy upload. Note that if you check this box, an additional "Destination URL" field will appear, as shown above. This allows you to specify the directory the plug-in is installed from on your website.</li>
+                </ul>
+                <p><b>Target Platforms</b></p>
+                <p>Choose your current platform that you are packaging on to create the correct package for that platform. </p>
+                <p><br /><b>Included/Excluded Files</b></p>
+                <p>You can configure which file types will be packaged with your game. Commonly excluded files are Photoshop and 3DS Max files, Torsion projects, script files (if you are only distributing DSOs), etc. This is explained in greater detail under Configuration Options below.</p>
+
+                <p><b>Name</b></p>
+                <p>The final name of your game, which is used as a label for the various packages. </p>
+                <p><b>Target Location</b></p>
+                <p>The folder of the final, packaged product you will distribute. </p>
+        <h2>Configuration Options</h2>
+        <p>In the main Package Project dialog there are a number of buttons labeled Configure. Each one will launch the same advanced settings dialog, but a different active tab will be auto-selected depending on which Configure button was clicked. Each of these tabs are discussed in more detail below.</p>
+        <p><br /><b>Installer Tab</b></p>
+        <p>The Installer tab is used to customize details associated with generating an Installer package.</p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/InstallerSettings.jpg" class="livethumbnail"><img src="images/InstallerSettings.jpg" width="325" height="270" largewidth="650" largeheight="541" /></a><br />
+                <ul>
+                <li><b>Name</b> - The final name of your game, which will be used as a label inside the installer for titles and instructions to end users. </li>
+                <li><b>Branding Text</b> - The name of your team or company, also used inside the installer for descriptions.</li>
+                <li><strong>Windows and Mac Platform Specific Settings</strong> - Each OS handles installed products differently. In this section, you can determine the default location to install the game, how the OS manages the software internally (such as the registry key label used for Windows), and the installer appearance. The Header and Panel images can be customized to use artwork specific to your game. </li>
+                </ul>
+                
+                <h3>Web Tab</h3>
+                <p><br />
+                  The Web Settings tab contains advanced options for this packaging method. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/WebSettings.jpg" class="livethumbnail"><img src="images/WebSettings.jpg" width="325" height="270" largewidth="650" largeheight="541" /></a><br />
+                <p><br />
+                  <b>General</b> - The settings here are fairly self-descriptive. Each field is required, but can be customized based on your game. </p>
+                <p><b>Browser Support Settings</b> - Like operating systems, web browsers are varied and tend to use their own custom processes for extensions and plug-ins. Firefox, Chrome, and Safari use similar plug-in schemes. However, Internet Explorer requires several unique IDs for certification. Clicking the Generate UUIDs button will cause the Toolbox to regenerate a guaranteed unique set of keys. </p>
+                <p><br />For detailed information on the entire process, read the <a href="../Introduction/WebPublishing.html">web publishing tutorial</a>.</p>
+                <p><strong>File Specifications Tab</strong></p>
+                <p>The File Specifications tab is used to configure which files will be included or excluded in all generated packages (Installer, Zip, and Web). </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/FileSpecsSettings.jpg" class="livethumbnail"><img src="images/FileSpecsSettings.jpg" width="325" height="270" largewidth="650" largeheight="541" /></a><br />
+                <p><br />You should only deploy the bare minimum of files required to run your game, such as binary art, scripts, and game ready art assets. You can specify wild card extensions to exclude/include all files of a certain type. Additionally, you can specify entire folders to exclude.</p>
+                <p><br />For example, you may have saved a Photoshop file used to make a texture in your projects root directory. While this is convenient during development, when it is time to deploy your game you only need the final .jpg, .png or .dds that was generated from that Photoshop file. The same goes for 3D model source files created in Blender or Max, as well as Torsion project files, and so on.  Another example of a file type you should exclude are thumbnails (.db) automatically generated by Windows. The size of your final game package will be considerably smaller if you exclude these files.</p>
+                <p><br />Security is a consideration too. You should exclude the tools folder, which is typically used only for development and could be used to exploit your game and its content if you distribute it. Furthermore, to prevent sophisticated users from cheating, you may want to generate DSOs from your TorqueScript files.  Creating DSOs is beyond the scope of this document, but if you do so, you will want to exclude all but a few of your script files (.cs).  </p>
+                <h2>Building the Packages</h2>
+                <p><br />Once you have completed configuring your desired options and have returned to the Package Project dialog you can start the process by clicking the Build button. A new dialog tracking the packaging process will appear. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/PackagingProgress.jpg" class="livethumbnail"><img src="images/PackagingProgress.jpg" width="314" height="194" largewidth="629" largeheight="388" /></a><br />
+                <p><br />
+                  The first process will start by building your project and copying the final result to your staging directory. After the staging is finished and all of your game files are ready to be deployed, the package creation process will begin. The first packaging routine will compress your game to a zip file if you had that check box enabled. After this, the Installer will be generated to include your game, OS settings, and custom artwork. </p>
+                <br />Once the packaging process has completed, you will be notified by a new pop-up dialog. </p>
+                <p><br />
+                </p>
+                <p><img alt="Image:PackagingComplete.jpg" src="images/PackagingComplete.jpg" border="0" width="328" height="142" /> </p>
+                <p><br />This dialog gives you the option to jump straight to the folder containing your final product by pressing the Open Folder button. The files found here can be distributed to your end users however you see fit. </p>
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>The Torque 3D Toolbox is a powerful utility designed to provide you with an all-in-one solution for managing and editing your project. This article was written to give you an in-depth walkthrough of its capabilities and how to leverage the tools it contains. </p>
+                <p><br />
+                Take some time to experiment with the Toolbox by clicking buttons, creating projects, and deploying packages. Make sure you have the Tutorials project readily available, as the rest of the documentation will be use it as an example in other guides. With a new project created, you are now ready to begin learning and using the Torque 3D <a href="../World%20Editor/Basics/Overview.html">World Editor</a>.</p>
+                <br />
+                </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<head>
+<SCRIPT SRC="./include/searchTable.js" LANGUAGE="JavaScript"></SCRIPT> 
+<SCRIPT SRC="./include/searchLookUpTable.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="./include/searchLookUpTableTwo.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="./include/searchLookUpTableThree.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="./include/searchLookUpTableFour.js" LANGUAGE="JavaScript"></SCRIPT>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Search</title>
+<link href="include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="include/search.css" rel="stylesheet" type="text/css" />
+<link href="styles.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body onload = "initSearch()">
+
+<h2 class="topic">Documentation Search</h2>
+<div class="search">
+   <input name = "searchText" id = "searchText" "text" size = "40"></input>
+   <input type = "button" value = "Search!" onclick = "startSearch()" tabindex = "1"></input>
+   <span class="highlighter">
+      <input name = "highlight" id = "highlightbox" type = "checkbox" onClick = "startSearch()" CHECKED><span>Highlight Search Words</span></input>
+   </span>
+</div>
+
+<span id="output" class="results"></span>
+
+</body>
+</html>

@@ -1,0 +1,2400 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 47;
+   parent.leftFrame.expandToItem('tree2', 'doc47');
+   var element = parent.leftFrame.document.getElementById('doc47');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D - TSShapeConstructor Specification</title>
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_Artist_TSShapeConstructorSpecification skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2></div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Terminology"><span class="tocnumber">2</span> <span class="toctext">Terminology</span></a></li>
+                          <li class="toclevel-1"><a href="#Example_1:_Adding_a_Collision_Mesh_To_an_Existing_Shape"><span class="tocnumber">3</span> <span class="toctext">Example 1: Adding a Collision Mesh To an Existing Shape</span></a></li>
+                          <li class="toclevel-1"><a href="#Example_2:__Adding_a_Mesh_From_an_Existing_DTS_File"><span class="tocnumber">4</span> <span class="toctext">Example 2:  Adding a Mesh From an Existing DTS File</span></a></li>
+                          <li class="toclevel-1"><a href="#Example_3:_Auto-loading_animations"><span class="tocnumber">5</span> <span class="toctext">Example 3: Auto-loading animations</span></a></li>
+                          <li class="toclevel-1"><a href="#Example_4:_Splitting_COLLADA_animations"><span class="tocnumber">6</span> <span class="toctext">Example 4: Splitting COLLADA animations</span></a></li>
+                          <li class="toclevel-1"><a href="#Example_5:_Rigid-body_Player_Character"><span class="tocnumber">7</span> <span class="toctext">Example 5: Rigid-body Player Character</span></a></li>
+                          <li class="toclevel-1"><a href="#TSShapeConstructor_Commands"><span class="tocnumber">8</span> <span class="toctext">TSShapeConstructor Commands</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#Miscellaneous"><span class="tocnumber">8.1</span> <span class="toctext">Miscellaneous</span></a>
+                                <ul>
+                                  <li class="toclevel-3"><a href="#dumpShape.28.5Bstring.5D.29"><span class="tocnumber">8.1.1</span> <span class="toctext">dumpShape([string])</span></a></li>
+                                  <li class="toclevel-3"><a href="#saveShape.28string.29"><span class="tocnumber">8.1.2</span> <span class="toctext">saveShape(string)</span></a></li>
+                                </ul>
+                              </li>
+                              <li class="toclevel-2"><a href="#Nodes"><span class="tocnumber">8.2</span> <span class="toctext">Nodes</span></a>
+                                <ul>
+                                  <li class="toclevel-3"><a href="#getNodeCount.28.29"><span class="tocnumber">8.2.1</span> <span class="toctext">getNodeCount()</span></a></li>
+                                  <li class="toclevel-3"><a href="#getNodeIndex.28string.29"><span class="tocnumber">8.2.2</span> <span class="toctext">getNodeIndex(string)</span></a></li>
+                                  <li class="toclevel-3"><a href="#getNodeName.28S32.29"><span class="tocnumber">8.2.3</span> <span class="toctext">getNodeName(S32)</span></a></li>
+                                  <li class="toclevel-3"><a href="#getNodeParentName.28S32.29"><span class="tocnumber">8.2.4</span> <span class="toctext">getNodeParentName(S32)</span></a></li>
+                                  <li class="toclevel-3"><a href="#getNodeChildCount.28string.29"><span class="tocnumber">8.2.5</span> <span class="toctext">getNodeChildCount(string)</span></a></li>
+                                  <li class="toclevel-3"><a href="#getNodeChildName.28string.2C_S32.29"><span class="tocnumber">8.2.6</span> <span class="toctext">getNodeChildName(string, S32)</span></a></li>
+                                  <li class="toclevel-3"><a href="#getNodeObjectCount.28string.29"><span class="tocnumber">8.2.7</span> <span class="toctext">getNodeObjectCount(string)</span></a></li>
+                                  <li class="toclevel-3"><a href="#getNodeObjectName.28string.2C_S32.29"><span class="tocnumber">8.2.8</span> <span class="toctext">getNodeObjectName(string, S32)</span></a></li>
+                                  <li class="toclevel-3"><a href="#getNodeTransform.28string.29"><span class="tocnumber">8.2.9</span> <span class="toctext">getNodeTransform(string)</span></a></li>
+                                  <li class="toclevel-3"><a href="#setNodeTransform.28string.2C_string.2C_.5Bstring.5D.29"><span class="tocnumber">8.2.10</span> <span class="toctext">setNodeTransform(string, string, [string])</span></a></li>
+                                  <li class="toclevel-3"><a href="#renameNode.28string.2C_string.29"><span class="tocnumber">8.2.11</span> <span class="toctext">renameNode(string, string)</span></a></li>
+                                  <li class="toclevel-3"><a href="#addNode.28string.2C_string.2C_.5Bstring.5D.29"><span class="tocnumber">8.2.12</span> <span class="toctext">addNode(string, string, [string])</span></a></li>
+                                  <li class="toclevel-3"><a href="#removeNode.28string.29"><span class="tocnumber">8.2.13</span> <span class="toctext">removeNode(string)</span></a></li>
+                                </ul>
+                              </li>
+                              <li class="toclevel-2"><a href="#Objects"><span class="tocnumber">8.3</span> <span class="toctext">Objects</span></a>
+                                <ul>
+                                  <li class="toclevel-3"><a href="#getObjectCount.28.29"><span class="tocnumber">8.3.1</span> <span class="toctext">getObjectCount()</span></a></li>
+                                  <li class="toclevel-3"><a href="#getObjectName.28S32.29"><span class="tocnumber">8.3.2</span> <span class="toctext">getObjectName(S32)</span></a></li>
+                                  <li class="toclevel-3"><a href="#getObjectNode.28string.29"><span class="tocnumber">8.3.3</span> <span class="toctext">getObjectNode(string)</span></a></li>
+                                  <li class="toclevel-3"><a href="#setObjectNode.28string.2C_string.29"><span class="tocnumber">8.3.4</span> <span class="toctext">setObjectNode(string, string)</span></a></li>
+                                  <li class="toclevel-3"><a href="#renameObject.28string.2C_string.29"><span class="tocnumber">8.3.5</span> <span class="toctext">renameObject(string, string)</span></a></li>
+                                  <li class="toclevel-3"><a href="#removeObject.28string.29"><span class="tocnumber">8.3.6</span> <span class="toctext">removeObject(string)</span></a></li>
+                                </ul>
+                              </li>
+                              <li class="toclevel-2"><a href="#Meshes"><span class="tocnumber">8.4</span> <span class="toctext">Meshes</span></a>
+                                <ul>
+                                  <li class="toclevel-3"><a href="#getMeshCount.28string.29"><span class="tocnumber">8.4.1</span> <span class="toctext">getMeshCount(string)</span></a></li>
+                                  <li class="toclevel-3"><a href="#getMeshname.28string.2C_S32.29"><span class="tocnumber">8.4.2</span> <span class="toctext">getMeshname(string, S32)</span></a></li>
+                                  <li class="toclevel-3"><a href="#setMeshSize.28string.2C_S32.29"><span class="tocnumber">8.4.3</span> <span class="toctext">setMeshSize(string, S32)</span></a></li>
+                                  <li class="toclevel-3"><a href="#getMeshType.28string.29"><span class="tocnumber">8.4.4</span> <span class="toctext">getMeshType(string)</span></a></li>
+                                  <li class="toclevel-3"><a href="#setMeshType.28string.2C_string.29"><span class="tocnumber">8.4.5</span> <span class="toctext">setMeshType(string, string)</span></a></li>
+                                  <li class="toclevel-3"><a href="#getMeshMaterial.28string.29"><span class="tocnumber">8.4.6</span> <span class="toctext">getMeshMaterial(string)</span></a></li>
+                                  <li class="toclevel-3"><a href="#setMeshMaterial.28string.2C_string.29"><span class="tocnumber">8.4.7</span> <span class="toctext">setMeshMaterial(string, string)</span></a></li>
+                                  <li class="toclevel-3"><a href="#addMesh.28string.2C_string.2C_string.29"><span class="tocnumber">8.4.8</span> <span class="toctext">addMesh(string, string, string)</span></a></li>
+                                  <li class="toclevel-3"><a href="#removeMesh.28string.29"><span class="tocnumber">8.4.9</span> <span class="toctext">removeMesh(string)</span></a></li>
+                                </ul>
+                              </li>
+                              <li class="toclevel-2"><a href="#AutoBillboards"><span class="tocnumber">8.5</span> <span class="toctext">AutoBillboards</span></a>
+                                <ul>
+                                  <li class="toclevel-3"><a href="#addAutoBillboard.28S32.2C_S32.2C_S32.2C_S32.2C_S32.2C_bool.2C_F32.29"><span class="tocnumber">8.5.1</span> <span class="toctext">addAutoBillboard(S32, S32, S32, S32, S32, bool, F32)</span></a></li>
+                                  <li class="toclevel-3"><a href="#removeAutoBillboard.28S32.29"><span class="tocnumber">8.5.2</span> <span class="toctext">removeAutoBillboard(S32)</span></a></li>
+                                </ul>
+                              </li>
+                              <li class="toclevel-2"><a href="#Sequences"><span class="tocnumber">8.6</span> <span class="toctext">Sequences</span></a>
+                                <ul>
+                                  <li class="toclevel-3"><a href="#getSequenceCount.28.29"><span class="tocnumber">8.6.1</span> <span class="toctext">getSequenceCount()</span></a></li>
+                                  <li class="toclevel-3"><a href="#getSequenceIndex.28S32.29"><span class="tocnumber">8.6.2</span> <span class="toctext">getSequenceIndex(S32)</span></a></li>
+                                  <li class="toclevel-3"><a href="#getSequenceName.28S32.29"><span class="tocnumber">8.6.3</span> <span class="toctext">getSequenceName(S32)</span></a></li>
+                                  <li class="toclevel-3"><a href="#getSequenceSource.28S32.29"><span class="tocnumber">8.6.4</span> <span class="toctext">getSequenceSource(S32)</span></a></li>
+                                  <li class="toclevel-3"><a href="#getSequenceFrameCount.28string.29"><span class="tocnumber">8.6.5</span> <span class="toctext">getSequenceFrameCount(string)</span></a></li>
+                                  <li class="toclevel-3"><a href="#getSequencePriority.28string.29"><span class="tocnumber">8.6.6</span> <span class="toctext">getSequencePriority(string)</span></a></li>
+                                  <li class="toclevel-3"><a href="#setSequencePriority.28string.2C_F32.29"><span class="tocnumber">8.6.7</span> <span class="toctext">setSequencePriority(string, F32)</span></a></li>
+                                  <li class="toclevel-3"><a href="#getSequenceCyclic.28string.29"><span class="tocnumber">8.6.8</span> <span class="toctext">getSequenceCyclic(string)</span></a></li>
+                                  <li class="toclevel-3"><a href="#setSequenceCyclic.28string.2C_bool.29"><span class="tocnumber">8.6.9</span> <span class="toctext">setSequenceCyclic(string, bool)</span></a></li>
+                                  <li class="toclevel-3"><a href="#getSequenceBlend.28string.29"><span class="tocnumber">8.6.10</span> <span class="toctext">getSequenceBlend(string)</span></a></li>
+                                  <li class="toclevel-3"><a href="#setSequenceBlend.28string.2C_bool.2C_string.2C_S32.29"><span class="tocnumber">8.6.11</span> <span class="toctext">setSequenceBlend(string, bool, string, S32)</span></a></li>
+                                  <li class="toclevel-3"><a href="#getSequenceGroundSpeed.28string.29"><span class="tocnumber">8.6.12</span> <span class="toctext">getSequenceGroundSpeed(string)</span></a></li>
+                                  <li class="toclevel-3"><a href="#setSequenceGroundSpeed.28string.2C_string.2C_.5Bstring.5D.29"><span class="tocnumber">8.6.13</span> <span class="toctext">setSequenceGroundSpeed(string, string, [string])</span></a></li>
+                                  <li class="toclevel-3"><a href="#renameSequence.28string.2C_string.29"><span class="tocnumber">8.6.14</span> <span class="toctext">renameSequence(string, string)</span></a></li>
+                                  <li class="toclevel-3"><a href="#addSequence.28string.2C_string.2C_.5BS32.5D.2C_.5BS32.5D"><span class="tocnumber">8.6.15</span> <span class="toctext">addSequence(string, string, [S32], [S32]</span></a></li>
+                                  <li class="toclevel-3"><a href="#removeSequence.28string.29"><span class="tocnumber">8.6.16</span> <span class="toctext">removeSequence(string)</span></a></li>
+                                  <li class="toclevel-3"><a href="#getTriggerCount.28string.29"><span class="tocnumber">8.6.17</span> <span class="toctext">getTriggerCount(string)</span></a></li>
+                                  <li class="toclevel-3"><a href="#getTrigger.28string.29"><span class="tocnumber">8.6.18</span> <span class="toctext">getTrigger(string)</span></a></li>
+                                  <li class="toclevel-3"><a href="#addTrigger.28string.2C_S32.2C_S32.29"><span class="tocnumber">8.6.19</span> <span class="toctext">addTrigger(string, S32, S32)</span></a></li>
+                                  <li class="toclevel-3"><a href="#removeTrigger.28string.2C_S32.2C_S32.29"><span class="tocnumber">8.6.20</span> <span class="toctext">removeTrigger(string, S32, S32)</span></a></li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">9</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p><b>IMPORTANT NOTE</b>: All declarations of TSShapeConstructor should use the singleton keyword instead of the datablock keyword which was used in the past. </p>
+                <p><br />
+                  TSShapeConstructor is a special object used to modify a DTS or COLLADA shape model after is has been loaded by Torque, but before it is used by any other object. It is often used to share animations from DSQ files between shapes with a common skeleton, or to gain access to the inner details of a shape. </p>
+                  <p><br />This document describes extensions to TSShapeConstructor which allow dynamic modification of a loaded 3space shape such as adding and manipulating nodes, geometry and sequences. Torque 3D also includes an in-engine tool called Shape Editor which provides a visual means of creating and editing TSShapeConstructor objects. Additional functionality can be added by defining an 'onLoad' TorqueScript function which is called when the TSShapeConstructor object is loaded.</p>
+                <p><br />
+                  It may also be used to correct a model that is missing
+                  the nodes and/or sequences required to function as a particular Torque
+                  object. A model used for a Player character, for example, should have an
+                  eye and a cam node, but these might not be present in a model not
+                  specifically created for Torque. TSShapeConstructor allows the missing
+                  nodes to be added and positioned so that the shape does not need to be
+                  re-worked or re-exported by an artist. </p>
+                <p><br />
+                  To use TSShapeConstructor, simply create a TorqueScript
+                  file in the same folder as your DTS or COLLADA model, with the same
+                  filename but .cs extension. For example, if your model file was called
+                  myShape.dts, you would create a file called myShape.cs. Edit this file
+                  with a text editor to define the TSShapeConstructor object and specify
+                  any operations to apply to the model after it has been loaded. </p>
+                <p><br />
+                  When Torque loads a DTS (.dts) or COLLADA (.dae) file, it
+                  first looks in the same folder for a TorqueScript file with the same
+                  filename (but .cs extension) in order to create the TSShapeConstructor
+                  object. Such scripts are executed automatically by Torque 3D, so there
+                  is no need to manually call exec("myShape.cs") from another script.
+                    You should avoid adding other object and datablock declarations
+                  to this script because it will be executed every time the model is
+                  loaded, which may cause unexpected results. </p>
+                <p><br />
+                  After Torque has loaded the model from the DTS or COLLADA 
+                    file, it executes the TSShapeConstructor onLoad method to apply the defined changes to the shape. It should be noted that the
+                  changes are applied to the loaded model <i>in memory</i> rather than to the DTS or COLLADA file itself. This means the model can
+                  be re-exported to DTS or COLLADA without overwriting the
+                  TSShapeConstructor changes. TSShapeConstructor should be thought of as
+                  a post-export processing step, and is intended to be used alongside
+                  existing object and datablock setups. </p>
+                <p><br />
+                  TSShapeConstructor also includes features to aid in loading
+                  COLLADA models. Specifically, it allows the &lt;up_axis&gt; and
+                  &lt;unit&gt; elements to be overridden, and can also apply a custom prefix to the names of COLLADA materials as shown below.
+                  Prefixing material names is useful to avoid name clashes, particularly
+                  for 3D apps like Google SketchUp that export models with generic
+                  material names like "material0". </p>
+                <p><br />
+                  <i><b>Code Sample 1</b></i> </p>
+                <pre>singleton TSShapeConstructor(MyShapeDae)
+{
+   baseShape = "./myShape.dae";
+   upAxis = "DEFAULT";          // use &lt;up_axis&gt; defined in myShape.dae
+   unit = "1.0";                // override &lt;unit&gt; to be 1.0
+   matNamePrefix = "";          // no prefix applied to collada materials
+};
+
+singleton TSShapeConstructor(MyShape2Dae)
+{
+   baseShape = "./myShape2.dae";
+   upAxis = "Y_AXIS";           // override &lt;up_axis&gt; to be Y_AXIS
+   unit = -1;                   // use &lt;unit&gt; defined in myShape2.dae
+   matNamePrefix = "myShape2_"; // prefix all collada material names with "myShape2_"
+}
+</pre>
+                <p><br />
+                  The name of the TSShapeConstructor object (MyShapeDae and
+                  MyShape2Dae in the code sample above) is up to you, but you should
+                  choose a name that does not conflict with other objects or datablocks.
+                  A common convention for TSShapeConstructor objects is to use the name of the
+                  shape file as the object name. </p>
+                <p><br />
+                  Note that DSQ sequences may still be specified within the TSShapeConstructor object as normal: </p>
+                <p><br />
+                  <i><b>Code Sample 2</b></i> </p>
+                <pre>singleton TSShapeConstructor(PlayerDts)
+{
+   baseShape = "./player.dts";
+   sequence = "~/data/shapes/players/animations/player_root.dsq root";
+   sequence = "~/data/shapes/players/animations/player_forward.dsq run";
+};
+
+function PlayerDts::onLoad(%this)
+{
+   %this.addMesh("cube", "bounds", "Col-1");      // collision mesh
+   %this.addSequence("walk", "walk_short", 1, 5); // add subsequence
+   %this.addTrigger("walk_short", 3, 4);          // add trigger to sequence
+   %this.renameSequence("walk", "walk_long");     // rename sequence
+   %this.renameNode("Bip Pelvis", "pelvis");      // rename node
+   %this.addNode("mount5", "Bip L Hand");         // add a new node
+   %this.dumpShape();                             // dump shape to console
+}
+</pre><br />
+                <a name="Terminology" id="Terminology"></a>
+                <h2> <span class="mw-headline">Terminology</span></h2>
+                <p>A shape is made up of the following primitives: </p>
+                <ul>
+                  <li><b>node</b>: A node is a place-holder for transform (position
+                    and rotation) information. Nodes are arranged in a parent/child
+                    hierarchy allowing complex skeleton structures to be built up. </li>
+                  <li><b>object</b>: An object is a collection of meshes, each at a
+                    different detail level. Each object is attached to a certain node, and
+                    is rendered at that nodes current transform. </li>
+                  <li><b>mesh</b>: A mesh is a piece of geometry, and may be a
+                    rigid body or a skin (vertex weighted mesh). Each mesh is associated
+                    with an object and a certain detail level. </li>
+                  <li><b>sequence</b>: A sequence is a set of keyframed node transforms and object states (eg. visibility). </li>
+                </ul><br /><br />
+                <a name="Example_1:_Adding_a_Collision_Mesh_To_an_Existing_Shape" id="Example_1:_Adding_a_Collision_Mesh_To_an_Existing_Shape"></a>
+                <h2> <span class="mw-headline">Example 1: Adding a Collision Mesh To an Existing Shape</span></h2>
+                <p>Imagine you have a model that you want to add to the scene as a
+                  StaticShape, but it is missing a collision mesh. TSShapeConstructor
+                  makes it simple to modify an existing DTS shape to add a collision (or
+                  line-of-sight collision) mesh. </p>
+                <p><br />
+                  First, define the StaticShapeData datablock as normal.
+                  Create a script called myShape.cs in the art/datablocks folder, and
+                  define the datablock: </p>
+                <p><br />
+                  <i><b>Code Sample 3</b></i> </p>
+                <pre>datablock StaticShapeData(MyShapeData)
+{
+   category = "Misc";
+   shapeFile = "art/shapes/myShape/myShape.dts";
+};
+</pre>
+                <p>We need to tell Torque to execute this script, so add exec("./myShape.cs"); to art/datablocks/datablockExec.cs. </p>
+                <p><br />
+                  Now we define the TSShapeConstructor object by adding the
+                  following script to a file called myShape.cs in the art/shapes/myShape
+                  folder: </p>
+                <p><i><b>Code Sample 4</b></i> </p>
+                <pre>singleton TSShapeConstructor(MyShapeDts)
+{
+   baseShape = "~/data/shapes/myShape/myShape.dts";
+};
+
+function MyShapeDts::onLoad(%this)
+{
+   %this.addMesh("cube", "bounds", "Col-1");
+}
+</pre>
+                <p><br />
+                  This script will add a cube mesh with the same center and
+                  dimensions as the original model using the "Col" detail level at size
+                  -1. The negative detail size means that the cube mesh will not be
+                  rendered in-game, and the use of the special "Col" name means that this
+                  mesh will be detected as a collision mesh by the Torque engine. See the function 
+                    reference at the end of this document for more details on addMesh.</p>
+                <p><br />
+                  When a Torque mission is started, the following steps occur: </p>
+                <ol>
+                  <li> On the server, Torque executes art/datablocks/datablockExec.cs, which in turn executes art/datablocks/myShape.cs </li>
+                  <li> Executing art/datablocks/myShape.cs causes the MyShapeData datablock to attempt to load the DTS file </li>
+                  <li> Before loading the DTS file, Torque notices andexecutes art/shapes/myShape/myShape.cs, which creates the TSShapeConstructor object </li>
+                  <li> After loading the DTS file, Torque executes MyShapeDts::onLoad, which adds the collision mesh to the shape </li>
+                  <li> The StaticShape object can now be added to the scene (it will
+                    appear in the world editor (in the "Misc" category under the
+                    Library/Scripted tab) </li>
+                </ol><br /><br />
+                <a name="Example_2:__Adding_a_Mesh_From_an_Existing_DTS_File" id="Example_2:__Adding_a_Mesh_From_an_Existing_DTS_File"></a>
+                <h2> <span class="mw-headline">Example 2:  Adding a Mesh From an Existing DTS File</span></h2>
+                <p>The image below shows a boulder.dts shape in the Torque Show Tool
+                  Pro (TSTPro). The circled items indicate the geometry and material that
+                  will be copied into a different shape using TSShapeConstructor. </p>
+                <p><br />
+                  <img alt="Image:ShapeConSample.jpg‎" src="images/ShapeConSample.jpg" border="0" width="504" height="514" /> </p>
+                <p><br />
+                  The following shows how to include the boulder1 mesh in another shape: </p>
+                <p><br />
+                  <i><b>Code Sample 5</b></i> </p>
+                <pre>singleton TSShapeConstructor(TestShapeDts)
+{
+   baseShape = "~/data/shapes/rocks/rock1.dts";
+};
+</pre>
+                <p>function TestShapeDts::onLoad(%this)
+                  { </p>
+                <pre>  %this.addMesh("~/data/shapes/rocks/boulder.dts", "boulder1", "test128");
+  %this.dumpShape();
+</pre>
+                <p>} </p>
+                <p>The output of the dumpShape command is shown below.
+                    The detail level referenced in the output refers to the size the object must be on the screen 
+                    before the specific mesh will be rendered. A mesh with a negative detail level 
+                    is not rendered.</p>
+                <pre>Shape Hierarchy:
+
+   Details:
+      detail128, Subtree 0, objectDetail 0, size 128
+      detail2, Subtree 0, objectDetail 1, size 2
+      collision-1, Subtree 0, objectDetail 2, size -1
+
+   Subtrees:
+      Subtree 0
+         Rock2 --&gt; Object Rock with following details:  2
+               --&gt; Object test with following details:  128
+         col-1 --&gt; Object col with following details:  -1
+
+   Sequences:
+
+   Material list:
+   material #0: 'rock2'.
+   material #1: 'MossyRock02'.
+</pre>
+                <p>Note that the new detail ("detail128"), object ("test") and material
+                  ("MossyRock02") have been added to the normal rock1.dts shape. </p><br /><br />
+                <a name="Example_3:_Auto-loading_animations" id="Example_3:_Auto-loading_animations"></a>
+                <h2> <span class="mw-headline">Example 3: Auto-loading animations</span></h2>
+                <p>Instead of manually specifying all of the animations to load, its
+                  easy to write some TorqueScript that will scan a folder for any
+                  matching animations and add them to the shape automatically. This example uses the addSequence function, and demonstrates the flexibility and power of TSShapeConstructor.</p>
+                <p><br />
+                  <i><b>Code Sample 6</b></i> </p>
+                <pre>singleton TSShapeConstructor(ForgeSoldierDts)
+{
+   baseShape = "~/data/shapes/actors/ForgeSoldier/ForgeSolder.dts";
+};
+
+function ForgeSoldierDts::onLoad(%this)
+{
+   AddAnimations(%this);
+}
+
+function AddAnimations(%shape)
+{
+   // Scan for all player_*.dsq files and add the animations to the shape.
+   // Sequence names are taken from the base name of the dsq file. eg.
+   // player_run.dsq would add a sequence called 'run'.
+
+   %filePatterns = "art/shapes/actors/animations/player_*.dsq";
+   %fullPath = findFirstFileMultiExpr(%filePatterns);
+   while (%fullPath !$= "")
+   {
+      // add this animation to the shape
+      %fullPath = makeRelativePath(%fullPath, getMainDotCSDir());
+      %seq_name = strreplace(filebase(%fullPath), "player_", "");
+      %shape.addSequence(%fullpath, %seq_name);
+      %fullPath = findNextFileMultiExpr(%filePatterns);
+   }
+}
+</pre><br />
+                <a name="Example_4:_Splitting_COLLADA_animations" id="Example_4:_Splitting_COLLADA_animations"></a>
+                <h2> <span class="mw-headline">Example 4: Splitting COLLADA animations</span></h2>
+                <p>Many COLLADA exporters do not support the &lt;animation_clip&gt;
+                  element, meaning that animated models imported into Torque appear to
+                  have only a single sequence containing all of the animations.
+                  If you know the keyframe ranges used in the individual animations, TSShapeConstructor can be used to split this combined animation into individual sequences. This is most easily done using the Shape Editor tool, but can be done manually by specifying the source sequence name, new sequence name, start and end keyframes as follows:</p>
+                <p><br />
+                  <i><b>Code Sample 7</b></i> </p>
+                <pre>singleton TSShapeConstructor(PlayerModelDts)
+{
+   baseShape = "~/data/shapes/collada/myPlayer.dae";
+};
+
+function PlayerModelDts::onLoad(%this)
+{
+   // Split animations from combined "ambient" sequence
+   %this.addSequence("ambient", "root", 0, 15);
+   %this.addSequence("ambient", "run", 16, 40);
+   %this.addSequence("ambient", "back", 41, 55);
+   %this.addSequence("ambient", "side", 56, 70);
+   %this.addSequence("ambient", "death0", 80, 120);
+
+   // Remove combined "ambient" sequence =&gt; we don't need it anymore
+   %this.removeSequence("ambient");
+}
+</pre><br />
+                <a name="Example_5:_Rigid-body_Player_Character" id="Example_5:_Rigid-body_Player_Character"></a>
+                <h2> <span class="mw-headline">Example 5: Rigid-body Player Character</span></h2>
+                <p>Using the addNode and addMesh functions, it is possible to create a rigid-body (ie. non-skinned) player model compatible with the default animations, completely from TorqueScript. This is extremely powerful, and demonstrates the full range of functionality available.</p>
+                <p><br />
+                  The default player skeleton node transforms were obtained
+                  by adding the following code to the TSShapeConstructor onLoad function
+                  for a shape that already contained the default skeleton: </p>
+                <p><br />
+                  <i><b>Code Sample 8</b></i> </p>
+                <pre>%count = %this.getNodeCount();
+for (%i = 0; %i &lt; %count; %i++)
+{
+   %name = %this.getNodeName(%i);
+   echo("%shape.addNode(\"" @ %name @ "\", \"" @ %this.getNodeParentName(%name) @ "\", \"" @
+         %this.getNodeTransform(%name) @ "\");");
+}
+</pre>
+                <p>The contents of the console can then be copied and pasted into a new
+                  script. The script below shows the player model creation process: first
+                  pick a dummy dts file (rock1.dts in this case), and delete its existing
+                  nodes and meshes. Then create the default player skeleton. Finally,
+                  some cube meshes are added at certain nodes to build up a rigid-body
+                  player character. </p>
+                <p><br />
+                  <i><b>Code Sample 9</b></i> </p>
+                <pre>// Create the default Torque skeleton (compatible with the default player animations)
+function CreateDefaultSkeleton(%shape)
+{
+   %shape.addNode("Bip01 Pelvis",      "",                  
+      "-8.10647e-005 8.34974e-006 1.28118 0.00147092 0.999914 0.000312013 1.50833");
+  
+   %shape.addNode("Bip01 Spine",       "Bip01 Pelvis",      
+      "0.117738 -0.000117005 0.00695224 0.995531 0 0.054662 0.178899");
+  
+   %shape.addNode("Bip01 Spine1",      "Bip01 Spine",       
+      "0.149188 -0.000154936 5.87594e-006 0.158383 0.207314 0.965104 0.285376");
+  
+   %shape.addNode("Bip01 Spine2",      "Bip01 Spine1",      
+      "0.202462 -0.000162536 2.93078e-005 0.731516 -0.35723 -0.579706 0.251143");
+  
+   %shape.addNode("Bip01 Neck",        "Bip01 Spine2",      
+      "0.209867 -4.86846e-005 -2.05922e-005 -0.926274 0.0899337 -0.365008 0.431595");
+  
+   %shape.addNode("Bip01 Head",        "Bip01 Neck",        
+      "0.067264 -6.98505e-009 -6.66524e-009 -0.139433 0.872649 -0.450268 0.089769");
+  
+   %shape.addNode("Eye",               "Bip01 Head",        
+      "0.180021 0.33282 -0.00125568 -0.0139777 -0.999387 0.030751 1.57784");
+  
+   %shape.addNode("Bip01 L Clavicle",  "Bip01 Neck",        
+      "0.0059334 0.0332864 0.0795624 -0.632128 -0.230228 -0.739819 2.58923");
+  
+   %shape.addNode("Bip01 L UpperArm",  "Bip01 L Clavicle",  
+      "0.358891 -1.27006e-008 1.34618e-007 0.300944 -0.93298 0.197112 1.51847");
+  
+   %shape.addNode("Bip01 L Forearm",   "Bip01 L UpperArm",  
+      "0.395474 -1.37648e-008 1.96789e-008 0 0 0.999871 0.850149");
+  
+   %shape.addNode("Bip01 L Hand",      "Bip01 L Forearm",   
+      "0.363508 3.95569e-008 3.80099e-008 -0.975012 -0.0676349 0.211535 3.8945");
+  
+   %shape.addNode("Bip01 R Clavicle",  "Bip01 Neck",        
+      "-0.00593357 -0.0331793 -0.0795624 0.631473 -0.0957054 -0.769459 3.0916");
+  
+   %shape.addNode("Bip01 R UpperArm",  "Bip01 R Clavicle",  
+      "0.358891 -1.02138e-008 1.01681e-007 0.594451 0.803854 -0.017401 1.47305");
+  
+   %shape.addNode("Bip01 R Forearm",   "Bip01 R UpperArm",  
+      "0.395474 6.19864e-008 1.31302e-008 0 0 0.999951 1.88239");
+  
+   %shape.addNode("Bip01 R Hand",      "Bip01 R Forearm",   
+      "0.363508 1.03579e-008 -1.18848e-008 -0.976003 -0.105148 0.190568 1.71108");
+  
+   %shape.addNode("mount0",            "Bip01 R Hand",      
+      "0.192386 0.0479768 0.000897807 0.0616579 0.0736096 0.995312 1.76131");
+  
+   %shape.addNode("mount2",            "Bip01 Spine2",      
+      "0.101603 -0.255502 0.00682753 0.0431623 -0.998124 -0.0431623 1.57267");
+  
+   %shape.addNode("mount1",            "Bip01 Spine2",      
+      "0.101603 -0.255502 0.00682756 0.0431623 -0.998124 -0.0431623 1.57267");
+  
+   %shape.addNode("Bip01 L Thigh",     "Bip01 Spine",       
+      "-0.117582 -0.0342993 0.1847 -0.227865 -0.966002 -0.121932 3.27836");
+  
+   %shape.addNode("Bip01 L Calf",      "Bip01 L Thigh",     
+      "0.567764 2.88694e-008 -2.61884e-009 0 0 0.999795 0.784881");
+  
+   %shape.addNode("Bip01 L Foot",      "Bip01 L Calf",      
+      "0.659264 6.37417e-009 5.70856e-009 -0.0798252 0.398941 -0.913186 0.331842");
+  
+   %shape.addNode("Ski0",              "Bip01 L Foot",      
+      "0.587469 -0.0426512 -0.0990439 0.750521 0.554827 0.358877 1.9778");
+  
+   %shape.addNode("Bip01 R Thigh",     "Bip01 Spine",       
+      "-0.117896 0.0347 -0.198562 -0.134559 -0.982239 0.130533 2.9039");
+  
+   %shape.addNode("Bip01 R Calf",      "Bip01 R Thigh",     
+      "0.567764 8.48371e-010 1.88575e-009 0 0 0.999915 0.836729");
+  
+   %shape.addNode("Bip01 R Foot",      "Bip01 R Calf",      
+      "0.659264 -3.34983e-008 -2.20877e-008 0.0784375 -0.241304 -0.967069 0.567876");
+  
+   %shape.addNode("Ski1",              "Bip01 R Foot",      
+      "0.600815 -0.0369749 0.0998079 -0.352371 -0.698146 -0.62318 3.91937");
+  
+   %shape.addNode("Unlink",            "",                  
+      "-0.00586435 -0.000234549 0.056661 -0.579417 -0.577691 -0.574872 2.09521");
+  
+   %shape.addNode("Cam",               "Unlink",            
+      "0.237214 2.06536 -0.00742381 0.999942 -0.00266823 -0.00189359 1.57655");
+}
+
+// Create a new cube mesh, then attach it to the specified node
+function CreateCubeObject(%shape, %name, %node, %size)
+{
+   %shape.addMesh("cube", %size, %name @ "2");
+   %shape.setObjectNode(%name, %node);
+}
+
+// Create a simple (rigid) player model using boxes for body parts
+function CreateRigidPlayer(%shape)
+{
+   CreateCubeObject(%shape, "head",             "Eye",               "0.2 0.2 0.3");
+
+   CreateCubeObject(%shape, "upper_torso",      "Bip01 Spine2",      "0.3 0.2 0.4");
+   CreateCubeObject(%shape, "lower_torso",      "Bip01 Spine",       "0.3 0.2 0.35");
+
+   CreateCubeObject(%shape, "left_thigh",       "Bip01 L Thigh",     "0.5 0.2 0.2 0.25 0 0");
+   CreateCubeObject(%shape, "left_leg",         "Bip01 L Calf",      "0.4 0.2 0.2 0.25 0 0");
+   CreateCubeObject(%shape, "left_foot",        "Bip01 L Foot",      "0.2 0.2 0.2");
+
+   CreateCubeObject(%shape, "right_thigh",      "Bip01 R Thigh",     "0.5 0.2 0.2 0.25 0 0");
+   CreateCubeObject(%shape, "right_leg",        "Bip01 R Calf",      "0.4 0.2 0.2 0.25 0 0");
+   CreateCubeObject(%shape, "right_foot",       "Bip01 R Foot",      "0.2 0.2 0.2");
+
+   CreateCubeObject(%shape, "left_upper_arm",   "Bip01 L UpperArm",  "0.3 0.15 0.15 0.15 0 0");
+   CreateCubeObject(%shape, "left_forearm",     "Bip01 L Forearm",   "0.2 0.15 0.15 0.1 0 0");
+   CreateCubeObject(%shape, "left_hand",        "Bip01 L Hand",      "0.15 0.15 0.15");
+
+   CreateCubeObject(%shape, "right_upper_arm",  "Bip01 R UpperArm",  "0.3 0.15 0.15 0.15 0 0");
+   CreateCubeObject(%shape, "right_forearm",    "Bip01 R Forearm",   "0.2 0.15 0.15 0.1 0 0");
+   CreateCubeObject(%shape, "right_hand",       "Bip01 R Hand",      "0.15 0.15 0.15");
+
+   // create collision mesh
+   %shape.addMesh("cube", "bounds", "Col-1");
+}
+
+singleton TSShapeConstructor(TestModelDts)
+{
+   baseShape = "~/data/shapes/rocks/rock1.dts";
+};
+
+function TestModelDts::onLoad(%this)
+{
+   // remove the existing nodes and geometry so we start with a blank shape
+   %count = %this.getObjectCount();
+   for (%i = %count-1; %i &gt;= 0; %i--)
+      %this.removeObject(%this.getObjectName(%i));
+   %count = %this.getNodeCount();
+   for (%i = %count-1; %i &gt;= 0; %i--)
+      %this.removeNode(%this.getNodeName(%i));
+
+   // create the player skeleton and rigid body parts
+   CreateDefaultSkeleton(%this);
+   CreateRigidPlayer(%this);
+
+   // now load the default sequences
+   %this.addSequence("~/data/shapes/players/animations/player_root.dsq",    "root");
+   %this.addSequence("~/data/shapes/players/animations/player_forward.dsq", "run");
+
+   %this.dumpShape();
+}
+
+// The player model definition
+
+singleton PlayerData(TestModelData : DefaultPlayerData)
+{
+   renderFirstPerson = false;
+   emap = true;
+
+   //className = Armor;
+   shapeFile = "~/data/shapes/rocks/rock1.dts";
+};
+
+PlayerDatasGroup.add(TestModelData);
+</pre><br />
+                <p>This produces the following shape: </p>
+                <pre>Shape Hierarchy:
+
+   Details:
+      detail2, Subtree 0, objectDetail 0, size 2
+      collision-1, Subtree 0, objectDetail 1, size -1
+
+   Subtrees:
+      Subtree 0
+         Bip01 Pelvis --&gt; Object col with following details:  -1
+            Bip01 Spine --&gt; Object lower_torso with following details:  2
+               Bip01 Spine1
+                  Bip01 Spine2 --&gt; Object upper_torso with following details:  2
+                     Bip01 Neck
+                        Bip01 Head
+                           Eye --&gt; Object head with following details:  2
+                        Bip01 L Clavicle
+                           Bip01 L UpperArm --&gt; Object left_upper_arm with following details:  2
+                              Bip01 L Forearm --&gt; Object left_forearm with following details:  2
+                                 Bip01 L Hand --&gt; Object left_Hand with following details:  2
+                        Bip01 R Clavicle
+                           Bip01 R UpperArm --&gt; Object right_upper_arm with following details:  2
+                              Bip01 R Forearm --&gt; Object right_forearm with following details:  2
+                                 Bip01 R Hand --&gt; Object right_hand with following details:  2
+                                    Mount0
+                     Mount2
+                     Mount1
+               Bip01 L Thigh --&gt; Object left_thigh with following details:  2
+                  Bip01 L Calf --&gt; Object left_leg with following details:  2
+                     Bip01 L Foot --&gt; Object left_foot with following details:  2
+                        Ski0
+               Bip01 R Thigh --&gt; Object right_thigh with following details:  2
+                  Bip01 R Calf --&gt; Object right_leg with following details:  2
+                     Bip01 R Foot --&gt; Object right_foot with following details:  2
+                        Ski1
+         Unlink
+            Cam
+
+   Sequences:
+        0: Root (cyclic)
+        1: run (cyclic)
+</pre><br />
+                <a name="TSShapeConstructor_Commands" id="TSShapeConstructor_Commands"></a>
+                <h2> <span class="mw-headline">TSShapeConstructor Commands</span></h2>
+                <a name="Miscellaneous" id="Miscellaneous"></a><br />
+                <h3> <span class="mw-headline">Miscellaneous</span></h3>
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="dumpShape.28.5Bstring.5D.29" id="dumpShape.28.5Bstring.5D.29"></a>
+                        <h4> <span class="mw-headline">dumpShape([string])</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command dumps the shape hierarchy to the console or to a file.
+                          It is useful for reviewing the result of a series of construction
+                          commands.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>dumpShape([string <b>filename</b>]) </p>
+                        <ul>
+                          <li><b>filename</b>: <i>Optional</i>. name of the file to dump the shape hierarchy to. If not specified, the shape hierarchy is dumped to the console.<br />
+                          </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          No return value.<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>%this.dumpShape();		// dump to console
+%this.dumpShape("./dump.txt");	// dump to file</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="saveShape.28string.29" id="saveShape.28string.29"></a>
+                        <h4> <span class="mw-headline">saveShape(string)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command saves the shape to a new DTS file. Handy after modifications via script.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>saveShape(string <b>filename</b>) </p>
+                        <ul>
+                          <li><b>filename</b>: name of the file to write the shape.<br />
+                          </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          No return value.<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>%this.saveShape("./myShape.dts");
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <a name="Nodes" id="Nodes"></a>
+                <h3> <span class="mw-headline">Nodes</span></h3>
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="getNodeCount.28.29" id="getNodeCount.28.29"></a>
+                        <h4> <span class="mw-headline">getNodeCount()</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command returns the total number of nodes in the shape.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>getNodeCount() </p>
+                        <p><br />
+                          <b>Returns</b><br />
+                          S32<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>%count = %this.getNodeCount();
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="getNodeIndex.28string.29" id="getNodeIndex.28string.29"></a>
+                        <h4> <span class="mw-headline">getNodeIndex(string)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command retrieves the index of the named node. If a node with
+                          the specified name cannot be found, the command will return -1.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>getNodeIndex(string <b>node_name</b>); </p>
+                        <ul>
+                          <li><b>node_name</b>: the name of the node to get the index for<br />
+                          </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          S32<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>// get the index of Bip01 Pelvis node in the shape
+%index = %this.getNodeIndex("Bip01 Pelvis");
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="getNodeName.28S32.29" id="getNodeName.28S32.29"></a>
+                        <h4> <span class="mw-headline">getNodeName(S32)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command retrieves the name of the indexed node.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>getNodeName(S32 <b>index</b>); </p>
+                        <ul>
+                          <li><b>index</b>: the index of the node to get (valid range is 0 – (num_nodes-1))<br />
+                          </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          string<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>// print the names of all the nodes in the shape
+%count = %this.getNodeCount();
+for (%i = 0; %i &lt; %count; %i++)
+   echo(%i SPC %this.getNodeName(%i));
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="getNodeParentName.28S32.29" id="getNodeParentName.28S32.29"></a>
+                        <h4> <span class="mw-headline">getNodeParentName(S32)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command retrieves the name of the nodes parent. If the node
+                          has no parent (ie. it is at the root level), this command will return
+                          an empty string.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>getNodeParentName(S32 <b>index</b>); </p>
+                        <ul>
+                          <li><b>node_name</b>: the name of the node to query </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          string<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>echo("Bip01 Pelvis parent = " @ %this.getNodeParentName("Bip01 Pelvis"));
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="getNodeChildCount.28string.29" id="getNodeChildCount.28string.29"></a>
+                        <h4> <span class="mw-headline">getNodeChildCount(string)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command retrieves the name of the nodes parent. If the node
+                          has no parent (ie. it is at the root level), this command will return
+                          an empty string.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>getNodeChildCount(string <b>node_name</b>); </p>
+                        <ul>
+                          <li><b>node_name</b>: the name of the parent node to query </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          S32<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>%count = %this.getNodeChildCount("Bip01 Pelvis");
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="getNodeChildName.28string.2C_S32.29" id="getNodeChildName.28string.2C_S32.29"></a>
+                        <h4> <span class="mw-headline">getNodeChildName(string, S32)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command retrieves the name of the indexed child node. Note that
+                          the indices in this case range from 0 to one less than the value returned by
+                          getNodeChildCount.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>getNodeChildName(string <b>node_name</b>, S32 <b>child_index</b>) </p>
+                        <ul>
+                          <li><b>node_name</b>: the name of the parent node to query </li>
+                          <li><b>child_index</b>: the index of the child node </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          string<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>function dumpNode(%shape, %name, %indent)
+{
+   echo(%indent @ %name);
+   %count = %shape.getNodeChildCount(%name);
+   for (%i = 0; %i &lt; %count; %i++)
+      dumpNode(%shape, %shape.getNodeChildName(%name, %i), %indent @ "   ");
+}
+
+function dumpShape(%shape)
+{
+   // recursively dump node hierarchy
+   %count = %shape.getNodeCount();
+   for (%i = 0; %i &lt; %count; %i++)
+   {
+      // dump top level nodes
+      %name = %shape.getNodeName(%i);
+      if (%shape.getNodeParentName(%name) $= "")
+         dumpNode(%shape, %name, "");
+   }
+}
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="getNodeObjectCount.28string.29" id="getNodeObjectCount.28string.29"></a>
+                        <h4> <span class="mw-headline">getNodeObjectCount(string)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command retrieves the number of objects attached to a node.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>getNodeObjectCount(string <b>node_name</b>) </p>
+                        <ul>
+                          <li><b>node_name</b>: the name of the node to query </li>
+                        </ul>
+                        <pre><br />
+</pre>
+                        <p><b>Returns</b><br />
+                          S32<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>%count = %this.getNodeObjectCount("Bip01 Head");
+                        </pre></td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="getNodeObjectName.28string.2C_S32.29" id="getNodeObjectName.28string.2C_S32.29"></a>
+                        <h4> <span class="mw-headline">getNodeObjectName(string, S32)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to get the name of an object attached to the
+                          node. Note that the object indices range from 0 to the value returned
+                          by getNodeObjectCount.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>getNodeObjectName(string <b>node_name</b>, S32 <b>object_index</b>) </p>
+                        <ul>
+                          <li><b>node_name</b>: the name of the node to query </li>
+                          <li><b>object_index</b>: the index of the object </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          string<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>// print the names of all objects attached to the node
+%count = %this.getNodeObjectCount("Bip01 Head");
+for (%i = 0; %i &lt; %count; %i++)
+   echo(%this.getNodeObjectName("Bip01 Head", %i));
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="getNodeTransform.28string.29" id="getNodeTransform.28string.29"></a>
+                        <h4> <span class="mw-headline">getNodeTransform(string)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to retrieve the base (ie. not animated) transform of a node.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>getNodeTransform(string <b>node_name</b>, [bool <b>isworld</b>]) </p>
+                        <ul>
+                          <li><b>node_name</b>: the name of the node for which to get the transform </li>
+                          <li><b>isworld</b>: <i>Optional</i>. Flag indicating whether to
+                            retrieve the local-to-parent or the global transform. If not specified,
+                            the local-to-parent transform is returned. </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          string </p>
+                        <ul>
+                          <li>"pos.x pos.y pos.z rotaxis.x rotaxis.y rotaxis.z rotangle" </li>
+                        </ul>
+                        <p><br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>%ret = %this.getNodeTransform("mount0");
+%this.setNodeTransform("mount4", %ret);
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="setNodeTransform.28string.2C_string.2C_.5Bstring.5D.29" id="setNodeTransform.28string.2C_string.2C_.5Bstring.5D.29"></a>
+                        <h4> <span class="mw-headline">setNodeTransform(string, string, [string])</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to modify the base transform of a node. That
+                          is, the transform of the node when in the root (not-animated) pose.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>setNodeTransform(string <b>node_name</b>, string <b>px py pz</b>, string [<b>rx ry rz ra</b>], bool [<b>isworld</b>]) </p>
+                        <ul>
+                          <li><b>node_name</b>: the name of the node to modify </li>
+                          <li><b>px py pz</b>: 3 values indicating the new node position </li>
+                          <li><b>rx ry rz ra</b>: <i>Optional</i>. 4 values indicating the
+                            new node orientation. The orientation is specified in axis-angle form.
+                            ie. the axis of rotation and the angle (in radians) to rotate around
+                            that axis. Default is "0 0 1 0". </li>
+                          <li><b>isworld</b>: <i>Optional</i>. Flag indicating whether to
+                            set the local-to-parent or the global transform. If not specified, the
+                            position and orientation are treated as relative to the node's parent. </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          boolean flag indicating success<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>%this.setNodeTransform("mount0", "0 0 1");
+%this.setNodeTransform("mount0", "0 0 0 0 0 1 1.57");
+%this.setNodeTransform("mount0", "1 0 0", true);
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="renameNode.28string.2C_string.29" id="renameNode.28string.2C_string.29"></a>
+                        <h4> <span class="mw-headline">renameNode(string, string)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to rename a node.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>renameNode(string <b>old_name</b>, string <b>new_name</b>) </p>
+                        <ul>
+                          <li><b>old_name</b>: old node name </li>
+                          <li><b>new_name</b>: new name of the node </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          boolean flag indicating success<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>%this.renameNode("Bip01 L Hand", "mount5");
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="addNode.28string.2C_string.2C_.5Bstring.5D.29" id="addNode.28string.2C_string.2C_.5Bstring.5D.29"></a>
+                        <h4> <span class="mw-headline">addNode(string, string, [string])</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to add a new node to the shape. The new node may optionally be added as a child of an existing node.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>addNode(string <b>name</b>, string <b>parent_name</b>, [string <b>px py pz</b> [<b>rx ry rz ra</b>]], [bool <b>isworld</b>]) </p>
+                        <ul>
+                          <li><b>name</b>: the name of the new node – must not be the same as an existing node. </li>
+                          <li><b>parent_name</b>: the name of an existing node to be the
+                            parent of the new node. If empty (""), the new node will be at the root
+                            level of the node hierarchy. </li>
+                          <li><b>px py pz</b>: <i>Optional</i>. 3 values indicating the
+                            position of the new node. Note that this is relative to the parent
+                            nodes transform (or the origin if there is no parent). Default is "0 0
+                            0". </li>
+                          <li><b>rx ry rz ra</b>: <i>Optional</i>. 4 values indicating the
+                            new node orientation (note that this is relative to the parent nodes
+                            transform. The orientation is specified in axis-angle form. ie. the
+                            axis of rotation and the angle (in radians) to rotate around that axis.
+                            Default is "0 0 1 0". </li>
+                          <li><b>isworld</b>: <i>Optional</i>. Flag indicating whether to
+                            set the local-to-parent or the global transform. If not specified, the
+                            position and orientation are treated as relative to the node's parent. </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          boolean flag indicating success<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>%this.addNode("Nose", "Bip01 Head", "0 2 2");
+%this.addNode("myRoot", "", "0 0 4 0 0 1 1.57");
+%this.addNode("Nodes", "Bip01 Head", "0 2 0", true);
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="removeNode.28string.29" id="removeNode.28string.29"></a>
+                        <h4> <span class="mw-headline">removeNode(string)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command removes the named node from the shape, including from
+                          any sequences that use the node. Child nodes and objects attached to
+                          the node are re-assigned to the node's parent. <br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>removeNode(string <b>node_name</b>) </p>
+                        <ul>
+                          <li><b>node_name</b>: the name of the node to remove </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          boolean flag indicating success<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>%this.removeNode("Nose");
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <a name="Objects" id="Objects"></a>
+                <h3> <span class="mw-headline">Objects</span></h3>
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="getObjectCount.28.29" id="getObjectCount.28.29"></a>
+                        <h4> <span class="mw-headline">getObjectCount()</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to get the total number of objects in the shape.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>getObjectCount() <br />
+                          <br />
+                          <b>Returns</b><br />
+                          S32<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>%count = %this.getObjectCount();
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="getObjectName.28S32.29" id="getObjectName.28S32.29"></a>
+                        <h4> <span class="mw-headline">getObjectName(S32)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to get the name of the indexed object.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>getObjectName(S32 <b>index</b>) </p>
+                        <ul>
+                          <li><b>index</b>: the index of the object for which to get the name </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          string<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>// print the names of all objects in the shape
+%count = %this.getObjectCount();
+for (%i = 0; %i &lt; %count; %i++)
+   echo(%i SPC %this.getObjectName(%i));
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="getObjectNode.28string.29" id="getObjectNode.28string.29"></a>
+                        <h4> <span class="mw-headline">getObjectNode(string)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to get the name of the node that an object is
+                          attached to. If the object is not attached to a node (ie. it is at the
+                          root level), this command will return an empty string.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>getObjectNode(string <b>object_name</b>) </p>
+                        <ul>
+                          <li><b>object_name</b>: the name of the object to query </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          string<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>echo("Hand is attached to " @ %this.getObjectNode("Hand"));
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="setObjectNode.28string.2C_string.29" id="setObjectNode.28string.2C_string.29"></a>
+                        <h4> <span class="mw-headline">setObjectNode(string, string)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to set the node that an object is attached to.
+                          When the shape is rendered, the object geometry is rendered at the
+                          nodes current transform. Useful in mounting weapons to<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>setObjectNode(string <b>object_name</b>, string <b>node name</b>) </p>
+                        <ul>
+                          <li><b>object_name</b>: the name of the object to modify </li>
+                          <li><b>node_name</b>: the name of the node to attach the object to </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          boolean flag indicating success<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>%this.setObjectNode("Hand", "Bip01 LeftHand");
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="renameObject.28string.2C_string.29" id="renameObject.28string.2C_string.29"></a>
+                        <h4> <span class="mw-headline">renameObject(string, string)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to rename an object (all detail level meshes for the object will be renamed).<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>renameObject(string <b>old_name</b>, string <b>new_name</b>) </p>
+                        <ul>
+                          <li><b>old_name</b>: old object name </li>
+                          <li><b>new_name</b>: new name of the object </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          boolean flag indicating success<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>%this.renameObject("MyBox", "Box");
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="removeObject.28string.29" id="removeObject.28string.29"></a>
+                        <h4> <span class="mw-headline">removeObject(string)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to remove an object (including all meshes for that object) from the shape.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>removeObject(string <b>object_name</b>) </p>
+                        <ul>
+                          <li><b>object_name</b>: the name of the object to remove </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          boolean flag indicating success<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>// clear all objects in the shape
+%count = %this.getObjectCount();
+for (%i = %count-1; %i &gt;= 0; %i--)
+   %this.removeObject(%this.getObjectName(%i));
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <a name="Meshes" id="Meshes"></a>
+                <h3> <span class="mw-headline">Meshes</span></h3>
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="getMeshCount.28string.29" id="getMeshCount.28string.29"></a>
+                        <h4> <span class="mw-headline">getMeshCount(string)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to get the number of meshes for a given object.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>getMeshCount(string <b>object_name</b>) </p>
+                        <ul>
+                          <li><b>object_name</b>: the name of the object to query </li>
+                        </ul>
+                        <p><b>Returns</b><br />
+                          S32<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>%count = %this.getMeshCount("SimpleShape");
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="getMeshname.28string.2C_S32.29" id="getMeshname.28string.2C_S32.29"></a>
+                        <h4> <span class="mw-headline">getMeshname(string, S32)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to get the name of the indexed mesh within a
+                          given object. Mesh names are of the form:
+                          &lt;object_name&gt;&lt;detail_size&gt;. eg. SimpleShape128 is the mesh
+                          with detail size 128 for the SimpleShape object.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>getMeshName(string <b>object_name</b>, S32 <b>index</b>) </p>
+                        <ul>
+                          <li><b>object_name</b>: the name of the object to query </li>
+                          <li><b>index</b>: the index of the mesh for which to get the name </li>
+                        </ul>
+                        <p><b>Returns</b><br />
+                          string<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>// print the names of all meshes in the shape
+%objCount = %this.getObjectCount();
+for (%i = 0; %i &lt; %objCount; %i++)
+{
+   %objName = %this.getObjectName(%i);
+   %meshCount = %this.getMeshCount(%objName);
+   for (%j = 0; %j &lt; %meshCount; %j++)
+      echo(%this.getMeshName(%objName, %j));
+}
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="setMeshSize.28string.2C_S32.29" id="setMeshSize.28string.2C_S32.29"></a>
+                        <h4> <span class="mw-headline">setMeshSize(string, S32)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to change the detail size of a mesh.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>setMeshSize(string <b>mesh_name</b>, S32 <b>new_size</b>) </p>
+                        <ul>
+                          <li><b>mesh_name</b>: the name of the mesh </li>
+                          <li><b>new_size</b>: new size for the mesh </li>
+                        </ul>
+                        <p><b>Returns</b><br />
+                          boolean flag indicating success<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>%this.setMeshSize("SimpleShape128", 64);
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="getMeshType.28string.29" id="getMeshType.28string.29"></a>
+                        <h4> <span class="mw-headline">getMeshType(string)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to retrieve the type of a particular mesh. The returned value is one of: </p>
+                        <ol>
+                          <li> normal: a normal 3D mesh </li>
+                          <li> billboard: a mesh that always faces the camera </li>
+                          <li> billboardzaxis: a mesh that always faces the camera in the Z-axis </li>
+                        </ol>
+                        <p><br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>getMeshType(string <b>mesh_name</b>) </p>
+                        <ul>
+                          <li><b>mesh_name</b>: the name of the mesh to query </li>
+                        </ul>
+                        <p><b>Returns</b><br />
+                          string<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>echo("Mesh type is " @ %this.getMeshType("SimpleShape128"));
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="setMeshType.28string.2C_string.29" id="setMeshType.28string.2C_string.29"></a>
+                        <h4> <span class="mw-headline">setMeshType(string, string)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to set the type of a particular mesh; the type affects how the mesh will be rendered in-game.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>setMeshType(string <b>mesh_name</b>, string <b>mesh_type</b>) </p>
+                        <ul>
+                          <li><b>mesh_name</b>: the name of the mesh to query </li>
+                          <li><b>mesh_type</b>: the new type for the mesh. Must be one of "normal", "billboard" or "billboardzaxis". </li>
+                        </ul>
+                        <p><b>Returns</b><br />
+                          boolean flag indicating success<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>// set the mesh to be a billboard
+%this.setMeshType("SimpleShape64", "billboard");
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="getMeshMaterial.28string.29" id="getMeshMaterial.28string.29"></a>
+                        <h4> <span class="mw-headline">getMeshMaterial(string)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to retrieve the name of the material attached
+                          to a mesh. Note that only the first material used by the mesh is
+                          returned.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>getMeshMaterial(string <b>mesh_name</b>) </p>
+                        <ul>
+                          <li><b>mesh_name</b>: the name of the mesh to query </li>
+                        </ul>
+                        <p><b>Returns</b><br />
+                          string<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>echo("Mesh material is " @ %this.sgetMeshMaterial("SimpleShape128"));
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="setMeshMaterial.28string.2C_string.29" id="setMeshMaterial.28string.2C_string.29"></a>
+                        <h4> <span class="mw-headline">setMeshMaterial(string, string)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to set the name of the material attached to the mesh.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>setMeshMaterial(string <b>mesh_name</b>, string <b>material_name</b>) </p>
+                        <ul>
+                          <li><b>mesh_name</b>: the name of the mesh to query </li>
+                          <li><b>material_name</b>: the new material name. This could be the
+                            base name of the diffuse texture (eg. "test_mat" for "test_mat.jpg"),
+                            or the name of a Material object already defined in script. </li>
+                        </ul>
+                        <p><b>Returns</b><br />
+                          boolean flag indicating success<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>// set the mesh material
+%this.setMeshMaterial("SimpleShape128", "test_mat");
+
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="addMesh.28string.2C_string.2C_string.29" id="addMesh.28string.2C_string.2C_string.29"></a>
+                        <h4> <span class="mw-headline">addMesh(string, string, string)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to add new geometry to the shape. There are two
+                          forms to this command as shown below. The first form copies geometry
+                          from an existing DTS or DAE shape file. The second form generates the
+                          mesh geometry programmatically using a set of predefined geometry
+                          primitives (eg. cube, sphere, cylinder etc). <br />
+                          <br />
+                          When a mesh is copied from an existing shape file, any
+                          materials required by that mesh are also copied into the constructed
+                          shape. <br />
+                          <br />
+                          The Torque engine uses fixed names to extract collision and
+                          line-of-sight (LOS) collision geometry from the shape. When adding this
+                          type of geometry to a shape, it is essential that the mesh_name
+                          parameter be set as shown in the table below: <br />
+                          <br />
+                        </p>
+                        <table border="1" cellpadding="7" cellspacing="0" width="700">
+                          <tbody>
+                            <tr valign="top">
+                              <td bgcolor="#999999" width="62"><b>Geometry type</b></td>
+                              <td bgcolor="#999999" width="335"><b>mesh_name </b></td>
+                            </tr>
+                            <tr valign="top">
+                              <td bgcolor="#e6e6e6" width="62">Normal (visible) </td>
+                              <td bgcolor="#e6e6e6" width="335">any_nameN (where N is &gt; 0) </td>
+                            </tr>
+                            <tr valign="top">
+                              <td bgcolor="#e6e6e6" width="62">Collision </td>
+                              <td bgcolor="#e6e6e6" width="335">ColN (where N is -1 to -8) </td>
+                            </tr>
+                            <tr valign="top">
+                              <td bgcolor="#e6e6e6" width="62">LOS Collision </td>
+                              <td bgcolor="#e6e6e6" width="335">LOSColN (where N is -9 to -16) </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p><br />
+                          <br />
+                          If no detail size is present at the end of the name, a value
+                          of 2 is used. An underscore before the number at the end of the name
+                          will be interpreted as a negative sign. eg. "MyMesh_4" will be
+                          interpreted as "MyMesh-4". <br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>addMesh(string <b>shape_filename</b>, string <b>src_mesh</b>, string <b>mesh_name</b>) </p>
+                        <ul>
+                          <li><b>shape_filename</b>: the name of a shape file (DTS or DAE) that contains the geometry for the new detail level </li>
+                          <li><b>src_mesh</b>: the name of the mesh to use for this detail
+                            level (usually the object name followed by the mesh detail size. eg.
+                            SimpleShape128) </li>
+                          <li><b>mesh_name</b>: name of the new mesh, using the form &lt;object_name&gt;&lt;detail_size&gt;. eg. SimpleShape128 </li>
+                        </ul>
+                        <p><br />
+                          <br />
+                          addMesh(string <b>prim_type</b>, string <b>prim_size</b>, string <b>mesh_name</b>) </p>
+                        <ul>
+                          <li><b>prim_type</b>: the type of geometric primitive to use. Currently only "cube" is supported. </li>
+                          <li><b>prim_size</b>: the size and center of the geometric
+                            primitive - either "bounds" or "size.x size.y size.z center.x center.y
+                            center.z" format. The center values are optional (ie. just the size can
+                            be specified and center will default to "0 0 0"). </li>
+                          <li><b>mesh_name</b>: name of the new mesh, using the form &lt;object_name&gt;&lt;detail_size&gt;. eg. SimpleShape128 </li>
+                        </ul>
+                        <p><b>Returns</b><br />
+                          boolean flag indicating success<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>%this.addMesh("./collision.dts", "ColMesh-1", "Col-1");
+%this.addMesh("./testShape.dae", "MyMesh2", "SimpleShape10");
+%this.addMesh("cube", "bounds", "Col-1");
+%this.addMesh("cube", "bounds", "LOSCol-1");
+%this.addMesh("cube", "1 1 1", "SimpleShape2");
+%this.addMesh("cube", "4 4 2 0 0 0", "SimpleShape2");
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="removeMesh.28string.29" id="removeMesh.28string.29"></a>
+                        <h4> <span class="mw-headline">removeMesh(string)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to remove existing geometry from the shape. If
+                          all geometry is removed from an object, the object is also removed from
+                          the shape.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>removeMesh(string <b>mesh_name</b>) </p>
+                        <ul>
+                          <li><b>mesh_name</b>: the name of the mesh to remove </li>
+                        </ul>
+                        <p><b>Returns</b><br />
+                          boolean flag indicating success<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>%this.removeMesh("SimpleShape128");
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <a name="AutoBillboards" id="AutoBillboards"></a>
+                <h3> <span class="mw-headline">AutoBillboards</span></h3>
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="addAutoBillboard.28S32.2C_S32.2C_S32.2C_S32.2C_S32.2C_bool.2C_F32.29" id="addAutoBillboard.28S32.2C_S32.2C_S32.2C_S32.2C_S32.2C_bool.2C_F32.29"></a>
+                        <h4> <span class="mw-headline">addAutoBillboard(S32, S32, S32, S32, S32, bool, F32)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to add an auto-billboard detail level to the
+                          shape. Auto-billboards are special detail levels that render a series
+                          of 'snapshots of an object that always face the camera rather than
+                          actual 3D geometry. They are frequently used for the lowest detail
+                          level of an object.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>addAutoBillboard(S32 <b>size</b>, S32 <b>equator_steps</b>, S32 <b>polar_steps</b>, S32 <b>dl</b>, S32 <b>dim</b>, bool <b>include_poles</b>, F32 <b>polar_angle</b>) </p>
+                        <ul>
+                          <li><b>size</b>: size of the billboard detail level </li>
+                          <li><b>equator_steps</b>: defines the number of snapshots to take
+                            around the equator. Imagine the object being rotated around the
+                            vertical axis, then a snapshot taken at regularly spaced intervals. </li>
+                          <li><b>polar_steps</b>: defines the number of snapshots taken
+                            between the poles, at each equator step. eg. At each equator snapshot,
+                            snapshots are taken at regular intervals between the poles. </li>
+                          <li><b>dl</b>: the detail level to use when generating the
+                            snapshots. Note that this is an array index rather than a detail size.
+                            So if an object has detail sizes of: 200, 150, and 40, then setting dl
+                            to 1 will generate the snapshot using detail size 150. </li>
+                          <li><b>dim</b>: defines the size of the billboard images in
+                            pixels (must be a power of 2: eg. 2, 4, 8, 16….128). The larger the
+                            number, the more detailed the billboard will be. </li>
+                          <li><b>include_poles</b>: flag indicating whether to include the "pole" snapshots. ie. the views from the top and bottom of the object. </li>
+                          <li><b>polar_angle</b>: if pole snapshots are active
+                            (include_poles is true), this parameter defines the camera angle within
+                            which to render the pole snapshot. eg. if polar_angle is set to 25
+                            degrees, then the snapshot taken at the pole (looking directly down or
+                            up at the object) will be rendered when the camera is within 25 degrees
+                            of the pole. </li>
+                        </ul>
+                        <p><b>Returns</b><br />
+                          boolean flag indicating success<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>%this.addAutoBillboard(2, 4, 0, 0, 64, false, 0);
+%this.addAutoBillboard(2, 4, 2, 0, 64, true, 10);
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="removeAutoBillboard.28S32.29" id="removeAutoBillboard.28S32.29"></a>
+                        <h4> <span class="mw-headline">removeAutoBillboard(S32)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to remove an auto-billboard detail level from the shape.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>removeAutoBillboard(S32 <b>size</b>) </p>
+                        <ul>
+                          <li><b>size</b>: the size of the auto-billboard detail level to remove </li>
+                        </ul>
+                        <p><b>Returns</b><br />
+                          boolean flag indicating success<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>%this.removeAutoBillboard(2);
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <a name="Sequences" id="Sequences"></a>
+                <h3> <span class="mw-headline">Sequences</span></h3>
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="getSequenceCount.28.29" id="getSequenceCount.28.29"></a>
+                        <h4> <span class="mw-headline">getSequenceCount()</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to get the total number of animation sequences present in the shape.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>getSequenceCount() <br />
+                        </p>
+                        <p><b>Returns</b><br />
+                          S32<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>%count = %this.getSequenceCount();
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="getSequenceIndex.28S32.29" id="getSequenceIndex.28S32.29"></a>
+                        <h4> <span class="mw-headline">getSequenceIndex(S32)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to get the index of the named sequence. If the sequence does not exist, the command will return -1.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>getSequenceIndex(string <b>sequence_name</b>) </p>
+                        <ul>
+                          <li><b>sequence_name</b>: the name of the sequence to get the index of </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          S32<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>// Check if a given sequence exists in the shape
+if (%this.getSequenceIndex("walk") == -1)
+   echo("Could not find 'walk' sequence");
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="getSequenceName.28S32.29" id="getSequenceName.28S32.29"></a>
+                        <h4> <span class="mw-headline">getSequenceName(S32)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to get the name of the indexed sequence.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>getSequenceName(S32 <b>index</b>) </p>
+                        <ul>
+                          <li><b>index</b>: the index of the sequence for which to get the name </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          string<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>// print the name of all sequences in the shape
+%count = %this.getSequenceCount();
+for (%i = 0; %i &lt; %count; %i++)
+   echo(%i SPC %this.getSequenceName(%i));
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="getSequenceSource.28S32.29" id="getSequenceSource.28S32.29"></a>
+                        <h4> <span class="mw-headline">getSequenceSource(S32)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to get information about where the sequence
+                          data came from, for example, whether it was loaded from an external DSQ
+                          file.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>getSequenceSource(string <b>sequence_name</b>) </p>
+                        <ul>
+                          <li><b>sequence_name</b>: the name of the sequence to retrieve information for </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          The string returned is of the form:<br />
+                        </p>
+                        <p><i>source_data</i> TAB <i>reserved</i> TAB <i>start_frame</i> TAB <i>end_frame</i> TAB <i>total_frames</i><br />
+                        </p>
+                        <p>Where: </p>
+                        <ul>
+                          <li><i>source_data</i>: the source of the animation data, such as
+                            the path to a DSQ file, or the name of an existing sequence in the
+                            shape. Sequences already embedded in DTS or DAE files will use the
+                            sequence name itself in this field. </li>
+                          <li><i>reserved</i>: reserved value </li>
+                          <li><i>start_frame</i>: the first frame in the source sequence used to create this sequence </li>
+                          <li><i>end_frame</i>: the last frame in the source sequence used to create this sequence </li>
+                          <li><i>total_frames</i>: the total number of frames in the source sequence </li>
+                        </ul>
+                        <p><br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>// print the source for the walk animation
+echo("walk source:" SPC getField(%this.getSequenceSource("walk"), 0));
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="getSequenceFrameCount.28string.29" id="getSequenceFrameCount.28string.29"></a>
+                        <h4> <span class="mw-headline">getSequenceFrameCount(string)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to get the number of keyframes in a sequence.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>getSequenceFrameCount(string <b>sequence_name</b>) </p>
+                        <ul>
+                          <li><b>sequence_name</b>: name of the sequence to query </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          S32<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>echo("Run has " @ %this.getSequenceFrameCount("run") @ " keyframes");
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="getSequencePriority.28string.29" id="getSequencePriority.28string.29"></a>
+                        <h4> <span class="mw-headline">getSequencePriority(string)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to get the priority of a sequence.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>getSequencePriority(string <b>sequence_name</b>) </p>
+                        <ul>
+                          <li><b>sequence_name</b>: name of the sequence to query </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          F32<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>echo("look priority is" SPC %this.getSequencePriority("look"));
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="setSequencePriority.28string.2C_F32.29" id="setSequencePriority.28string.2C_F32.29"></a>
+                        <h4> <span class="mw-headline">setSequencePriority(string, F32)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to set the priority of a sequence. Priority is used to establish order of importance when multiple sequences operate on the same skeletal node.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>setSequencePriority(string <b>sequence_name</b>, F32 <b>priority</b>) </p>
+                        <ul>
+                          <li><b>sequence_name</b>: name of the sequence to modify </li>
+                          <li><b>priority</b>: new priority value </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          boolean flag indicating success<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>%this.setSequencePriority("look", 5);
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="getSequenceCyclic.28string.29" id="getSequenceCyclic.28string.29"></a>
+                        <h4> <span class="mw-headline">getSequenceCyclic(string)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to determine if a sequence is cyclic (looping).<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>getSequenceCyclic(string <b>sequence_name</b>) </p>
+                        <ul>
+                          <li><b>sequence_name</b>: the name of the sequence to query </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          boolean flag indicating whether the sequence is cyclic or not<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>if (!%this.getSequenceCyclic("ambient"))
+   error("ambient sequence is not cyclic!");
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="setSequenceCyclic.28string.2C_bool.29" id="setSequenceCyclic.28string.2C_bool.29"></a>
+                        <h4> <span class="mw-headline">setSequenceCyclic(string, bool)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to set the cyclic flag for a sequence in the shape.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>setSequenceCyclic(string <b>sequence_name</b>, bool <b>cyclic</b>) </p>
+                        <ul>
+                          <li><b>sequence_name</b>: the name of an existing sequence on which to set the cyclic flag </li>
+                          <li><b>cyclic</b>: state of the cyclic flag (true or false) </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          boolean flag indicating success<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>%this.setSequenceCyclic("ambient", true);
+%this.setSequenceCyclic("shoot", false);
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="getSequenceBlend.28string.29" id="getSequenceBlend.28string.29"></a>
+                        <h4> <span class="mw-headline">getSequenceBlend(string)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command returns information about blended sequences.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>setSequenceBlend(string <b>sequence_name</b>, bool <b>blend_flag</b>, string <b>blend_seq_name</b>, S32 <b>blend_seq_frame</b>) </p>
+                        <ul>
+                          <li><b>sequence_name</b>: the name of the sequence to query </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          The string returned is of the form:<br />
+                        </p>
+                        <p><i>blend_flag</i> TAB blend_seq_name<i> TAB </i>blend_seq_frame<i><br />
+                          </i> </p>
+                        <p>Where: </p>
+                        <ul>
+                          <li><i>blend_flag</i>: a boolean flag indicating whether this sequence is a blend </li>
+                          <li><i>blend_seq_name</i>: the name of the sequence that contains the reference frame (empty for blend sequences embedded in DTS files) </li>
+                          <li><i>blend_seq_frame</i>: the blend reference frame (empty for blend sequences embedded in DTS files) </li>
+                        </ul>
+                        <p>Note that only sequences set to be blends using the setSequenceBlend command will contain the <i>blend_seq_name</i> and <i>blend_seq_frame</i> information.<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>%blendData = %this.getSequenceBlend("look");
+if (getField(%blendData, 0))
+   echo("look is a blend, reference: " @ getField(%blendData, 1));
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="setSequenceBlend.28string.2C_bool.2C_string.2C_S32.29" id="setSequenceBlend.28string.2C_bool.2C_string.2C_S32.29"></a>
+                        <h4> <span class="mw-headline">setSequenceBlend(string, bool, string, S32)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to make an animation sequence a blend 
+                          sequence, that is,
+                          a sequence that will be added on top of any other playing sequences.
+                          This is done by storing the animated node transforms relative to a
+                          reference frame, rather than as absolute transforms. Commonly used for things like head turns/nods, or weapon aiming.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>setSequenceBlend(string <b>sequence_name</b>, bool <b>blend_flag</b>, string <b>blend_seq_name</b>, S32 <b>blend_seq_frame</b>) </p>
+                        <ul>
+                          <li><b>sequence_name</b>: the name of an existing sequence on which to set the blend flag </li>
+                          <li><b>blend_flag</b>: state of the blend flag (true or false) </li>
+                          <li><b>blend_seq_name</b>: the name of the sequence that contains the blend reference frame. </li>
+                          <li><b>blend_seq_name</b>: the reference frame in the blend_seq_name sequence. </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          boolean flag indicating success<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>%this.setSequenceBlend("look", true, "root", 0);
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="getSequenceGroundSpeed.28string.29" id="getSequenceGroundSpeed.28string.29"></a>
+                        <h4> <span class="mw-headline">getSequenceGroundSpeed(string)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command returns the ground speed of an animation sequence in
+                          the form "tx ty tz rx ry rz". Note that only the first 2 ground frames
+                          of the sequence are examined; the speed is assumed to be constant
+                          throughout the sequence. Ground speed information is used to switch between walk and run states.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>getSequenceGroundSpeed(string <b>sequence_name</b>) </p>
+                        <ul>
+                          <li><b>sequence_name</b>: name of the sequence to query </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          string </p>
+                        <ul>
+                          <li>"tx ty tz rx ry rz" </li>
+                        </ul>
+                        <p><br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>%speed = VectorLen(getWords(%this.getSequenceGroundSpeed("run"), 0, 2));
+echo("Run moves at " @ %speed @ " units per frame");
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="setSequenceGroundSpeed.28string.2C_string.2C_.5Bstring.5D.29" id="setSequenceGroundSpeed.28string.2C_string.2C_.5Bstring.5D.29"></a>
+                        <h4> <span class="mw-headline">setSequenceGroundSpeed(string, string, [string])</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to set the ground speed of an animation
+                          sequence by generating ground transform keyframes. The ground
+                          translational and rotational speed is assumed to be constant for the
+                          duration of the sequence. Existing ground frames for the sequence (if
+                          any) will be replaced.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>setSequenceGroundSpeed(string <b>sequence_name</b>, string <b>tx ty tz</b>, [string <b>rx ry rz</b>]) </p>
+                        <ul>
+                          <li><b>sequence_name</b>: name of the sequence to modify </li>
+                          <li><b>tx ty tz</b>: ground translational speed in the X, Y and Z axes </li>
+                          <li><b>rx ry rz</b>: <i>Optional</i>. Ground rotational speed around the X, Y and Z axes. </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          boolean flag indicating success<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>%this.setSequenceGroundSpeed("run", "5 0 0");
+%this.setSequenceGroundSpeed("spin", "0 0 0", "4 0 0");
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="renameSequence.28string.2C_string.29" id="renameSequence.28string.2C_string.29"></a>
+                        <h4> <span class="mw-headline">renameSequence(string, string)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to rename an animation sequence.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>renameSequence(string <b>old_name</b>, string <b>new_name</b>) </p>
+                        <ul>
+                          <li><b>old_name</b>: old sequence name </li>
+                          <li><b>new_name</b>: new name of the sequence </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          boolean flag indicating success<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>%this.renameSequence("walking", "walk");
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="addSequence.28string.2C_string.2C_.5BS32.5D.2C_.5BS32.5D" id="addSequence.28string.2C_string.2C_.5BS32.5D.2C_.5BS32.5D"></a>
+                        <h4> <span class="mw-headline">addSequence(string, string, [S32], [S32]</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to add a new sequence to the shape. The
+                          sequence can be a subset of frames from an existing sequence in the
+                          shape, or loaded from a different file altogether.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>addSequence(string <b>sequence_or_shape_file</b>, string <b>new_name</b>, [S32 <b>start_frame</b>], [S32 <b>end_frame</b>]) </p>
+                        <ul>
+                          <li><b>sequence_or_shape_file</b>: the name of an existing
+                            sequence, or the name of a DTS or DAE shape or DSQ sequence file. When
+                            the shape file contains more than one sequence, the desired sequence
+                            can be specified by appending the name to the end of the shape file.
+                            eg. "myShape.dts run" would select the "run" sequence from the
+                            "myShape.dts" file. </li>
+                          <li><b>new_name</b>: the name of the new sequence. </li>
+                          <li><b>start_frame</b>: Optional. The first sequence frame to copy. Defaults to 0: the first frame in the sequence. </li>
+                          <li><b>end_frame</b>: Optional. The last sequence frame to copy. Defaults to -1: the last frame in the sequence. </li>
+                        </ul>
+                        <p><b>Returns</b><br />
+                          boolean flag indicating success<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>%this.addSequence("./testShape.dts ambient", "ambient");
+%this.addSequence("./myPlayer.dae run", "run");
+%this.addSequence("./player_look.dsq", "look", 0, -1); // start to end
+%this.addSequence("walk", "walk_shortA", 0, 4);        // start to frame 4
+%this.addSequence("walk", "walk_shortB", 4, -1);       // frame 4 to end
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="removeSequence.28string.29" id="removeSequence.28string.29"></a>
+                        <h4> <span class="mw-headline">removeSequence(string)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to remove an animation sequence from the shape.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>removeSequence(string <b>sequence_name</b>) </p>
+                        <ul>
+                          <li><b>sequence_name</b>: the name of the sequence to remove </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          boolean flag indicating success<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>%this.removeSequence ("Run");
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="getTriggerCount.28string.29" id="getTriggerCount.28string.29"></a>
+                        <h4> <span class="mw-headline">getTriggerCount(string)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command returns the number of triggers in a sequence.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>getTriggerCount(string <b>sequence_name</b>) </p>
+                        <ul>
+                          <li><b>sequence_name</b>: the name of the sequence to query </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          S32<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>echo("Run has" SPC %this.getTriggerCount("run") SPC "triggers");
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="getTrigger.28string.29" id="getTrigger.28string.29"></a>
+                        <h4> <span class="mw-headline">getTrigger(string)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command returns the frame and state of a trigger in the sequence.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>getTrigger(string <b>sequence_name</b>, S32 <b>index</b>) </p>
+                        <ul>
+                          <li><b>sequence_name</b>: the name of the sequence to query </li>
+                          <li><b>index</b>: index of the trigger to get </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          The string returned is of the form:<br />
+                        </p>
+                        <p><i>trigger_frame</i> SPC <i>trigger_state</i><br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>// print all triggers in the sequence
+%count = %this.getTriggerCount("back");
+for (%i = 0; %i &lt; %count; %i++)
+   echo(%i SPC %this.getTrigger("back", %i));
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="addTrigger.28string.2C_S32.2C_S32.29" id="addTrigger.28string.2C_S32.2C_S32.29"></a>
+                        <h4> <span class="mw-headline">addTrigger(string, S32, S32)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to add a new trigger to a sequence in the shape. A trigger is used to fire off some kind of code event when the animation reaches the given keyframe. Very useful for footprints or attack animations.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>addTrigger(string <b>sequence_name</b>, S32 <b>keyframe</b>, S32 <b>state</b>) </p>
+                        <ul>
+                          <li><b>sequence_name</b>: the name of an existing sequence to add the trigger to </li>
+                          <li><b>keyframe</b>: the frame in the sequence at which to set the trigger (the frames for each sequence start at 0) </li>
+                          <li><b>state</b>: the trigger index (1-30) and on/off state (usually +ve for on and –ve for off) </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          boolean flag indicating success<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>%this.addTrigger("walk", 3, 1);
+%this.addTrigger("walk", 5, -1);
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> <a name="removeTrigger.28string.2C_S32.2C_S32.29" id="removeTrigger.28string.2C_S32.2C_S32.29"></a>
+                        <h4> <span class="mw-headline">removeTrigger(string, S32, S32)</span></h4>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>This command is used to remove a trigger from a sequence in the shape.<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>removeTrigger(string <b>sequence_name</b>, S32 <b>keyframe</b>, S32 <b>state</b>) </p>
+                        <ul>
+                          <li><b>sequence_name</b>: the name of an existing sequence to add the trigger to </li>
+                          <li><b>keyframe</b>: the frame in the sequence at which to set the trigger (the frames for each sequence start at 0) </li>
+                          <li><b>state</b>: the trigger index (1-30) and on/off state (usually +ve for on and –ve for off) </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          boolean flag indicating success<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>%this.removeTrigger("walk", 3, 1);
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>From this document, you should have a better understanding of how to use the new <b>TSShapeConstructor</b>.
+                  There are several ways you can take advantage of the module, so be sure
+                  to bookmark this article so you can refer back to the examples and
+                  command list. </p></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

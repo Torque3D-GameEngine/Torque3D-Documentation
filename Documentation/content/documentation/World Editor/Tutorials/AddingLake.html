@@ -1,0 +1,337 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 94;
+   parent.leftFrame.expandToItem('tree2', 'doc94');
+   var element = parent.leftFrame.document.getElementById('doc94');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D World Editor - Creating A Lake</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_WorldEditor_WaterBlock skin-monobook">
+<script type="text/javascript" src="../../../include/wz_tooltip.js"></script>
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Setup"><span class="tocnumber">2</span> <span class="toctext">Setup</span></a></li>
+                          <li class="toclevel-1"><a href="#Adding_a_WaterBlock"><span class="tocnumber">3</span> <span class="toctext">Adding a WaterBlock</span></a></li>
+                          <li class="toclevel-1"><a href="#Color_and_Fog"><span class="tocnumber">4</span> <span class="toctext">Color and Fog</span></a></li>
+                          <li class="toclevel-1"><a href="#Calming_the_Water"><span class="tocnumber">5</span> <span class="toctext">Calming the Water</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">6</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p>In this tutorial, we are going to create a lake using Torque 3D's WaterBlock object. Since this will be an isolated body of water, you should not need more than one WaterBlock to get the job done. We will be adjusting several WaterBlock properties to obtain a very placid appearance.<br />
+                  <a name="Setup" id="Setup"></a>                </p>
+                <h2> <span class="mw-headline">Setup</span></h2>
+                <p>This article will use a new project created from the Full template, which includes sample assets for testing and learning. To save time and focus on the World Editor we will use the sample assets and learn about asset creation later.</p>
+                <p><br />
+                  None of the modifications you are about to make are
+                  required for future tutorials, so feel free to create a new level or
+                  use an existing one for testing. As long as you have access to existing
+                  materials, you are good to go. For this article, we are going to be
+                  using a new level. </p>
+                <p><br />
+                  In order to simulate a realistic body of water, we are
+                  going to start by adding a new TerrainBlock. If you do not know how to
+                  add terrain, <a href="../Adding Objects/TerrainBlock.html">click here to review the TerrainBlock Guide</a>. If you are
+                  familiar with the process, go ahead and create a new terrain from the
+                  File Menu. We do not need anything fancy, so use the following
+                  information: </p>
+                <p><img alt="Image:AddNoiseTerrain.jpg" src="images/AddNoiseTerrain.jpg" border="0" width="250" height="140" /> </p>
+                <p><br />This should result in a mountainous terrain with plenty of valleys in which to add a body of water. If you are not happy with the results, use the Terrain Editor or create a new TerrainBlock all together. In the end your terrain should look similar to this:  </p>
+                <p><i>(click here to enlarge)</i> </p>
+                <a href="images/NoiseTerrainAdded.jpg" class="livethumbnail"><img src="images/NoiseTerrainAdded.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  Now that we have basic terrain, we will move on to the actual WaterBlock creation. </p><br />
+                <a name="Adding_a_WaterBlock" id="Adding_a_WaterBlock"></a>
+                <h2> <span class="mw-headline">Adding a WaterBlock</span></h2>
+                <p>To add a Water Block: switch to the Object Editor tool; click the Library tab; click the Level sub-tab; double-click the Environment folder; then locate the Water Block entry: </p><br />
+                <p><img alt="Image:LibraryWaterblock.jpg" src="images/LibraryWaterblock.jpg" border="0" width="209" height="323" /> </p>
+                <p><br />
+                  Double-click the Water Block entry. The Create Object dialog box should appear:</p><br />
+                <p><img alt="Image:AddWater.jpg" src="images/AddWater.jpg" border="0" width="255" height="124" /> </p>
+                <p><br />Enter a name for your new Water Block then click the Create New button. A square body of water will be added to the scene. This is your WaterBlock. Like any other object, you can manipulate its transform using the gizmos. </p><br />
+                <p>(click to enlarge) </p>
+                <a href="images/WaterblockAdded.jpg" class="livethumbnail"><img src="images/WaterblockAdded.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  Before we proceed with modifying the WaterBlock properties,
+                  we should move the body of water to a more appropriate area. With the
+                  object selected, use the Transform Tool to move it to a valley in your
+                  terrain. It does not have to be perfect, but it will help simulate a
+                  lake in a crater. </p><br />
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/AdjustWaterblock.jpg" class="livethumbnail"><img src="images/AdjustWaterblock.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />The WaterBlock edges will clip appropriately and reflect the interaction with the terrain via incoming wave textures wherever it meets the land. </i> </p>
+                <a href="images/SmoothShores.jpg" class="livethumbnail"><img src="images/SmoothShores.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  Now that we have a positioned WaterBlock, we can begin editing its properties.</p>
+                
+                <br />
+                <a name="Color_and_Fog" id="Color_and_Fog"></a>
+                <h2> <span class="mw-headline">Color and Fog</span></h2>
+                <p>We are now going to perform a few minor manipulations. For this article, we are going to take a stock WaterBlock and turn it into a lake. Landlocked bodies of water such as lakes tend to be calmer than an ocean or river. </p>
+                <p><br />
+                  The default WaterBlock is too choppy, fast, and murky. We are going to simulate a calmer, clearer lake similar to the placid Crater Lake in Oregon:<br /><br />
+                </p>
+                <p><img src="images/Crater_Lake.jpg" width="491" height="332" /><br /><br />
+                  We will not need to modify all of them to simulate a lake. First, we are going to decrease the murkiness of the WaterBlock, which represents how clear the water is. Scroll through the properties until you see the Underwater Fogging section. Change the waterFogDensity field to 0.01. </p>
+                <p><img alt="Image:LowerFogDensity.jpg" src="images/LowerFogDensity.jpg" border="0" width="275" height="100" /> </p>
+                <p><br />
+                  This is a drastic reduction. If you move your camera under the water, the difference 
+                    is immediately noticeable. </p>
+                <p><br />
+                  <b>0.5 Fog Density Under Water</b> </p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/UnderwaterDarkFog.jpg" class="livethumbnail"><img src="images/UnderwaterDarkFog.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  <b>0.01 Fog Density Under Water</b> </p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/UnderwaterLightFog.jpg" class="livethumbnail"><img src="images/UnderwaterLightFog.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  <b>0.5 Fog Density Above Water</b> </p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/AboveWaterDarkFog.jpg" class="livethumbnail"><img src="images/AboveWaterDarkFog.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  <b>0.01 Fog Density Above Water</b> </p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/AboveWaterLightFog.jpg" class="livethumbnail"><img src="images/AboveWaterLightFog.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  Our lake is a little too clear at this point. Instead of
+                  playing around with the fog, we are going to adjust another property to
+                  reflect the color changes at lower depth. Under the Water Object section of
+                  the properties, find the fresnelBias field. Change the value 
+                  to 0.01. </p><br />
+                <p>                  The change is subtle, but if you focus on the deepest points of the water you should see a difference. What we have done is decreased the water's reflection amount based on the underwater fog intensity, which 
+                    will stronger toward the middle where the water is deepest. </p>
+                <p><br />
+                  <b>0.12 Fresnel Bias</b> </p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/FresnelBefore.jpg" class="livethumbnail"><img src="images/FresnelBefore.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  <b>0.01 Fresnel Bias</b> </p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/FresnelAfter.jpg" class="livethumbnail"><img src="images/FresnelAfter.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  We will make one last adjustment to polish the high level appearance of
+                  the lake. The stock color is a little dark, but that can be modified
+                  easily. Under the WaterObject property section there is a field
+                  called baseColor. You can modify the value manually, but we are going
+                  to use a color picker by clicking on the square box at the end of the
+                  line. </p><br />
+                <p><img alt="Image:ClickColorBox.jpg" src="images/ClickColorBox.jpg" border="0" width="273" height="133" /> </p><br />
+                <p><br />
+                  The Color Picker dialog will appear immediately. With this
+                  dialog, we can adjust the color's hue, intensity, and alpha. To
+                  illustrate a dramatic change, adjust the picker's location to get a
+                  strong red value. </p><br />
+                <p><img alt="Image:RedColor.jpg" src="images/RedColor.jpg" border="0" width="351" height="338" /> </p>
+                <p><br />
+                    After you click OK, our lake will take on a morbid appearance.</p><br />
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/RedLake.jpg" class="livethumbnail"><img src="images/RedLake.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  If we were making a horror game this would fit in nicely, but we are making a normal lake. Open the Color Picker again and aim for a softer blue hue. </p><br />
+                <p><img alt="Image:BlueColor.jpg" src="images/BlueColor.jpg" border="0" width="352" height="338" /> </p>
+                <p><br />
+                  We have progressed from a murky pond to a clear, blue
+                  lake. Even with these small adjustments, we already have a drastic
+                  change in appearance from the default WaterBlock. </p><br />
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/BlueLake.jpg" class="livethumbnail"><img src="images/BlueLake.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <a name="Calming_the_Water" id="Calming_the_Water"></a>
+                <h2> <span class="mw-headline">Calming the Water</span></h2>
+                <p>The final changes we are going to make will reduce activity of the WaterBlock to simulate the waves on a lake. The oceans tend to be wavier than a lake because the wave action is created by currents, wind, and the gravity from the moon. On smaller lakes the wave action is cause solely by wind so they tend to be much less wavy than the ocean. Locate the Distortion section of the properties. </p>
+                <p><br />
+                  We need to intensify the distortion, which we can do by
+                  reducing that range. Reduce the distortEndDist from 20 to 1. After you
+                  make this change, you should immediately notice that objects below the
+                  water are more distorted. </p><br />
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/DistortLowered.jpg" class="livethumbnail"><img src="images/DistortLowered.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  Finally, jump to the WaterObject section of the properties and make the changes listed in the table below to alter the wave action: </p>
+                <table border="1" cellpadding="7" cellspacing="0" width="700">
+                  <tbody>
+                    <tr valign="top">
+                      <td bgcolor="#999999" width="62"><b>Property</b></td>
+                      <td bgcolor="#999999" width="335"><b>New Value </b></td>
+                    </tr>
+                    <tr valign="top">
+                      <td bgcolor="#e6e6e6" width="62">Wave[0]waveDir </td>
+                      <td bgcolor="#e6e6e6" width="335">1 0 </td>
+                    </tr>
+                    <tr valign="top">
+                      <td bgcolor="#e6e6e6" width="62">Wave[0]waveSpeed </td>
+                      <td bgcolor="#e6e6e6" width="335">0.1 </td>
+                    </tr>
+                    <tr valign="top">
+                      <td bgcolor="#e6e6e6" width="62">Wave[0]waveMagnitude </td>
+                      <td bgcolor="#e6e6e6" width="335">0.01 </td>
+                    </tr>
+                    <tr valign="top">
+                      <td bgcolor="#e6e6e6" width="62">Wave[1]waveSpeed </td>
+                      <td bgcolor="#e6e6e6" width="335">0.01 </td>
+                    </tr>
+                    <tr valign="top">
+                      <td bgcolor="#e6e6e6" width="62">Wave[1]waveMagnitude </td>
+                      <td bgcolor="#e6e6e6" width="335">0.01 </td>
+                    </tr>
+                    <tr valign="top">
+                      <td bgcolor="#e6e6e6" width="62">Ripple[0]rippleSpeed </td>
+                      <td bgcolor="#e6e6e6" width="335">0.01 </td>
+                    </tr>
+                    <tr valign="top">
+                      <td bgcolor="#e6e6e6" width="62">Ripple[1]rippleSpeed </td>
+                      <td bgcolor="#e6e6e6" width="335">0.01 </td>
+                    </tr>
+                    <tr valign="top">
+                      <td bgcolor="#e6e6e6" width="62">Ripple[2]rippleSpeed </td>
+                      <td bgcolor="#e6e6e6" width="335">0.01 </td>
+                    </tr>
+                  </tbody>
+                </table><br />
+                <p>After you have made these changes, your lake should be complete.
+                  Your waves will be slower and more dramatic.</p>
+                <p><br />
+                  <b>Final Above Water Appearance</b> </p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/FinalAbovewater.jpg" class="livethumbnail"><img src="images/FinalAbovewater.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  <b>Final Below Water Appearance</b> </p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/FinalUnderwater.jpg" class="livethumbnail"><img src="images/FinalUnderwater.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br /><br />
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p><br />This article has provided a strong starting point for adding lakes to your terrains to create more visually appealing levels.</p>
+                
+                  </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

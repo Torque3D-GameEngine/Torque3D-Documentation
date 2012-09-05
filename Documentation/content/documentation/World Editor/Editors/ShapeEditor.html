@@ -1,0 +1,610 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 90;
+   parent.leftFrame.expandToItem('tree2', 'doc90');
+   var element = parent.leftFrame.document.getElementById('doc90');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Shape Editor</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+
+<BODY id = "BODYID" onLoad = "initComponent()" >
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          </div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Interface"><span class="tocnumber">2</span> <span class="toctext">Interface</span></a></li>
+                          <li class="toclevel-1"><a href="#Shape_Selection"><span class="tocnumber">3</span> <span class="toctext">Shape Selection</span></a></li>
+                          <li class="toclevel-1"><a href="#Shape_View"><span class="tocnumber">4</span> <span class="toctext">Shape View</span></a></li>
+                          <li class="toclevel-1"><a href="#Properties_Window"><span class="tocnumber">5</span> <span class="toctext">Properties Window</span></a></li>
+                          <li class="toclevel-1"><a href="#Advanced_Properties_Window"><span class="tocnumber">6</span> <span class="toctext">Advanced Properties Window</span></a></li>
+                          
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+
+<a name="Introductions"></a>
+<h1>Introduction</h1>
+
+<p>The Shape Editor is used to view and edit the shapes that can be placed into your levels using the Object Editor. The Shape Editor can view and manipulate files in both the DTS (.dts) and COLLADA (.dae) formats. It can be used to quickly preview shapes before they are added to a level, and provides an easy way to add, edit and delete animation sequences, skeleton nodes, and rendering detail levels.</p>
+
+<p><i>(click to enlarge)</i> </p>
+<a href="images/shape_editor.png" class="livethumbnail"><img src="images/shape_editor.png" width="320" height="248" largewidth="640" largeheight="494" /></a><br />
+
+<a name="Interface"></a>
+<br><br><h1>Interface</h1>
+
+<p>The Shape Editor can be activated from the main menu by selecting Editors > Shape Editor.</p>
+<p><br />The Shape Editor interface consists of five primary sections whenever it is active:</p>
+
+<h2>Shape Selector</h2>
+<p><br />The Shape Selector panel is used to choose a shape file for viewing and editing. It is composed of 3 tabs: Scene, Library and Hints. The Scene tab allows you to select a shape that has been placed in the current level. The Library tab allows you to browse and select any DTS or COLLADA shape from your project's art folder. Finally, the Hints tab displays information about which nodes and sequences are expected by Torque for a given type of shape object.</p>
+<p><br /><img src="images/SEShapeSelector.png" height="208" width="211" /></p>
+
+ <h2>Shape View Window</h2>
+ <p><br />The main window shows a 3D view of the selected shape, and includes animation playback controls to play and single-step the selected sequence.</p>
+ <p><i>(click to enlarge)</i> </p>
+<a href="images/SEShapeView.png" class="livethumbnail"><img src="images/SEShapeView.png" width="320" height="272" largewidth="640" largeheight="545" /></a><br />
+
+ <h2>Properties Window</h2>
+ <p><br />The Properties panel is used to view and edit the sequences, nodes, details and materials in the shape.</p>
+ <p><br /><img src="images/SEPropertiesWindow.png" height="481" width="208" /></p>
+
+ <h2>Advanced Properties Window</h2>
+ <p><br />The Advanced Properties window displays Level-of-Detail information, and provides the ability to mount objects to other objects and animation thread control.</p>
+ <p><br /><img src="images/SEAdvancedPropertiesWindow.png" height="272" width="209" /></p>
+
+ <h2>Toolbar and Palette</h2>
+ <p><br />The Shape Editor adds several buttons to the standard World Editor toolbar to control the 3D shape view, and uses the familiar select/move/rotate palette for node transform manipulation.</p>
+ <p><br /><img src="images/SEToolbarPalette.png" height="119" width="36" /></p>
+
+ <a name="Shape_Selection"></a>
+<br><h1>Shape Selection</h1>
+
+<p>To start using the Shape Editor, first you need to select a shape. There are three ways to do this:</p>
+
+<ol>
+ <li>Select an object in the World Editor, then activate the Shape Editor from the menu bar or the toolbar. If the object uses a DTS or COLLADA file, it will automatically be selected in the Shape Editor.</li>
+
+ <li>Select an object using the <i>Scene</i> tree in the Shape Editor. This view is the same as that used in the World Editor, and provides a convenient way to select objects that have already been placed in the level. Note that the Shape Editor only allows selection of objects that use DTS or COLLADA files; selection of Interior or ConvexShape objects will be ignored.<p><img src="images/shape_select_scene.png"></li>
+
+ <li>Select a shape file using the <i>Library</i> tab. This view is the same as that used in the World Editor <i>Meshes</i> tab, and allows you to browse the DTS and COLLADA assets in your project's <i>art</i> folder. This method allows you to view and edit shape files that have not yet been placed in the level.<p><img src="images/shape_select_library.png"/></li>
+
+</ol><br><br>
+
+<p>The <em>Force DAE</em> option checkbox at the top of the Shapes panel forces Torque to load the COLLADA file, even if an up-to-date cached.dts file is present. Note that if the model is already present in the scene (and thus already loaded into the Torque Resource Manager), the<em> Force DAE</em> option will have no effect, as the shape will be opened from memory instead of from disk. This option is also available in the Editor Settings panel when working in the World Editor.</p><br>
+
+<p>You will be prompted to save if there are unsaved changes in the current shape when a new shape is selected.</p>
+
+<p><img src="images/prompt_save_changes.png"/><br>
+
+<p>The selected shape will appear in the View window, and listings of its sequences, nodes and materials will be displayed in the Properties window.</p>
+<br>
+<h2>Shape Hints</h2>
+
+<p>The <i>Hints</i> tab in the Shape Selection window shows you which nodes and sequences are required for a particular type of shape to work with Torque.</p>
+
+<p><img src="images/shape_editor_hints.png"/>
+<br>
+<p>Simply select the desired object type from the dropdown menu and the list of required nodes and sequences will be displayed underneath. Items that are present in the selected shape will be marked with a tick mark. Hovering the mouse cursor over an item will display a short description of the item. Double-click the item to add it to the current shape.</p>
+<br>
+<p>Most items are optional - the shape will still load and run without a particular node or sequence, but the object may not perform correctly in-game. A <i>Player</i> object for example uses a node called <i>cam</i> as the 3<sup>rd</sup> person camera position. If this node does not exist, the shape origin is used instead, which will probably not be correct for most character shapes.</p>
+<br>
+<p>It is easy to extend the Shape Editor hints for custom object types by adding to the list in: tools/shapeEditor/scripts/shapeEditorHints.ed.cs.</p>
+
+<a name="Shape_View"></a>
+<br><h1>Shape View</h1>
+
+<p>The Shape View window displays the shape as it would be seen in-game, and also provides helpful rendering modes such as transparent, wireframe and visible nodes.</p>
+<br>
+<p><i>(click to enlarge)</i> </p>
+<a href="images/shape_view.png" class="livethumbnail"><img src="images/shape_view.png" width="320" height="182" largewidth="640" largeheight="363" /></a><br /><br>
+
+<p>The camera can be rotated by dragging the right mouse button, translated by dragging the middle mouse button (drag left+right buttons if your mouse does not have a middle button), and zoomed using the mouse wheel. Use the Camera->View menu (or the dropdown list in the bottom right corner) to switch between the Standard/Perspective view and the orthographic views (Top, Bottom, Left, Right, Front, Back).</p><br>
+
+<p>Hovering the mouse over a shape node will display the node name, and left clicking a node in the view will select it in the 
+    Node Properties panel (and vice versa). Once a node is selected, its transform can be modified by dragging the 3D gizmo similar to how objects are positioned in the World Editor.</p><br>
+
+<h3>Animation Controls</h3>
+
+<p>At the bottom of the Shape View window are the animation playback controls:</p>
+
+<p><img src="images/animation_controls.png" width="700" height="33"/><br>
+
+<p>As well as allowing the selected sequence to be scrubbed with the slider, stepped one frame at a time, or played normally, the start and end frames of the sequence can be easily modified to facilitate sequence splitting or to correct off-by-one-frame looping errors. Sequence triggers appear as thin, vertical bars at the appropriate frame (as shown in the image above).</p>
+<br>
+<p>Pressing the <i>in</i> or <i>out</i> button, or modifying the text box directly (remember to hit Return to apply the change), will set the start or end frame of the sequence to the current slider position.</p>
+
+<a name="Properties_Window"></a>
+<br><h1>Properties Window</h1>
+
+<p>The Properties window is where you can view and edit the sequences, nodes, detail levels and materials in the shape. The top right corner has three buttons, which do the following: </p>
+<ul>
+<li>Save the shape</li>
+<li>Add a new sequence, node or detail; and</li>
+<li>Delete the selected sequence, node or detail</li>
+</ul>
+
+<h2><a name="SEQUENCES_TAB">Sequences Tab</a></h2>
+
+<p>The Sequences tab (displayed as "Seq" onscreen) lists the sequences available in the shape, as well as a number of different properties about the selected sequence. In addition, the 'root' (non-animated) pose can be selected for display in the Shape View window.</p>
+
+<p><img src="images/sequence_properties.png"/><br>
+
+<p>The sequence properties available to view and edit are:</p>
+<br>
+<p><br /><b>Name:</b> The name of the sequence. To rename a sequence, simply edit the 
+    value and press Enter.</p>
+
+ <p><br /><b>Source:</b> The source animation data for the sequence, for example, the path to an external DSQ file, or the name of another sequence in the shape.</p>
+
+ <p><br /><b>Priority:</b> The priority of the sequence. This determines which sequence will take precedence when more than one sequence is attempting to control the same node.</p>
+
+ <p><br /><b>in</b> The first frame in the source sequence used for this sequence. Change this value to clip the start of the source sequence. This sequence will then start on the specified frame of the source regardless of what other frames may be before it in the source sequence.</p>
+
+ <p><br /><b>out</b>: The last frame in the source sequence used for this sequence. Change this value to clip the end of the source sequence. This sequence will then end on the specified frame of the source regardless of what other frames may be after it in the source sequence.</p>
+
+ <p><br /><b>Loop</b>: Flag indicating whether this sequence loops around when it reaches the last frame.</p>
+
+ <p><br /><b>Blend sequence</b>: Name of the sequence to use as a reference for generating blend transforms.</p>
+
+ <p><br /><b>Blend flag</b>: Flag indicating whether this sequence is a blend, that is, whether it can be played over top of another sequence.</p>
+
+ <p><br /><b>Blend frame</b>: Frame in the <i>Blend sequence</i> to use as a reference.</p>
+
+ <p><br /><b>Triggers</b>: The list of triggers in the sequence. Select a trigger and edit the values to modify the trigger.</p>
+</ul>
+<p><br /></p>
+<h3>Adding a sequence</h3>
+
+<p>An important feature of the Shape Editor is the ability to add new sequences to a shape from external animation files (DSQ or DAE). This allows animations to be shared by shapes that have a common skeleton (such as character models).</p>
+<br>
+<p>To add a new sequence click the New Sequence button. If a sequence is currently selected when the button is clicked, the new sequence will use that selected sequence as its initial source for animation keyframes. You can change the Source using the dropdown menu to select a different sequence, or to Browse for an external DSQ or DAE file. If the &lt;rootpose is selected, pressing the 
+    <strong>New Sequence</strong> ( <img src="images/btn_new.png"/> ) button will open the Browse window automatically.</p>
+
+<p><img src="images/edit_sequence.png"/><img src="images/browse_sequence.png"/><br>
+
+<p>Once the sequence has been created, you can edit its properties - including the start and end frames - using the Sequence Properties panel.</p><br>
+
+<h4><a name="CLIPS">COLLADA &lt;animation_clips</a></h4>
+
+<p>Currently, very few 3D modeling packages support the COLLADA &lt;animation_clip element, which means a model with several animations will appear to have only a single sequence (or 'clip') when loaded into Torque. The Shape Editor allows you to split this single animation into multiple sequences by specifying different start and end frames for each sequence. The procedure for splitting animations is as follows:</p>
+
+<ol>
+ <li>Select the combined animation sequence (usually called <i>ambient</i>).</li>
+ <li>Press the <strong>New Sequence</strong> <img src="images/btn_new.png"/> button to make a copy of this sequence, then rename the new sequence as desired.</li>
+ <li>Use the animation slider in the 3D view to find the desired keyframe that you want the new split sequence to start at. Press the 
+     <strong>In</strong> button to set the start frame. </li>
+ <li>Use the animation slider in the 3D view to find the desired keyframe that you want the new split sequence to stop at. Press the 
+     <strong>Out</strong> button to set the start frame.</li>
+</ol>
+<br>
+<h4>Blend Animations</h4>
+
+<p>A <a href="../../Artist Guide/Primer/torque_art_primer.html#ANIM_BLENDS">blend animation</a> is special in that it stores node transforms <i>relative</i> to a reference keyframe, instead of <i>absolute</i> transforms like other animations. This allows the sequence to be played on top of another sequence without forcing the animated nodes to a particular position.</p>
+
+<p>The Shape Editor allows you to set and clear the blend flag for a sequence, as well as change the reference keyframe if desired. Each of these  operations requires that a valid reference sequence and reference frame number is specified.</p>
+
+<p>For example, most <strong>Player</strong> characters will have a blended <i>look</i> animation. The animation is a blend so that the character's head can be made to look around while also doing something else (like running or swimming). To make the <i>look</i> animation a blend, first we set the reference sequence (e.g. <i>root</i>) and frame (e.g. 
+    <em>0</em>), then we can set the blend flag.</p>
+<br>
+<h3>Nodes Tab</h3>
+
+<p>The nodes tab shows the node hierarchy and various properties of the selected node.</p>
+
+<p><img src="images/node_properties.png"/>
+<br>
+<p>The node properties available to view and edit are:</p>
+<p><br /></p>
+ <p><br /><b>Name: </b>The name of the node. To rename, simply edit the value and press 
+     Enter.</p>
+
+ <p><br /><b>Parent: </b>The parent of the node in the hierarchy. A new parent can be selected from the dropdown menu if desired.</p>
+
+ <p><br /><b>Transform: </b>The position and orientation of the node. Node transforms can be edited in either World mode (where the transform is relative to the shape origin), or Object mode (where the transform is relative to the node's parent). Node transforms can also be edited visually in the Shape View window by selecting the node and dragging the axis gizmo, similar to how object transforms are edited in the World Editor. In World mode, the gizmo uses the global X,Y,Z axes, while in Object mode, the gizmo uses the node relative X,Y,Z axes (useful for seeing which way the node points for <i>eye</i> or <i>cam</i> nodes)</p>
+
+<br>
+<h4>Editing Nodes</h4>
+
+<p>The Shape Editor allows shape nodes to be added, moved, renamed and deleted.</p>
+
+<p>To add a node, simply press the <strong>New Node</strong> <img src="images/btn_new.png"/> button in the top right corner of the Properties panel. If a node is currently selected, it will automatically be used as the initial parent for the new node. A new parent node can be selected using the dropdown menu. Renaming the node is as simple as typing a new name in the edit box and pressing 
+    Enter to apply the change.</p>
+
+<p><img src="images/edit_node_properties.png"/>
+<br><br>
+<p>There are two ways to edit node transforms: The first way is to manually edit the position and rotation values in the Node Property panel. This method is most useful when trying to set an explicit value. For example, you may require that a node be offset by exactly 2 units in the X direction from its parent node. Node transforms can be specified as either relative-to-parent (Object mode) or relative-to-origin (World mode).</p>
+<br>
+<p>The second way to edit node transforms is in the 3D Shape View. Simply select the desired node in the 3D view or in the node tree then drag the axis gizmo to the correct position and orientation.</p>
+
+<p><img src="images/edit_node_transforms.png"/>
+<br>
+<p>It should be noted that the Shape Editor tool is not intended as a replacement for a fully-functional 3D modeling application, and as such, it only allows the non-animated transforms of the shape nodes to be edited. That is, the node transforms when the shape is in the root pose. You cannot use the Shape Editor tool to define new animation keyframes. For this reason, it is recommended to edit node transforms only when the &lt;rootpose is selected in the Sequence Properties list. Node transforms
+    <em>can</em> be edited when any sequence is selected, but the results may not be as expected, since animated parent nodes will affect the node transform as seen in the Shape View.</p>
+<br>
+<p>To delete a node, simply select it in the 3D Shape View or the node tree and press the 
+    <strong>Delete</strong> <img src="images/btn_delete.png"/> button in the top right corner of the Properties panel. Note that deleting a node will also delete all of its children.</p>
+<br>
+<h3><a name="DETAILS_TAB">Detail Tab</a></h3>
+
+<p>The Detail tab of the Properties pane lists the <a href="../../Artist Guide/Primer/torque_art_primer.html#LOD">detail levels</a> and associated geometry (meshes) in the shape, as well as allowing certain properties to be edited.</p>
+<p><br />If the Levels checkbox is checked on the Details tab in the Advanced Properties window, then selecting a mesh or detail level in the tree will switch to that detail level in the 3D view. The bounding box for the selected object can be displayed using the 
+    <strong>Toggle Bounding Box</strong>  <img src="images/btn_toggle_obj_bbox.png"> button on the toolbar. To view all collision geometry (as wireframe) no matter which detail level is selected, use the 
+    <strong>Toggle Collision Mesh</strong> <img src="images/btn_toggle_col_mesh.png"> button on the toolbar.</p>
+
+<p><img src="images/detail_properties.png"/>
+
+
+ <p><br /><b>Name: </b><em>(top-left field in Detail/Object Properties section) </em> The name of the mesh or detail level. Note that an object may contain multiple level-of-detail meshes. Changing the object name will change the name of all meshes for that object.</p>
+ <p><br /><b>Size </b><em>(top-right field in Detail/Object Properties section)</em> The pixel size of the mesh or detail level. Changing the size for a mesh will move it from one detail level to another (creating a new detail level if required). Changing the size of a detail level will change the size for all meshes in that detail.</p>
+ <p><br /><b>Billboarding </b>Allows a mesh to be set as a <a href="../../Artist Guide/Primer/torque_art_primer.html#BILLBOARDS">billboard</a>.</p>
+ <p><br /><b>Object Node </b>The name of the node this object is attached to. Changing this value will change the node for all level-of-detail meshes of the object.</p>
+ <p><br /><b>Import Shape into... </b>Import geometry from another shape file. See <a href="#IMPORT_GEOMETRY">Importing Geometry</a> for more details.</p>
+ <p><br /><b>Re-compute bounds </b>Recalculate the shape bounding box using the current pose and detail level.</p>
+
+
+<p>The Shape Editor also allows meshes to be hidden inside the 3D view (equivalent to the ShapeBase::setMeshHidden script method). Simply right-click a mesh in the detail tree to toggle the hidden state. Note that all detail-level meshes for that object share the same hidden state, so hiding the <i>Head 2</i> mesh will also hide any other meshes for the <i>Head</i> object.</p>
+<br>
+<p><img src="images/hide_mesh.png"/>
+<br><br>
+<h4><a name="IMPORT_GEOMETRY">Importing Geometry</a></h4>
+
+<p>The Shape Editor allows you to import geometry from another DAE or DTS file into the current shape 
+    via the &quot;Import Shape into...&quot; button. Geometry in the external file may be added to the currently selected detail level or to a new, automatically created detail level. The size of the new detail level can be edited after the geometry has been added.</p>
+    <p><br />The dropdown to the right of the "Import Shape into…" button has two options:</p>
+
+<ol><li>The <strong>current detail</strong> option is useful when combining separate files that you want to be rendered at the same detail level. For example, if a player character was split into body part models as follows:
+
+<pre>
+player_torso.dts
+player_head.dts
+player_left_arm.dts
+player_right_arm.dts
+player_left_leg.dts
+player_right_leg.dts
+</pre>
+
+<p>To combine the models, open player_torso.dts in the Shape Editor, switch to the Details tab then Import each of the other files into the current detail. When the shape is rendered, all body parts will be rendered together.</p>
+
+<pre>
++-base01
+  +-start01
+    +-Torso                   Object Torso with details: 2
+    +-Head                    Object Head with details: 2
+    +-LeftArm                 Object LeftArm with details: 2
+    +-RightArm                Object RightArm with details: 2
+    +-LeftLeg                 Object LeftLeg with details: 2
+    +-RightLeg                Object RightLeg with details: 2
+</pre></li>
+
+<li>The <strong>new detail</strong> option is useful when combining separate files that represent different detail levels of the same shape. For example, a vehicle model may have the following detail level files:
+
+<pre>
+truck_lod400.dts
+truck_lod200.dts
+truck_lod60.dts
+truck_col_lod-1.dts
+</pre>
+
+<p>To combine the models, open truck_lod400.dts in the Shape Editor, switch to the Details tab then Import each of the other files into new detail levels. The single truck object now has 3 visible detail levels (at pixel sizes 400, 200 and 60), and a single, invisible collision detail level (size -1).</p>
+
+<pre>
++-base01
+  +-start01
+    +-Truck                   Object Truck with details: 400 200 60
+    +-Collision               Object Collision with details: -1
+</pre>
+
+<p>Note that when the <i>new detail</i> option is selected, the Shape Editor examines the filename of the imported model to determine the detail size. If the filename ends in "_LODX" (where X is a number), the new detail level will be created with size X. The detail level size can be changed after import if needed.</p></li>
+
+</ol>
+<br>
+<h3>Materials Tab</h3>
+
+<p>The Materials tab (labelled as &quot;Mat&quot; in the window) shows the materials specified in the shape, as well as the Material each one is mapped to.</p>
+
+<p><img src="images/material_properties.png"/><br><br>
+<p><i>(click to enlarge)</i> </p>
+<a href="images/edit_materials.png" class="livethumbnail"><img src="images/edit_materials.png" width="320" height="182" largewidth="640" largeheight="363" /></a><br /><br>
+
+<p>Selecting a material while the <em>Highlight selected Material</em> option is set will highlight all of the primitives that use the material in the shape view. Pressing 
+    <em>Edit the selected Material</em> will open the Material Editor dialog, allowing you to modify the Material properties and view the results in real-time in the Shape Editor view window. Hit the Back to Previous Editor <img src="images/mated_return.png"> button in the upper-left corner of the Material Properties pane to return to the Shape Editor. Do not forget to save any changes you make before returning to the Shape Editor.</p>
+
+<a name="Advanced_Properties_Window"></a>
+<br><h1>Advanced Properties Window</h1>
+The Advanced Properties Window allows you to further change the settings of the model loaded in the shape editor.
+
+<h3><a name="ADVANCED_DETAILS">Details Tab<a></h3>
+
+<p>The detail size and mesh characteristics for each <a href="../../Artist Guide/Primer/torque_art_primer.html#LOD">LOD</a> need to be carefully determined in order to reduce the visual artifacts associated with switching and rendering detail levels. The Details Tab of the Advanced Properties window provides a convenient way to view and edit detail levels without having to re-export the model. It also allows non-rendered collision and LOS-collision detail levels to be visualised.</p><br>
+
+<p><img src="images/advanced_window.png"/>
+<br>
+<p>The detail level properties available to view and edit are:</dd>
+<br>
+
+ <p><br /><b>Levels: </b>When set, the current detail level is selected by moving the slider. When unset, the current detail level is selected based on the camera distance, in the same way as LOD is handled in-game.</p>
+
+ <p><br /><b>Current DL: </b>The index of the currently selected detail level is shown to the right of the slider track.</p>
+
+ <p><br /><b>Polys: </b>The number of polygons (triangles) in the current detail level.</p>
+
+ <p><br /><b>Size: </b>The size (in pixels) above which the current detail level will be selected. This value can be edited to change the size of the current detail level (remember to press Return after editing the value to apply the change).</p>
+
+ <p><br /><b>Pixels: </b>The current size (in pixels) of the shape. This value is an approximation based on the shape bounding box, viewport height, and camera distance.</p>
+
+ <p><br /><b>Distance: </b>The distance from the shape origin to the camera.</p>
+
+ <p><br /><b>Materials: </b>The number of different materials used by all meshes at the current detail level.</p>
+
+ <p><br /><b>Bones: </b>The number of bones used by all skinned meshes at the current detail level. Non-skinned meshes will display 0 for this value.</p>
+
+ <p><br /><b>Primitives: </b>The total number of primitives (triangle lists, strips or fans) in all meshes at the current detail level. This is the minimum number of draw calls that will be executed for this detail level.</p>
+
+ <p><br /><b>Weights: </b>The number of vertex weights used by all skinned meshes at the current detail level. Non-skinned meshes will display 0 for this value.</p>
+
+ <p><br /><b>Col Meshes: </b>The total number of collision meshes in this shape.</p>
+
+ <p><br /><b>Col Polys: </b>The total number of polygons (triangles) in all collision meshes in this shape.</p>
+
+
+<p><a name="IMPOSTERS">The Details Tab of the Advanced Properties window allows  <a href="../../Artist Guide/Primer/torque_art_primer.html#IMPOSTERS">imposter</a> detail levels to be added and edited. Imposters are a series of snapshots of the object from various camera angles which are rendered instead of the object when this detail level is selected. An imposter detail level is usually the last visible detail level (smallest positive size value).</p>
+<br>
+<h3><a name="ADVANCED_MOUNTING">Mounting Tab<a></h3>
+
+<p>The Mounting Tab of the Advanced Properties window allows you to attach other models to the main shape to visualise how they would look in-game, or to fine tune the position and rotation of mount nodes. When a model is mounted, it inherits the position and rotation of the node it is mounted to and will animate along with it.</p>
+
+<p><img src="images/edit_mounts.png">
+<br><br>
+<p>Press the <strong>Mount New Shape </strong> <img src="images/btn_new.png"/> or 
+    <strong>Delete Mounted Shape</strong> <img src="images/btn_delete.png"/> buttons to add or remove mounted models respectively. The following properties of the selected mount can be modified:</p>
+<br>
+
+  <p><br /><b>Shape: </b>DTS or DAE model file to mount.</p>
+  <p><br /><b>Node: </b>Node (on the main shape) to mount to. Only nodes that follow the mountX and hubX naming conventions will appear here.</p>
+  <p><br /><b>Type: </b></p>
+    <ul>
+    <li><b>Object</b>: Mount the model as a SceneObject. The model's origin is attached to the selected mount node. This is equivalent to mounting the object using the following script call: <pre>%obj.mountObject(%obj2, 0);</pre></li>
+      <li><b>Image</b>: Mount the model as a ShapeBaseImage. The model's mountPoint node (or origin if not present) is attached to the selected mount node. This is equivalent to mounting the object using the following script call: <pre>%obj.mountImage(%image, 0);</pre></li>
+      <li><b>Wheel</b>: Mount the model as a WheeledVehicle tire. The mounted shape's origin is attached to the selected mount node, and it is rotated to face the right way (whether on the left or right side of the vehicle). This is equivalent to mounting the object using the following script call: <pre>%car.setWheelTire(0, %tire);</pre></li>
+    </ul>
+  <p><br /><b>Sequence: </b>Select a sequence for the mounted shape to play. Playback can be controlled using the slider and play/pause button to the right of the sequence dropdown box.</p>
+
+<br><br>
+<h3><a name="ADVANCED_THREADS">Threads Tab<a></h3>
+
+<p>The Threads Tab of the Advanced Properties window allows you to set up  <a href="../../Artist Guide/Primer/torque_art_primer.html#ANIM_THREADS">threads</a> to play multiple sequences simultaneously, and to view transitions between sequences. A set of animation sequence playback controls that mirror the main animation controls are provided as a convenience so you don't have to mouse too far to test out a new thread. The mini-timeline slider is also used to indicate sequence transition information.</p>
+
+<p><img src="images/edit_threads.png">
+<br><br>
+
+  <p><br /><b>Thread: </b>The index of the thread. Press the <strong>Add New Thread</strong>  <img src="images/btn_new.png"/>
+    <span lang="EN-CA" style="font-size:11.0pt;line-height:
+115%;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;mso-fareast-font-family:Calibri;
+mso-ansi-language:EN-CA;mso-fareast-language:EN-US;mso-bidi-language:AR-SA">or
+    <strong>Delete Selected Thread</strong> </span>&nbsp;<img src="images/btn_delete.png"/> buttons to add or remove threads respectively. If the shape contains any sequences, there will always be at least one thread (index 0) defined.</p>
+  <p><br /><b>Sequence: </b>Select the sequence for this thread to play. Changing the selected sequence while the thread is playing (and transitions are enabled) will cause a transition to the new sequence.</p>
+  <p><br /><b>Transition flag: </b>If enabled, changing the selected sequence for the thread will cause a transition from the current pose to the target pose. During the transition period, node transforms are smoothly interpolated towards the target pose.
+  <p><br>If transitions are disabled, changing the selected sequence for the thread will switch node transforms to the new sequence immediately.</p>
+  <p><br /><b>Transition lasts: </b>Transition duration in seconds. The default for Torque 3D is 0.5.</p>
+  <p><br /><b>Transition to: </b>Selects the start frame in the target sequence; the target sequence begins playing from this point. When <i>slider position</i> is selected the target sequence will play from wherever the mini-timeline slider has been set. Torque 3D defaults to having the new sequence start at position 0.0 so it is likely that you'll want to keep the mini-timeline slider all the way to the left when in this mode.</p>
+  <p><br />When <i>synched position</i> is selected, the new sequence will start playing at the same position along the timeline as the currently playing sequence. While in this mode, the mini-timeline slider will change from yellow to red during the transition period.</p>
+  <p><br /><b>Target anim: </b>Controls whether the target sequence plays during the transition period. When <i>plays during transition</i> is selected the target sequence will play during the transition; node transforms will be interpolated towards the changing target pose.</p>
+  <p><br />When <i>pauses during transition</i> is selected the target sequence will not play during the transition, but will start once the transition has ended. Node transforms will be interpolated towards the initial target sequence frame.</p>
+
+<br><br>
+<h3><a name="COLLISION_TAB">Collision Tab</a></h3>
+
+<p><i>(click to enlarge)</i> </p>
+<a href="images/edit_collision.png" class="livethumbnail"><img src="images/edit_collision.png" width="320" height="223" largewidth="640" largeheight="447" /></a><br />
+
+<p>The Shape Editor can auto-fit geometry to a part or the whole of the shape for use in collision checking. Each time the settings are changed, the geometry in detail size -1 is replaced with the new auto-fit geometry. The node <i>Col-1</i> (and any child nodes) may also be modified.</p><br>
+
+ <p><br /><b>Fit Type: </b>The type of mesh to auto-fit for this collision detail (see table below for details).</p>
+ <p><br /><b>Fit Target: </b>The geometry used to generate the auto-fit mesh. The target is either 'Bounds' (fit to the whole shape) or one of the shape sub-objects.</p>
+ <p><br /><b>Max Depth: </b>For convex hull auto-fit meshes, this specifies the maximum decomposition recursion depth. Increase this value to increase the number of potential hulls generated.</p>
+ <p><br /><b>Merge %: </b>For convex hull auto-fit meshes, this specifies the volume percentage used to merge hulls together. Increase this value to make merging less likely, and thus increase the number of final hulls.</p>
+ <p><br /><b>Concavity %: </b>For convex hull auto-fit meshes, this specifies the volume percentage used to detect concavity. Decrease this value to be more sensitive to concavity (and thus more likely to split a mesh).</p>
+ <p><br /><b>Max Verts: </b>For convex hull auto-fit meshes, this specifies the maximum number of vertices per hull. Increase this value to produce more complex (and CPU expensive) hulls.</p>
+ <p><br /><b>Box %: </b>For convex hull auto-fit meshes, this specifies the maximum volume error below which a hull may be converted to a box. Increase this value to allow more hulls to be converted to boxes.</p>
+ <p><br /><b>Sphere %: </b>For convex hull auto-fit meshes, this specifies the maximum volume error below which a hull may be converted to a sphere. Increase this value to allow more hulls to be converted to spheres.</p>
+ <p><br /><b>Capsule %: </b>For convex hull auto-fit meshes, this specifies the maximum volume error below which a hull may be converted to a capsule. Increase this value to allow more hulls to be converted to capsules.</p>
+ <p><br /><b>Update Hulls: </b>Re-compute convex hulls using the current parameters.</p>
+ <p><br /><b>Revert Changes: </b>Revert convex hull parameters to the values used for the most recent hull update.</p>
+
+<br>
+<p>The following types of geometry can be generated. The Box, Sphere and Capsule types are generally the most CPU efficient, and are converted to true collision primitives when the shape is loaded. The other types are treated as convex triangular meshes - the more triangles, the more expensive it is to test for collision against the mesh.</p>
+<br>
+<table border=1>
+ <tr><th>Type</th><th>Desciption</th></tr>
+ <tr><td>Box</td><td>Minimum extent object aligned box</td></tr>
+ <tr><td>Sphere</td><td>Minimum radius sphere that encloses the target</td></tr>
+ <tr><td>Capsule</td><td>Minimum radius/height capsule that encloses the target</td></tr>
+ <tr><td>10-DOP</td><td>Axis-aligned box with four edges bevelled; you can choose X, Y or Z aligned edges</td></tr>
+ <tr><td>18-DOP</td><td>Axis-aligned box with all edges bevelled</td></tr>
+ <tr><td>26-DOP</td><td>Axis-aligned box with all edges and corners bevelled</td></tr>
+ <tr><td>Convex Hull</td><td>Set of convex hulls</td></tr>
+</table>
+<br>
+<p>The k-DOP (K Discrete Oriented Polytope) types push 'k' axis-aligned planes as close to the mesh as possible, then form a convex hull from the resulting points as shown below.</p>
+<br>
+<img src="images/autofit_meshes.png">
+<br>
+<p>The <i>Convex Hull</i> fit type performs a convex decomposition of the target geometry to generate a set of convex hulls. The basic algorithm is described 
+    <a href="http://codesuppository.blogspot.com/2009_11_01_archive.html">here</a>. For each hull that is produced, the hull volume is compared to the volume of a box, sphere and capsule that would enclose the hull. The hull is replaced with the primitive type that is closest in volume to the hull with volume % difference less than Box, Sphere or Capsule % respectively. If none of the primitive volumes are less than their respective error setting, the hull will be retained as a triangular mesh.</p>
+
+<br><h2>Toolbar and Palette</h2>
+
+<p>The Shape Editor displays the following buttons on the World Editor Tool Settings 
+    Bar:</p>
+
+<p><img src="images/shape_editor_toolbar.png"/>
+
+<p><img src="images/btn_toggle_grid.png"/> Toggles display of the grid</p>
+
+<p><img src="images/btn_fit_to_view.png"/> Centers the shape, and zooms the camera so that the shape extents fit into the view</p>
+
+<p><img src="images/btn_toggle_orbit_node.png"/> Toggles <i>orbit node</i> camera mode. When enabled, selecting a node will center the camera orbit on the node.</p>
+
+<p><img src="images/btn_toggle_nodes.png"/> Toggles display of shape nodes</p>
+
+<p><img src="images/btn_toggle_trans.png"/> Toggles shape transparent rendering mode</p>
+
+<p><img src="images/btn_toggle_wire.png"/> Toggles shape wireframe rendering mode</p>
+
+<p><img src="images/btn_toggle_shape_bbox.png"/> Toggles display of the shape bounding box</p>
+
+<p><img src="images/btn_toggle_obj_bbox.png"/> Toggles display of the selected object (Details Properties tab) bounding box</p>
+
+<p><img src="images/btn_toggle_col_mesh.png"/> Toggles display of the shape's collision meshes</p>
+
+<p><img src="images/btn_toggle_advanced.png"/> Toggles display of Advanced Properties window</p><br>
+
+<p>The Shape Editor Palette is similar to that in the World Editor, and allows you to select, translate and rotate nodes in the Shape View window.</p>
+<br>
+<p><img src="images/shape_editor_palette.png"/>
+<br>
+<p>The Shape Editor Palette also includes a mode allowing the sun in the view window to be rotated by dragging the left mouse button.</p>
+<br>
+<p><img src="images/moving_sun.png"/>
+<br>
+<br><h2>Shape Editor Settings</h2>
+
+<p>The Shape Editor settings dialog can be accessed from the main menu by selecting Edit  Editor Settings, and allows the appearance of the editor to be customized. These settings are persistent and will be automatically saved and restored between sessions.</p>
+
+<p><img src="images/shape_editor_settings.png"/>
+<br>
+<br><h2>Saving Changes</h2>
+
+<p>The Shape Editor does not modify the DTS or COLLADA asset file directly. Instead, changes made in the editor are saved to a TSShapeConstructor object in a separate TorqueScript file. This file is automatically read by Torque before the asset is loaded, meaning you can safely re-export the DTS or COLLADA model without overwriting changes made in the Shape Editor tool. The change set will be re-applied to the shape when it is next loaded by Torque.</p>
+<br>
+<p><img src="images/shape_editor_save.png"/>
+<br><br>
+<p>If needed, you can also re-edit the generated TSShapeConstructor object, either manually with a text editor, or by using the Shape Editor tool again.</p>
+<br>
+<p>To save changes to the current shape, simply press the save button <img src="images/btn_save.png"/> in the top right corner of the Properties window. The script filename is the same as the DTS or COLLADA asset filename, only with a .cs extension. For example, saving changes to ForgeSoldier.dts would save to the file ForgeSoldier.cs in the same folder.</p>
+<br>
+<p>The Shape Editor TSShapeConstructor object may also be accessed directly from the console. For example:</p>
+<br>
+<ul>
+ <li>Dump the shape hierarchy to the console (handy for debugging shape issues):<pre>ShapeEditor.shape.dumpShape();</pre></li>
+ <li>Save the modified shape to DTS (instead of saving the change-set to a TSShapeConstructor script):<pre>ShapeEditor.shape.saveShape("myShape.dts");</pre></li>
+ <li>Set ground transform information (not yet available in Shape Editor UI):<pre>ShapeEditor.shape.setSequenceGroundSpeed("run", "0 4 0", "0 0 0");</pre></li>
+</ul>
+
+<a name="Conclusion"></a>
+<h1>Conclusion</h1>
+This document has provided an overview of the shape editor's functionality. This editor is developed with artists in mind, allowing them to make in-engine changes.
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

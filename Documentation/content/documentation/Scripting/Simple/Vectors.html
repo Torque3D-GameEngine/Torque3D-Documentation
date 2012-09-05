@@ -1,0 +1,674 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 59;
+   parent.leftFrame.expandToItem('tree2', 'doc59');
+   var element = parent.leftFrame.document.getElementById('doc59');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+
+<title>Torque 3D - Math Operators</title>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_Scripting_Simple_Math skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Syntax_Review"><span class="tocnumber">1</span> <span class="toctext">Syntax Review</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#Variable_Types"><span class="tocnumber">1.1</span> <span class="toctext">Variable Types</span></a></li>
+                              <li class="toclevel-2"><a href="#Operators"><span class="tocnumber">1.2</span> <span class="toctext">Operators</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Creating_the_Script"><span class="tocnumber">2</span> <span class="toctext">Creating the Script</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">3</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Syntax_Review" id="Syntax_Review"></a>
+                <h2> <span class="mw-headline">Syntax Review</span></h2><br />
+                <a name="Variable_Types" id="Variable_Types"></a>
+                <h3> <span class="mw-headline">Variable Types</span></h3>
+                <p>There are two types of variables you can declare and use in
+                  TorqueScript: local and global. Both are created and referenced
+                  similarly: </p>
+                <pre>%localVariable = 1;
+$globalVariable = 2;
+</pre>
+                <p>As you can see, local variable names are preceded by the percent
+                  sign (%). Global variables are preceded by the dollar sign ($). Both
+                  types can be used in the same manner: operations, functions, equations,
+                  etc. The main difference has to do with how they are <b>scoped.</b> </p>
+                <p><br />
+                  In programming, scoping refers to where in memory a variable exists and
+                  its life. A local variable is meant to only exist in specific blocks of
+                  code, and its value is discarded when you leave that block. Global
+                  variables are meant to exist and hold their value during your entire
+                  programs execution. </p></td>
+            </tr>
+          </tbody>
+        </table><br />
+        <a name="Operators" id="Operators"></a>
+        <h3> <span class="mw-headline">Operators</span></h3>
+
+        <table bgcolor="#eeeeee" border="1" cellpadding="4" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <th bgcolor="#eeeeee" width="15%"><b>
+                
+                  Operator
+                
+                </b></th>
+              <th bgcolor="#eeeeee" width="20%"><b>
+                
+                  Name
+                
+                </b></th>
+              <th bgcolor="#eeeeee" width="20%"><b>
+                
+                  Example
+                
+                </b></th>
+              <th bgcolor="#eeeeee" width="45%"><b>
+                
+                  Explanation
+                
+                </b></th>
+            </tr>
+            <tr>
+              <td colspan="4" bgcolor="#6699ff"><b>Arithmetic Operators</b>
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  *
+                </td>
+              <td>
+                  multiplication
+                </td>
+              <td>
+                  $a * $b
+                </td>
+              <td>
+                  Multiply $a and $b.
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  /
+                </td>
+              <td>
+                  division
+                </td>
+              <td>
+                  $a / $b
+                </td>
+              <td>
+                  Divide $a by $b.
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  %
+                </td>
+              <td>
+                  modulo
+                </td>
+              <td>
+                  $a % $b
+                </td>
+              <td>
+                  Remainder of $a divided by $b.
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  +
+                </td>
+              <td>
+                  addition
+                </td>
+              <td>
+                  $a + $b
+                </td>
+              <td>
+                  Add $a and $b.
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  -
+                </td>
+              <td>
+                  subtraction
+                </td>
+              <td>
+                  $a - $b
+                </td>
+              <td>
+                  Subtract $b from $a.
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  ++
+                </td>
+              <td>
+                  auto-increment<br />
+                  (post-fix only)
+                </td>
+              <td>
+                  $a++
+                </td>
+              <td>
+                  Increment $a. Note: ++$a is illegal.
+                
+                <b>Note:</b> the value of $a++ is that of the incremented variable: auto-increment
+                  is post-fix in syntax, but pre-increment in sematics (the variable is
+                  incremented, <i>before</i> the return value is calculated). This behavior is unlike that of C and C++.
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  - -
+                </td>
+              <td>
+                  auto-decrement<br />
+                  (post-fix only)
+                </td>
+              <td>
+                  $b--
+                </td>
+              <td>
+                  Decrement $b. Note: --$b is illegal.
+                
+                <b>Note:</b> the value of $a-- is that of the decremented variable: auto-decrement
+                  is post-fix in syntax, but pre-decrement in sematics (the variable is
+                  decremented, <i>before</i> the return value is calculated). This behavior is unlike that of C and C++.
+                </td>
+            </tr>
+            <tr>
+              <td colspan="4" bgcolor="#6699ff"><b>Relations (Arithmetic, Logical, and String)</b>
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  &lt;
+                </td>
+              <td>
+                  Less than
+                </td>
+              <td>
+                  $a &lt; $b
+                </td>
+              <td>
+                  1 if $a is less than % b (0 otherwise.)
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  &gt;
+                </td>
+              <td>
+                  More than
+                </td>
+              <td>
+                  $a &gt; $b
+                </td>
+              <td>
+                  1 if $a is greater than % b (0 otherwise.)
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  &lt;=
+                </td>
+              <td>
+                  Less than or Equal to
+                </td>
+              <td>
+                  $a &lt;= $b
+                </td>
+              <td>
+                  1 if $a is less than or equal to % b (0 otherwise.)
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  &gt;=
+                </td>
+              <td>
+                  More than or Equal to
+                </td>
+              <td>
+                  $a &gt;= $b
+                </td>
+              <td>
+                  1 if $a is greater than or equal to % b (0 otherwise.)
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  ==
+                </td>
+              <td>
+                  Equal to
+                </td>
+              <td>
+                  $a == $b
+                </td>
+              <td>
+                  1 if $a is equal to % b (0 otherwise.)
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  !=
+                </td>
+              <td>
+                  Not equal to
+                </td>
+              <td>
+                  $a != $b
+                </td>
+              <td>
+                  1 if $a is not equal to % b (0 otherwise.)
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  !
+                </td>
+              <td>
+                  Logical NOT
+                </td>
+              <td>
+                  !$a
+                </td>
+              <td>
+                  1 if $a is 0 (0 otherwise.)
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  &amp;&amp;
+                </td>
+              <td>
+                  Logical AND
+                </td>
+              <td>
+                  $a &amp;&amp; $b
+                </td>
+              <td>
+                  1 if $a and $b are both non-zero (0 otherwise.)
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  ||
+                </td>
+              <td>
+                  Logical OR
+                </td>
+              <td>
+                  $a || $b
+                </td>
+              <td>
+                  1 if either $a or $b is non-zero (0 otherwise.)
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  $=
+                </td>
+              <td>
+                  String equal to
+                </td>
+              <td>
+                  $c $= $d
+                </td>
+              <td>
+                  1 if $c equal to $d .
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  !$=
+                </td>
+              <td>
+                  String not equal to
+                </td>
+              <td>
+                  $c !$= $d
+                </td>
+              <td>
+                  1 if $c not equal to $d.
+                </td>
+            </tr>
+            <tr>
+              <td colspan="4" bgcolor="#6699ff"><b>Assignment and  Assignment Operators</b>
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  =
+                </td>
+              <td>
+                  Assignment
+                </td>
+              <td>
+                  $a = $b;
+                </td>
+              <td>
+                  Assign value of $b to $a.
+                
+                <b>Note</b>:  the value of an assignment is the value being assigned, so $a = $b = $c is legal.
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  op=
+                </td>
+              <td>
+                  Assignment Operators
+                </td>
+              <td>
+                  $a <i>op</i>= $b;
+                </td>
+              <td>
+                  Equivalent to $a = $a <i>op</i> $b, where <i>op</i> can be any of:<br />
+                  *  /  %  +  -  &amp;  |  ^  &lt;&lt;  &gt;&gt;
+                </td>
+            </tr>
+          </tbody>
+        </table>
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr><br /><br />
+              <td width="700"><a name="Creating_the_Script" id="Creating_the_Script"></a>
+                <h2> <span class="mw-headline">Creating the Script</span></h2>
+                <p>First, we need to create a new script: </p>
+                <ol>
+                  <li>Navigate to your project's <b>game/scripts/client</b> directory. </li>
+                  <li>Create a new script file called "maths". In Torsion, right
+                    click on the directory, click the "New Script" option, then name your
+                    script. On Windows or OS X, create a new text file and change the
+                    extension to .cs. </li>
+                  <li>Open your new script using a text editor or Torsion. </li>
+                </ol>
+                <p><br />
+                  Before writing any actual script code, we should go ahead and tell the game it should load the script. Open <b>game/scripts/client/init.cs</b>. Scroll down to the <i><b>initClient</b></i> function. Under the // Client scripts section, add the following: </p>
+                <p><br />
+                  <b>Execute our new script</b> </p>
+                <pre>exec("./maths.cs");
+</pre>
+                <p><br />
+                  Standard arithmetic operators are the easiest to script. Start by adding this function to your new script: </p>
+                <pre>// Print the sum of %a and %b
+function addValues(%a, %b)
+{ 
+   %sum = %a + %b;
+   
+   echo("Sum of " @ %a @ " + " @ %b @ ": ", %sum);
+}
+</pre>
+                <p><br />
+                  This simple function takes in two numerical arguments. A new
+                  variable, %sum, holds the result of adding the two arguments
+                  together. Finally, an echo(...) statement is formatted to print the
+                  original values (%a and %b) and the sum (%sum of the two). </p>
+                <p><br />
+                  To test your new script: </p>
+                <ol>
+                  <li>Save the script </li>
+                  <li>Run your game </li>
+                  <li>Open the console by pressing the tilde (~) key </li>
+                  <li>Type the following, pressing enter after each line: </li>
+                </ol>
+                <pre>addValues(1,1);
+addValues(2,3);
+addValues(-3,2);
+</pre>
+                <p><br />
+                  Your console output should look like this: </p>
+                <pre>Sum of 1 + 1: 2
+Sum of 2 + 3: 5
+Sum of -3 + 2: -1
+</pre>
+                <p><br />
+                  As you can see, you can use positive or negative numbers. You
+                  can also use floating point (decimal) values if you wish. Add the
+                  following script code to test the other basic arithmetic operations: </p>
+                <pre>// Print the difference between %a and %b
+function subtractValues(%a, %b)
+{
+   %difference = %a - %b;
+   
+   echo("Difference between " @ %a @ " - " @ %b @ ": ", %difference);
+}
+
+// Print the product of %a and %b
+function multiplyValues(%a, %b)
+{
+   %product = %a * %b;
+   
+   echo("Product of " @ %a @ " * " @ %b @ ": ", %product);
+}
+
+// Print the quotient of %a and %b
+function divideValues(%a, %b)
+{
+   %quotient = %a / %b;
+   
+   echo("Quotient of " @ %a @ " / " @ %b @ ": ", %quotient);
+}
+
+// Print remainder of %a divided by %b
+function moduloValue(%a, %b)
+{
+   %remainder = %a % %b;
+   
+   echo("Remainder of " @ %a @ " % " @ %b @ ": ", %remainder);
+}
+</pre>
+                <p><br />
+                  You will use the same process of scripting, saving, running the
+                  game, and calling the functions via the console. Another way of
+                  manipulating values involves more complex operators. Standard
+                  additions, subtraction, etc, use two operators: assignment (=) and
+                  arithmetic (+,-,*,etc). </p>
+                <p><br />
+                  You can increase or decrease the value of a variable by
+                  using the auto-increment and auto-decrement operators. As soon as the
+                  operation completes, the variable is permanently changed. You do not
+                  need to use an assignment operator in this case. Use the following
+                  script code to test it out: </p>
+                <pre>// Print the increment of %a
+function incrementValue(%a)
+{
+   %original = %a;
+   %a++;
+   
+   echo("Single increment of " @ %original @ ": ", %a);
+}
+
+// Print the decrement of %a
+function decrementValue(%a)
+{
+   %original = %a;
+   %a--;
+   
+   echo("Single decrement of " @ %original @ ": ", %a);
+}
+</pre>
+                <p><br />
+                  As you can see, the original value of %a had to be stored
+                  before the increment/decrement operation was applied. The ++ and --
+                  automatically adjust the variable for you. Another non-basic
+                  manipulation involves combining the assignment operator with an
+                  arithmetic operator: </p>
+                <pre>// Print the result of a+=b
+function addToValue(%a, %b)
+{
+   %original = %a;
+   %a += %b;
+   
+   echo("Sum of " @ %original @ " += " @ %b @ ": ", %a);
+}
+</pre>
+                <p><br />
+                  In the above example, the +&lt;/wiki&gt; and
+                  &lt;nowiki&gt;=&lt;/wiki&gt; are combined together for a single
+                  operation. In simple terms, &lt;nowiki&gt;%a += %b can be verbalized as
+                  "A equals itself plus B." Unlike the addValue(...) function written
+                  earlier, a third variable is not used in this equation. This operation
+                  can be applied to the other arithmetic operators. </p>
+                <p><br />
+                  The last topic we will cover in this guide is comparison
+                  operators. As the name implies, these operators will compare two values
+                  together and produce a boolean (1 or 0) based on the results. Add the
+                  following function to see the first example: </p>
+                <pre>// Compare %a to %b, then print the relation
+function compareValues(%a, %b)
+{
+   if(%a &gt; %b)
+      echo("A is greater than B");
+}
+</pre>
+                <p><br />
+                  The above code is very straight forward. The values of %a
+                  and %b are compared to each other to see which is higher. Test the
+                  comparison code in the console using the following: </p>
+                <pre>compareValues(2,1);
+compareValues(3,2);
+compareValues(1,2);
+compareValues(0,0);
+</pre>
+                <p><br />
+                  The output should be the following: </p>
+                <pre>A is greater than B
+A is greater than B
+&lt;no output&gt;
+&lt;no output&gt;
+</pre>
+                <p><br />
+                  The first two calls will prove the comparison as "true", and
+                  print out the message. The comparison results to false on the last two
+                  calls, so nothing will be printed. The rest of the function showing off
+                  the comparison operators can be copied over what you currently have: </p>
+                <pre>// Compare %a to %b, then print the relation
+function compareValues(%a, %b)
+{
+   // Printing symbols just as a decorator
+   // Makes it easier to isolate the print out
+   echo("\n====================================");
+   
+   // Print out the value of %a and %b
+   echo("\nValue of A: ", %a);
+   echo("Value of B: ", %b);
+   
+   if(!%a)
+      echo("\nA is a zero value\n");
+   else
+      echo("\nA is a non-zero value\n");
+      
+   if(!%b)
+      echo("B is a zero value\n");
+   else
+      echo("B is a non-zero value\n");
+   
+   if(%a &amp;&amp; %b)
+      echo("Both A and B are non-zero values\n");
+   
+   if(%a || %b)
+      echo("Either A or B is a non-zero value\n");
+      
+   if(%a == %b)
+      echo("A is exactly equal to B\n");
+   
+   if(%a != %b)
+      echo("A is not equal to B\n");
+   
+   if(%a &lt; %b)
+      echo("A is less than B");
+   else if(%a &lt;= %b)
+      echo("A is less than or equal to B");
+   
+   if(%a &gt; %b)
+      echo("A is greater than B");
+   else if(%a &gt;= %b)
+      echo("A is greater than or equal to B");
+ 
+   // Printing symbols just as a decorator
+   // Makes it easier to isolate the print out  
+   echo("\n====================================");
+}
+</pre>
+                <p><br />
+                  I have added "decorator text" to help separate console output
+                  and make the output easier to read. Notice that each operation uses an
+                  if(...) statement to compare. Remember, the if(...) code is based on
+                  checking for a 1 (true) or 0 (false) value. This is all a comparison
+                  operation will return. </p><br /><br />
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>The guide covers the basic arithmetic operators you will use in
+                  TorqueScript. More advanced math operations will be covered in separate
+                  Vector and Matrix guides. For now, read back over the script code you
+                  have been provided with. Study the comments and echo(...) commands, and
+                  feel free to test out new operators. </p>
+                <p><br />
+                  You can download the entire script from this lesson by
+                    <a href="maths.cs" class="downloads">CLICKING HERE</a>. Save the script as you would any other text file from a
+                  website. </p>
+                  
+                  </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

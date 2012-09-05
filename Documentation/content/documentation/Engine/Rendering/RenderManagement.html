@@ -1,0 +1,234 @@
+<html>
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 20;
+   parent.leftFrame.expandToItem('tree2', 'doc20');
+   var element = parent.leftFrame.document.getElementById('doc20');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D - Render Management</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_EngineOverview_GFX_RenderManagement skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#RenderInst"><span class="tocnumber">2</span> <span class="toctext">RenderInst</span></a></li>
+                          <li class="toclevel-1"><a href="#ObjectRenderInst"><span class="tocnumber">3</span> <span class="toctext">ObjectRenderInst</span></a></li>
+                          <li class="toclevel-1"><a href="#MeshRenderInst"><span class="tocnumber">4</span> <span class="toctext">MeshRenderInst</span></a></li>
+                          <li class="toclevel-1"><a href="#RenderBinManager"><span class="tocnumber">5</span> <span class="toctext">RenderBinManager</span></a></li>
+                          <li class="toclevel-1"><a href="#RenderPassManager"><span class="tocnumber">6</span> <span class="toctext">RenderPassManager</span></a></li>
+                          <li class="toclevel-1"><a href="#Sub-Managers"><span class="tocnumber">7</span> <span class="toctext">Sub-Managers</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">8</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p>The purpose of the render manager system is to gather rendering
+                  commands submitted from game code and sort them to get proper effects,
+                  draw order, and optimal performance from GFX. </p>
+                <a name="RenderInst" id="RenderInst"></a>
+                <h2> <span class="mw-headline">RenderInst</span></h2>
+                <p><b>RenderInst</b> is a base structure for more task-specific render
+                  managers. The current version of RenderInst only contains information
+                  on sorting, translucency, and rendering type overrides. </p>
+                <a name="ObjectRenderInst" id="ObjectRenderInst"></a>
+                <h2> <span class="mw-headline">ObjectRenderInst</span></h2>
+                <p><b>ObjectRenderInst</b> is a derived from RenderInst. It does not
+                  actually contain any information about meshes, materials, transforms,
+                  etc. However, it makes use of a very important feature: <a href="RenderDelegate.html">Delegate</a>
+                  callbacks. </p>
+                <a name="MeshRenderInst" id="MeshRenderInst"></a>
+                <h2> <span class="mw-headline">MeshRenderInst</span></h2>
+                <p>Derived from RenderInst, a <b>MeshRenderInst</b> object contains the
+                  critical data needed for rendering. It is declared directly below
+                  ObjectRenderInst. Within this structure is an object's geometry(mesh),
+                  lighting information, textures, transforms, and base material. </p>
+                <p>Some of the most basic classes are used in MeshRenderInst: </p>
+                <ul>
+                  <li>GFXVertexBufferHandleBase and GFXPrimitiveBufferHandle handle the vertex buffer and primitive buffer (respectively) </li>
+                </ul>
+                <ul>
+                  <li>World transforms and object-to-world transforms are handled by MatrixF pointers </li>
+                </ul>
+                <ul>
+                  <li>LightInfo pointers retain information for primary and secondary lighting </li>
+                </ul>
+                <ul>
+                  <li>GFXTextureObject pointers also aid in lighting, as well as texturing the object. </li>
+                </ul>
+                <a name="RenderBinManager" id="RenderBinManager"></a>
+                <h2> <span class="mw-headline">RenderBinManager</span></h2>
+                <p><b>RenderBinManager</b> is the first manager we are going to cover. In essence, RenderBinManager manages and signals a main list of RenderInst objects. </p>
+                <p><br />
+                  RenderBinManager contains the variables and functions
+                  necessary for adding, processing, sorting, and clearing RenderInst
+                  objects. To get a closer look at RenderBinManager, open <i>engine/source/renderInstance/renderBinManager.h</i> and <i>renderBinManager.cpp</i>. </p>
+                <p><br />
+                  Most of the important management functionality is defined in the class,
+                  but you should notice a very important chunk of functionality missing: <b>rendering code</b>. RenderBinManager does have a rendering function: </p>
+                <pre>virtual void render( SceneState *state ) {}
+</pre>
+                <p><br />
+                  But as you can see, we are not going to be directly using a
+                  RenderBinManager for rendering. It's important to know how the class's
+                  base functionality works, but we will get to the actual rendering code
+                  when we look at RenderBinManager's children. </p>
+                <p><br />
+                  This class lays the ground work, but the tangible rendering
+                  sub-managers derive from RenderBinManager: RenderMeshMgr,
+                  RenderObjectMgr, RenderTranslucentMgr, and so on. These are detailed
+                  further down in the sub-managers section. </p>
+                <a name="RenderPassManager" id="RenderPassManager"></a>
+                <h2> <span class="mw-headline">RenderPassManager</span></h2>
+                <p>The RenderPassManager could be considered the "top manager" when it
+                  comes to the rendering system. The responsibilities of this manager
+                  include: </p>
+                <ul>
+                  <li>Declaring and organizing the various RIT: "R"ender "I"nstance "T"ypes </li>
+                </ul>
+                <ul>
+                  <li>Allocating a render instance for MeshRenderInst, ObjectRenderInst, and so on </li>
+                </ul>
+                <ul>
+                  <li>Adding, sorting, and rendering a list of RenderInst's per bin </li>
+                </ul>
+                <ul>
+                  <li>Memory allocation and deallocation for the RenderBinManagers </li>
+                </ul>
+                <ul>
+                  <li>Adding, sorting, and managing the various RenderBinManagers.
+                    The importance of this task is best shown in code. </li><br>
+                </ul>
+                <a href="initRenderManager.cs" class="downloads">CLICK HERE</a> to see the code initializing the rendering managers
+                
+                <p><br />
+                  The premise behind this chunk of code is simple. Calling
+                  DiffuseRenderPassManager "the manager of managers" seems appropriate.
+                  As the client is being initialized, initRenderManager() is called to
+                  create the rendering managers. </p>
+                <p><br />
+                  Using the .addManager(...) function, the RenderPassManager stores an
+                  internal list of RenderBinManagers. We have managers for Sky,
+                  Interiors, Lighting, Shadows, and so on. </p>
+                <a name="Sub-Managers" id="Sub-Managers"></a>
+                <h2> <span class="mw-headline">Sub-Managers</span></h2>
+                <p>As mentioned previously, the actual rendering managers are children
+                  of RenderBinManager. We are calling them sub-managers, since the
+                  RenderPassManager manages and maintains them. Each of these rendering
+                  sub-managers contains rendering code unique to its purpose, though
+                  multiple instantiations do occur to handle our various renderable
+                  Torque objects. </p>
+                <p><br />
+                  Let's go down a simplified list of these classes and their main purpose: </p>
+                <ul>
+                  <li><b>RenderObjectMgr</b> - This class is used for rendering more
+                    than any of the other sub-managers. This manager is responsible for
+                    rendering common objects that do not have a standard mesh.
+                    <ul>
+                      <li>Sky </li>
+                      <li>Shadows </li>
+                      <li>Water </li>
+                      <li>Foliage </li>
+                      <li>Shapebase </li>
+                    </ul>
+                  </li>
+                </ul>
+                <ul>
+                  <li><b>RenderMeshMgr</b> - This class is used for rendering mesh based objects such as interiors, TSMesh, and decals. </li>
+                </ul>
+                <ul>
+                  <li><b>RenderTerrainMgr</b> - This class is used for rendering the terrain </li>
+                </ul>
+                <ul>
+                  <li><b>RenderRefractMgr</b> - Stock Torque 3D uses only one
+                    RenderRefractMgr. The name of the manager describes it well. This
+                    manager takes in RenderInst elements and checks to see if they have a
+                    refraction custom material. If this check succeeds, the element is
+                    maintained by the manager and makes use of the refraction rendering
+                    code. </li>
+                </ul>
+                <ul>
+                  <li><b>RenderImposterMgr</b> - This is a special render manager for processing single billboard imposters typically generated by the tsLastDetail class. </li>
+                </ul>
+                <ul>
+                  <li><b>RenderOcclusionMgr</b> - Used for performing occlusion queries on the scene. </li>
+                </ul>
+                <ul>
+                  <li><b>RenderTranslucentMgr</b> - Stock Torque 3D uses only one
+                    RenderTranslucentMgr. This manager is a bit more complex than the
+                    previous ones described. A RenderInst element must meet a strict set of
+                    requirements to be managed by this class. If you look at
+                    RenderTranslucentMgr::addElement(...), you can see there are 3 main <i>if(...)</i> statements checking for translucent properties and appropriate render
+                    instance type. The actual render function is quite clean, and you can
+                    gain more insight about the class by reading through it. </li>
+                </ul>
+                <ul>
+                  <li><b>RenderGlowMgr</b> - Just like the previous two managers,
+                    there is only one instance of RenderGlowMgr in stock Torque 3D. The
+                    name is pretty self-descriptive. This manager is responsible for
+                    accepting RenderInst elements that require rendering with a properly
+                    set up glow buffer. </li>
+                </ul>
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>The purpose of this doc was to provide you with a basic
+                  understanding of the rendering management system used by Torque 3D.
+                  There is still much to be explained in the way of rendering flow,
+                  extending the system, and specific examples. </p>
+                <p><br />
+                  We've covered the basic renderable object instances, base class render
+                  managers, specialized rendering manager classes, and touched on some
+                  new subjects such as the <a href="RenderDelegate.html">RenderDelegate</a>. </p>
+                  
+                </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

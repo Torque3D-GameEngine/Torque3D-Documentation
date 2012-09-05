@@ -1,0 +1,320 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 4;
+   parent.leftFrame.expandToItem('tree2', 'doc4');
+   var element = parent.leftFrame.document.getElementById('doc4');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>DTS Format Specification</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+
+<BODY id = "BODYID" onLoad = "initComponent()" >
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          </div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#DTS_Format"><span class="tocnumber">2</span> <span class="toctext">DTS Format</span></a></li>
+                          <li class="toclevel-1"><a href="#SEQUENCES"><span class="tocnumber">3</span> <span class="toctext">Sequences</span></a></li>
+                          <li class="toclevel-1"><a href="#BITSETS"><span class="tocnumber">4</span> <span class="toctext">Bitsets</span></a></li>
+                          <li class="toclevel-1"><a href="#DATA_BUFFERS"><span class="tocnumber">4</span> <span class="toctext">Data Buffers</span></a></li>
+                          <li class="toclevel-1"><a href="#MESHES"><span class="tocnumber">4</span> <span class="toctext">Meshes</span></a></li>
+                          
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+<a name="Introduction"></a>
+<h1>Introduction</h1>
+<p>DTS is the native binary format used by the Torque engine to store shape, mesh and (optionally) sequence data. This document serves as a basic specification for the DTS file format. Very little context is given to the shape, mesh and sequence data fields read from the DTS file so it is recommended that this resource be read along with the Torque 
+    3D source code.</p><br>
+
+<p>The DTS file format stores most data in separate buffers for 8, 16 or 32-bit sized values in order to speed up loading 
+    on non-Intel platforms. A DTS file can be read as shown below; after the 3 data buffers have been created in memory, they are read in interleaved order as needed to extract the desired values (see <a href="#DATA_BUFFERS">Data Buffers</a>).</p>
+<p><br /><strong><em>Note:</em></strong><em> that all values are stored as little-endian, so on non-Intel platforms you will have to handle perform endian conversion for 16 and 32-bit values.</em></p><br>
+
+<a name="DTS_Format"></a>
+<h1>DTS Format</h1>
+<table border=1>
+ <tr><th>Name</th><th># bytes</th><th>Data Type</th><th>Description</th></tr>
+ <tr><td>DTS version number</td><td>2</td><td>S16</td><td>DTS version of this file. Note that the current DTS version (for files saved by Torque 3D) is 26. Most DTS exporters and the ShowToolPro tool only read/write version 24.</td></tr>
+ <tr><td>Exporter version number</td><td>2</td><td>S16</td><td>For tracking version of the exporter that generated this file. Can usually be ignored.</td></tr>
+ <tr><td>sizeAll</td><td>4</td><td>S32</td><td>Size (in 32-bit words) of the 3 data buffers (sum of 8, 16 and 32-bit data buffers). The 32-bit data buffer starts at offset 0x0.</td></tr>
+ <tr><td>start16</td><td>4</td><td>S32</td><td>32-bit word offset into the memory buffer of the start of the 16-bit data.</td></tr>
+ <tr><td>start8</td><td>4</td><td>S32</td><td>32-bit word offset into the memory buffer of the start of the 8-bit data.</td></tr>
+ <tr><td>data32</td><td>size32</td><td>U32*</td><td>Data buffer for 32-bit values. Size (in bytes) is equal to start16*4</td></tr>
+ <tr><td>data16</td><td>size16</td><td>U16*</td><td>Data buffer for 16-bit values. Size (in bytes) is equal to (start8 - start16)*4</td></tr>
+ <tr><td>data8</td><td>size8</td><td>U8*</td><td>Data buffer for 8-bit values. Size (in bytes) is equal to (sizeAll - start8)*4</td></tr>
+ <tr><td>numSequences</td><td>4</td><td>S32</td><td>Number of sequences in the shape</td></tr>
+ <tr><td>sequences</td><td>numSequences * ?</td><td>Sequence</td><td>Array of numSequences Sequences - size of each sequence depends on which nodes and objects are affected etc. See <a href="#SEQUENCES">Sequences</a> for more information</td></tr>
+ <tr><td>matStreamType</td><td>1</td><td>S8</td><td>Type of material stream (text or binary). Should be 0x1 (binary) for DTS files</td></tr>
+ <tr><td>numMaterials</td><td>4</td><td>S32</td><td>Number of materials in the shape</td></tr>
+ <tr><td>matNames</td><td>numMaterials * ?</td><td>S32 and char[]</td><td>Names of the materials in the shape. Each name is stored as a 4-byte length followed by the N characters in the string (terminating NULL is not included in the length or N characters).</td></tr>
+ <tr><td>matFlags</td><td>numMaterials * 4</td><td>U32</td><td>Flags for each material<sup>*</sup></td></tr>
+ <tr><td>matReflectanceMaps</td><td>numMaterials * 4</td><td>S32</td><td>Index of the material to use as a reflectance map for each material<sup>*</sup> (or -1 for none)</td></tr>
+ <tr><td>matBumpMaps</td><td>numMaterials * 4</td><td>S32</td><td>Index of the material to use as a bump map for each material<sup>*</sup> (or -1 for none)</td></tr>
+ <tr><td>matDetailMaps</td><td>numMaterials * 4</td><td>S32</td><td>Index of the material to use as a detail map for each material<sup>*</sup> (or -1 for none)</td></tr>
+ <tr><td>dummy</td><td>numMaterials * 4</td><td>S32</td><td>Dummy value. Only present in DTS v25.</td></tr>
+ <tr><td>matDetailScales</td><td>numMaterials * 4</td><td>F32</td><td>Detail scale for each material<sup>*</sup></td></tr>
+ <tr><td>matReflectance</td><td>numMaterials * 4</td><td>F32</td><td>Reflectance value for each material<sup>*</sup></td></tr>
+</table>
+
+<p><strong><em>Note:</em></strong><em> that all material settings (beside the name) are superceded by script Material definitions in T3D.
+    </em>
+<br>
+<h2><a name="SEQUENCES">Sequences</a></h2>
+
+<p>Sequences are stored in the DTS file as follows:</p>
+
+<table border=1>
+ <tr><th>Name</th><th># bytes</th><th>Data Type</th><th>Description</th></tr>
+ <tr><td>nameIndex</td><td>4</td><td>S32</td><td>The name of this sequence as in index into the names array</td></tr>
+ <tr><td>flags</td><td>4</td><td>U32</td><td>Sequence flags</td></tr>
+ <tr><td>numKeyframes</td><td>4</td><td>S32</td><td>Number of keyframes in this sequence</td></tr>
+ <tr><td>duration</td><td>4</td><td>F32</td><td>Duration of the sequence (in seconds)</td></tr>
+ <tr><td>priority</td><td>4</td><td>S32</td><td>Sequence priority</td></tr>
+ <tr><td>firstGroundFrame</td><td>4</td><td>S32</td><td>First ground transform keyframe in this sequence (index into the groundTranslations and groundRotation arrays)</td></tr>
+ <tr><td>numGroundFrames</td><td>4</td><td>S32</td><td>Number of ground transform keyframes in this sequence</td></tr>
+ <tr><td>baseRotation</td><td>4</td><td>S32</td><td>First node rotation keyframe in this sequence (index into the nodeRotations array)</td></tr>
+ <tr><td>baseTranslation</td><td>4</td><td>S32</td><td>First node translation keyframe in this sequence (index into the nodeTranslations array)</td></tr>
+ <tr><td>baseScale</td><td>4</td><td>S32</td><td>First node scale keyframe in this sequence (index into the nodeXXXScales arrays)</td></tr>
+ <tr><td>baseObjectState</td><td>4</td><td>S32</td><td>First object state keyframe in this sequence (index into the objectStates array)</td></tr>
+ <tr><td>baseDecalState</td><td>4</td><td>S32</td><td>First decal state keyframe in this sequence (index into the decalStates array). Note that DTS decals are deprecated, and this value should be 0.</td></tr>
+ <tr><td>firstTrigger</td><td>4</td><td>S32</td><td>First trigger in this sequence (index into the triggers array)</td></tr>
+ <tr><td>numTriggers</td><td>4</td><td>S32</td><td>Number of triggers in this sequence</td></tr>
+ <tr><td>toolBegin</td><td>4</td><td>F32</td><td>Value representing the start of this sequence in the exporting tool's timeline (can usually by ignored)</td></tr>
+ <tr><td>rotationMatters</td><td>?</td><td>BitSet</td><td><a href="#BITSETS">BitSet</a> indicating which node rotations are animated by this sequence.</td></tr>
+ <tr><td>translationMatters</td><td>?</td><td>BitSet</td><td><a href="#BITSETS">BitSet</a> indicating which node translations are animated by this sequence.</td></tr>
+ <tr><td>scaleMatters</td><td>?</td><td>BitSet</td><td><a href="#BITSETS">BitSet</a> indicating which node scales are animated by this sequence.</td></tr>
+ <tr><td>decalMatters</td><td>?</td><td>BitSet</td><td><a href="#BITSETS">BitSet</a> indicating which decal states are animated by this sequence. Note that DTS decals are deprecated.</td></tr>
+ <tr><td>iflMatters</td><td>?</td><td>BitSet</td><td><a href="#BITSETS">BitSet</a> indicating which IFL materials are animated by this sequence.</td></tr>
+ <tr><td>visMatters</td><td>?</td><td>BitSet</td><td><a href="#BITSETS">BitSet</a> indicating which object's visibility is animated by this sequence.</td></tr>
+ <tr><td>frameMatters</td><td>?</td><td>BitSet</td><td><a href="#BITSETS">BitSet</a> indicating which mesh's verts are animated by this sequence.</td></tr>
+ <tr><td>matFrameMatters</td><td>?</td><td>BitSet</td><td><a href="#BITSETS">BitSet</a> indicating which mesh's UV coords are animated by this sequence.</td></tr>
+</table>
+<br><br>
+<h2><a name="BITSETS">BitSets</a></h2>
+
+<p>BitSets are stored in the DTS file as:</p>
+
+<table border=1>
+ <tr><th>Name</th><th># bytes</th><th>Data Type</th><th>Description</th></tr>
+ <tr><td>dummy</td><td>4</td><td>S32</td><td>Dummy value</td></tr>
+ <tr><td>numWords</td><td>4</td><td>S32</td><td>Number of 32-bit values in the BitSet</td></tr>
+ <tr><td>bits</td><td>4 * numWords</td><td>U32</td><td>Array of numWords 32-bit values representing the bits in the BitSet</td></tr>
+</table>
+<br><br>
+<h2><a name="DATA_BUFFERS">Data Buffers</a></h2>
+
+<p>The 3space shape data is extracted from the 3 data buffers by maintaining a pointer into each buffer, then reading from the appropriate buffer in order as shown in the table below. The code sample below demonstrates how an array of structures might be read from the 3 buffers.</p>
+
+<pre>
+struct
+{
+   S8 valueA[4];
+   S32 valueB;
+   S32 valueC;
+   S16 valueD;
+} Object;
+
+...
+
+#define checkGuard() assert((*buff32++ == guard32++) && (*buff16++ == guard16++)
+ && (*buff8++ == guard8++))
+
+...
+
+numObjects = *buff32++;
+objects.resize(numObjects);
+for (S32 i = 0; i < numObjects; i++)
+{
+   for (S32 j = 0; j < 4; j++)
+      objects[i].valueA[j] = *buff8++;
+
+   objects[i].valueB = *buff32++;
+   objects[i].valueC = *buff32++;
+   objects[i].valueD = *buff16++;
+}
+
+checkGuard();
+</pre>
+
+<p>The GUARD entries indicate a buffer checkpoint that verifies the buffers are being accessed correctly. Each time the GUARD entry is encountered, an incrementing value should be read from each of the 3 buffers. For example, the first GUARD should read 32-bit 0x0, 16-bit 0x0 and 8-bit 0x0, the next GUARD should read 32-bit 0x1, 16-bit 0x1 and 8-bit 0x1 and so on.</p>
+
+<table border=1>
+ <tr><th>Name</th><th>Buffer</th><th>Data Type</th><th>Description</th></tr>
+ <tr><td>numNodes</td><td>32-bit</td><td>S32</td><td>Number of nodes in the shape</td></tr>
+ <tr><td>numObjects</td><td>32-bit</td><td>S32</td><td>Number of objects in the shape</td></tr>
+ <tr><td>numDecals</td><td>32-bit</td><td>S32</td><td>Number of decals in the shape</td></tr>
+ <tr><td>numSubShapes</td><td>32-bit</td><td>S32</td><td>Number of subshapes in the shape</td></tr>
+ <tr><td>numIFLs</td><td>32-bit</td><td>S32</td><td>Number of IFL materials in the shape</td></tr>
+ <tr><td>numNodeRotations</td><td>32-bit</td><td>S32</td><td>Number of node rotation keyframes</td></tr>
+ <tr><td>numNodeTranslations</td><td>32-bit</td><td>S32</td><td>Number of node translation keyframes</td></tr>
+ <tr><td>numNodeUniformScales</td><td>32-bit</td><td>S32</td><td>Number of node uniform scale keyframes</td></tr>
+ <tr><td>numNodeAlignedScales</td><td>32-bit</td><td>S32</td><td>Number of node aligned scale keyframes</td></tr>
+ <tr><td>numNodeArbScales</td><td>32-bit</td><td>S32</td><td>Number of node arbitrary scale keyframes</td></tr>
+ <tr><td>numGroundFrames</td><td>32-bit</td><td>S32</td><td>Number of ground transform keyframes</td></tr>
+ <tr><td>numObjectStates</td><td>32-bit</td><td>S32</td><td>Number of object state keyframes</td></tr>
+ <tr><td>numDecalStates</td><td>32-bit</td><td>S32</td><td>Number of decal state keyframes</td></tr>
+ <tr><td>numTriggers</td><td>32-bit</td><td>S32</td><td>Number of triggers (all sequences)</td></tr>
+ <tr><td>numDetails</td><td>32-bit</td><td>S32</td><td>Number of detail levels in the shape</td></tr>
+ <tr><td>numMeshes</td><td>32-bit</td><td>S32</td><td>Number of meshes (all detail levels) in the shape</td></tr>
+ <tr><td>numNames</td><td>32-bit</td><td>S32</td><td>Number of name strings in the shape</td></tr>
+ <tr><td>smallestVisibleSize</td><td>32-bit</td><td>F32</td><td>Size of the smallest visible detai level</td></tr>
+ <tr><td>smallestVisibleDL</td><td>32-bit</td><td>S32</td><td>Index of the smallest visible detail level</td></tr>
+ <tr><td>GUARD</td><td>ALL</td><td>S32, S16, S8</td><td>Buffer checkpoint (incrementing unit in each buffer)</td></tr>
+ <tr><td>radius</td><td>32-bit</td><td>F32</td><td>Shape bounding sphere radius</td></tr>
+ <tr><td>tubeRadius</td><td>32-bit</td><td>F32</td><td>Shape bounding cylinder radius</td></tr>
+ <tr><td>center</td><td>32-bit</td><td>Point3F { F32 x, F32 y, F32 z }</td><td>Center of the shape bounds</td></tr>
+ <tr><td>bounds</td><td>32-bit</td><td>BoxF { Point3F min, Point3F max }</td><td>Shape bounding box</td></tr>
+ <tr><td>GUARD</td><td>ALL</td><td>S32, S16, S8</td><td>Buffer checkpoint (incrementing unit in each buffer)</td></tr>
+ <tr><td>nodes</td><td>32-bit</td><td>Node { S32 nameIndex, S32 parentIndex, S32 firstObject, S32 firstChild, S32 nextSibling }</td><td>Array of numNodes Nodes</td></tr>
+ <tr><td>GUARD</td><td>ALL</td><td>S32, S16, S8</td><td>Buffer checkpoint (incrementing unit in each buffer)</td></tr>
+ <tr><td>objects</td><td>32-bit</td><td>Object { S32 nameIndex, S32 numMeshes, S32 startMeshIndex, S32 nodeIndex, S32 nextSibling, S32 firstDecal }</td><td>Array of numObjects Objects</td></tr>
+ <tr><td>GUARD</td><td>ALL</td><td>S32, S16, S8</td><td>Buffer checkpoint (incrementing unit in each buffer)</td></tr>
+ <tr><td>decals</td><td>32-bit</td><td>Decal { S32 dummy[5] }</td><td>Array of numDecals Decals. Note that decals are deprecated.</td></tr>
+ <tr><td>GUARD</td><td>ALL</td><td>S32, S16, S8</td><td>Buffer checkpoint (incrementing unit in each buffer)</td></tr>
+ <tr><td>iflMaterials</td><td>32-bit</td><td>IflMaterial { S32 nameIndex, S32 materialSlot, S32 firstFrame, S32 firstFrameOffTimeIndex, S32 numFrames }</td><td>Array of numIFLs IflMaterials</td></tr>
+ <tr><td>GUARD</td><td>ALL</td><td>S32, S16, S8</td><td>Buffer checkpoint (incrementing unit in each buffer)</td></tr>
+ <tr><td>subShapeFirstNode</td><td>32-bit</td><td>S32</td><td>Array of numSubShapes ints representing the index of the first node in each subshape</td></tr>
+ <tr><td>subShapeFirstObject</td><td>32-bit</td><td>S32</td><td>Array of numSubShapes ints representing the index of the first object in each subshape</td></tr>
+ <tr><td>subShapeFirstDecal</td><td>32-bit</td><td>S32</td><td>Array of numSubShapes ints representing the index of the first decal in each subshape</td></tr>
+ <tr><td>subShapeFirstTranslucentObject</td><td>32-bit</td><td>S32</td><td>Array of numSubShapes ints representing the index of the first translucent object in each subshape</td></tr>
+ <tr><td>GUARD</td><td>ALL</td><td>S32, S16, S8</td><td>Buffer checkpoint (incrementing unit in each buffer)</td></tr>
+ <tr><td>defaultRotations</td><td>16-bit</td><td>Quat16 { S16 x, S16 y, S16 z, S16 Z }<td>Array of numNodes quaternions for default node rotations</td></tr>
+ <tr><td>defaultTranslations</td><td>32-bit</td><td>Point3F { F32 x, F32 y, F32 z }</td><td>Array of numNodes points for default node translations</td></tr>
+ <tr><td>nodeRotations</td><td>16-bit</td><td>Quat16 { S16 x, S16 y, S16 z, S16 Z }</td><td>Array of numNodeRotations quaternions for node rotation keyframes (all sequences)</td></tr>
+ <tr><td>nodeTranslations</td><td>32-bit</td><td>Point3F { F32 x, F32 y, F32 z }</td><td>Array of numNodeTranslations points for node translation keyframes (all sequences)</td></tr>
+ <tr><td>GUARD</td><td>ALL</td><td>S32, S16, S8</td><td>Buffer checkpoint (incrementing unit in each buffer)</td></tr>
+ <tr><td>nodeUniformScales</td><td>32-bit</td><td>F32</td><td>Array of numNodeUniformScales floats for node uniform scale keyframes (all sequences)</td></tr>
+ <tr><td>nodeAlignedScales</td><td>32-bit</td><td>Point3F { F32 x, F32 y, F32 z }</td><td>Array of numNodeAlignedScales points for node aligned scale keyframes (all sequences)</td></tr>
+ <tr><td>nodeArbScaleFactors</td><td>32-bit</td><td>Point3F { F32 x, F32 y, F32 z }</td><td>Array of numNodeArbScales points for node arbitrary scale factor keyframes (all sequences)</td></tr>
+ <tr><td>nodeArbScaleRots</td><td>16-bit</td><td>Quat16 { S16 x, S16 y, S16 z, S16 w }</td><td>Array of numNodeArbScales quaternions for node arbitrary scale rotation keyframes (all sequences)</td></tr>
+ <tr><td>GUARD</td><td>ALL</td><td>S32, S16, S8</td><td>Buffer checkpoint (incrementing unit in each buffer)</td></tr>
+ <tr><td>groundTranslations</td><td>32-bit</td><td>Point3F { F32 x, F32 y, F32 z }</td><td>Array of numGroundFrames points for ground transform keyframes (all sequences)</td></tr>
+ <tr><td>groundRotations</td><td>16-bit</td><td>Quat16 { S16 x, S16 y, S16 z, S16 w }</td><td>Array of numGroundFrames quaternions for ground transform keyframes (all sequences)</td></tr>
+ <tr><td>GUARD</td><td>ALL</td><td>S32, S16, S8</td><td>Buffer checkpoint (incrementing unit in each buffer)</td></tr>
+ <tr><td>objectStates</td><td>32-bit</td><td>ObjectState { F32 vis, S32 frameIndex, S32 matFrame }<td>Array of numObjectStates ObjectStates</td></tr>
+ <tr><td>GUARD</td><td>ALL</td><td>S32, S16, S8</td><td>Buffer checkpoint (incrementing unit in each buffer)</td></tr>
+ <tr><td>decalStates</td><td>32-bit</td><td>S32</td><td>Array of numDecalStates dummy integers for decal states</td></tr>
+ <tr><td>GUARD</td><td>ALL</td><td>S32, S16, S8</td><td>Buffer checkpoint (incrementing unit in each buffer)</td></tr>
+ <tr><td>triggers</td><td>32-bit</td><td>Trigger { U32 state, F32 pos }</td><td>Array of numTriggers sequence triggers (all sequences)</td></tr>
+ <tr><td>GUARD</td><td>ALL</td><td>S32, S16, S8</td><td>Buffer checkpoint (incrementing unit in each buffer)</td></tr>
+ <tr><td>details</td><td>32-bit</td><td>Detail v25- { S32 nameIndex, S32 subShapeNum, S32 objectDetailNum, F32 size, F32 averageError, F32 maxError, S32 polyCount }<br>Detail v26+ also includes { S32 bbDimension, S32 bbDetailLevel, S32 bbEquatorSteps, S32 bbPolarSteps, F32 bbPolarAngle, bool bbIncludePoles }<td>Array of numDetails Details</td></tr>
+ <tr><td>GUARD</td><td>ALL</td><td>S32, S16, S8</td><td>Buffer checkpoint (incrementing unit in each buffer)</td></tr>
+ <tr><td>meshes</td><td>ALL</td><td>Mesh</td><td>Array of numMeshes <a href="#MESHES">Meshes</a></td></tr>
+ <tr><td>GUARD</td><td>ALL</td><td>S32, S16, S8</td><td>Buffer checkpoint (incrementing unit in each buffer)</td></tr>
+ <tr><td>names</td><td>8-bit</td><td>char[]</td><td>Array of numNames strings, stored as N characters followed by a terminating NULL for each string.</td></tr>
+ <tr><td>GUARD</td><td>ALL</td><td>S32, S16, S8</td><td>Buffer checkpoint (incrementing unit in each buffer)</td></tr>
+ <tr><td>alphaIn</td><td>32-bit</td><td>F32</td><td>Array of numDetails floats representing alpha-in value for each detail</td></tr>
+ <tr><td>alphaOut</td><td>32-bit</td><td>F32</td><td>Array of numDetails floats representing alpha-out value for each detail</td></tr>
+</table><br><br>
+
+<h2><a name="MESHES">Meshes</a></h2>
+
+<p>Meshes are stored in the 3 data buffers as follows:</p>
+
+<table border=1>
+ <tr><th>Name</th><th>Buffer</th><th>Data Type</th><th>Description</th></tr>
+ <tr><td>type</td><td>32-bit</td><td>U32</td><td>Type of mesh</td></tr>
+ <tr><td>GUARD</td><td>ALL</td><td>S32, S16, S8</td><td>Buffer checkpoint (incrementing unit in each buffer)</td></tr>
+ <tr><td>numFrames</td><td>32-bit</td><td>S32</td><td>Number of vertex position keyframes</td></tr>
+ <tr><td>numMatFrames</td><td>32-bit</td><td>S32</td><td>Number of vertex UV keyframes</td></tr>
+ <tr><td>parentMesh</td><td>32-bit</td><td>S32</td><td>Index of this mesh's parent (usually -1 for none)</td></tr>
+ <tr><td>bounds</td><td>32-bit</td><td>BoxF { Point3F min, Point3F max }</td><td>Bounding box for this mesh</td></tr>
+ <tr><td>center</td><td>32-bit</td><td>Point3F { F32 x, F32 y, F32 z }</td><td>Bounds center for this mesh</td></tr>
+ <tr><td>radius</td><td>32-bit</td><td>F32</td><td>Bounding sphere radius for this mesh</td></tr>
+ <tr><td>numVerts</td><td>32-bit</td><td>S32</td><td>Number of vertex positions</td></tr>
+ <tr><td>verts</td><td>32-bit</td><td>Point3F { F32 x, F32 y, F32 z }</td><td>Array of numVerts vertex positions (all keyframes)</td></tr>
+ <tr><td>numTVerts</td><td>32-bit</td><td>S32</td><td>Number of UV coordinates</td></tr>
+ <tr><td>tverts</td><td>32-bit</td><td>Point2F { F32 u, F32 v }</td><td>Array of numTVerts UV coordinates (all keyframes)</td></tr>
+ <tr><td>numTVerts2</td><td>32-bit</td><td>S32</td><td>Number of 2nd UV coordinates (DTS v26+ only)</td></tr>
+ <tr><td>tverts2</td><td>32-bit</td><td>Point2F { F32 u, F32 v }</td><td>Array of numTVerts2 2nd UV coordinates (DTS v26+ only)</td></tr>
+ <tr><td>numVColors</td><td>32-bit</td><td>S32</td><td>Number of vertex color values (DTS v26+ only)</td></tr>
+ <tr><td>colors</td><td>32-bit</td><td>ColorI { U8 red, U8 green, U8 blue, U8 alpha }</td><td>Array of numVColors vertex colors (DTS v26+ only)</td></tr>
+ <tr><td>norms</td><td>32-bit</td><td>Point3F { F32 x, F32 y, F32 z }</td><td>Array of numVerts vertex normals</td></tr>
+ <tr><td>encodedNorms</td><td>8-bit</td><td>U8</td><td>Array of numVerts encoded normal indices</td></tr>
+ <tr><td>numPrimitives</td><td>32-bit</td><td>S32</td><td>Number of mesh primitives (triangles, triangle lists etc)</td></tr>
+ <tr><td>primitives (v24-)</td><td>16-bit</td><td>S16</td><td>Array of numPrimitives 16-bit Primitive struct data { start, numElements }</td></tr>
+ <tr><td>primitives (v24-)</td><td>32-bit</td><td>U32</td><td>Array of numPrimitives 32-bit Primitive struct data { maxIndex }</td></tr>
+ <tr><td>primitives (v25+)</td><td>32-bit</td><td>Primitive { S32 start, S32 numElements, U32 matIndex }</td><td>Array of numPrimitives Primitives</td></tr>
+ <tr><td>numIndices</td><td>32-bit</td><td>S32</td><td>Total number of vertex indices (all primitives)</td></tr>
+ <tr><td>indices (DTS v25-)</td><td>16-bit</td><td>S16</td><td>Array of numIndices vertex indices</td></tr>
+ <tr><td>indices (DTS v25+)</td><td>32-bit</td><td>S32</td><td>Array of numIndices vertex indices</td></tr>
+ <tr><td>numMergeIndices</td><td>32-bit</td><td>S32</td><td>Number of merge indices. Note that merge indices have been deprecated.</td></tr>
+ <tr><td>mergeIndices</td><td>16-bit</td><td>S16</td><td>Array of numMergeIndices merge indices</td></tr>
+ <tr><td>vertsPerFrame</td><td>32-bit</td><td>S32</td><td>Number of vertices in each keyframe (position or UV)</td></tr>
+ <tr><td>flags</td><td>32-bit</td><td>U32</td><td>Mesh flags</td></tr>
+ <tr><td>GUARD</td><td>ALL</td><td>S32, S16, S8</td><td>Buffer checkpoint (incrementing unit in each buffer)</td></tr>
+</table>
+<br><br>
+<p>If the mesh type is TSSkinMesh, the following data is stored in addition to the normal Mesh data:</p>
+<br>
+<table border=1>
+ <tr><th>Name</th><th>Buffer</th><th>Data Type</th><th>Description</th></tr>
+ <tr><td>numInitialVerts</td><td>32-bit</td><td>S32</td><td>Number of intial vert positions and normals</td></tr>
+ <tr><td>initialVerts</td><td>32-bit</td><td>S32</td><td>Array of numInitialVerts positions</td></tr>
+ <tr><td>norms</td><td>32-bit</td><td>Point3F { F32 x, F32 y, F32 z }</td><td>Array of numInitialVerts vertex normals</td></tr>
+ <tr><td>encodedNorms</td><td>8-bit</td><td>U8</td><td>Array of numInitialVerts encoded initial normal indices</td></tr>
+ <tr><td>numInitialTransforms</td><td>32-bit</td><td>S32</td><td>Number of initial transforms</td></tr>
+ <tr><td>initialTransforms</td><td>32-bit</td><td>MatrixF { F32 m[16] }</td><td>Array of numInitialTransforms transforms</td></tr>
+ <tr><td>numVertIndices</td><td>32-bit</td><td>S32</td><td>Number of vertex indices</td></tr>
+ <tr><td>vertIndices</td><td>32-bit</td><td>S32</td><td>Array of numVertIndices vertex indices</td></tr>
+ <tr><td>numBoneIndices</td><td>32-bit</td><td>S32</td><td>Number of bone indices</td></tr>
+ <tr><td>boneIndices</td><td>32-bit</td><td>S32</td><td>Array of numBoneIndices bone indices</td></tr>
+ <tr><td>numWeights</td><td>32-bit</td><td>S32</td><td>Number of weights</td></tr>
+ <tr><td>weights</td><td>32-bit</td><td>F32</td><td>Array of numWeights bone weights</td></tr>
+ <tr><td>numNodeIndices</td><td>32-bit</td><td>S32</td><td>Number of node indices</td></tr>
+ <tr><td>nodeIndices</td><td>32-bit</td><td>S32</td><td>Array of node indices</td></tr>
+ <tr><td>GUARD</td><td>ALL</td><td>S32, S16, S8</td><td>Buffer checkpoint (incrementing unit in each buffer)</td></tr>
+</table>
+<br><br>
+<p>If the mesh type is TSSortedMesh, the following data is stored in addition to the normal Mesh data:</p>
+
+<table border=1>
+ <tr><th>Name</th><th>Buffer</th><th>Data Type</th><th>Description</th></tr>
+ <tr><td>numClusters</td><td>32-bit</td><td>S32</td><td>Number of clusters</td></tr>
+ <tr><td>clusters</td><td>32-bit</td><td>Cluster { S32 startPrimitive, S32 endPrimitive, Point3F normal, F32 k, S32 frontCluster, S32 backCluster }</td><td>Array of numClusters Clusters</td></tr>
+ <tr><td>numStartClusters</td><td>32-bit</td><td>S32</td><td>Number of start cluster indices</td></tr>
+ <tr><td>startClusters</td><td>32-bit</td><td>S32</td><td>Array of numStartClusters start cluster indices</td></tr>
+ <tr><td>numFirstVerts</td><td>32-bit</td><td>S32</td><td>Number of first vertex indices</td></tr>
+ <tr><td>firstVerts</td><td>32-bit</td><td>S32</td><td>Array of numFirstVerts first vertex indices</td></tr>
+ <tr><td>numNumVerts</td><td>32-bit</td><td>S32</td><td>Number of numVert counts</td></tr>
+ <tr><td>numVerts</td><td>32-bit</td><td>S32</td><td>Array of numVert counts</td></tr>
+ <tr><td>numFirstTVerts</td><td>32-bit</td><td>S32</td><td>Number of first TVert indices</td></tr>
+ <tr><td>firstTVerts</td><td>32-bit</td><td>S32</td><td>Array of numFIrstTVerts first TVert indices</td></tr>
+ <tr><td>alwaysWriteDepth</td><td>32-bit</td><td>S32</td><td>Always write depth flag</td></tr>
+ <tr><td>GUARD</td><td>ALL</td><td>S32, S16, S8</td><td>Buffer checkpoint (incrementing unit in each buffer)</td></tr>
+</table>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

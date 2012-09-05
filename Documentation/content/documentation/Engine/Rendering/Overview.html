@@ -1,0 +1,162 @@
+<html>
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 18;
+   parent.leftFrame.expandToItem('tree2', 'doc18');
+   var element = parent.leftFrame.document.getElementById('doc18');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D - Render System Overview</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_EngineOverview_GFX_Overview skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#High_Level_Features"><span class="tocnumber">2</span> <span class="toctext">High Level Features</span></a></li>
+                          <li class="toclevel-1"><a href="#Platform_Support"><span class="tocnumber">3</span> <span class="toctext">Platform Support</span></a></li>
+                          <li class="toclevel-1"><a href="#Key_Concepts"><span class="tocnumber">4</span> <span class="toctext">Key Concepts</span></a></li>
+                          <li class="toclevel-1"><a href="#Important_Links"><span class="tocnumber">5</span> <span class="toctext">Important Links</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">6</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p>Torque 3D's rendering system is a complex set of modules working
+                  together to deliver a next-gen appearance. In addition to many
+                  stand-alone rendering systems, such as managers and render instances, a
+                  core system is GFX. GFX is an abstract graphics layer designed to
+                  reside above graphics APIs such as Direct3D and OpenGL. The system
+                  utilizes current and next-gen concepts, such as deferred rendering
+                  technology, state blocks, shader buffers, and so on. </p>
+                <a name="High_Level_Features" id="High_Level_Features"></a>
+                <h2> <span class="mw-headline">High Level Features</span></h2>
+                <p>Torque 3D's rendering features advanced technology, similar to what you might find in DirectX </p>
+                <ul>
+                  <li>GLSL and HLSL shader support </li>
+                  <li>Vertex and primitive buffers </li>
+                  <li>Post-processing effects </li>
+                  <li>Deferred lighting </li>
+                  <li>Compatibility with Windows, Mac OS X </li>
+                  <li>State blocks </li>
+                  <li>Shader constant buffers </li>
+                </ul>
+                <a name="Platform_Support" id="Platform_Support"></a>
+                <h2> <span class="mw-headline">Platform Support</span></h2>
+                <p>GFX wraps around multiple rendering systems, which are handled
+                  automatically for you. When working in the engine, you will want to
+                  focus on the source code related to your target platform: </p>
+                <ul>
+                  <li><b>Windows</b> - GFX-&gt;D3D9 for rendering. Input, window management, and general Windows components are handled by platformWin32, windowManager->win32, and a few other filters which will be detailed in the  <a href="tour.html">GFX Engine Tour</a>. </li>
+                  <li><b>Mac OSX</b> - GFX-&gt;gl for rendering. platformMac
+                    and windowManager-&gt;mac handle input, window management, and other
+                    Mac components. </li>
+                </ul>
+                <a name="Key_Concepts" id="Key_Concepts"></a>
+                <h2> <span class="mw-headline">Key Concepts</span></h2>
+                <p>In order to grasp the high level rendering concepts of Torque 3D, you should be familiar with the following: </p>
+                <ul>
+                  <li><b>SDK</b> - A <b>S</b>oftware <b>D</b>evelopment <b>K</b>it is
+                    typically a collection of tools and APIs that focus on developing
+                    applications for a particular framework/hardware/OS. An example would
+                    be the DirectX SDK, which includes all of the APIs and debugging tools used
+                    in developing Windows games. </li>
+                  <li><b>API</b> - An <b>A</b>pplication <b>P</b>rogramming <b>I</b>nterface
+                    is a collection of functions, classes, and systems dedicated to
+                    supporting a specific feature. An example would be DirectX's Direct3D,
+                    which is used for rendering. </li>
+                  <li><b>DirectX</b> (<a href="http://msdn.microsoft.com/en-us/directx/default.aspx" class="external" title="http://msdn.microsoft.com/en-us/directx/default.aspx" rel="nofollow">http://msdn.microsoft.com/en-us/directx/default.aspx</a>)
+                    - A collection of APIs which handle rendering, input, audio, and other
+                    forms of media interaction. DirectX is commonly what drives game and
+                    video programming on Microsoft's operating systems. Example DirectX
+                    APIs are Direct3D (D3D), DirectInput, and so on. DirectX developers
+                    must use the DirectX SDK to develop a Windows game. The SDK contains
+                    all of the DirectX APIs, including the runtime libraries and source
+                    headers. </li>
+                  <li><b>OpenGL</b> (<a href="http://www.opengl.org/" class="external" title="http://www.opengl.org/" rel="nofollow">http://www.opengl.org/</a>)
+                    - OpenGL stands for Open Graphics Library. This powerful,
+                    cross-platform API is used for low-level rendering of 2D and 3D
+                    graphics. Supporting OpenGL in Torque 3D is what allows the engine to run
+                    on Mac OSX </li>
+                  <li><b>Shaders</b> - Shaders are part of the DirectX and OpenGL
+                    rendering systems. A shader file contains a set of instructions that
+                    get passed to the GPU along with the 3D data it will affect. Both
+                    OpenGL and DirectX have their own shader languages, both of which are
+                    handled by Torque 3D's GFX. Examples of shaders include motion blur,
+                    reflection, bloom, bump mapping, and other advanced rendering effects.
+                    Shaders are typically written in a high level shading language based on
+                    C programming. </li>
+                  <li><b>GLSL</b> - Open<b>GL</b> <b>S</b>hader <b>L</b>anguage is a high level shading language utilized by OpenGL to create and render shaders in a game. </li>
+                  <li><b>HLSL</b> (<a href="http://msdn.microsoft.com/en-us/library/bb509561(VS.85).aspx" class="external" title="http://msdn.microsoft.com/en-us/library/bb509561(VS.85).aspx)" rel="nofollow">http://msdn.microsoft.com/en-us/library/bb509561%28VS.85%29.aspx)</a> - <b>H</b>igh <b>L</b>evel <b>S</b>hader <b>L</b>anguage
+                    is used by DirectX for creating and displaying shaders in a game. Using
+                    HLSL, you can create C like programmable shaders for the Direct3D
+                    pipeline. </li>
+                  <li><b>Textures and Materials</b> - A texture is typically an
+                    image file mapped to a polygon or shape, which provides color and
+                    detail to the model. Torque 3D materials are used to wrap texture and
+                    shader information into a single object. </li>
+                  <li><b>Vertex Buffer</b> - A vertex buffer is an array of vertex data which can exist in system or video memory. </li>
+                </ul>
+                <a name="Important_Links" id="Important_Links"></a>
+                <h2> <span class="mw-headline">Important Links</span></h2>
+                <p><a href="http://www.garagegames.com/documentation/torque-3d" class="external" title="http://www.garagegames.com/documentation/torque-3d" rel="nofollow">Torque 3D Documentation Page</a> </p>
+                <p><a href="http://www.opengl.org/" class="external" title="http://www.opengl.org/" rel="nofollow">OpenGL Home Page</a> </p>
+                <p><a href="http://msdn.microsoft.com/en-us/directx/default.aspx" class="external" title="http://msdn.microsoft.com/en-us/directx/default.aspx" rel="nofollow">DirectX Home Page</a> </p>
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>This article is just a high level description of Torque 3D's rendering
+                  system. From here you can proceed however you want. However, it is
+                  highly recommended you proceed to the next section (<a href="Tour.html">Source Code Tour</a>) if you
+                  are new to Torque 3D, GFX, or rendering code in general. </p>
+                  
+                </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

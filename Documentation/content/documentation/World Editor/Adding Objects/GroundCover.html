@@ -1,0 +1,217 @@
+<html>
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 70;
+   parent.leftFrame.expandToItem('tree2', 'doc70');
+   var element = parent.leftFrame.document.getElementById('doc70');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D - GroundCover</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_WorldEditor_GroundCover skin-monobook">
+<script type="text/javascript" src="../../../include/wz_tooltip.js"></script>
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <br><a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2></div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Adding_GroundCover"><span class="tocnumber">2</span> <span class="toctext">Adding GroundCover</span></a></li>
+                          <li class="toclevel-1"><a href="#Assigning_Terrain_Material"><span class="tocnumber">3</span> <span class="toctext">Assigning Terrain Material</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">4</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <br><a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p>The GroundCover system allows you to spread many objects throughout
+                  your entire level. This object makes use of the Terrain Material
+                  system, applying textures or 3D objects on a per-layer basis. The most
+                  practical uses of GroundCover include: </p>
+                <ul>
+                  <li>Creating large fields of foliage (grass, wheat, etc.) </li>
+                  <li>Automatic placement of shapes and environmental textures on specific terrain types.</li>
+                  <li>Providing another layer of environmental realism when combined with Forest Editor and Replicators. </li>
+                </ul><br>
+                <a name="Adding_GroundCover" id="Adding_GroundCover"></a>
+                <h2> <span class="mw-headline">Adding GroundCover</span></h2>
+                <p>To add a ground Cover object to a level, select the Library tab in the Scene Tree panel. Click on the Level tab and double-click the Environment folder. Locate the GroundCover entry. </p>
+                <p><br />
+                  <img alt="Image:GroundCoverLibrary.jpg" src="images/GroundCoverLibrary.jpg" border="0" height="324" width="208" /> </p>
+                <p><br />Double-click the GroundCover entry. The Create Object dialog will appear. </p>
+                <p><br />
+                  <img alt="Image:CreateGroundCover.jpg" src="images/CreateGroundCover.jpg" border="0" height="137" width="256" /> </p>
+                <p><br />
+                If you already have a material or shape you want to use, you can set them here. Materials are used to paint the ground with textures which can contain transparency so that the underlying ground shows through. A Shape File is used to replicate 3D objects on the ground. Enter a name for you GroundCover object then click the Create New button. A new GroundCover object will be added to your level. Without a material, the system will render a pattern on the ground with the default "No Material" texture: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <p><a href="images/GroundCoverAdded.jpg" class="livethumbnail"><img src="images/GroundCoverAdded.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                  </p>
+                <p>&nbsp;</p>
+                <p>To change the No Material indicators to a real Material scroll through the GroundCover properties until you get to the 
+                    <strong>GroundCover General</strong> section. In the Material field, click on the globe to open the Material Selector: </p>
+                </p>
+                <p><br />
+                  <b>Material Field</b> </p>
+                <p><img alt="Image:GCMaterialField.jpg" src="images/GCMaterialField.jpg" border="0" height="57" width="193" /> </p><br>
+                <p><br />
+                  When the Material Selector appears, you have the option to pick an
+                  existing material or create a new one in the <a href="../Editors/MaterialEditor.html">Material Editor</a>. <br />
+                  <br>
+                  <a name="Assigning_Terrain_Material" id="Assigning_Terrain_Material"></a>                </p>
+                <h2> <span class="mw-headline">Assigning Terrain Material</span></h2>
+                <p>When you first add a GroundCover object, it will place the material or shape on the entire terrain. To limit the placement of GroundCover, you must set the terrain layer. To set the terrain layer with the GroundCover selected,  scroll down to the<strong> GroundCover General</strong> set of fields. Find the 
+                    <strong>Types</strong> sub-section. </p>
+                <p><br />
+                  <img alt="Image:GCLayers.jpg" src="images/GCLayers.jpg" border="0" height="109" width="205" /> </p>
+                <p><br />Types is an array with each entry controlling a section of the GroundCover. If this is confusing, think of it like this as follows. The GroundCover is a single object that is covering the entire terrain. The object itself is comprised of eight sections, Types[0] through Types[7]. Each section can be told what, where, and how to render a material or shape. You can feasibly have the GroundCover object rendering simultaneously on eight different terrain layers. </p>
+                <p><br />
+                  With the above information in mind, you can assign the GroundCover to terrain materials. Scroll through the properties until you get to Types[0]. Click on the box icon in the layer field. The Material Selector for terrains should appear. Select a material such as the dirt_grass shown here: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/GCPickGrass.jpg" class="livethumbnail"><img src="images/GCPickGrass.jpg" width="320" height="230" largewidth="640" largeheight="460" /></a><br />
+                <p><br />
+                  After you click the <i>Select</i> button, the GroundCover
+                  will stop placing billboards on the entire terrain. It should now only
+                  be placing the foliage on the specific terrain layer you chose.</p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/GCCoverGrass.jpg" class="livethumbnail"><img src="images/GCCoverGrass.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  If you are having a difficult seeing this change, locate the <b>maxElements</b> field and increase the value dramatically: </p>
+                <p><br />
+                  <img alt="Image:GCIncreaseCount.jpg" src="images/GCIncreaseCount.jpg" border="0" height="48" width="192" /> </p>
+                <p><br />
+                  <a name="Conclusion" id="Conclusion"></a>                </p>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>The GroundCover object can add an immense amount of ambience to your
+                  level. It is one of the most powerful and flexible Torque 3D objects,
+                  so you should definitely take the time to continue experimenting with
+                  it. Try different types of settings, art, and level arrangements.</p>
+                <p>&nbsp;</p>
+                <p>Read through the <a href="../Tutorials/CreatingFoliage.html">Adding Foliage Tutorial</a> for a full walkthrough on using GroundCover to create multiple types of foliage.</p>
+                
+                  </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

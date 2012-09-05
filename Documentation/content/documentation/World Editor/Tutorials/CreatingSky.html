@@ -1,0 +1,372 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 97;
+   parent.leftFrame.expandToItem('tree2', 'doc97');
+   var element = parent.leftFrame.document.getElementById('doc97');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D World Editor - Creating A Sky</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ns-0 ltr page-Torque3D_WorldEditor_Skybox">
+<script type="text/javascript" src="../../../include/wz_tooltip.js"></script>
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table id="toc" summary="Contents">
+          <tbody>
+            <tr>
+              <td><div id="toctitle">
+                  <h2>Contents</h2>
+                  
+                <ul>
+                  <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                  <li class="toclevel-1"><a href="#Setup"><span class="tocnumber">2</span> <span class="toctext">Setup</span></a></li>
+                  <li class="toclevel-1"><a href="#Delete_Existing_Objects"><span class="tocnumber">3</span> <span class="toctext">Delete Existing Objects</span></a></li>
+                  <li class="toclevel-1"><a href="#A_New_Sun"><span class="tocnumber">4</span> <span class="toctext">A New Sun</span></a></li>
+                  <li class="toclevel-1"><a href="#Adding_A_Skybox"><span class="tocnumber">5</span> <span class="toctext">Adding A Skybox</span></a></li>
+                  <li class="toclevel-1"><a href="#Changing_Skybox_Material"><span class="tocnumber">6</span> <span class="toctext">Changing Skybox Material</span></a></li>
+                  <li class="toclevel-1"><a href="#Adding_Clouds"><span class="tocnumber">7</span> <span class="toctext">Adding Clouds</span></a></li>
+                  <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">8</span> <span class="toctext">Conclusion</span></a></li>
+                </ul></td>
+            </tr>
+          </tbody>
+        </table>
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p>In this tutorial, we are going to create a basic sky for your level. Our sky will consist of the following three objects:</p>
+                <ul>
+                  <li>Sun</li>
+                  <li>Skybox</li>
+                  <li>Basic Clouds</li>
+                </ul>
+                <br />
+                <p>All three objects will be added from scratch and modified to work with each other to create a nice looking atmosphere. To get started, follow the setup procedure below.</p>
+                <br />
+                <a name="Setup" id="Setup"></a>
+                <h2> <span class="mw-headline">Setup</span></h2>
+                <p><br />This article assumes that you have read through the <a href="../../Introduction/ToolBox.html">Toolbox</a> and <a href="../Basics/Overview.html">World Editor Basics</a> sections of this documentation so that you are familiar with basic operations such as creating a new level and activating tools such as the Object Editor. If you have not, please review those documents and then return here to continue. </p>
+                <p><br />None of the modifications you are about to make are required for future tutorials, so feel free to create a new level or use an existing one now. As long as you have access to stock materials you are ready to go. For this article, we are going to use a new level. </p>
+                <p><br />Because every new mission starts with some kind of sky object (Sun, Skybox, etc), you are not technically starting from scratch. You will want to clear your level before beginning.</p>
+                <p><br />
+                  None of the modifications you are about to make are
+                  required for future tutorials, so feel free to create a new level or
+                  use an existing one. As long as you have access to stock
+                  materials, you are good to go. For this article, we are going to be
+                  using a new level. <br /><br />
+                  Because every new mission starts with some kind of sky object (Sun, Skybox, etc), you are not technically starting from scratch. You will want to clear your level before beginning.</p><br />
+                  <p>
+                Finally, the textures for a simple Skybox are provided through this link: <a href="./sky_blue.zip" class="downloads">click here to download</a>. You will use these later in the tutorial when creating a new Skybox material.<br />
+                  </p><br />
+
+                    <a name="Delete_Existing_Objects" id="Delete_Existing_Objects"></a>
+                <h2> <span class="mw-headline">Delete Existing Objects</span></h2>
+                <p>Start by switching to the Object Editor tool. Locate the Scene Tree panel, then select the Scene tab. Inside the MissionGroup locate any objects that contain the words sky, sun, or clouds in them.  Select the object, then delete it by pushing the delete key, or by clicking the trash can icon.</p><br />
+                <p><img alt="Image:DeleteExistingSkyBox.jpg" src="images/DeleteExistingSkyBox.jpg" border="0" height="320" width="206" /> </p>
+                <p><br />The objects should no longer be present in the Scene Tree. More 
+                    importantly, the sky has now been removed from your level. Because nothing is 
+                    rendered beyond a Skybox, Torque 3D will be rendering absolutely nothing where 
+                    the sky used to exist.</p><br />
+                <p>Additionally, after you delete the Sun there might not be any lighting in your level. This will result in everything being completely shadowed, but we will fix that in just a minute. For now, save your blank level before continuing.</p><br />
+                
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/NoSkybox.jpg" class="livethumbnail"><img src="images/NoSkybox.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br /><br /><br />
+
+                <a name="A_New_Sun" id="A_New_Sun"></a>
+                <h2> <span class="mw-headline">A New Sun</span></h2>
+                <p><br />Now we can add a Sun with default attributes. Start by opening the Library tab in the Scene Tree dialog. Once the Library tab is active, click on the Level tab, then double click the Environment subcategory. The list of available environment objects should now be visible. </p><br />
+                <p><img alt="Image:EnvironmentObjects.jpg" src="images/EnvironmentObjects.jpg" width="209" border="0" height="324" /> </p>
+                <p><br />Double-click on the Basic Sun symbol. Once you do, the Create Object dialog will pop up. </p>
+                <p><img alt="Image:AddSun.jpg" src="images/AddSun.jpg" width="256" border="0" height="159" /> </p>
+                <p><br />Since we want to use stock values for everything, just click Create New without changing anything.</p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/SunNoSky.jpg" class="livethumbnail"><img src="images/SunNoSky.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br /><br /><br />
+                <a name="Adding_A_Skybox" id="Adding_A_Skybox"></a>
+                <h2> <span class="mw-headline">Adding a Skybox</span></h2>
+                <p>Now we can add a Skybox from scratch. You should still be viewing the environment category which is also where the Skybox object is located. If not, change back to the Library tab in the Scene Tree panel, then select the Level tab then double click the Environment folder. Locate the Skybox entry and double-click it. </p><br />
+                <p><img alt="Image:AddSkyBox.jpg" src="images/AddSkyBox.jpg" border="0" height="321" width="207" /> </p>
+                <p><br />
+                </p>
+                With your sky restored in the level, we can now tweak some settings to make it look nicer.<br />
+                
+                <a name="Changing_Skybox_Material" id="Changing_Skybox_Material"></a>
+                <h2> <span class="mw-headline">Changing Skybox Material</span></h2>
+                <p>Without a designated material, your Skybox will still be rendering a single color. To change that use the Scene Tree click the Scene tab and select the Skybox. With the Skybox object selected, scroll through its properties until you find the Material field. </p><br />
+                  <img src="images/SBSelectMaterialField.jpg" width="241" height="76" /><br />
+                <p><br />Click on the small globe icon to open the Material Selector: </p><br />
+                  <p><i>(click to enlarge)</i> </p>
+                <a href="images/SelectBlankSkyMat.jpg" class="livethumbnail"><img src="images/SelectBlankSkyMat.jpg" width="320" height="230" largewidth="640" largeheight="460" /></a><br />
+                <p><br />The Material Selector will show all of the materials that could be found by the engine. Look for one containing "Sky" in the description (e.g. BlankSkyMat). Select it by single clicking on the image, then press the Select button. </p><br />
+                <p><br />After the Material Selector dialog closes your scene will update and render your new sky choice: </p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/BlueSkyBox.jpg" class="livethumbnail"><img src="images/BlueSkyBox.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  While technically rendering a material, a solid blue sky is not much to
+                  look at. If you want a photo-realistic Skybox created from digital
+                  images or Skybox creators, you will need to create a cubemap. You can
+                  create a cubemap using the Material Editor. Go ahead and click on the
+                  Material Editor icon to activate the tool: </p>
+                <p><br />
+                  <img alt="Image:ActivateMatEd.jpg" src="images/ActivateMatEd.jpg" border="0" height="66" width="227" /> </p>
+                <p><br />When the Material Editor loads, look for the Material Properties section on the right side of the screen, underneath the Material Preview window.  At the top of the Material Properties section, you'll see a small icon that looks like a blank piece of paper.  That is the Create New Material button.  Go ahead and click that icon. </p>
+                <p><br />
+                  <img alt="Image:CreateNewMatButton.jpg" src="images/CreateNewMatButton.jpg" border="0" height="105" width="213" /> </p>
+                <p><br />This action will create a base material definition similar to this:</p>
+                <p><br />
+                  <img alt="Image:SkyNewMaterial.jpg" src="images/SkyNewMaterial.jpg" border="0" height="297" width="198" /> </p>
+                <p><br />
+                  Cubemaps do not make use of diffuse, normal, or spec maps, so those can be deleted. Click on the trash bin icon  <img alt="Image:TrashIcon.jpg" src="images/TrashIcon.jpg" border="0" height="15" width="12" /> in each of the following groups - Diffuse Map, Normal Map, and Spec Map. This will delete the material associated with that group if it had one. The gray and white checkerboard pattern means that no material is assigned to a group. Change the name of your material by entering BlueSky in the text box next to the Mission label, then pressing the Enter key on the keyboard, then click the save button - the little floppy disk icon at the top. </p>
+                  <p><br /><strong>NOTE:</strong> It is very important that you press Enter after typing your material name. If you just type the text and click directly on the save icon the material 
+                      <strong>will not be saved!</strong></p>
+                      <p><br />Your current definition should resemble the following: </p>
+                <p><br />
+                  <img alt="Image:SkyMatInitProps.jpg" src="images/SkyMatInitProps.jpg" border="0" height="295" width="207" /> </p>
+                <p><br />Now that the base material is setup, you can create a cubemap. Scroll down to the Advanced (all layers) section of the material in the Material Properties pane. Click on the heading to expand it if the content is not visible. In the middle is a drop down box that reads "None" and to the right is the word "Reflection." Click this box then select the cubemap entry. Once you have done this, click on the Edit button: </p>
+                <p><br />
+                  <img alt="Image:CMEditButton.jpg" src="images/CMEditButton.jpg" border="0" height="31" width="192" /> </p>
+                <p><br />The Create Cubemap dialog will appear. From here you can select an existing sky cubemap or create a new one, which is what we are going to do. At the top of the cubemap list you will find three icons. Click on the page icon to create a new cubemap: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/CreateCubemap.jpg" class="livethumbnail"><img src="images/CreateCubemap.jpg" width="239" height="124" largewidth="478" largeheight="248" /></a><br />
+                <p><br />
+                  You will be prompted to name your new cubemap. Call it "<i>BlueSkyCubemap</i>". Click the create button once you have finished. </p>
+                <p><br />
+                  <img alt="Image:NameSkyCubemap.jpg" src="images/NameSkyCubemap.jpg" border="0" height="99" width="300" /> </p>
+                <p><br />You should now see the cubemap template consisting of six colorful squares bordering each other. It may not make sense at first glance, but each square represents a section of a cube if you were to slice it at the seams and lay it out. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/BlankCubemap.jpg" class="livethumbnail"><img src="images/BlankCubemap.jpg" width="239" height="124" largewidth="478" largeheight="248" /></a><br />
+                <p><br />The +/- X, Y, Z labels are coordinates, but we have also given them directional names (Left, Right, Top, Bottom, Front, and Back). If you need more visualization, imagine you have a box placed over your head with the sky painted on the inside. If you are looking straight up, you are viewing the 
+                    <strong>Top</strong>. If the box unfolded at the edges, you would see exactly what you are viewing here. </p>
+                <p><br />
+                  We will now build the cubemap for the sky to demonstrate this. Make sure you have 
+                    <a href="./sky_blue.zip" class="downloads">downloaded the Blue_Sky files</a>, and unzipped them into your<strong> Torque3D/My Projects/</strong><Project><strong> game/art/skies/game/art/skies </strong>directory, where <Project> is the name of the project you opened or created for this tutorial. Click on the X-POS (Left) icon on the cubemap display. A browser window will open:  </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/OpenSkyLeft.jpg" class="livethumbnail"><img src="images/OpenSkyLeft.jpg" width="284" height="230" largewidth="569" largeheight="461" /></a><br />
+                <p><br />
+                  Navigate to the directory where your sky art is located, click on the blue_0004.jpg file then click the Open button. The sky image will be placed on the left section of your cubemap: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/SkyLeftAdded.jpg" class="livethumbnail"><img src="images/SkyLeftAdded.jpg" width="239" height="124" largewidth="478" largeheight="248" /></a><br />
+                <p><br />The "sky" portion of the image will be on the right side of the picture if you selected the proper image.</p>
+                <p><br />Repeat this process for Front, Right, Back, Top, and Bottom. Here is the placement for the different graphic files:</p>
+                <p><br />Right - blue_0002.jpg<br />
+Front - blue_0001.jpg<br />
+Back - blue_0003.jpg<br />
+Top - blue_0005.jpg<br />
+Bottom - blue_0006.jpg</p>
+                <p><br />Your final cubemap should look like the following: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/SkyCubemapDone.jpg" class="livethumbnail"><img src="images/SkyCubemapDone.jpg" width="239" height="124" largewidth="478" largeheight="248" /></a><br />
+                <p><br />
+                As you can now see, it is as if you are looking straight up at a sky with clouds surrounding your view. Once you are finished, click on the save icon (small floppy disk at the top-left of the dialog). You will be prompted to save your cubemap before continuing: </p>
+                <p><br />
+                  <img alt="Image:SaveCubemap.jpg" src="images/SaveCubemap.jpg" border="0" height="130" width="300" /> </p>
+                <p><br />Click Yes to save the cubemap and return to the Create Cubemap dialog. Click the Select button to close the dialog and apply the new cubemap to the Material Properties.</p>
+                <p><br />When you are finished with your cubemap, your BlueSky material preview should show a Skybox with a strong reflection. This is completely normal, and just shows that this image can be applied to both Skybox objects and water reflections: </p>
+                <p><br />
+                  <img alt="Image:SkyMaterialPreview.jpg" src="images/SkyMaterialPreview.jpg" border="0" height="250" width="211" /> </p>
+                  <p><br />You will also notice that the new sky cubemap has been applied to the scene. This is only a preview and we have not yet told the scene to keep that cubemap as its Skybox. In the upper right hand corner of the Material Preview section there is a checkbox labelled "Preview in World". If you uncheck this box you will see that the new Skybox has not really been assigned to your Skybox yet. Well do that next.</p>
+                <p><br />
+                  Switch back to the object editor (F1 shortcut) and make sure your Skybox object is selected. Scroll down to the Skybox section of the properties, then click on the Material Selector icon  <img alt="Image:GCMatPropIcon.jpg" src="images/GCMatPropIcon.jpg" border="0" height="16" width="16" /> in the Material field. When the Material Selector appears, locate the BlueSky material and click Select. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/SelectBlueSkyMat.jpg" class="livethumbnail"><img src="images/SelectBlueSkyMat.jpg" width="320" height="230" largewidth="640" largeheight="460" /></a><br /><br />
+                <p><br />
+                  Your Skybox should now be rendering the cubemap you created earlier.
+                  Instead of a bland, solid color you now have a more realistic Skybox with
+                    some clouds simulated in the distance. Much more interesting. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/BlueSkyFinal.jpg" class="livethumbnail"><img src="images/BlueSkyFinal.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                </p>
+                <br />
+                 <a name="Adding_Clouds" id="Adding_Clouds"></a>
+                <h2> <span class="mw-headline">Adding Clouds</span></h2>
+                <p>Finally, we are going to add some real clouds that are not a part of the Skybox. You have two choices for cloud layers: Basic Clouds and Cloud Layer. Since this a simple scene, we are going to go with Basic Cloud. Before proceeding, look at your Skybox and carefully note how the sky looks without a cloud object: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/SkyNoClouds.jpg" class="livethumbnail"><img src="images/SkyNoClouds.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br /><br />
+                  When you are ready to add clouds start by switching to the Library tab in the Scene Tree panel. Click on the Level tab then select the environment folder. Once that is open, locate the Basic Clouds object (not the Cloud Layer object): </p>
+                <p><br />
+                  <img alt="Image:BasicCloudLibrary.jpg" src="images/BasicCloudLibrary.jpg" border="0" height="323" width="209" /> </p>
+                <p><br /><br />
+                  Double click the Basic Cloud object. A dialog will appear allowing you to fill out initial details. The Object Name is what you want your Cloud layer to be called in your MissionGroup. For now, just type in theClouds for the name. </p>
+                <p><br />
+                  <img alt="Image:CreateBasicCloud.jpg" src="images/CreateBasicCloud.jpg" border="0" height="88" width="256" /> </p>
+                <p><br />
+                  Click Create New and the Basic Clouds object will be added to your level. Three separate cloud layers will be rendering and moving across the sky slowly: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/SkyWithClouds.jpg" class="livethumbnail"><img src="images/SkyWithClouds.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                Select the new cloud layer - switch to the Scene tab in the Scene Tree pane, and select 
+                    <strong>theClouds</strong> from the list. Scroll to the <strong>BasicClouds</strong> section in the Inspector pane. Expand the <strong>Layers</strong> entry by clicking the + icon, then expand the entries [0], [1], and [2].  This displays the information on the three layers in this object.</p>
+                <p><br />
+                  The stock object will populate the three layers with sample cloud images. These are located by default in /My Projects/&lt;Project&gt;/game/core/art/skies. If for some reason you do not have these assets, you can download them by 
+                    <a href="./clouds.zip" class="downloads">CLICKING HERE</a>. Each image is a transparent PNG, which means that portions of the image are clear so that you can see the background through them. Transparency is a requirement for the clouds to render properly and with realistic depth since you need to be able to see each layer without it blocking those behind it. </p>
+                <br />
+                <p><br />Right now, the cloud layers are stretched and look very hazy, or perhaps not very visible at all depending on your computers monitor brightness and contrast. This stretching causes the clouds to not match the static clouds that are present right within the Skybox cubemap, so we are going to make some changes. A more desired appearance will be wispy, very white clouds. </p>
+                <p><br />The <strong>texScale</strong> property determines how often the texture will repeat on this layer. Increasing texScale will cause the texture to be repeated, which is referred to as being "tiled", over a smaller area, which is be useful for low detail textures such as those used in this tutorial.  </p>
+                <p><br />Increasing the texture repeat will make the layers appear to be more detailed and defined. For each layer [0], [1], and [2], set the 
+                    <strong>texScale</strong> property to 4.: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/CloudTexScale4.jpg" class="livethumbnail"><img src="images/CloudTexScale4.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  This is a good start, but the closest layer should be the most defined. Scroll down to <b>Layers[2]</b> and set the texScale to 8. This texture will repeat more often, making 
+                    it appear to be closer and clearer: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/CloudTexScale8.jpg" class="livethumbnail"><img src="images/CloudTexScale8.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  The last adjustment will affect the movement of the clouds.
+                  Since Layers[2] is the closest and most defined, wind simulation should
+                  be more dramatic. In other words, we want the closest cloud layer to
+                  move the fastest. A single property controls how fast the cloud layer
+                  moves: <b>texSpeed</b>. </p>
+                <p><br />
+                  If the property is set to 0, the cloud layer will not move. The higher
+                  the number, the faster your cloud texture will scroll across the sky.
+                  The stock value for Layers[2] texSpeed is 0.0003. Increase this value
+                  to 0.005, which will cause the clouds to scroll faster: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/CloudFastSpeed.jpg" class="livethumbnail"><img src="images/CloudFastSpeed.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  For reference, the following are the properties I have set
+                  in my scene. You can use these, or continue to make adjustments to your
+                  liking: </p>
+                <p><br />
+                  <img alt="Image:BlueSkyProperties.jpg" src="images/BlueSkyProperties.jpg" border="0" height="496" width="194" /> </p>
+                <p><br />In the end, you should have a very nice looking blue sky with realistic clouds. The more clouds farther in the distance are presented by the Skybox, while the closer clouds are generated by the Basic Clouds object: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/FinalBlueSky.jpg" class="livethumbnail"><img src="images/FinalBlueSky.jpg" width="520" height="402" largewidth="1040" largeheight="804" /></a><br />
+<br />
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>In this tutorial, you learned how to create a basic sky using the Sun, a Skybox, and Basic Clouds. These objects are simpler and have less impact upon a computers performance than the Scatter Sky and Cloud Layer. With the right images and software, artists can make really amazing Sky boxes and cloud textures.</p>
+                <p><br />
+                  Other tutorials make use of these objects, but in different ways. Feel free to continue experimenting with this scene to see what results you can come up with.</p>
+                  </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

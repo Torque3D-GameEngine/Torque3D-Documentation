@@ -1,0 +1,250 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 74;
+   parent.leftFrame.expandToItem('tree2', 'doc74');
+   var element = parent.leftFrame.document.getElementById('doc74');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D World Editor - 3D Models</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ns-0 ltr page-Torque3D_WorldEditor_Adding3DModels">
+<script type="text/javascript" src="../../../include/wz_tooltip.js"></script>
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table id="toc" summary="Contents">
+          <tbody>
+            <tr>
+              <td><div id="toctitle">
+                  <h2>Contents</h2>
+                  
+                <ul>
+                  <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                  <li class="toclevel-1"><a href="#Adding_A_DTS_Model"><span class="tocnumber">2</span> <span class="toctext">Adding A DTS Model</span></a></li>
+                  <li class="toclevel-1"><a href="#Adding_A_COLLADA_Model"><span class="tocnumber">3</span> <span class="toctext">Adding A COLLADA Model</span></a></li>
+                  <li class="toclevel-1"><a href="#Shape_Properties"><span class="tocnumber">4</span> <span class="toctext">Shape Properties</span></a></li>
+                  <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">5</span> <span class="toctext">Conclusion</span></a></li>
+                </ul></td>
+            </tr>
+          </tbody>
+        </table>
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p>3D models, referred to as shapes in these tutorials, make up most of
+                  the objects in your game. This includes players, items, weapons,
+                  vehicles, props, buildings, and so on. Currently Torque 3D supports
+                  three model formats: DTS, COLLADA, and DIF. </p>
+                <p><br />
+                  <b>DTS</b>: Short for <b>D</b>ynamix <b>T</b>hree <b>S</b>pace, this is a proprietary format first developed by a company called Dynamix for its game named Tribes. This has been the primary format used by Torque Technology for importing and rendering 3D model information. The format is binary, which means it is not in a human readable format.  </p>
+                <p><br />
+                  <b>COLLADA</b>: Short for <b>COLLA</b>borative <b>D</b>esign <b>A</b>ctivity. 
+                    COLLADA is emerging as the format for interchanging models between DCC 
+                    (Digital-Content-Creation) applications. The file extension used to identify 
+                    COLLADA files is .dae which stand for <strong>&quot;d</strong>igital <strong>a</strong>sset <strong>e</strong>xchange&quot;. The COLLADA format has several key benefits: all of the geometry and texture information is readily available in a single file; nearly every major 3D modeling application is able to export directly to the COLLADA format; and the data is stored in an open standard XML schema, which means it can be read and tweaked manually, if need be, in any text editor rather than requiring a specific application.  </p>
+                <p><br />
+                  <b>DIF</b>: Short for <b>D</b>ynamix <b>I</b>nterior <b>F</b>ile, this is another proprietary format developed during the Tribes days which is used by Torque. DIFs (also called Interiors) are primarily used for buildings or other enclosing structures within game levels. This format is currently being deprecated and will eventually be removed from the engine. We recommend creating all of your asssets as DTS or COLLADA files.</p>
+				<br /><br />
+                <a name="Adding_A_DTS_Model" id="Adding_A_DTS_Model"></a>
+                <h2> <span class="mw-headline">Adding A DTS Model</span></h2>
+                <p>Before you can add a DTS model to World Builder so that it can be placed in a game level, it must be created with an appropriate application. It must then be placed in a folder where the World Builder can find it. When the World Editor is started it searches the game directories for objects and automatically loads any that it finds into the appropriate sub-tabs of the Library based upon the folders they were found in. Placing a model into the 
+                    <strong>/game/core/art/shapes</strong> folder of your game project, or any sub-folder that you create, will allow the World Builder to find it and list it in the Library on start-up.</p><br />
+                    <p><br />
+                    If you've added files or folders after starting World Builder those new entries will not appear until you have navigated out of a folder, or parent folder, and back in again.</p>
+                    <p><br />
+                    Once a model is listed in the Library it is ready to be added to your game level. To add a model to your game level, select the Object Editor tool. Click the Library tab in the Scene Tree panel. Finally, select the Meshes sub-tab. Once the Meshes tab is open, select the entry from the drop down list. This list represents the directory containing your .dts model.</p>
+                <p><img alt="Image:AddDTS1.jpg" src="images/AddDTS1.jpg" border="0" height="251" width="210" /> </p>
+                <p><br />
+                  Click on the entry that contains your DTS model name. Hovering over the entry will display information about the model. Double-click the shape to automatically add it to your scene. The file should load extremely fast but you may not be able to see it right away. Where an object is placed in the scene depends upon the current drop location selection which can be set the menus Object 
+                    &gt; Drop Location command. Move your camera from its current location until the shape is in view. </p>
+                <p>(<i>click to enlarge</i>) </p>
+                <a href="images/PlayerShapeAdded.jpg" class="livethumbnail"><img src="images/PlayerShapeAdded.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                  <br />
+                  <p><a name="Adding_A_COLLADA_Model" id="Adding_A_COLLADA_Model"></a>                </p>
+                <h2> <span class="mw-headline">Adding A COLLADA Model</span></h2>
+                <p>Torque 3D also has the ability to load and render COLLADA models (.dae) . The process of adding a COLLADA shape is identical to adding a DTS. You will first need to create the COLLADA file and place it where the World Editor can find it then you may place it in a level. </p>
+                <p><br />
+                  Open the Library 
+                    &gt; Meshes tab. Navigate to the directory containing your COLLADA model (.dae). If you hover over the item, you will get a brief file description. </p>
+                <p><img alt="Image:AddCOLLADA.jpg" src="images/AddCOLLADA.jpg" border="0" height="207" width="209" /> </p>
+                <p><br />Double clicking an object will open the COLLADA import dialog. For the purpose of this example, you can just click OK to load the mesh.</p> 
+                <p><br /><img src="images/COLLADAImportDialog.png" height="444" width="514"/></p>
+                <p><br />The file should load extremely fast, but you may not be able to see it right away. Where an object is placed in the scene depends upon the current drop location selection which can be set the menus Object 
+                    &gt; Drop Location command. Pull your camera up and away from its current location until the shape is in view.</p>
+                <p>(<i>click to enlarge</i>) </p>
+                <a href="images/MBAdded.jpg" class="livethumbnail"><img src="images/MBAdded.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                
+                <a name="Shape_Properties" id="Shape_Properties"></a>
+                <h2> <span class="mw-headline">Shape Properties</span></h2>
+                <p><br />Each shape in a scene has properties which can be set like any other object using the 
+                    <em>Object Editor</em>. Clicking a shape in the scene or selecting it from the 
+                    <em>Scene Tree</em> will update the Inspector pane with information about that object. Shapes have their own unique set of properties. </p>
+                <p><br />Hover over a section of the image below for a description of the properties in that section:</p>
+                <img src="images/ShapeInspector.jpg" width="323" border="0" height="809" > <br />
+                  <h3>Inspector</h3>
+                  <p><br /><b>Name: </b> <i>TypeName</i>. Optional global name of this object.</p>
+                  <p><br /><b>id: </b> <i>TypeCaseString</i>. SimObjectId of this object. Read Only.</p>
+                  <p><br /><b>Source Class: </b><i>TypeCaseString</i>. Source code class of this object. Read Only.</p>
+                  <h3>Transform</h3>
+                  <p><br /><b>Position: </b> <i>TypeMatrixPosition</i>. Object world position.</p>
+                  <p><br /><b>Rotation: </b> <i>TypeMatrixRotation</i>. Object world orientation.</p>
+                  <p><br /><b>Scale: </b> <i>TypePoint3F</i>. Object world scale.</p>
+                  <h3>Media</h3>
+                  <p><br /><b>shapeName: </b> <i>TypeFilename</i>. Name and path of model file.</p>
+                  <h3>Rendering</h3>
+                  <p><br /><b>playAmbient: </b> <i>TypeBool</i>. Play the ambient animation. Animation itself must be named ambient.</p>
+                  <p><br /><b>meshCulling: </b> <i>TypeBool</i>. Enables detailed culling of meshes.</p>
+                  <p><br /><b>originSort: </b> <i>TypeBool</i>. Enables sorting by origin rather than bounds.</p>
+                  <h3>Collision</h3>
+                  <p><br /><b>collisionType: </b> <i>TypeBool</i>. <i>TypeEnum</i>. The type of mesh data to use for collision queries.</p>
+                  <p><br /><b>decalType: </b> <i>TypeEnum</i>. The type of mesh data to return for decal generation.</p>
+                  <p><br /><b>allowPlayerStep: </b> <i>TypeBool</i>. Allow a player to qalk up sloping polygons on collision.</p>
+                  <h3>Debug</h3>
+                  <p><br /><b>renderNormals: </b> <i>TypeF32</i>. Debug rendering mode which highlights shape normals.</p>
+                  <p><br /><b>forceDetail: </b> <i>TypeS32</i>. For rendering at a particular detail for debugging.</p>
+                  <h3>Editing</h3>
+                  <p><br /><b>isRenderEnabled: </b> <i>TypeBool</i>. Only render if true (and if class is render-enabled, too).</p>
+                  <p><br /><b>isSelectionEnabled: </b> <i>TypeBool</i>. Disables editor selection of this object.</p>
+                  <p><br /><b>hidden: </b> <i>TypeBool</i>. Toggle visibility of this object.</p>
+                  <p><br /><b>locked: </b> <i>TypeBool</i>. Toggle whether this object can be edited.</p>
+                  <h3>Mounting</h3>
+                  <p><br /><b>mountPID: </b> <i>TypeBool</i>. <i>TypePID</i>. PersistentID of the object this one is mounted to.</p>
+                  <p><br /><b>mountNode: </b> <i>TypeS32</i>. Node this object is mounted to.</p>
+                  <p><br /><b>mountPos: </b> <i>TypeBool</i>. Position where this object is mounted.</p>
+                  <p><br /><b>mountRot: </b> <i>TypeBool</i>. Rotation of this object in relation to the mount node.</p>
+                  <h3>Object</h3>
+                  <p><br /><b>internalName: </b> <i>TypeString</i>. Optional name that may be used to lookup this object within a SimSet.</p>
+                  <p><br /><b>parentGroup: </b> <i>TypeSimObjectPtr</i>. Group hierarchy parent of the object.</p>
+                  <p><br /><b>class: </b> <i>TypeString</i>. Script class of this object.</p>
+                  <p><br /><b>superClass: </b> <i>TypeString</i>. Script superClass of this object.</p>
+                  <h3>Persistence</h3>
+                  <p><br /><b>canSave: </b> <i>TypeBool</i>. Whether this object can be saved.</p>
+                  <p><br /><b>canSaveDynamicFields: </b> <i>TypeBool</i>. True if dynamic fields added at runtime should be saved. Defaults to true.</p>
+                  <p><br /><b>persistentID: </b> <i>TypePID</i>. Unique identifier for this object.</p>
+                  <h3>Dynamic Fields</h3>
+                  <p><br />N/A - None by default.</p>
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p><br />
+                Importing 3D models into your level is a relatively simple process and is further aided by supporting a dynamic update process.</p>
+                 
+                  </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

@@ -1,0 +1,721 @@
+<html>
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 31;
+   parent.leftFrame.expandToItem('tree2', 'doc31');
+   var element = parent.leftFrame.document.getElementById('doc31');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../include/content.css" />
+<title>Torque 3D - Simple Inventory GUI</title>
+</head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_GUIEditor_Images skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2></div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Setting_Up"><span class="tocnumber">2</span> <span class="toctext">Setting Up</span></a></li>
+                          <li class="toclevel-1"><a href="#Bitmap_Controls"><span class="tocnumber">3</span> <span class="toctext">Bitmap Controls</span></a></li>
+                          <li class="toclevel-1"><a href="#GUI_Profile"><span class="tocnumber">4</span> <span class="toctext">GUI Profile</span></a></li>
+                          <li class="toclevel-1"><a href="#More_Visual_Editing"><span class="tocnumber">5</span> <span class="toctext">More Visual Editing</span></a></li>
+                          <li class="toclevel-1"><a href="#Bitmap_Buttons"><span class="tocnumber">6</span> <span class="toctext">Bitmap Buttons</span></a></li>
+                          <li class="toclevel-1"><a href="#Adding_Functionality"><span class="tocnumber">7</span> <span class="toctext">Adding Functionality</span></a></li>
+                          <li class="toclevel-1"><a href="#Scripting_Hooks"><span class="tocnumber">8</span> <span class="toctext">Scripting Hooks</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">9</span> <span class="toctext">Conclusion</span></a>
+
+                              <li class="toclevel-2"><a href="#File_List"><span class="tocnumber">9.1</span> <span class="toctext">File List</span></a></li>
+
+                          </li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p><br />
+                Special thanks to Dave Young (aka NightHawk) of aRa Software Tutorials for writing the original guides.
+                </p>
+                <a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p><img alt="Image:6_FinalGui.jpg" src="6_Images/6_FinalGui.jpg" border="0" height="382" width="432" /> </p>
+                <p><br />
+                  For the final tutorial in the series, we will make a simple inventory
+                  GUI. We will look at how to setup the graphics for your 
+                  background and buttons. A small script will be written to change the
+                  contents of the list for each of the buttons pressed and set up the
+                  title text. </p>
+                <p><br />
+                  Suggested Reading: </p>
+                <ul>
+                  <li><a href="Introduction.html">GUI Editor Overview</a> </li>
+                  <li><a href="Interface.html">GUI Interface</a> </li>
+                  <li><a href="../Scripting/Overview/Introduction.html">TorqueScript Reference</a> </li>
+                  <li><a href="Firstgui.html">GUI Tutorial 1</a> </li>
+                  <li><a href="Controls.html">GUI Tutorial 2</a></li>
+                  <li><a href="Console.html">GUI Tutorial 3</a> </li>
+                  <li><a href="Gameoverlay.html">GUI Tutorial 4</a> </li>
+                  <li><a href="Advanced.html">GUI Tutorial 5</a></li>
+                </ul>
+                <p><br />
+                  Covered in this tutorial: </p>
+                <ul>
+                  <li>Learn how to implement a background image </li>
+                  <li>Make an image into a button. </li>
+                  <li>Lists in use </li>
+                </ul><br>
+                <a name="Setting_Up" id="Setting_Up"></a>
+                <h2> <span class="mw-headline">Setting Up</span></h2>
+                <p>To complete this tutorial you will need some image files. You can either create your own or use the images from this tutorial: </p>
+                <p><br />
+                  <a href="Tutorial6_images.zip">Get the Tutorial 6 Images here</a></p>
+                <p><br />
+                  If you have downloaded the <strong>Tutorial6_images.zip</strong> please place the new folder "images" into <b>game/art/</b>. 
+                  Open your tutorial project and start the GUI Editor. Create a new GUI and call it <b>InventoryGui</b> of GUI class type <b>GuiControl</b>. </p>
+                <br>
+                <a name="Bitmap_Controls" id="Bitmap_Controls"></a>
+                <h2> <span class="mw-headline">Bitmap Controls</span></h2>
+                <p><b>STEP 1</b>: From the <b>Library > Images</b> category and add a <b>GuiBitmapCtrl</b> to the editor work space. 
+                Drag the new control into the center of your editor. From with in the <b>GuiBitmapCtrl</b> section of the properties panel 
+                you will notice the square box to the right of the bitmap property. </p>
+                <p><br />
+                  <img alt="Image:6_BitmapField.jpg" src="6_Images/6_BitmapField.jpg" border="0" height="133" width="213" /> </p>
+                <p><br />
+                  When clicked, this box will open a file browser. Locate your <b>game/art/images</b> folder and load the file <i>backgnd.png</i>. </p>
+                <p>GuiBitmapCtrl  Property bitmap: art/images/backgnd.png </p>
+                <p><br />
+                  While we are also in the property section, we will need to
+                  set this control as a container. By being a container this control can
+                  become a parent control for the buttons and text controls of our
+                  inventor gui: </p>
+                <p><img alt="Image:6_IsContainer.jpg" src="6_Images/6_IsContainer.jpg" border="0" height="85" width="210" /> </p>
+                <p><br />
+                  <b>STEP 2</b>: You will need to resize the bitmap control by dragging
+                  on the sizing handles, do so until you have something looking similar
+                  to this: </p>
+                <p><br />
+                  <img alt="Image:6_InitialWindow.jpg" src="6_Images/6_InitialWindow.jpg" border="0" height="407" width="398" /> </p>
+                <p>
+                <i><b>NOTE:</b> The Close button is embedded into the background image.</i>
+                </p>
+                <p><br />
+                  Now would be a good time to make a save if you have not done so already. Save the GUI as <i><b>inventoryGui.gui</b></i>. </p>
+                <p><br />
+                  <b>STEP 3</b>: Making sure you have the <b>GuiBitmapCtrl</b> selected, add a <b>GuiTextCtrl<b> from 
+                  the <b>Library > Text</b> category to act as our inventory title. Place this in the space at the top of 
+                  our inventory, stretch it, and set its properties to the following: </p>
+                <p><br />
+                  <b>GuiTextCtrl</b> property name: <b>lblInvTitle</b> </p>
+                <p><b>GuiTextCtrl</b> property text: <b>Inventory</b> </p>
+                <p><br />
+                  You will notice that the text is very hard to read, we are
+                  going to adjust its color with a control profile. Instead of choosing
+                  one from the many provided, this time we are going to make our own. </p><br>
+                <a name="GUI_Profile" id="GUI_Profile"></a>
+                <h2> <span class="mw-headline">GUI Profile</span></h2>
+                <p>Setting up your own profile is very easy. Head to the folder <b>game/art/gui</b> and open the 
+                file <b>defaultGameProfiles.cs</b> in Torsion or another text editor. To make our Inventory look good we are
+                  going to create three new profiles. In the defaultGameProfiles.cs add the
+                  following script at the bottom of the file: </p>
+                <pre>singleton GuiControlProfile (InvList)
+{
+   opaque = true;
+   fontType       = "Arial";
+   fontSize       = 16;
+   fillColor = "150 150 158"; //selection color
+   fontColor = "255 255 255";
+   justify = "left";
+};
+   
+singleton GuiControlProfile (InvScroll)
+{
+   // make transparent
+   opaque = false; 
+};
+
+singleton GuiControlProfile (InvGui)
+{
+   // make transparent
+   opaque = false;
+     
+   //Font
+   fontType       = "Arial";
+   fontSize       = 18;
+   
+   //Set font color - R G B (range 0 -255 )
+   fontColor      = "200 200 200";
+   justify        = "center";
+
+   //Draw a border
+   border         = 1;
+   border         = false;    
+};
+</pre>
+                <p><br />
+                  You will notice the new profile names that will be displayed in the GUI controls profile property: <b>singleton GuiControlProfile( profile name ){…}</b> </p>
+                <p><br />
+                  <i>Hint: When naming variables, controls, profiles, etc., try
+                  to be descriptive of its purpose. You can only use the label once
+                  otherwise you will have errors due to conflicting naming.
+                  For example, calling our profile <b>inventoryGui</b> would have caused a conflict with the name of the GUIitself. </i></p>
+                <p><br />
+                  To give you an idea of which properties are available, here is a table with explanations: </p></td>
+            </tr>
+          </tbody>
+        </table>
+        <table width="700">
+          <tbody>
+            <tr>
+              <th width="130" bgcolor="#6699ff"> <p align="left"> Name </p></th>
+              <th width="124" bgcolor="#6699ff"> <p align="left"> Type </p></th>
+              <th width="68" bgcolor="#6699ff"> <p align="left"> Default </p></th>
+              <th width="358" bgcolor="#6699ff"> <p> Explanation </p></th>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> autoSizeHeight </p></td>
+              <td bgcolor="#eeeeee"><p> bool </p></td>
+              <td bgcolor="#eeeeee"><p> false </p></td>
+              <td bgcolor="#eeeeee"><p> Control's height shall fit its contents. See also autoSizeWidth. </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> autoSizeWidth </p></td>
+              <td bgcolor="#eeeeee"><p> bool </p></td>
+              <td bgcolor="#eeeeee"><p> false </p></td>
+              <td bgcolor="#eeeeee"><p> Control's width shall fit its contents. See also autoSizeHeight. </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> bevelColorHL </p></td>
+              <td bgcolor="#eeeeee"><p> Color4I </p></td>
+              <td bgcolor="#eeeeee"><p> 0 0 0 0 </p></td>
+              <td bgcolor="#eeeeee"><p> The color of the bevel's highlight part. </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> bevelColorLL </p></td>
+              <td bgcolor="#eeeeee"><p> Color4I </p></td>
+              <td bgcolor="#eeeeee"><p> 0 0 0 0 </p></td>
+              <td bgcolor="#eeeeee"><p> The color of the bevel's lowlight part. </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> bitmap </p></td>
+              <td bgcolor="#eeeeee"><p> filename </p></td>
+              <td bgcolor="#eeeeee"><p> <i>none</i> </p></td>
+              <td bgcolor="#eeeeee"><p> The file name (or path) for the image file (PNG, JPG, etc.) to use for this control. <b>Note</b>: certain GuiControl classes use this bitmap [[#Parsing_the_Bitmap|parsed into multiple pieces. </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> border </p></td>
+              <td bgcolor="#eeeeee"><p> integer </p></td>
+              <td bgcolor="#eeeeee"><p> 1 </p></td>
+              <td bgcolor="#eeeeee"><p> For most controls, if border is greater than 0, a border will be
+                  drawn. Some controls use this member to draw different types of
+                borders. </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> borderThickness </p></td>
+              <td bgcolor="#eeeeee"><p> integer </p></td>
+              <td bgcolor="#eeeeee"><p> 1 </p></td>
+              <td bgcolor="#eeeeee"><p> Thickness of the control's border. </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> borderColor </p></td>
+              <td bgcolor="#eeeeee"><p> Color4I </p></td>
+              <td bgcolor="#eeeeee"><p> 040 040 040 100 </p></td>
+              <td bgcolor="#eeeeee"><p> The color to use for the border of the control. </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> borderColorHL </p></td>
+              <td bgcolor="#eeeeee"><p> Color4I </p></td>
+              <td bgcolor="#eeeeee"><p> 128 128 128 255 </p></td>
+              <td bgcolor="#eeeeee"><p> The color to use for the border of the control when the control is highlighted. </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> borderColorNA </p></td>
+              <td bgcolor="#eeeeee"><p> Color4I </p></td>
+              <td bgcolor="#eeeeee"><p> 064 064 064 255 </p></td>
+              <td bgcolor="#eeeeee"><p> The color to use for the border of the control when the control is not active. </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> canKeyFocus </p></td>
+              <td bgcolor="#eeeeee"><p> bool </p></td>
+              <td bgcolor="#eeeeee"><p> false </p></td>
+              <td bgcolor="#eeeeee"><p> Whether this control can become the focus for keyboard events (key presses). </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> cursorColor </p></td>
+              <td bgcolor="#eeeeee"><p> Color4I </p></td>
+              <td bgcolor="#eeeeee"><p> 000 000 000 255 </p></td>
+              <td bgcolor="#eeeeee"><p> The color of the insertion point (blinking I-beam) cursor in an EditText control. </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> fillColor </p></td>
+              <td bgcolor="#eeeeee"><p> Color4I </p></td>
+              <td bgcolor="#eeeeee"><p> 211 211 211 255 </p></td>
+              <td bgcolor="#eeeeee"><p> The color for the interior of the control. </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> fillColorHL </p></td>
+              <td bgcolor="#eeeeee"><p> Color4I </p></td>
+              <td bgcolor="#eeeeee"><p> 244 244 244 255 </p></td>
+              <td bgcolor="#eeeeee"><p> The color for the interior of the control when the control is highlighted. </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> fillColorNA </p></td>
+              <td bgcolor="#eeeeee"><p> Color4I </p></td>
+              <td bgcolor="#eeeeee"><p> 244 244 244 255 </p></td>
+              <td bgcolor="#eeeeee"><p> The color for the interior of the control when the control is not active. </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> fontCharset </p></td>
+              <td bgcolor="#eeeeee"><p> <i>enum</i> </p></td>
+              <td bgcolor="#eeeeee"><p> ANSI </p></td>
+              <td bgcolor="#eeeeee"><p> The output encoding of the font to use. One of ANSI,?? </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> fontSize </p></td>
+              <td bgcolor="#eeeeee"><p> integer </p></td>
+              <td bgcolor="#eeeeee"><p> 14 </p></td>
+              <td bgcolor="#eeeeee"><p> The size of the font in points. </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> fontType </p></td>
+              <td bgcolor="#eeeeee"><p> string </p></td>
+              <td bgcolor="#eeeeee"><p> Arial </p></td>
+              <td bgcolor="#eeeeee"><p> The name of the font, along with other modifiers, like "bold". </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> fontColor </p></td>
+              <td bgcolor="#eeeeee"><p> Color4I </p></td>
+              <td bgcolor="#eeeeee"><p> 000 000 000 255 </p></td>
+              <td bgcolor="#eeeeee"><p> Color of the font. </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> fontColors </p></td>
+              <td bgcolor="#eeeeee"><p> Color4I </p></td>
+              <td bgcolor="#eeeeee"><p> 000 000 000 255 </p></td>
+              <td bgcolor="#eeeeee"><p> Unknown. </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> fontColorHL </p></td>
+              <td bgcolor="#eeeeee"><p> Color4I </p></td>
+              <td bgcolor="#eeeeee"><p> 032 100 100 255 </p></td>
+              <td bgcolor="#eeeeee"><p> Color of the font when the control is highlighted. </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> fontColorSEL </p></td>
+              <td bgcolor="#eeeeee"><p> Color4I </p></td>
+              <td bgcolor="#eeeeee"><p> 200 200 200 255 </p></td>
+              <td bgcolor="#eeeeee"><p> Color of the font when the control or the text field is selected. </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> fontColorNA </p></td>
+              <td bgcolor="#eeeeee"><p> Color4I </p></td>
+              <td bgcolor="#eeeeee"><p> 000 000 000 255 </p></td>
+              <td bgcolor="#eeeeee"><p> Color of the font when the control is not active. </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> fontColorLink </p></td>
+              <td bgcolor="#eeeeee"><p> Color4I </p></td>
+              <td bgcolor="#eeeeee"><p> 000 000 000 000 </p></td>
+              <td bgcolor="#eeeeee"><p> Font color for a hyperlink. </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> fontColorLinkHL </p></td>
+              <td bgcolor="#eeeeee"><p> Color4I </p></td>
+              <td bgcolor="#eeeeee"><p> 000 000 000 000 </p></td>
+              <td bgcolor="#eeeeee"><p> Font color for a highlighted hyperlink. </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> fontColors_0..9 </p></td>
+              <td bgcolor="#eeeeee"><p> Color4I </p></td>
+              <td bgcolor="#eeeeee"><p> 000 000 000 255 </p></td>
+              <td bgcolor="#eeeeee"><p> Different members of this array of font colors is devoted to particular GuiControl classes. 
+                GuiMLTextProfile, GuiConsoleProfile, and others. </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> justify </p></td>
+              <td bgcolor="#eeeeee"><p> <i>left, center, right</i> </p></td>
+              <td bgcolor="#eeeeee"><p> right </p></td>
+              <td bgcolor="#eeeeee"><p> Justification of the text of the control. </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> textOffset </p></td>
+              <td bgcolor="#eeeeee"><p> Vector2I </p></td>
+              <td bgcolor="#eeeeee"><p> 0 0 </p></td>
+              <td bgcolor="#eeeeee"><p> Offset, in points, of the text of the control. </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> Modal </p></td>
+              <td bgcolor="#eeeeee"><p> bool </p></td>
+              <td bgcolor="#eeeeee"><p> false </p></td>
+              <td bgcolor="#eeeeee"><p> Whether the control should make the UI modal (prevent the user from doing anything outside of the control). </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> mouseOverSelected </p></td>
+              <td bgcolor="#eeeeee"><p> bool </p></td>
+              <td bgcolor="#eeeeee"><p> false </p></td>
+              <td bgcolor="#eeeeee"><p> Whether the control should be "selected" when the mouse hovers over it. </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> numbersOnly </p></td>
+              <td bgcolor="#eeeeee"><p> bool </p></td>
+              <td bgcolor="#eeeeee"><p> false </p></td>
+              <td bgcolor="#eeeeee"><p> Whether the text of the control should be restricted to numerical characters only. </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> opaque </p></td>
+              <td bgcolor="#eeeeee"><p> bool </p></td>
+              <td bgcolor="#eeeeee"><p> false </p></td>
+              <td bgcolor="#eeeeee"><p> Whether the control should be opaque. </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> tab </p></td>
+              <td bgcolor="#eeeeee"><p> bool </p></td>
+              <td bgcolor="#eeeeee"><p> false </p></td>
+              <td bgcolor="#eeeeee"><p> Whether the user can switch focus to this object by using the tab key. </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> returnTab </p></td>
+              <td bgcolor="#eeeeee"><p> bool </p></td>
+              <td bgcolor="#eeeeee"><p> false </p></td>
+              <td bgcolor="#eeeeee"><p> Whether a tab-event should be simulated when the return key is pressed. (Used in the EditorTextEdit profile.) </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> profileForChildren </p></td>
+              <td bgcolor="#eeeeee"><p> object </p></td>
+              <td bgcolor="#eeeeee"><p> <i>none</i> </p></td>
+              <td bgcolor="#eeeeee"><p> When the control is used as a container for other controls, this
+                  field specifies the profile to use for those child controls. Profiles
+                  that specify this field: EditorListBoxProfile EditorPopupMenu
+                  EditorPopupMenuLarge EditorTabBook GuiFormProfile GuiPopUpMenuDefault
+                GuiPopUpMenuEditProfile T2DDatablockDropDownProfile. </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> soundButtonDown </p></td>
+              <td bgcolor="#eeeeee"><p> AudioProfile </p></td>
+              <td bgcolor="#eeeeee"><p> <i>none</i> </p></td>
+              <td bgcolor="#eeeeee"><p> Sound profile to use for the sound to produce when the button (control) is pressed. </p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#eeeeee"><p> soundButtonOver </p></td>
+              <td bgcolor="#eeeeee"><p> AudioProfile </p></td>
+              <td bgcolor="#eeeeee"><p> <i>none</i> </p></td>
+              <td bgcolor="#eeeeee"><p> Sound profile to use for the sound to produce when the mouse hovers the control. </p></td>
+            </tr>
+          </tbody>
+        </table><br><br>
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><a name="More_Visual_Editing" id="More_Visual_Editing"></a>
+                <h2> <span class="mw-headline">More Visual Editing</span></h2>
+                <p>Open your project up again and load the inventoryGui.gui file once again. 
+                  Select the title control <b>GuiTextCtrl</b> set its
+                  profile property: </p>
+                <p><br />
+                  <b>GuiTextCtrl</b> Property profile: <b>InvGui</b> </p>
+                <p><br />
+                  The <b>GuiTextCtrl</b> now uses the profile we created in script. By changing the profile the title text can now be seen.
+                  Before we create our bitmap buttons we need to add scroll and list
+                  control to display our items. </p>
+                <p><br />
+                  <img alt="Image:6_InventoryText.jpg" src="6_Images/6_InventoryText.jpg" border="0" height="431" width="412" /> </p>
+                <p><br />
+                  WWith GuiBitmapCtrl selected, add a GuiScrollCtrl control to the large pane. 
+                  With the GuiScrollCtrl selected, add a GuiListBoxCtrl. The control list should look like this: </p>
+                <p><br />
+                  <img alt="Image:6_SelectListBox.jpg" src="6_Images/6_SelectListBox.jpg" border="0" height="284" width="219" /> </p>
+                <p><br />
+                <i><b>Hint: GuiScrollCtrl</b> can be found in the <b>Library > Containers</b> category, <b>GuiListBoxCtrl</b> can be found in the <b>Library > Lists</b> category.</i>
+                </p>
+                <p><br />
+                  Next we need to change a few properties to get it all looking nice: </p>
+                <p><br />
+                  <b>GuiScrollCtrl</b>	property profile: <b>InvScroll</b> </p>
+                <p><b>GuiListBoxCtrl</b>	property name: <b>lstInventory</b> </p>
+                <p><b>GuiListBoxCtrl</b>	property profile: <b>InvList</b> </p>
+                <p><b>GuiListBoxCtrl</b>	property fitParentWidth: <b>checked</b> </p>
+                <p><br />
+                  <b>Now is a good time to save.</b> </p><br>
+                <a name="Bitmap_Buttons" id="Bitmap_Buttons"></a>
+                <h2> <span class="mw-headline">Bitmap Buttons</span></h2>
+                <p>Before we add functionality via script we need to add one last set of controls: our bitmap buttons. </p>
+                <p><br />
+                  <b>STEP 1</b>: With the <b>GuiBitmapCtrl</b> control selected add a new <b>GuiBitmapButtonCtrl</b> and place it in the left hand panel of our GUI. </p>
+                <p><i><b>Hint: GuiBitmapButtonCtrl</b> can be found in the <b>Library > Buttons</b> category.</i></p>
+                <p><br />
+                  <i><b>Hint</b>: If you find your control has become a child of the
+                  scroll control or other, just drag the new control out of the scroll
+                  control area</i> and this with change its order. </p>
+                <p><br />
+                  Set the new controls property: (remember you can click the file box to access the browser) </p>
+                <p><br />
+                  <b>GuiBitpmapButtonCtrl</b> property Bitmap: <b>game/art/images/aRaLogoIcon.png</b> </p>
+                <p><br />
+                  Resize the control as in the image below: </p>
+                <p><br />
+                  <img alt="Image:6_AddFirstButton.jpg" src="6_Images/6_AddFirstButton.jpg" border="0" height="455" width="448" /> </p>
+                <p><br />
+                  Press F10 to preview your GUI and try the button. </p>
+                <p><br />
+                  <b>STEP 2</b>: The button does not work! This is because we have
+                  specified that the control has a single image for all of its states,
+                  thus no change when it is clicked. To remedy this ensure the property
+                  looks like the following: </p>
+                <p><br />
+                  <b>GuiBitpmapButtonCtrl</b> property Bitmap: <b>game/art/images/aRaLogoIcon</b> <i>( notice there is no file extension )</i> </p>
+                <p><br />
+                  Now a little note on the bitmap button control. You may have
+                  noticed that the image was entered as <b>game/art/images/aRaLogoIcon</b> with no
+                  extension ( *.png ). This is very important and not an error, but part
+                  of the button multi image system. </p>
+                <p><br />
+                  Each image needs to be named in a correct format for the
+                  button system to recognize the image as a multi. Have a look at the
+                  images in the game/art/gui/images folder. </p>
+                <p><br />
+                  <b>Normal</b> - <i>aRaLogoIcon.png</i> </p>
+                <p><b>Hover</b> - <i>aRaLogoIcon_h.png</i> </p>
+                <p><b>Down</b> - <i>aRaLogoIcon_d.png</i> </p>
+                <p><br />
+                  If you want to have multiple images for normal / hover /
+                  down, you just add the file path and the file name excluding the file
+                  extension ( *.png ). The engine will look for the correct images. Make
+                  a save and preview F10 your GUI and try out the button. </p>
+                <p><br />
+                  <b>STEP 3</b>: Next, select the new button and copy / paste three more. Arrange the buttons under each other. </p>
+                <p><br />
+                  <i><b>HINT</b>:</i> If you multi select controls you can the resize them all at the same time. </p>
+                <p><i><b>HINT</b>:</i> Remember you can use the icons in the tool bar to <b>line up</b> and <b>distribute</b> evenly the controls. </p>
+                <p><i><b>HINT</b>:</i> The tool bar icons will display a tool hint in you hover the mouse over them. </p>
+                <p><br />
+                  Set the properties of the new buttons: </p>
+                <p><br />
+                  <b>Button 1</b> property name: <b>btn1</b> </p>
+                <p><b>Button 2</b> property name: <b>btn2</b> </p>
+                <p><b>Button 3</b> property name: <b>btn3</b> </p>
+                <p><b>Button 4</b> property name: <b>btn4</b> </p>
+                <p><br />
+                  <img alt="Image:6_AddMoreButtons.jpg" src="6_Images/6_AddMoreButtons.jpg" border="0" height="474" width="465" /> </p>
+                <p><br />
+                  <b>STEP 4</b>: The last control we need is the close button at the
+                  bottom of the inventory. With the GuiBitmapCtrl selected add one more
+                  GuiBitmapButtonCtrl. Set its properties to the following: </p>
+                <p><br />
+                  Button close property name: <b>btnClose</b> </p>
+                <p>Button close property Bitmap: <b>game/art/images/inventoryClose</b> <i>(again leave off the file extension)</i> </p>
+                <p><br />
+                  Resize the control so that it fits neatly over the
+                  background image of the close button. Preview F10 your GUI to make sure
+                  all the button images change with the mouse events. </p><br>
+                <a name="Adding_Functionality" id="Adding_Functionality"></a>
+                <h2> <span class="mw-headline">Adding Functionality</span></h2>
+                <p>Now that all the controls are in place, we need to make it all do
+                  something. Making sure you have saved your GUI, close down Torque 3D
+                  and open your favorite script editor. Create a new script file in <b>scripts/gui/</b> called <i><b>InventoryGui.cs</b></i>. </p>
+                <p><br />
+                  The new script will add functionality to the buttons which when pressed
+                  will change the text in the title and place the contents of an array
+                  into the list box. Add the following code to your new script file: </p>
+                <pre>//
+//global arrays for initial content to be displayed
+//
+
+$FOOD      = 0;
+$SPELLS    = 1;
+$WEAPON  = 2;
+$ARMOUR  = 3;
+
+$aInv[$FOOD,0] = "Bread x 1"; 
+$aInv[$FOOD,1] = "Apple x 1 "; 
+$aInv[$FOOD,2] = "Pie x 2"; 
+
+$aInv[$SPELLS,0] = "Fall From Grace";
+$aInv[$SPELLS,1] = "Ice Call";
+$aInv[$SPELLS,2] = "Water Wish";
+$aInv[$SPELLS,3] = "Fire Storm";
+$aInv[$SPELLS,4] = "Healing Heart";
+
+$aInv[$WEAPON,0] = "Sword of Truth";
+$aInv[$WEAPON,1] = "Chain Axe";
+$aInv[$WEAPON,2] = "Dagger";
+$aInv[$WEAPON,3] = "Elf Staff";
+$aInv[$WEAPON,4] = "Ork Hammer";
+
+$aInv[$ARMOUR,0] = "Light Mail";
+$aInv[$ARMOUR,1] = "Light Sheild";
+$aInv[$ARMOUR,2] = "Cursed Gloves";
+$aInv[$ARMOUR,3] = "Invisiblity Cloak";
+
+//
+//Give each of our buttons a function to call
+//
+
+function inventoryGui::btn1()
+{
+   //set the title text 
+   lblInvTitle.setValue("FOOD");
+   
+   //clear the list box of previous content
+   lstInventory.clearItems();
+
+   //iterate through our array adding items to our list
+   for(%i = 0;%i &lt; 4;%i++)
+   { 
+      lstInventory.addItem( $aInv[ $FOOD,%i ]);
+   }   
+}
+
+function inventoryGui::btn2()
+{
+   lblInvTitle.setValue("SPELLS");
+   lstInventory.clearItems();
+   for(%i = 0;%i &lt; 5;%i++)
+   { 
+      lstInventory.addItem( $aInv[ $SPELLS,%i ]);
+   }   
+}
+
+function inventoryGui::btn3()
+{
+   lblInvTitle.setValue("WEAPONS");
+   lstInventory.clearItems();
+   for(%i = 0;%i &lt; 5;%i++)
+   { 
+      lstInventory.addItem( $aInv[ $WEAPON,%i ]);
+   }   
+}
+
+function inventoryGui::btn4()
+{
+   lblInvTitle.setValue("ARMOUR");
+   lstInventory.clearItems();
+   for(%i = 0;%i &lt; 4;%i++)
+   { 
+      lstInventory.addItem( $aInv[ $ARMOUR,%i ]);
+   }   
+}
+</pre>
+                <p><br />
+                  Next, open the <b>game/scripts/client/init.cs</b> file and add the following under the section <i>// Execute the GUI scripts and functions</i> </p>
+                <pre>exec("scripts/gui/InventoryGui.cs");</pre>
+                <p><br />
+                  <strong>Save your script files now. </strong></p>
+                <br>
+                <a name="Scripting_Hooks" id="Scripting_Hooks"></a>
+                <h2> <span class="mw-headline">Scripting Hooks</span></h2>
+                <p>We are going to make our final edits in the editor. Run the GUI
+                  Editor and load your inventoryGui. Each button now needs to be linked
+                  to our new functions. Set the following properties to our buttons: </p>
+                <p><br />
+                  <b>btn1</b> property command: <b>inventoryGui.btn1();</b> </p>
+                <p><b>btn2</b> property command: <b>inventoryGui.btn2();</b> </p>
+                <p><b>btn3</b> property command: <b>inventoryGui.btn3();</b> </p>
+                <p><b>btn4</b> property command: <b>inventoryGui.btn4();</b> </p>
+                <p><b>btnClose</b> property command: <b>Canvas.popDialog(inventoryGui);</b> </p>
+                <p><br />
+                  Save your final edits and test out your new inventory system. </p><br>
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>In this tutorial, you learned the following concepts: </p>
+                <ul>
+                  <li>Learn how to implement a background image </li>
+                  <li>Make an image into a button. </li>
+                  <li>Lists in use </li>
+                </ul>
+                <p><br />
+                  This brings the GUI Editor tutorial series to a close. You should now have
+                  enough information to begin constructing your own custom GUIs, specific
+                  to your game. You can download the images, GUIs, and scripts created
+                  for these tutorials by <a href="GUITutorial_Series_One.zip">CLICKING HERE</a>. </p>
+                <a name="File_List" id="File_List"></a>
+                <h3> <span class="mw-headline">File List</span></h3>
+                <ul>
+                  <li><b>game/art/</b>
+                    <ul>
+                      <li>HelloWorld.gui </li>
+                      <li>InventoryGui.gui </li>
+                      <li>miniConsole.gui </li>
+                      <li>newWindow.gui </li>
+                      <li>playGui.gui </li>
+                      <li>testList.gui </li>
+                      <li>testWindow.gui </li>
+                      <li>gameProfile.cs </li>
+                      <li>Torque-3D-logo.png </li>
+                    </ul>
+                  </li>
+                </ul>
+                <ul>
+                  <li><b>game/art/images/</b>
+                    <ul>
+                      <li>araLogoIcon.png </li>
+                      <li>araLogoIcon_d.png </li>
+                      <li>araLogoIcon_h.png </li>
+                      <li>backgnd.png </li>
+                      <li>inventoryClose.png </li>
+                      <li>inventoryClose_d.png </li>
+                      <li>inventoryClose_h.png </li>
+                    </ul>
+                  </li>
+                </ul>
+                <ul>
+                  <li><b>game/scripts/client/</b>
+                    <ul>
+                      <li>default.bind.cs </li>
+                      <li>init.cs </li>
+                    </ul>
+                  </li>
+                </ul>
+                <ul>
+                  <li><b>game/scripts/gui</b>
+                    <ul>
+                      <li>InventoryGui.cs </li>
+                      <li>playGui.cs </li>
+                      <li>testList.cs </li>
+                      <li>testWindow.cs </li>
+                    </ul>
+                  </li>
+                </ul>
+                
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

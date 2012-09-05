@@ -1,0 +1,261 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../";</SCRIPT><link href="../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 34;
+   parent.leftFrame.expandToItem('tree2', 'doc34');
+   var element = parent.leftFrame.document.getElementById('doc34');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../include/content.css" />
+<title>Torque 3D - New Features</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  class="mediawiki ns-0 ltr page-Torque3D_Introduction_Intro">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table width="700" border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          </div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#New_Features"><span class="tocnumber">1</span> <span class="toctext">New Features</span></a></li>
+                          <li class="toclevel-1"><a href="#Teleporters"><span class="tocnumber">2</span> <span class="toctext">Teleporters</span></a></li>
+                          <li class="toclevel-1"><a href="#Weapon_Clip_System"><span class="tocnumber">3</span> <span class="toctext">Weapon Clip System</span></a></li>
+                          <li class="toclevel-1"><a href="#PerPlayer_Weapon_Cycling"><span class="tocnumber">4</span> <span class="toctext">Per-Player Weapon Cycling</span></a></li>
+                          <li class="toclevel-1"><a href="#Multiple_Projectiles_Per_Shot"><span class="tocnumber">5</span> <span class="toctext">Multiple Projectiles Per Shot</span></a></li>
+                          <li class="toclevel-1"><a href="#New_Damage_Reporting"><span class="tocnumber">6</span> <span class="toctext">New Damage Reporting</span></a></li>
+                          <li class="toclevel-1"><a href="#Asset_Pipeline"><span class="tocnumber">7</span> <span class="toctext">The Asset Pipeline</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">8</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table><br />
+                <a name="New_Features" id="New_Features"></a>
+                <h2> <span class="mw-headline">New Features</span></h2>
+                <p>Below is a summary of new features we have added to Torque 3D with the 1.2 release. 
+				Each summary includes further details on each new feature.</p>
+                
+				<a name="Teleporters" id="Teleporters"></a>
+                <h2> <span class="mw-headline">Teleporters</span></h2>
+                <p>Teleporters are Trigger objects that have a specific behaviour.  You define a teleporter with a TriggerData datablock with some special fields defined. </p>
+<pre>
+datablock TriggerData(TeleporterTrigger : DefaultTrigger)
+{
+   // Amount of time, in milliseconds, to wait before allowing another
+   // object to use this teleportat.
+   teleporterCooldown = 0;
+
+   // Amount to scale the object's exit velocity. Larger values will
+   // propel the object with greater force.
+   exitVelocityScale = 0;
+
+   // If true, the object will be oriented to the front
+   // of the exit teleporter. Otherwise the player will retain their original
+   // orientation.
+   reorientPlayer = true;
+
+   // If true, the teleporter will only trigger if the object
+   // enters the front of the teleporter.
+   oneSided = false;
+
+   // Effects to play at the entrance of the teleporter.
+   entranceEffect = EntranceEffect;
+   exiteffect = EntranceEffect;
+
+   // 2D Sound to play for the client being teleported.
+   teleportSound = TeleportSound;
+	
+};
+</pre>
+<p>When you define a teleporter you also need to have an exit as defined by the instance's "exit" field, which is another object in the level -- usually another teleporter trigger.  Also note that this just defines the trigger itself.  If you want your teleporter to have a shape you'll need to add a shape object to the level, such as a TSStatic.</p>
+
+				<a name="Weapon_Clip_System" id="Weapon_Clip_System"></a>
+                <h2> <span class="mw-headline">Weapon Clip System</span></h2>
+                <p>Weapons may now use the optional ammunition clip system.</p>
+
+                <p>To make use of the clip system each weapon needs to define two ItemData datablocks.  
+                The first is the clip itself, which needs to be part of the AmmoClip class.  Here is an example:</p>
+<pre>
+datablock ItemData(LurkerClip)
+{
+   // Mission editor category
+   category = "AmmoClip";
+
+   className = "AmmoClip";
+
+   // Basic Item properties
+   shapeFile = "art/shapes/weapons/Lurker/TP_Lurker.DAE";
+   mass = 1;
+   elasticity = 0.2;
+   friction = 0.6;
+
+   // Dynamic properties defined by the scripts
+   pickUpName = "Lurker clip";
+   count = 1;
+   maxInventory = 10;
+};
+</pre>
+<p>The "maxInventory" field indicates the maximum number of clips a player may carry of this type.</p>
+
+<p>Then the ammunition itself needs to be defined as part of the Ammo class:</p>
+<pre>
+datablock ItemData(LurkerAmmo)
+{
+   // Mission editor category
+   category = "Ammo";
+
+   // Add the Ammo namespace as a parent.  The ammo namespace provides
+   // common ammo related functions and hooks into the inventory system.
+   className = "Ammo";
+
+   // Basic Item properties
+   shapeFile = "art/shapes/weapons/Lurker/TP_Lurker.DAE";
+   mass = 1;
+   elasticity = 0.2;
+   friction = 0.6;
+
+   // Dynamic properties defined by the scripts
+   pickUpName = "Lurker ammo";
+   maxInventory = 30;
+   clip = LurkerClip;
+};
+</pre>
+<p>The "maxInventory" field indicates the maximum number of bullets a clip may hold.  The "clip" field points back to the clip that holds this ammo.</p>
+
+<p>Finally, you add both the clip and the ammo to the weapon's datablock:</p>
+<pre>
+datablock ShapeBaseImageData(LurkerWeaponImage)
+{
+   ...
+
+   // Projectiles and Ammo.
+   item = Lurker;
+   ammo = LurkerAmmo;
+   clip = LurkerClip;
+
+   ...
+};
+</pre>
+<p>When you build out the player's datablock you have to add both the weapon and the clip as items the player may carry.  You don't need to add the ammo.</p>
+<pre>
+datablock PlayerData(DefaultPlayerData)
+{
+   ...
+
+   maxInv[Lurker] = 1;
+   maxInv[LurkerClip] = 20;
+
+   ...
+};
+</pre>
+<p>However, when you actually add the weapon and clip to the player during GameCore::loadOut() you'll want to also add the ammunition.  This will start the weapon as loaded.</p>
+<pre>
+function GameCore::loadOut(%game, %player)
+{
+   ...
+
+   // Set up inventory and weapon cycles
+   %player.clearWeaponCycle();
+
+   %player.setInventory(Lurker, 1);
+   %player.setInventory(LurkerClip, %player.maxInventory(LurkerClip));
+   %player.setInventory(LurkerAmmo, %player.maxInventory(LurkerAmmo));
+   %player.addToWeaponCycle(Lurker);
+
+   ...
+}
+</pre>
+<p>By default the weapon system will recover any ammunition that is left in a clip when the player manually reloads.  Many games operate in this way.  If you wish to have any ammunition that is in a clip when the clip is removed to be discarded see the WeaponImage::clearAmmoClip() method and comment out the line indicated.</p>
+
+                <a name="PerPlayer_Weapon_Cycling" id="PerPlayer_Weapon_Cycling"></a>
+                <h2> <span class="mw-headline">Per-Player Weapon Cycling</span></h2>
+                <p>Weapon cycling is no longer set up globally -- it is set up for each player instance.  
+				This allows for different players to have different weapon load outs, such as a Soldier with his set of guns 
+				and an Alien with its own set of guns.</p>
+
+                <p>Often you set up a player's weapon cycling in GameCore::loadOut() but it can occur at any time on the server.  The weapon cycling methods themselves are defined in 
+                script/server/weapon.cs against the ShapeBase class (which Player inherits from).</p>
+
+                <p>When starting to build the weapon cycling list you call clearWeaponCycle() on the player, which clears out any existing list.  You then call addToWeaponCycle() 
+                on the player for each weapon Item class that you wich the player to cycle through.  The order in which the weapons are added to the list is the same order that the 
+                player will cycle through them.</p>
+
+                <p>Behind the scenes ShapeBase::cycleWeapon() is called on the player whenever the weapons should be cycled.  The direction to cycle is passed into this method to move up or down the list.</p>
+
+				
+                <a name="Multiple_Projectiles_Per_Shot" id="Multiple_Projectiles_Per_Shot"></a>
+                <h2> <span class="mw-headline">Multiple Projectiles Per Shot</span></h2>
+                <p>Weapons may fire multiple projectiles per shot. A shot gun is a good example.</p>
+
+                <p>To have multiple projectiles a weapon defines the "projectileNum" field and sets it to a value greater than 1.  And if a weapon has a projectile 
+                spread defined (with the "projectileSpread" field) then each projectile has its own calculated spread trajectory.</p>
+
+				<a name="New_Damage_Reporting" id="New_Damage_Reporting"></a>
+                <h2> <span class="mw-headline">New Damage Reporting</span></h2>
+                <p>Starting with 1.2 T3D supports custom death messages based on the type of damage the killed the player.  To set this up you need to define a sendMsgClientKilled_XXX 
+                function that provides the death message, where XXX is the damage type.  For example, the proximity mine has the following defined for the MineDamage damage type as defined 
+                in the mine's datablock:</p>
+<pre>
+// Customized kill message for deaths caused by proximity mines
+function sendMsgClientKilled_MineDamage( %msgType, %client, %sourceClient, %damLoc )
+{
+   if ( %sourceClient $= "" )             // editor placed mine
+      messageAll( %msgType, '%1 was blown up!', %client.playerName );
+   else if ( %sourceClient == %client )   // own mine
+      messageAll( %msgType, '%1 stepped on his own mine!', %client.playerName );
+   else                                   // enemy placed mine
+      messageAll( %msgType, '%1 was blown up by %2!', %client.playerName, 
+        %sourceClient.playerName );
+}
+</pre>
+<p>This system allows for very specific messages to be sent to all clients.  The system has custom death messages set up for Impact, Suicide and a Default (a catch all) damage type.</p>
+
+                <a name="Asset_Pipeline" id="A2"></a>
+                <h2> <span class="mw-headline">The Asset Pipeline</span></h2>
+                <p>Characters in T3D can be setup to use different weapon animations and share those animations between different skinned meshes with the same skeleton hierarchy. 
+                So a standard T3D character would have COLLADA files for the character’s skinned mesh and skinned skeleton as well as for the character’s animations with just the 
+                skeleton for each weapon pose. The animations can be exported individually or combined in one .dae file that is split up through the shape editor.</p>
+
+                <p>For more information, see the <a href="../Artist Guide/Primer/torque_character_primer.html">Torque 3D Character Primer</a>.</p>
+
+                <a name="Conclusion" id="A1"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>Torque 3D has added some interesting and fun new functionality with the 1.2 release.  Hopefully this quick overview will make using them in your project quick and easy.</p>
+                </td>
+            </tr>
+          </tbody>
+        </table></div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

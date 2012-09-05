@@ -1,0 +1,215 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 7;
+   parent.leftFrame.expandToItem('tree2', 'doc7');
+   var element = parent.leftFrame.document.getElementById('doc7');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D World Editor - 3D Models</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ns-0 ltr page-Torque3D_WorldEditor_Adding3DModels">
+<script type="text/javascript" src="../../../include/wz_tooltip.js"></script>
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table id="toc" summary="Contents">
+          <tbody>
+            <tr>
+              <td><div id="toctitle">
+                  <h2>Contents</h2>
+                  
+                <ul>
+                  <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                  <li class="toclevel-1"><a href="#Adding_A_COLLADA_Model"><span class="tocnumber">2</span> <span class="toctext">Adding A COLLADA Model</span></a></li>
+                  <li class="toclevel-1"><a href="#Shape_Properties"><span class="tocnumber">3</span> <span class="toctext">Shape Properties</span></a></li>
+                  <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">4</span> <span class="toctext">Conclusion</span></a></li>
+                </ul></td>
+            </tr>
+          </tbody>
+        </table>
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p>3D models, referred to as shapes in these tutorials, make up most of
+                  the objects in your game. This includes players, items, weapons,
+                  vehicles, props, buildings, and so on. Currently Torque 3D supports
+                  three model formats: COLLADA, DTS, and DIF. </p>
+                <p><br />
+                  <b>COLLADA</b>: Short for <b>COLLA</b>borative <b>D</b>esign <b>A</b>ctivity.
+                  COLLADA is emerging as the format for interchanging models between
+                  DCC(digital-content-creation) applications. The file format is .dae (<b>d</b>igital <b>a</b>sset <b>e</b>xchange). The data is stored in an open standard XML schema, which means it can be read and tweaked manually if need be. </p>
+                <p><br />
+				<b>DTS</b>: Short for <b>D</b>ynamics <b>F</b>ree <b>S</b>pace, is the native, binary file format used by Torque to store shape (geometry, LOD, bone, and animation) data. DTS exporters exist for several 3D modeling packages such as 3ds Max, Maya, XSI, Blender, and Milkshape3D.</p>
+				<p><br />
+                  <b>DIF</b>: Short for <b>D</b>ynamix <b>I</b>nterior <b>F</b>ile, this
+                  is another proprietary format developed during the Tribes days and has
+                  survived through Torque. DIFs (also called Interiors) are primarily
+                  used for buildings or other enclosing structures. While the binary
+                  space partition (BSP) functionality is useful, using DTS or COLLADA
+                  files with Polysoup collision enabled is the preferred method and will save you time on asset
+                  generation. </p>
+				<br />
+                  <a name="Adding_A_COLLADA_Model" id="Adding_A_COLLADA_Model"></a>                
+                <h2> <span class="mw-headline">Adding A COLLADA Model</span></h2>
+                <p>The ability to load and render COLLADA models (.dae) is a new Torque
+                  3D feature. The process of adding a COLLADA shape is identical to adding a DTS. You will first need to know where your .dae file is located.                  </p>
+                <p><br />
+                  Again, you will open the Library->Meshes tab. Navigate to the
+                  directory containing your COLLADA model (.dae). If you hover over the item, you will get a brief
+                  file description. </p>
+                <p><img alt="Image:AddCOLLADA.jpg" src="images/AddCOLLADA.jpg" border="0" height="207" width="209" /> </p>
+                <p><br />
+                  Go ahead and double-click on the object. The file should load
+                  extremely fast, but you may not be able to see it right away. Pull your
+                  camera up and away from its current location to see the giant shape
+                  which has been added. </p>
+                <p>(<i>click to enlarge</i>) </p>
+                <a href="images/MBAdded.jpg" class="livethumbnail">
+                <img src="images/MBAdded.jpg" border="0" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  All of the geometry and texture information
+                  is readily available in this single format. What's more, nearly every
+                  major 3D modeling application is able to export directly to the COLLADA
+                  format so you can import similarly complex objects as you see here. </p>
+                
+                <a name="Shape_Properties" id="Shape_Properties"></a>
+                <h2> <span class="mw-headline">Shape Properties</span></h2>
+                <p><br />
+                Now that we have added an object to the Scene, lets look at properties that the object has.  Click on the Scene tab, then select the TSStatic object.
+                </p>
+                <img src="images/sceneTree.jpg" border="0" width="200" height="288" />
+                <p><br />
+                Object properties are displayed in the pane below:
+                </p>
+                <img src="images/inspectorTree.jpg" border="0" width="287" height="650" />
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>While asset creation is the first step, importing 3D models into
+                  your level is a major milestone. The flow goes both ways, however. Once
+                  you have added a model to your scene, it can dynamically reflect any
+                  changes made to the actual file containing the data. If you re-export
+                  an existing COLLADA model from an application, your game object will
+                  automatically update to show the changes. </p>
+                <p><br />
+                  The rest is simply level design. How, where, and why you
+                  place objects is up to you.</p>
+                  </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

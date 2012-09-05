@@ -1,0 +1,343 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 16;
+   parent.leftFrame.expandToItem('tree2', 'doc16');
+   var element = parent.leftFrame.document.getElementById('doc16');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D - SFX Overview</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_EngineOverview_SFX_Overview skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <br /><a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Two_Playback_Types"><span class="tocnumber">2</span> <span class="toctext">Two Playback Types</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#Buffered"><span class="tocnumber">2.1</span> <span class="toctext">Buffered</span></a></li>
+                              <li class="toclevel-2"><a href="#Streamed"><span class="tocnumber">2.2</span> <span class="toctext">Streamed</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#3D_Sound"><span class="tocnumber">3</span> <span class="toctext">3D Sound</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#Distance_Attenuation"><span class="tocnumber">3.1</span> <span class="toctext">Distance Attenuation</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Playback_Virtualization"><span class="tocnumber">4</span> <span class="toctext">Playback Virtualization</span></a></li>
+                          <li class="toclevel-1"><a href="#Supported_Audio_Formats"><span class="tocnumber">5</span> <span class="toctext">Supported Audio Formats</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#WAV"><span class="tocnumber">5.1</span> <span class="toctext">WAV</span></a></li>
+                              <li class="toclevel-2"><a href="#Ogg.2FVorbis"><span class="tocnumber">5.2</span> <span class="toctext">Ogg/Vorbis</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Supported_Sound_APIs"><span class="tocnumber">6</span> <span class="toctext">Supported Sound APIs</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#DirectSound"><span class="tocnumber">6.1</span> <span class="toctext">DirectSound</span></a></li>
+                              <li class="toclevel-2"><a href="#FMOD"><span class="tocnumber">6.2</span> <span class="toctext">FMOD</span></a></li>
+                              <li class="toclevel-2"><a href="#OpenAL"><span class="tocnumber">6.3</span> <span class="toctext">OpenAL</span></a></li>
+                              <li class="toclevel-2"><a href="#XAudio"><span class="tocnumber">6.4</span> <span class="toctext">XAudio</span></a></li>
+                              <li class="toclevel-2"><a href="#Null"><span class="tocnumber">6.5</span> <span class="toctext">Null</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">7</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <br /><a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p>SFX is the new 2D and 3D audio system for Torque 3D. It was designed
+                  to provide the basic features for sound playback across multiple
+                  platforms, sound devices, and audio libraries. This guide is a high
+                  level overview of the SFX module and what systems it supports. </p>
+                  <p><strong>Recommendation:</strong> For the best cross-platform support as well as for the best compatibility with future additions to SFX, it is recommended to either use OpenAL or FMOD with SFX. A number of future additions will likely not be supported with other sound APIs. </p>
+                <br /><a name="Two_Playback_Types" id="Two_Playback_Types"></a>
+                <h2> <span class="mw-headline">Two Playback Types</span></h2>
+                <p>Each individual sound can be played back in two ways. The type of
+                  playback used by the sound system for a particular sound is determined
+                  by the &quot;<i>isStreaming</i>&quot;property of its <A href="SFXInterface.html">SFXDescription</A> </p>
+                <p><br />
+                  Note: <i>With either form of playback, sound data is
+                  stored in uncompressed form on the device. For compressed formats,
+                  decompression occurs during sound loading. For streamed sounds, this is
+                  a continuous process. All sound loading happens on worker threads
+                  regardless of how it is played back so it does not tax the main thread.</i> </p>
+                <br /><a name="Buffered" id="Buffered"></a>
+                <h3> <span class="mw-headline">Buffered</span></h3>
+                <p>DEFINITION: Sample data completely offloaded to a sound device in one contiguous
+                  chunk. Ideal for small sounds, such as "place once" effects (e.g. gun
+                  fire, collision audio, etc). </p>
+                <p><br />
+                  <b>Advantages</b> </p>
+                <ol>
+                  <li>Fast seeking </li>
+                  <li>No overhead after loading </li>
+                  <li>Sound data can be shared between simultaneous playbacks </li>
+                </ol>
+                <p><br />
+                  <b>Disadvantages</b> </p>
+                <ol>
+                  <li>May consume a lot of memory on the device (depending on sample data size) </li>
+                  <li>May take longer to load (depending on sample data size) </li>
+                  <li>May fail to load entirely depending on device (depending on sample data size) </li>
+                  <li>Needs entire sound stream to be available before playback can start </li>
+                </ol>
+                <br /><a name="Streamed" id="Streamed"></a>
+                <h3> <span class="mw-headline">Streamed</span></h3>
+                <p>DEFINITION: Small buffer allocated on a sound device and data is progressively loaded
+                  in the background as playback progresses. Ideal for large sounds (e.g.
+                  music) and continuous streams (e.g. voice chat). This feature is fully
+                  threaded; playback will continue normally even if Torque 3D is, for
+                  example, busy loading a level. </p>
+                <p><br />
+                  <b>Advantages</b> </p>
+                <ol>
+                  <li>Small footprint on sound device </li>
+                  <li>Loads quickly </li>
+                  <li>Can play sound streams for which only part of the data is available </li>
+                </ol>
+                <p><br />
+                  <b>Disadvantages</b> </p>
+                <ol>
+                  <li>Incurs a certain continuous overhead </li>
+                  <li>Data for a sound cannot be shared between playbacks </li>
+                  <li>Seeking needs to reset stream feed and will generally incur a delay </li>
+                  <li>End-of-stream notifications may be imprecise (depends on actual sound device used) </li>
+                </ol>
+                <br /><a name="3D_Sound" id="3D_Sound"></a>
+                <h2> <span class="mw-headline">3D Sound</span></h2>
+                <p>Sounds can be positional (3D) or non-positional (2D). Positional sounds are located in Torque's three-dimensional world. Whether a sound is 2D or 3D is determined by the "is3D" property of its <a href="SFXInterface.html">SFXDescription</a>.</p>
+                <p><br />
+                  3D sounds will be mixed at varying volumes and distributed dynamically
+                  to the sound card's output channels depending on the player's position
+                  and velocity in relation to the sound's own position and velocity. This
+                  is computed independently for each playing 3D sound. </p>
+                <p><br />
+                  Each 3D sound has a position, an orientation, and a
+                  velocity. To represent 3D sounds by real objects in Torque 3D, use
+                  <a href="SFXInterface.html">SFXEmitters</a>. </p>
+                <p><br />
+                  <b>  !! Important !!:</b> 3D sounds must be single channel
+                  (mono). This is a requirement coming from the sound APIs. Currently, 3D
+                  sound is completely agnostic to the environment. This means that to the
+                  SFX system the entire world is one single empty space and sound will
+                  propagate uniformly and unencumbered in all directions. </p>
+                <br /><a name="Distance_Attenuation" id="Distance_Attenuation"></a>
+                <h3> <span class="mw-headline">Distance Attenuation</span></h3>
+                <p>Just like sound in the real world, 3D sounds become less audible the
+                  farther away you are from their source. Distance attenuation then
+                  refers to the process of computing the level of volume that a given 3D
+                  sound has at a certain distance away from its origin. </p>
+                <p><br />
+                  The process of setting up distance attenuation is described in more detail in <a href="SFXInterface.html">Configuring 3D Playback</a>.  </p>
+                <p><br />
+                  <b>Sound Cones</b> </p>
+                <p>Distance attenuation works uniformly in all direction regardless
+                  of the actual direction of the sound. Sound cones allow you to add
+                  directional volume attenuation to distance attenuation. </p>
+                <p><br />
+                  There are two cones defined on each 3D sound that affect
+                  volume attenuation. Both have a their upwards axis aligned with the
+                  sound's direction and their tips at the sound's origin. The width of
+                  each cone is defined by an angle. By default this angle is 360 degrees
+                  meaning that the sound spreads in all directions. </p>
+                <p><br />
+                  By narrowing the angle, the cone will get smaller and the sound will
+                  spread only across a certain range in its direction. Of the two cones,
+                  one is the inner cone and one is the outer cone. </p>
+                <p><br />
+                  Within the inner cone, the 3D sound will retain full volume
+                  as specified in its SFXDescription (attenuated only by the sound
+                  channel it is assigned to and, of course, the master volume of the
+                  system). </p>
+                <p><br />
+                  Outside of the outer cone, the 3D sound's volume will be attenuated by the scale factor set by "<b>coneOutsideVolume</b>"
+                  property of its SFXDescription. Then, within the transitioning zone
+                  between the inner code to outside the outer cone, the volume will
+                  gradually shift from an attenuation of 1.0 (inside inner cone) to an
+                  attenuation of "coneOutsideVolume". </p>
+                <p><br />
+                  <i>Note: Cone settings from SFXDescriptions can be overridden for individual SFXSources using the <a href="SFXInterface.html">setCone()</a> method.</i> </p>
+                <p>To gain a better understanding of how sound cones work, read through this <a href="http://msdn.microsoft.com/en-us/library/ee418803(v=VS.85).aspx" class="external" title="http://msdn.microsoft.com/en-us/library/bb147394(VS.85).aspx" rel="nofollow">MSDN article on sound cones</a>. </p>
+                <p><br />
+                  <b>Doppler Effect</b> Also known as Doppler Shift, this effect is the change in frequency of
+                  a wave for an observer moving relative to the source of the waves,
+                  similar to how you perceive a loud motorcycle approaching and passing
+                  you. The following articles contain a more in depth description: </p>
+                <ul>
+                  <li><a href="http://en.wikipedia.org/wiki/Doppler_effect" class="external" title="http://en.wikipedia.org/wiki/Doppler_effect" rel="nofollow">Wikipedia Entry</a> </li>
+                  <li><a href="http://paws.kettering.edu/~drussell/Demos/doppler/doppler.html" class="external" title="http://paws.kettering.edu/~drussell/Demos/doppler/doppler.html" rel="nofollow">Kettering Article</a> </li>
+                </ul>
+                <br /><a name="Playback_Virtualization" id="Playback_Virtualization"></a>
+                <h2> <span class="mw-headline">Playback Virtualization</span></h2>
+                <p>In any given situation, a game may have more sounds playing
+                  concurrently than are actually supported by the underlying device. To
+                  cope with this, the SFX system uses what is called playback
+                  virtualization. </p>
+                <p><br />
+                  During SFX's update routine, the system will compute
+                  effective volumes for all playing sounds. If there are more sounds
+                  playing than are supported by the underlying SFX device, the system
+                  will reassign voices from the least audible (usually the sounds
+                  farthest from the player) sounds to more audible sounds. </p>
+                <p><br />
+                  A sound source that is playing but loses its voice on the
+                  device will transition into virtualized playback mode. In this mode,
+                  the sound will continue to have its play cursor advance in real-time
+                  but there will not be actual audio output on the device. </p>
+                <p><br />
+                  Voice distribution is re-evaluated on each SFX update so a
+                  given sound that has been transitioned to virtualized playback mode may
+                  later regain a voice and transition back to normal playback. </p>
+                <br /><a name="Supported_Audio_Formats" id="Supported_Audio_Formats"></a>
+                <h2> <span class="mw-headline">Supported Audio Formats</span></h2>
+                <p>SFX supports WAV and Vorbis across all devices. In addition, devices
+                  may implement their own file loading which will take precedence over
+                  the built-in loading code. See Supported APIs for more information. </p>
+                <p><br />
+                  Live Asset Updating is supported by SFX meaning that if a
+                  sound file changes on disk, it will automatically be reloaded by the
+                  SFX system. All sources playing the sound will temporarily transition
+                  to virtualized playback and then transition to normal playback when the
+                  file has been reloaded. </p>
+                <br /><a name="WAV" id="WAV"></a>
+                <h3> <span class="mw-headline">WAV</span></h3>
+                <ul>
+                  <li><b>Premise</b>: Uncompressed format that is most useful for sound production </li>
+                  <li><b>Pro</b>: Uncompromising sound quality </li>
+                  <li><b>Con</b>: Consumes lots of disk space </li>
+                </ul>
+                <p><i>Note: At the moment, none of the enhanced features of WAVs (loops, markers, etc.) are supported.</i> </p>
+                <br /><a name="Ogg.2FVorbis" id="Ogg.2FVorbis"></a>
+                <h3> <span class="mw-headline">Ogg/Vorbis</span></h3>
+                <ul>
+                  <li><b>Premise</b>: High-quality compressed format (usually outperforms rival lossy sound compression formats such as MP3 or WMA) </li>
+                  <li><b>Pro</b>: Very good quality/size ratio </li>
+                  <li><b>Con</b>: Compression is lossy (with proper settings, this should not be noticeable in most all game settings) </li>
+                </ul>
+                <br /><a name="Supported_Sound_APIs" id="Supported_Sound_APIs"></a>
+                <h2> <span class="mw-headline">Supported Sound APIs</span></h2>
+                <p>The SFX system supports several different sound APIs. </p>
+                <p><br />
+                  <i>Note: Switching sound devices at runtime will preserve all
+                  SFXProfile and SFXSource states. SFXSources that are currently playing
+                  will temporarily transition to virtualized playback.</i> </p>
+                <br /><a name="DirectSound" id="DirectSound"></a>
+                <h3> <span class="mw-headline">DirectSound</span></h3>
+                <p><b>Platform:</b> Windows <b>Description:</b> Standard DirectX audio API </p>
+                <br /><a name="FMOD" id="FMOD"></a>
+                <h3> <span class="mw-headline">FMOD</span></h3>
+                <p><b>Platforms:</b> Windows, Mac, XBox, PS3 <b>Description:</b> High-quality, highly cross-platform sound API. Must
+                  be installed separately. For commercial releases, a license must be
+                  obtained. </p>
+                <p><br />
+                  With FMOD selected, all file loading and streaming will be
+                  taken over by the device. If for some reason you want to disabled this
+                  feature, set the following global variable in TorqueScript: </p></td>
+            </tr>
+          </tbody>
+        </table>
+        <pre>$pref::SFX::FMOD::noCustomFileLoading = 1)</pre>
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><p>The following formats are supported: </p>
+                <ul>
+                  <li>.aiff </li>
+                  <li>.asf </li>
+                  <li>.asx </li>
+                  <li>.dls </li>
+                  <li>.flac </li>
+                  <li>.fsb </li>
+                  <li>.it </li>
+                  <li>.m3u </li>
+                  <li>.mid </li>
+                  <li>.mod </li>
+                  <li>.mp2 </li>
+                  <li>.mp3 </li>
+                  <li>.ogg </li>
+                  <li>.pls </li>
+                  <li>.s3m </li>
+                  <li>.vag </li>
+                  <li>.wav </li>
+                  <li>.wax </li>
+                  <li>.wma </li>
+                  <li>.xm </li>
+                  <li>.xma (on Xbox only) </li>
+                </ul>
+                <p><br />
+                  <i>Notes:</i> </p>
+                <ul>
+                  <li>To download FMOD, visit the <a href="http://www.fmod.org/" class="external" title="http://www.fmod.org/" rel="nofollow">FMOD homepage</a> </li>
+                  <li>To purchase a very friendly priced indie license of FMOD for your game, <a href="http://www.garagegames.com/products/fmod" class="external" title="http://www.garagegames.com/products/fmod" rel="nofollow">visit the GarageGames store</a>. </li>
+                  <li>At the moment, Live Asset Updating is not available with sounds that have been loaded directly through FMOD. </li>
+                  <li>Currently, using play list files with FMOD is the only way to use play lists with SFX. </li>
+                </ul>
+                <br /><a name="OpenAL" id="OpenAL"></a>
+                <h3> <span class="mw-headline">OpenAL</span></h3>
+                <p><b>Platforms:</b> Windows, Mac <b>Description:</b> A cross-platform 3D audio API appropriate for use with gaming applications and many other types of audio applications. </p>
+                <p><i>Note: On Windows, OpenAL must be installed separately. Visit the <a href="http://connect.creativelabs.com/openal/default.aspx" class="external" title="http://connect.creativelabs.com/openal/default.aspx" rel="nofollow">OpenAL website</a> for more details</i> </p>
+                <br /><a name="XAudio" id="XAudio"></a>
+                <h3> <span class="mw-headline">XAudio</span></h3>
+                <p><b>Platforms</b>: Windows, XBox <b>Description</b>: InterTrust's fast and robust, multi-platform
+                  solution for digital playback. Targets MPEG Audio (MP1, MP2, and MP3)
+                  decoding. It is offered in the form of a developer's kit (SDK), which
+                  includes the Xaudio decoding engine. </p>
+                <br /><a name="Null" id="Null"></a>
+                <h3> <span class="mw-headline">Null</span></h3>
+                <p><b>Platforms:</b> Windows, Mac <b>Description:</b> Stub device for dedicated servers. Simulates playback.  No actual audio output. </p>
+                <br /><a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>This high level document is intended to provide you with the base
+                  knowledge of SFX's capabilities. Continue reading to learn more about
+                the SFX Interface. <a href="SFXInterface.html">CLICK HERE</a> to continue. </p></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

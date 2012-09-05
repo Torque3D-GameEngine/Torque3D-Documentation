@@ -1,0 +1,95 @@
+html, body {
+	margin: 0px;
+	padding: 0px;  	
+}
+
+html
+{
+	background-attachment: fixed;
+   background-color: #FBFBF9;
+	background-image: url(../include/docTheme/toc_bg.jpg);
+	background-repeat: no-repeat;
+	background-position: right bottom;
+}
+
+body
+{
+	font-family: Arial, Helvetica, sans-serif;
+	background-attachment: fixed;
+	background-repeat: repeat-x;
+	background-position: left top;
+	padding-top: 5px;
+}
+
+a {
+	margin-top:2px;
+	padding:0px;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #333333;
+   text-decoration: none;
+   color: black;
+}
+
+a:hover {
+   background-color:	#ffffff;
+   text-decoration: underline;   
+   color: #AA0000;
+}
+
+li #offsite:before {
+	content: "\00BB \0020";
+}
+
+#offsite span {
+	display: none;
+}
+
+a.info{
+      position:relative;
+      /*z-index:24;*/
+      color:black;
+      text-decoration:none;
+      cursor:pointer;
+      cursor:hand;
+}
+
+a.info:hover{
+      /*z-index:25;*/ 
+      text-decoration:none;
+      color: #3366CC;
+}
+
+a.info span{
+      display: none;
+}
+
+a.info:hover span{
+   z-index:1;
+   display:block;
+   position:absolute;
+   top:-4.45em; left:-2em; width:19em;
+   background-color: #ffffff;
+   border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-width: 2px;
+	border-right-width: 2px;
+	border-bottom-width: 2px;
+	border-left-width: 2px;
+	border-top-color: #3366CC;
+	border-right-color: #3366CC;
+	border-bottom-color: #3366CC;
+	border-left-color: #3366CC;
+	padding-left: 1.4em;
+   color: black;
+   text-align: center;
+   font: 12px Arial, Helvetica, sans-serif;
+   font-weight: normal;
+}
+form {
+      display:none;
+}
+a.toggle:hover {
+      cursor:default;
+}

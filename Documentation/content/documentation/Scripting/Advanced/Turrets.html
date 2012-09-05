@@ -1,0 +1,1228 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 48;
+   parent.leftFrame.expandToItem('tree2', 'doc48');
+   var element = parent.leftFrame.document.getElementById('doc48');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<title>Torque 3D - AI Turrets</title>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_Scripting_Overview_Introduction skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <br /><a name="top" id="top"></a>
+        <table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          </div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Detailed_Description"><span class="tocnumber">1</span> <span class="toctext">Detailed Description</span></a></li>
+                          <li class="toclevel-1"><a href="#Overview"><span class="tocnumber">2</span> <span class="toctext">Overview</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#Scanning"><span class="tocnumber">2.1</span> <span class="toctext">Scanning</span> </a></li>                                  
+                              <li class="toclevel-2"><a href="#Gained_Target"><span class="tocnumber">2.2</span> <span class="toctext">Gained Target</span></a></li>
+                              <li class="toclevel-2"><a href="#Lost_Target"><span class="tocnumber">2.3</span> <span class="toctext">Lost Target</span></a></li>
+                              <li class="toclevel-2"><a href="#Destroyed"><span class="tocnumber">2.4</span> <span class="toctext">Destroyed</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Deployable_Turret"><span class="tocnumber">3</span> <span class="toctext">Deployable Turret</span></a></li>
+                          <li class="toclevel-1"><a href="#Example_State_Machine"><span class="tocnumber">4</span> <span class="toctext">Example State Machine</span></a></li>
+                          <li class="toclevel-1"><a href="#Shape_File_Nodes"><span class="tocnumber">5</span> <span class="toctext">Shape File Nodes</span></a></li>
+                          <li class="toclevel-2"><a href="#Ignore_List"><span class="tocnumber">6</span> <span class="toctext">Ignore List</span></a></li>
+                          <li class="toclevel-2"><a href="#Member_Function_Documentation"><span class="tocnumber">7</span> <span class="toctext">Member Function Documentation</span></a></li>
+                          <li class="toclevel-2"><a href="#AITurretShapeData"><span class="tocnumber">8</span> <span class="toctext">AITurretShapeData and Member Data Documentation</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+<a name="Detailed_Description"></a><h2>AITurretShape</h2>
+                <p>Provides an AI controlled turret. Uses the <a class="el" 
+                        title="Defines properties for an AITurretShape object.">AITurretShapeData</a> datablock, which is based on the 
+                    <a class="el" title="Defines properties for a TurretShape object.">TurretShapeData</a> datablock for common properties. 
+                    <a class="el" title="Provides an AI controlled turret.">AITurretShape</a> builds an AI controlled turret. It uses a state machine and properties as defined in 
+                    <a class="el" title="Defines properties for an AITurretShape object.">AITurretShapeData</a> to decide how to find targets and what to do with them. As with 
+                    <a class="el" title="Base turret class.">TurretShape</a> (which <a class="el" 
+                        title="Provides an AI controlled turret.">AITurretShape</a> derives from) the 
+                    <a class="el" title="Provides an AI controlled turret.">AITurretShape</a> class provides the base on which 
+                    <a class="el" title="Represents geometry to be mounted to a ShapeBase object.">ShapeBaseImageData</a> weapons may be mounted.</p>
+<a name="Overview"></a><h2>Overview</h2>
+<p>The <a class="el" title="Provides an AI controlled turret.">AITurretShape</a> functions through the use of a state machine as defined in its 
+    <a class="el" title="Defines properties for an AITurretShape object.">AITurretShapeData</a> datablock. It is very similar to how 
+    <a class="el" title="Represents geometry to be mounted to a ShapeBase object.">ShapeBaseImageData</a>
+ works. This allows you to customize exactly how the turret behaves 
+while it searches for a target, and what it does once it has a target. 
+But in general, the AI turret goes through a number of stages:</p>
+<a name="Scanning"></a><h3>Scanning</h3>
+<p>The AI turret usually starts off by scanning for a suitable target. 
+This is done by checking for targets within a pie wedge shaped volume in
+ front of the turret based on where the scanPoint node is placed. The 
+turret takes cover into account when searching for a target so that it 
+doesn't "cheat".</p>
+<a name="Gained_Target"></a><h3>Gained Target</h3>
+<p>Once a target is acquired the turret attempts to follow it. Usually 
+at this point the turret activates its weapon. If a target is lost due 
+to it going behind cover, the turret will attempt to follow and 
+reacquire the target using its last known position and velocity. The 
+amount of time allowed for this attempt is defined by <a class="el" 
+        title="How long after the turret has lost the target should it still track it.">AITurretShapeData::trackLostTargetTime</a>.</p>
+<a name="Lost_Target"></a><h3>Lost Target</h3>
+<p>If the target is lost (either by going behind cover or it is dead) 
+the turret returns to its scanning mode to find another victim.</p>
+<a name="Destroyed"></a><h3>Destroyed</h3>
+<p>If the AI turret is destroyed then it can go into a special state to show the user that it has been destroyed. As with 
+    <a class="el" title="Base turret class.">TurretShape</a> turrets a 
+    <a class="el" title="Provides an AI controlled turret.">AITurretShape</a> may respawn after a set amount of time (see 
+    <a class="el" title="Base turret class.">TurretShape</a> and <a class="el" 
+        title="Does the turret respawn after it has been destroyed.">TurretShape::doRespawn()</a>).</p>
+<a name="Deployable_Turret"></a><h3>Deployable Turret</h3>
+<p>In addition to AI turrets being placed within a mission, it is also 
+possible for a player to deploy a turret such as throwing one from their
+ inventory. When a turret has been tossed it will be in a <em>Thrown</em> state and usually in an inactive mode. Once the turret comes to rest on the ground it moves into a <em>Deploy</em>
+ state where it may unfold to get ready. Once ready the turret begins 
+the scanning process. As the AI turret's state machine may be customized
+ for your specific circumstances, the way in which turrets are deployed 
+by a player is up to you. An AI turret could be thrown in a fully 
+working state, ready to take out targets before the turret even hits the
+ ground.</p>
+<a name="Example_State_Machine"></a><h2>Example State Machine</h2>
+<p>Here is an example <a class="el" 
+        title="Defines properties for an AITurretShape object.">AITurretShapeData</a> datablock with a defined state machine and the script to support the state machine. This is just one possible example.</p>
+<dl class="user"><dt><b>Example:</b></dt><dd><div class="fragment"><pre class="fragment"><span class="comment">//-----------------------------------------------------------------------------</span>
+<span class="comment">// AI Turret</span>
+<span class="comment">//-----------------------------------------------------------------------------</span>
+
+datablock <a class="code" 
+        title="Defines properties for an AITurretShape object.">AITurretShapeData</a>(AITurret)
+{
+   category = <span class="stringliteral">"Turrets"</span>;
+   shapeFile = <span class="stringliteral">"art/shapes/weapons/Turret/Turret_Legs.DAE"</span>;
+
+   maxDamage = 70;
+   destroyedLevel = 70;
+   explosion = GrenadeExplosion;
+   
+   simpleServerCollision = <span class="keyword">false</span>;
+
+   zRotOnly = <span class="keyword">false</span>;
+   
+   <span class="comment">// Rotation settings</span>
+   minPitch = 15;
+   maxPitch = 80;
+   maxHeading = 90;
+   headingRate = 50;
+   pitchRate = 50;
+
+   <span class="comment">// Scan settings</span>
+   maxScanPitch = 10;
+   maxScanHeading = 30;
+   maxScanDistance = 20;
+   trackLostTargetTime = 2;
+
+   maxWeaponRange = 30;
+
+   weaponLeadVelocity = 0;
+
+   <span class="comment">// Weapon mounting</span>
+   numWeaponMountPoints = 1;
+
+   weapon[0] = AITurretHead;
+   weaponAmmo[0] = AITurretAmmo;
+   weaponAmmoAmount[0] = 10000;
+
+   maxInv[AITurretHead] = 1;
+   maxInv[AITurretAmmo] = 10000;
+
+   <span class="comment">// Initial start up state</span>
+   stateName[0]                     = <span class="stringliteral">"Preactivate"</span>;
+   stateTransitionOnAtRest[0]       = <span class="stringliteral">"Scanning"</span>;
+   stateTransitionOnNotAtRest[0]    = <span class="stringliteral">"Thrown"</span>;
+   
+   <span class="comment">// Scan for targets</span>
+   stateName[1]                     = <span class="stringliteral">"Scanning"</span>;
+   stateScan[1]                     = <span class="keyword">true</span>;
+   stateTransitionOnTarget[1]       = <span class="stringliteral">"Target"</span>;
+   stateSequence[1]                 = <span class="stringliteral">"scan"</span>;
+   stateScript[1]                   = <span class="stringliteral">"OnScanning"</span>;
+
+   <span class="comment">// Have a target</span>
+   stateName[2]                     = <span class="stringliteral">"Target"</span>;
+   stateTransitionOnNoTarget[2]     = <span class="stringliteral">"NoTarget"</span>;
+   stateTransitionOnTimeout[2]      = <span class="stringliteral">"Firing"</span>;
+   stateTimeoutValue[2]             = 2.0;
+   stateScript[2]                   = <span class="stringliteral">"OnTarget"</span>;
+
+   <span class="comment">// Fire at target</span>
+   stateName[3]                     = <span class="stringliteral">"Firing"</span>;
+   stateFire[3]                     = <span class="keyword">true</span>;
+   stateTransitionOnNoTarget[3]     = <span class="stringliteral">"NoTarget"</span>;
+   stateScript[3]                   = <span class="stringliteral">"OnFiring"</span>;
+
+   <span class="comment">// Lost target</span>
+   stateName[4]                     = <span class="stringliteral">"NoTarget"</span>;
+   stateTransitionOnTimeout[4]      = <span class="stringliteral">"Scanning"</span>;
+   stateTimeoutValue[4]             = 2.0;
+   stateScript[4]                   = <span class="stringliteral">"OnNoTarget"</span>;
+
+   <span class="comment">// Player thrown turret</span>
+   stateName[5]                     = <span class="stringliteral">"Thrown"</span>;
+   stateTransitionOnAtRest[5]       = <span class="stringliteral">"Deploy"</span>;
+   stateSequence[5]                 = <span class="stringliteral">"throw"</span>;
+   stateScript[5]                   = <span class="stringliteral">"OnThrown"</span>;
+
+   <span class="comment">// Player thrown turret is deploying</span>
+   stateName[6]                     = <span class="stringliteral">"Deploy"</span>;
+   stateTransitionOnTimeout[6]      = <span class="stringliteral">"Scanning"</span>;
+   stateTimeoutValue[6]             = 2.5;
+   stateSequence[6]                 = <span class="stringliteral">"deploy"</span>;
+   stateScaleAnimation[6]           = <span class="keyword">true</span>;
+   stateScript[6]                   = <span class="stringliteral">"OnDeploy"</span>;
+
+   <span class="comment">// Special state that is set when the turret is destroyed.</span>
+   <span class="comment">// This state is set in the onDestroyed() callback.</span>
+   stateName[7]                     = <span class="stringliteral">"Destroyed"</span>;
+   stateSequence[7]                 = <span class="stringliteral">"destroyed"</span>;
+};
+
+<span class="comment">//-----------------------------------------------------------------------------</span>
+<span class="comment">// Deployable AI Turret</span>
+<span class="comment">//-----------------------------------------------------------------------------</span>
+datablock <a class="code" title="Defines properties for an AITurretShape object.">AITurretShapeData</a>(DeployableTurret : AITurret)
+{
+   <span class="comment">// Mission editor category</span>
+   category = <span class="stringliteral">"Weapon"</span>;
+
+   <a class="code" title="Script class of object.">className</a> = <span class="stringliteral">"DeployableTurretWeapon"</span>;
+
+   startLoaded = <span class="keyword">false</span>;
+   
+   <span class="comment">// Basic Item properties</span>
+   mass = 1.5;
+   elasticity = 0.1;
+   friction = 0.6;
+   simpleServerCollision = <span class="keyword">false</span>;
+
+   <span class="comment">// Dynamic properties defined by the scripts</span>
+   PreviewImage = <span class="stringliteral">'turret.png'</span>;
+   pickUpName = <span class="stringliteral">"a deployable turret"</span>;
+   description = <span class="stringliteral">"Deployable Turret"</span>;
+   image = DeployableTurretImage;
+   reticle = <span class="stringliteral">"blank"</span>;
+   zoomReticle = <span class="stringliteral">'blank'</span>;
+};
+
+<span class="comment">// ----------------------------------------------------------------------------</span>
+<span class="comment">// AITurretShapeData</span>
+<span class="comment">// ----------------------------------------------------------------------------</span>
+
+function <a class="code" title="Called when the object is added to the scene.">AITurretShapeData::onAdd</a>(%<span class="keyword">this</span>, %obj)
+{
+   Parent::onAdd(%<span class="keyword">this</span>, %obj);
+
+   %obj.mountable = <span class="keyword">false</span>;
+}
+
+<span class="comment">// Player has thrown a deployable turret.  This copies from ItemData::onThrow()</span>
+function AITurretShapeData::onThrow(%<span class="keyword">this</span>, %user, %amount)
+{
+   <span class="comment">// Remove the object from the inventory</span>
+   <span class="keywordflow">if</span> (%amount $= <span class="stringliteral">""</span>)
+      %amount = 1;
+   <span class="keywordflow">if</span> (%this.maxInventory !$= <span class="stringliteral">""</span>)
+      <span class="keywordflow">if</span> (%amount &gt; %this.maxInventory)
+         %amount = %this.maxInventory;
+   <span class="keywordflow">if</span> (!%amount)
+      <span class="keywordflow">return</span> 0;
+   %user.decInventory(%<span class="keyword">this</span>,%amount);
+
+   <span class="comment">// Construct the actual object in the world, and add it to</span>
+   <span class="comment">// the mission group so it's cleaned up when the mission is</span>
+   <span class="comment">// done.  The turret's rotation matches the player's.</span>
+   %rot = %user.getEulerRotation();
+   %obj = <span class="keyword">new</span> <a class="code" 
+        title="Provides an AI controlled turret.">AITurretShape</a>()
+   {
+      datablock = %<span class="keyword">this</span>;
+      rotation = <span class="stringliteral">"0 0 1 "</span> @ <a class="code" 
+        title="Extract the word at the given index in the whitespace-separated list in text.">getWord</a>(%rot, 2);
+      count = 1;
+      sourceObject = %user;
+      client = %user.client;
+      isAiControlled = <span class="keyword">true</span>;
+   };
+   MissionGroup.add(%obj);
+   
+   <span class="comment">// Let the turret know that we're a firend</span>
+   %obj.addToIgnoreList(%user);
+
+   <span class="comment">// We need to add this turret to a list on the client so that if we die,</span>
+   <span class="comment">// the turret will still ignore our player.</span>
+   %client = %user.client;
+   <span class="keywordflow">if</span> (%client)
+   {
+      <span class="keywordflow">if</span> (!%client.ownedTurrets)
+      {
+         %client.ownedTurrets = <span class="keyword">new</span> <a class="code" 
+        title="A collection of SimObjects.">SimSet</a>();
+      }
+      
+      <span class="comment">// Go through the client's owned turret list.  Make sure we're</span>
+      <span class="comment">// a friend of every turret and every turret is a friend of ours.</span>
+      <span class="comment">// Commence hugging!</span>
+      <span class="keywordflow">for</span> (%i=0; %i&lt;%client.ownedTurrets.getCount(); %i++)
+      {
+         %turret = %client.ownedTurrets.getObject(%i);
+         %turret.addToIgnoreList(%obj);
+         %obj.addToIgnoreList(%turret);
+      }
+      
+      <span class="comment">// Add ourselves to the client's owned list.</span>
+      %client.ownedTurrets.add(%obj);
+   }
+   
+   <span class="keywordflow">return</span> %obj;
+}
+
+function <a class="code" 
+        title="Called when the object damage state changes to Destroyed.">AITurretShapeData::onDestroyed</a>(%<span class="keyword">this</span>, %turret, %lastState)
+{
+   <span class="comment">// This method is invoked by the ShapeBase code whenever the</span>
+   <span class="comment">// object's damage state changes.</span>
+
+   %turret.playAudio(0, TurretDestroyed);
+   %turret.setAllGunsFiring(<span class="keyword">false</span>);
+   %turret.resetTarget();
+   %turret.setTurretState( <span class="stringliteral">"Destroyed"</span>, <span class="keyword">true</span> );
+
+   <span class="comment">// Set the weapons to destoryed</span>
+   <span class="keywordflow">for</span>(%i = 0; %i &lt; %this.numWeaponMountPoints; %i++)
+   {
+      %turret.setImageGenericTrigger(%i, 0, <span class="keyword">true</span>);
+   }
+
+   <a class="code" 
+        title="Called when the object damage state changes to Destroyed.">Parent::onDestroyed</a>(%<span class="keyword">this</span>, %turret, %lastState);
+}
+
+function AITurretShapeData::OnScanning(%<span class="keyword">this</span>, %turret)
+{
+   <span class="comment">//echo("AITurretShapeData::OnScanning: " SPC %this SPC %turret);</span>
+
+   %turret.startScanForTargets();
+   %turret.playAudio(0, TurretScanningSound);
+}
+
+function AITurretShapeData::OnTarget(%<span class="keyword">this</span>, %turret)
+{
+   <span class="comment">//echo("AITurretShapeData::OnTarget: " SPC %this SPC %turret);</span>
+
+   %turret.startTrackingTarget();
+   %turret.playAudio(0, TargetAquiredSound);
+}
+
+function AITurretShapeData::OnNoTarget(%<span class="keyword">this</span>, %turret)
+{
+   <span class="comment">//echo("AITurretShapeData::OnNoTarget: " SPC %this SPC %turret);</span>
+
+   %turret.setAllGunsFiring(<span class="keyword">false</span>);
+   %turret.recenterTurret();
+   %turret.playAudio(0, TargetLostSound);
+}
+
+function AITurretShapeData::OnFiring(%<span class="keyword">this</span>, %turret)
+{
+   <span class="comment">//echo("AITurretShapeData::OnFiring: " SPC %this SPC %turret);</span>
+
+   %turret.setAllGunsFiring(<span class="keyword">true</span>);
+}
+
+function AITurretShapeData::OnThrown(%<span class="keyword">this</span>, %turret)
+{
+   <span class="comment">//echo("AITurretShapeData::OnThrown: " SPC %this SPC %turret);</span>
+
+   %turret.playAudio(0, TurretThrown);
+}
+
+function AITurretShapeData::OnDeploy(%<span class="keyword">this</span>, %turret)
+{
+   <span class="comment">//echo("AITurretShapeData::OnDeploy: " SPC %this SPC %turret);</span>
+
+   <span class="comment">// Set the weapons to loaded</span>
+   <span class="keywordflow">for</span>(%i = 0; %i &lt; %this.numWeaponMountPoints; %i++)
+   {
+      %turret.setImageLoaded(%i, <span class="keyword">true</span>);
+   }
+   
+   %turret.playAudio(0, TurretActivatedSound);
+}
+</pre></div></dd></dl>
+<p>And here is the above example state machine's flow:</p>
+<div align="center"><img src="images/AITurretShapeStates.png" alt="AITurretShapeStates.png" /></div>
+<a name="Shape_File_Nodes"></a><h2>Shape File Nodes</h2>
+<p>In addition to the required TurretBase nodes, <a class="el" 
+        title="Provides an AI controlled turret.">AITurretShape</a>
+ makes use of additional nodes within the shape file to allow the AI to 
+do its work. The first is the 'scanPoint' node. This is used by the AI 
+to project a pie wedge shaped scanning volume in which to detect 
+possible targets. The scanPoint node is at the apex of the scanning 
+wedge. If the scanPoint node is not present within the shape file then 
+the turret's world transform is used.</p>
+<p>The second is the 'aimPoint' node. Once the AI turret has obtained a 
+target the aimPoint is used to point the turret at the target. 
+Specifically, the turret rotates in both pitch and heading such that the
+ aimPoint points at the target. If you're using a weapon that doesn't 
+have its muzzle point on the same plane as its mount point (known as an 
+off-axis weapon) then be sure to place the aimPoint at a z position 
+equivalent to the weapon's muzzle point. This allows for the correct 
+pitch calculation. If the aimPoint is not found on the turret's shape, 
+then the pitch node will be used.</p>
+<a name="Ignore_List"></a><h2>Ignore List</h2>
+<p>AI turrets keep track of an ignore list. This is used by default to 
+stop a player deployed turret from targeting its owner, even when that 
+owner is killed and respawns. But this ignore list could also be used to
+ have the turret ignore team mates, squad members, invisible players, 
+etc. Use <a class="el" title="Adds object to the turret's ignore list.">AITurretShape::addToIgnoreList()</a> and 
+    <a class="el" title="Removes object from the turret's ignore list.">AITurretShape::removeFromIgnoreList()</a>
+ to manipulate this list. You should also look in 
+scripts/server/turret.cs at AITurretShapeData::onThrow() to see how the 
+ignore list is handled and deployed turrets are kept track of on a per 
+connected client basis.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" 
+        title="Defines properties for an AITurretShape object.">AITurretShapeData</a> </dd>
+<dd>
+<a class="el" title="Base turret class.">TurretShape</a> </dd>
+<dd>
+<a class="el" title="Defines properties for a TurretShape object.">TurretShapeData</a> </dd>
+<dd>
+<a class="el" title="Represents geometry to be mounted to a ShapeBase object.">ShapeBaseImageData</a> </dd></dl>
+<hr>
+<a name="Member_Function_Documentation"></a><h2>Member Function Documentation</h2>
+<a class="anchor" id="a8a2cde3baf887a834374b16091cc6598"></a><!-- doxytag: member="AITurretShape::activateTurret" ref="a8a2cde3baf887a834374b16091cc6598" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tbody><tr>
+          <td class="memname">void AITurretShape::activateTurret </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </tbody></table>
+</div>
+<div class="memdoc">
+
+<p>Activate a turret from a deactive state. </p>
+</div>
+</div>
+<a class="anchor" id="a84e5b9b9dc2abcbf2b8426cf73a2a5c9"></a><!-- doxytag: member="AITurretShape::addToIgnoreList" ref="a84e5b9b9dc2abcbf2b8426cf73a2a5c9" args="(ShapeBase obj)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tbody><tr>
+          <td class="memname">void AITurretShape::addToIgnoreList </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el">ShapeBase</a>&nbsp;</td>
+          <td class="paramname"> <em>obj</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </tbody></table>
+</div>
+<div class="memdoc">
+
+<p>Adds object to the turret's ignore list. </p>
+<p>All objects in this list will be ignored by the turret's targeting. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellpadding="0" cellspacing="2">
+    <tbody><tr><td valign="top"></td><td valign="top"><em>obj</em>&nbsp;</td><td>The 
+        <a class="el" title="A scriptable, renderable shape.">ShapeBase</a> object to ignore. </td></tr>
+  </tbody></table>
+  </dd>
+</dl>
+</div>
+</div>
+<a class="anchor" id="a3bd3ec9f46c587a9ca73bb6145e224d0"></a><!-- doxytag: member="AITurretShape::deactivateTurret" ref="a3bd3ec9f46c587a9ca73bb6145e224d0" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tbody><tr>
+          <td class="memname">void AITurretShape::deactivateTurret </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </tbody></table>
+</div>
+<div class="memdoc">
+
+<p>Deactivate a turret from an active state. </p>
+</div>
+</div>
+<a class="anchor" id="ac533f2ea7da9301526a883c8802bb1b8"></a><!-- doxytag: member="AITurretShape::getTarget" ref="ac533f2ea7da9301526a883c8802bb1b8" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tbody><tr>
+          <td class="memname"><a class="el">SimObject</a> AITurretShape::getTarget </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </tbody></table>
+</div>
+<div class="memdoc">
+
+<p>Get the turret's current target. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The object that is the target's current target, or 0 if no target. </dd></dl>
+</div>
+</div>
+<a class="anchor" id="ad233422edcedfcec8a460eaec510a1d6"></a><!-- doxytag: member="AITurretShape::getWeaponLeadVelocity" ref="ad233422edcedfcec8a460eaec510a1d6" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tbody><tr>
+          <td class="memname">float AITurretShape::getWeaponLeadVelocity </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </tbody></table>
+</div>
+<div class="memdoc">
+
+<p>Get the turret's defined projectile velocity that helps with target leading. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The defined weapon projectile speed, or 0 if leading is disabled. </dd></dl>
+</div>
+</div>
+<a class="anchor" id="a3c855356a68855686cde82668718b392"></a><!-- doxytag: member="AITurretShape::hasTarget" ref="a3c855356a68855686cde82668718b392" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tbody><tr>
+          <td class="memname">bool AITurretShape::hasTarget </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </tbody></table>
+</div>
+<div class="memdoc">
+
+<p>Indicates if the turret has a target. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>True if the turret has a target. </dd></dl>
+</div>
+</div>
+<a class="anchor" id="a0a2385ea9f8e637be1182d2aab7d030c"></a><!-- doxytag: member="AITurretShape::recenterTurret" ref="a0a2385ea9f8e637be1182d2aab7d030c" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tbody><tr>
+          <td class="memname">void AITurretShape::recenterTurret </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </tbody></table>
+</div>
+<div class="memdoc">
+
+<p>Recenter the turret's weapon. </p>
+</div>
+</div>
+<a class="anchor" id="af84992f8f9085a5afbd181759d6c5b75"></a><!-- doxytag: member="AITurretShape::removeFromIgnoreList" ref="af84992f8f9085a5afbd181759d6c5b75" args="(ShapeBase obj)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tbody><tr>
+          <td class="memname">void AITurretShape::removeFromIgnoreList </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el">ShapeBase</a>&nbsp;</td>
+          <td class="paramname"> <em>obj</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </tbody></table>
+</div>
+<div class="memdoc">
+
+<p>Removes object from the turret's ignore list. </p>
+<p>All objects in this list will be ignored by the turret's targeting. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellpadding="0" cellspacing="2">
+    <tbody><tr><td valign="top"></td><td valign="top"><em>obj</em>&nbsp;</td><td>The 
+        <a class="el" title="A scriptable, renderable shape.">ShapeBase</a> object to once again allow for targeting. </td></tr>
+  </tbody></table>
+  </dd>
+</dl>
+</div>
+</div>
+<a class="anchor" id="a3cdcf327d0cd1ee9419249c26139a8c1"></a><!-- doxytag: member="AITurretShape::resetTarget" ref="a3cdcf327d0cd1ee9419249c26139a8c1" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tbody><tr>
+          <td class="memname">void AITurretShape::resetTarget </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </tbody></table>
+</div>
+<div class="memdoc">
+
+<p>Resets the turret's target tracking. </p>
+<p>Only resets the internal target tracking. Does not modify the turret's facing. </p>
+</div>
+</div>
+<a class="anchor" id="a13133d44511b4af8ba026aec3e15fd90"></a><!-- doxytag: member="AITurretShape::setAllGunsFiring" ref="a13133d44511b4af8ba026aec3e15fd90" args="(bool fire)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tbody><tr>
+          <td class="memname">void AITurretShape::setAllGunsFiring </td>
+          <td>(</td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>fire</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </tbody></table>
+</div>
+<div class="memdoc">
+
+<p>Set the firing state of the turret's guns. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellpadding="0" cellspacing="2">
+    <tbody><tr><td valign="top"></td><td valign="top"><em>fire</em>&nbsp;</td><td>Set to true to activate all guns. False to deactivate them. </td></tr>
+  </tbody></table>
+  </dd>
+</dl>
+</div>
+</div>
+<a class="anchor" id="afaff2b8c1aa884ffe3aa2d060353bfcb"></a><!-- doxytag: member="AITurretShape::setGunSlotFiring" ref="afaff2b8c1aa884ffe3aa2d060353bfcb" args="(int slot, bool fire)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tbody><tr>
+          <td class="memname">void AITurretShape::setGunSlotFiring </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>slot</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>fire</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </tbody></table>
+</div>
+<div class="memdoc">
+
+<p>Set the firing state of the given gun slot. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellpadding="0" cellspacing="2">
+    <tbody><tr><td valign="top"></td><td valign="top"><em>slot</em>&nbsp;</td><td>The gun to modify. Valid range is 0-3 that corresponds to the weapon mount point. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>fire</em>&nbsp;</td><td>Set to true to activate the gun. False to deactivate it. </td></tr>
+  </tbody></table>
+  </dd>
+</dl>
+</div>
+</div>
+<a class="anchor" id="a657085a127d94b7efef89d70b2846ce7"></a><!-- doxytag: member="AITurretShape::setTurretState" ref="a657085a127d94b7efef89d70b2846ce7" args="(string newState, bool force=false)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tbody><tr>
+          <td class="memname">void AITurretShape::setTurretState </td>
+          <td>(</td>
+          <td class="paramtype">string&nbsp;</td>
+          <td class="paramname"> <em>newState</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>force</em> = <code>false</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </tbody></table>
+</div>
+<div class="memdoc">
+
+<p>Set the turret's current state. </p>
+<p>Normally the turret's state comes from updating the state machine but
+ this method allows you to override this and jump to the requested state
+ immediately. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellpadding="0" cellspacing="2">
+    <tbody><tr><td valign="top"></td><td valign="top"><em>newState</em>&nbsp;</td><td>The name of the new state. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>force</em>&nbsp;</td><td>Is
+ true then force the full processing of the new state even if it is the 
+same as the current state. If false then only the time out value is 
+reset and the state's script method is called, if any. </td></tr>
+  </tbody></table>
+  </dd>
+</dl>
+</div>
+</div>
+<a class="anchor" id="a3a809e9dc6207677c66255eda2eea75b"></a><!-- doxytag: member="AITurretShape::setWeaponLeadVelocity" ref="a3a809e9dc6207677c66255eda2eea75b" args="(float velocity)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tbody><tr>
+          <td class="memname">void AITurretShape::setWeaponLeadVelocity </td>
+          <td>(</td>
+          <td class="paramtype">float&nbsp;</td>
+          <td class="paramname"> <em>velocity</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </tbody></table>
+</div>
+<div class="memdoc">
+
+<p>Set the turret's projectile velocity to help lead the target. </p>
+<p>This value normally comes from <a class="el" 
+        title="Velocity used to lead target.">AITurretShapeData::weaponLeadVelocity</a>
+ but this method allows you to override the datablock value. This can be
+ useful if the turret changes ammunition, uses a different weapon than 
+the default, is damaged, etc. </p>
+<dl class="note"><dt><b>Note:</b></dt><dd>Setting this to 0 will disable target leading. </dd></dl>
+</div>
+</div>
+<a class="anchor" id="a7f078c8f4508c9ca91837b5cc1fbf0e1"></a><!-- doxytag: member="AITurretShape::startScanForTargets" ref="a7f078c8f4508c9ca91837b5cc1fbf0e1" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tbody><tr>
+          <td class="memname">void AITurretShape::startScanForTargets </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </tbody></table>
+</div>
+<div class="memdoc">
+
+<p>Begin scanning for a target. </p>
+</div>
+</div>
+<a class="anchor" id="a5a9eccaaa5b366da3aad88603ffb787c"></a><!-- doxytag: member="AITurretShape::startTrackingTarget" ref="a5a9eccaaa5b366da3aad88603ffb787c" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tbody><tr>
+          <td class="memname">void AITurretShape::startTrackingTarget </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </tbody></table>
+</div>
+<div class="memdoc">
+
+<p>Have the turret track the current target. </p>
+</div>
+</div>
+<a class="anchor" id="ac7f07a45bc1092c6b0964f1d2ca4d08e"></a><!-- doxytag: member="AITurretShape::stopScanForTargets" ref="ac7f07a45bc1092c6b0964f1d2ca4d08e" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tbody><tr>
+          <td class="memname">void AITurretShape::stopScanForTargets </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </tbody></table>
+</div>
+<div class="memdoc">
+
+<p>Stop scanning for targets. </p>
+<dl class="note"><dt><b>Note:</b></dt><dd>Only impacts the scanning for new targets. Does not effect a turret's current target lock. </dd></dl>
+</div>
+</div>
+<a class="anchor" id="a1088f412babaa4e5d91800f472a7370b"></a><!-- doxytag: member="AITurretShape::stopTrackingTarget" ref="a1088f412babaa4e5d91800f472a7370b" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tbody><tr>
+          <td class="memname">void AITurretShape::stopTrackingTarget </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </tbody></table>
+</div>
+<div class="memdoc">
+
+<p>Stop the turret from tracking the current target. </p><br /><br />
+<a name="AITurretShapeData"></a><h2>AITurretShapeData</h2>
+<p>The following shows all datablock fields for an AITurretShapeData, which is required to create a new AI Turret.</p>
+<h2>Member Data Documentation</h2>
+<a class="anchor" id="ae0a77427a4d1e2d2d7a8cc5d306903ca"></a>
+<!-- doxytag: member="AITurretShapeData::maxScanDistance" ref="ae0a77427a4d1e2d2d7a8cc5d306903ca" args="" -->
+<div class="memitem">
+  <div class="memproto">
+    <table class="memname">
+      <tbody>
+        <tr>
+          <td class="memname">float <a class="el">AITurretShapeData::maxScanDistance</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="memdoc">
+    <p>Maximum distance to scan. </p>
+    <p>When combined with maxScanHeading and maxScanPitch this forms a 3D scanning wedge used to initially locate a target. </p>
+  </div>
+</div>
+<a class="anchor" id="af5aff665a488e77f258ade902aeddfd1"></a>
+<!-- doxytag: member="AITurretShapeData::maxScanHeading" ref="af5aff665a488e77f258ade902aeddfd1" args="" -->
+<div class="memitem">
+  <div class="memproto">
+    <table class="memname">
+      <tbody>
+        <tr>
+          <td class="memname">float <a class="el">AITurretShapeData::maxScanHeading</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="memdoc">
+    <p>Maximum number of degrees to scan left and right. </p>
+    <dl class="note">
+      <dt><b>Note:</b></dt>
+      <dd>Maximum scan heading is 90 degrees. </dd>
+    </dl>
+  </div>
+</div>
+<a class="anchor" id="acf5cc951aaedb8e29be015c4c026afd1"></a>
+<!-- doxytag: member="AITurretShapeData::maxScanPitch" ref="acf5cc951aaedb8e29be015c4c026afd1" args="" -->
+<div class="memitem">
+  <div class="memproto">
+    <table class="memname">
+      <tbody>
+        <tr>
+          <td class="memname">float <a class="el">AITurretShapeData::maxScanPitch</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="memdoc">
+    <p>Maximum number of degrees to scan up and down. </p>
+    <dl class="note">
+      <dt><b>Note:</b></dt>
+      <dd>Maximum scan pitch is 90 degrees. </dd>
+    </dl>
+  </div>
+</div>
+<a class="anchor" id="a919c20a16e87f5e48db9516f36727905"></a>
+<!-- doxytag: member="AITurretShapeData::maxWeaponRange" ref="a919c20a16e87f5e48db9516f36727905" args="" -->
+<div class="memitem">
+  <div class="memproto">
+    <table class="memname">
+      <tbody>
+        <tr>
+          <td class="memname">float <a class="el">AITurretShapeData::maxWeaponRange</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="memdoc">
+    <p>Maximum distance that the weapon will fire upon a target. </p>
+  </div>
+</div>
+<a class="anchor" id="adb2b169333f5897620dc70fe9783be9e"></a>
+<!-- doxytag: member="AITurretShapeData::scanTickFrequency" ref="adb2b169333f5897620dc70fe9783be9e" args="" -->
+<div class="memitem">
+  <div class="memproto">
+    <table class="memname">
+      <tbody>
+        <tr>
+          <td class="memname">int <a class="el">AITurretShapeData::scanTickFrequency</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="memdoc">
+    <p>How often should we perform a full scan when looking for a target. </p>
+    <p>Expressed as the number of ticks between full scans, but no less than 1. </p>
+  </div>
+</div>
+<a class="anchor" id="af480c99065beeaeddc9e03890596744a"></a>
+<!-- doxytag: member="AITurretShapeData::scanTickFrequencyVariance" ref="af480c99065beeaeddc9e03890596744a" args="" -->
+<div class="memitem">
+  <div class="memproto">
+    <table class="memname">
+      <tbody>
+        <tr>
+          <td class="memname">int <a class="el">AITurretShapeData::scanTickFrequencyVariance</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="memdoc">
+    <p>Random amount that should be added to the scan tick frequency each scan period. </p>
+    <p>Expressed as the number of ticks to randomly add, but no less than zero. </p>
+  </div>
+</div>
+<a class="anchor" id="ab0792759bb60f4a1408ee757a3f2bbcc"></a>
+<!-- doxytag: member="AITurretShapeData::stateDirection" ref="ab0792759bb60f4a1408ee757a3f2bbcc" args="[31]" -->
+<div class="memitem">
+  <div class="memproto">
+    <table class="memname">
+      <tbody>
+        <tr>
+          <td class="memname">bool <a class="el">AITurretShapeData::stateDirection</a>[31]</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="memdoc">
+    <p>Direction of the animation to play in this state. </p>
+    <p>True is forward, false is backward. </p>
+  </div>
+</div>
+<a class="anchor" id="abf3fada443676230d52d48f7961fa892"></a>
+<!-- doxytag: member="AITurretShapeData::stateFire" ref="abf3fada443676230d52d48f7961fa892" args="[31]" -->
+<div class="memitem">
+  <div class="memproto">
+    <table class="memname">
+      <tbody>
+        <tr>
+          <td class="memname">bool <a class="el">AITurretShapeData::stateFire</a>[31]</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="memdoc">
+    <p>The first state with this set to true is the state entered by the client when it receives the 'fire' event. </p>
+  </div>
+</div>
+<a class="anchor" id="af420f106e120c58c5e0766f80d7d5c73"></a>
+<!-- doxytag: member="AITurretShapeData::stateName" ref="af420f106e120c58c5e0766f80d7d5c73" args="[31]" -->
+<div class="memitem">
+  <div class="memproto">
+    <table class="memname">
+      <tbody>
+        <tr>
+          <td class="memname">caseString <a class="el">AITurretShapeData::stateName</a>[31]</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="memdoc">
+    <p>Name of this state. </p>
+  </div>
+</div>
+<a class="anchor" id="a4c6d02bebe1a39f3715aab7af2c0d37b"></a>
+<!-- doxytag: member="AITurretShapeData::stateScaleAnimation" ref="a4c6d02bebe1a39f3715aab7af2c0d37b" args="[31]" -->
+<div class="memitem">
+  <div class="memproto">
+    <table class="memname">
+      <tbody>
+        <tr>
+          <td class="memname">bool <a class="el">AITurretShapeData::stateScaleAnimation</a>[31]</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="memdoc">
+    <p>If true, the timeScale of the stateSequence animation will be 
+      adjusted such that the sequence plays for stateTimeoutValue seconds. </p>
+  </div>
+</div>
+<a class="anchor" id="a5ac910bd022f76f5eb07b09762b89000"></a>
+<!-- doxytag: member="AITurretShapeData::stateScan" ref="a5ac910bd022f76f5eb07b09762b89000" args="[31]" -->
+<div class="memitem">
+  <div class="memproto">
+    <table class="memname">
+      <tbody>
+        <tr>
+          <td class="memname">bool <a class="el">AITurretShapeData::stateScan</a>[31]</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="memdoc">
+    <p>Indicates the turret should perform a continuous scan looking for targets. </p>
+  </div>
+</div>
+<a class="anchor" id="ace19e40529902a5e2f8c585c961aafbb"></a>
+<!-- doxytag: member="AITurretShapeData::stateScript" ref="ace19e40529902a5e2f8c585c961aafbb" args="[31]" -->
+<div class="memitem">
+  <div class="memproto">
+    <table class="memname">
+      <tbody>
+        <tr>
+          <td class=caseString <a class="el">AITurretShapeData::stateScript</a>[31]</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="memdoc">
+    <p>Method to execute on entering this state. is state. </pScoped to <a class="el" title="Defines properties for an AITurretShape object.">AITurretShapeData</a>. </p>
+  </div>
+</div>
+<a class="anchor" id="aef74fd696e8793702ad5e1da79d4f9e9"></a>
+<!-- doxytag: member="AITurretShapeData::stateSequence" ref="aef74fd696e8793702ad5e1da79d4f9e9" args="[31]" -->
+<div class="memitem">
+  <div class="memproto">
+    <table class="memname">
+      <tbody>
+        <tr>
+          <td class="memname">string <a class="el">AITurretShapeData::stateSequence</a>[31]</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="memdoc">
+    <p>Name of the sequence to play on entry to this state. is state. </p>
+  </div>
+</div>
+<a class="anchor" id="a195e82ba6d0914440870c502c5389893"></a>
+<!-- doxytag: member="AITurretShapeData::stateTimeoutValue" ref="a195e82ba6d0914440870c502c5389893" args="[31]" -->
+<div class="memitem">
+  <div class="memproto">
+    <table class="memname">
+      <tbody>
+        <tr>
+          <td class=float <a class="el">AITurretShapeData::stateTimeoutValue</a>[31]</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="memdoc">
+    <p>Time in seconds to wait before transitioning to stateTransitionOnTimeout. nTimeout. </p>
+  </div>
+</div>
+<a class="anchor" id="a5c9125df671153608b6e5922f29885c2"></a>
+<!-- doxytag: member="AITurretShapeData::stateTransitionOnActivated" ref="a5c9125df671153608b6e5922f29885c2" args="[31]" -->
+<div class="memitem">
+  <div class="memproto">
+    <table class="memname">
+      <tbody>
+        <tr>
+          <td class=string <a class="el">AITurretShapeData::stateTransitionOnActivated</a>[31]</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="memdoc">
+    <p>Name of the state to transition to when the turret goes from deactivated to activated. ctivated. </p>
+  </div>
+</div>
+<a class="anchor" id="a6e7745a780685284a4a5ff5b0ad8574f"></a>
+<!-- doxytag: member="AITurretShapeData::stateTransitionOnAtRest" ref="a6e7745a780685284a4a5ff5b0ad8574f" args="[31]" -->
+<div class="memitem">
+  <div class="memproto">
+    <table class="memname">
+      <tbody>
+        <tr>
+          <td class=string <a class="el">AITurretShapeData::stateTransitionOnAtRest</a>[31]</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="memdoc">
+    <p>Name of the state to transition to when the turret is at rest (static). (static). </p>
+  </div>
+</div>
+<a class="anchor" id="a169311d419c87173748a02dde57fffb1"></a>
+<!-- doxytag: member="AITurretShapeData::stateTransitionOnDeactivated" ref="a169311d419c87173748a02dde57fffb1" args="[31]" -->
+<div class="memitem">
+  <div class="memproto">
+    <table class="memname">
+      <tbody>
+        <tr>
+          <td class=string <a class="el">AITurretShapeData::stateTransitionOnDeactivated</a>[31]</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="memdoc">
+    <p>Name of the state to transition to when the turret goes from activated to deactivated. ctivated. </p>
+  </div>
+</div>
+<a class="anchor" id="aa8fb1c5b82f1448ea6254db46e739ac6"></a>
+<!-- doxytag: member="AITurretShapeData::stateTransitionOnNoTarget" ref="aa8fb1c5b82f1448ea6254db46e739ac6" args="[31]" -->
+<div class="memitem">
+  <div class="memproto">
+    <table class="memname">
+      <tbody>
+        <tr>
+          <td class=string <a class="el">AITurretShapeData::stateTransitionOnNoTarget</a>[31]</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="memdoc">
+    <p>Name of the state to transition to when the turret loses a target. a target. </p>
+  </div>
+</div>
+<a class="anchor" id="a642b684370ae0a50b0f1685516967a75"></a>
+<!-- doxytag: member="AITurretShapeData::stateTransitionOnNotAtRest" ref="a642b684370ae0a50b0f1685516967a75" args="[31]" -->
+<div class="memitem">
+  <div class="memproto">
+    <table class="memname">
+      <tbody>
+        <tr>
+          <td class=string <a class="el">AITurretShapeData::stateTransitionOnNotAtRest</a>[31]</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="memdoc">
+    <p>Name of the state to transition to when the turret is not at rest (not static).  static). </p>
+  </div>
+</div>
+<a class="anchor" id="a51a42fedad9eda9efe4ec4ffe6d1a944"></a>
+<!-- doxytag: member="AITurretShapeData::stateTransitionOnTarget" ref="a51a42fedad9eda9efe4ec4ffe6d1a944" args="[31]" -->
+<div class="memitem">
+  <div class="memproto">
+    <table class="memname">
+      <tbody>
+        <tr>
+          <td class=string <a class="el">AITurretShapeData::stateTransitionOnTarget</a>[31]</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="memdoc">
+    <p>Name of the state to transition to when the turret gains a target. a target. </p>
+  </div>
+</div>
+<a class="anchor" id="a324866477ae26bc6cd10a9d98ce7f5ed"></a>
+<!-- doxytag: member="AITurretShapeData::stateTransitionOnTimeout" ref="a324866477ae26bc6cd10a9d98ce7f5ed" args="[31]" -->
+<div class="memitem">
+  <div class="memproto">
+    <table class="memname">
+      <tbody>
+        <tr>
+          <td class=string <a class="el">AITurretShapeData::stateTransitionOnTimeout</a>[31]</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="memdoc">
+    <p>Name of the state to transition to when we have been in this state for stateTimeoutValue seconds.  seconds. </p>
+  </div>
+</div>
+<a class="anchor" id="a6902bc74661188820841843c5473a65b"></a>
+<!-- doxytag: member="AITurretShapeData::stateWaitForTimeout" ref="a6902bc74661188820841843c5473a65b" args="[31]" -->
+<div class="memitem">
+  <div class="memproto">
+    <table class="memname">
+      <tbody>
+        <tr>
+          <td class=bool <a class="el">AITurretShapeData::stateWaitForTimeout</a>[31]</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="memdoc">
+    <p>If false, this state ignores stateTimeoutValue and transitions immediately if other transition conditions are met.  are met. </p>
+  </div>
+</div>
+<a class="anchor" id="ab08edaffae7726a2667ada415b804c6f"></a>
+<!-- doxytag: member="AITurretShapeData::trackLostTargetTime" ref="ab08edaffae7726a2667ada415b804c6f" args="" -->
+<div class="memitem">
+  <div class="memproto">
+    <table class="memname">
+      <tbody>
+        <tr>
+          <td class=float <a class="el">AITurretShapeData::trackLostTargetTime</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="memdoc">
+    <p>How long after the turret has lost the target should it still track it. track it. </p>
+    <p>Expressed in seconds. </p>
+  </div>
+</div>
+<a class="anchor" id="ad90779211abf6d1b821109b8b7b4fafa"></a>
+<!-- doxytag: member="AITurretShapeData::weaponLeadVelocity" ref="ad90779211abf6d1b821109b8b7b4fafa" args="" -->
+<div class="memitem">
+  <div class="memproto">
+    <table class="memname">
+      <tbody>
+        <tr>
+          <td class=float <a class="el">AITurretShapeData::weaponLeadVelocity</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="memdoc">
+    <p>Velocity used to lead target. d target. </p>
+    <p>If value &lt;= 0, don't lead target. </p>
+  </div>
+</div>
+<p>&nbsp;</p>
+</div>
+</div>
+</div></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

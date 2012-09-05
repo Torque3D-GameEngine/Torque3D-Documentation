@@ -1,0 +1,245 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 12;
+   parent.leftFrame.expandToItem('tree2', 'doc12');
+   var element = parent.leftFrame.document.getElementById('doc12');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D - Wind Effects</title>
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_ArtistGuide_ImportingAssets_WindEffects skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          </div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Vertex_Painting_Your_Model"><span class="tocnumber">2</span> <span class="toctext">Vertex Painting Your Model</span></a></li>
+                          <li class="toclevel-1"><a href="#Exporting_Your_Mesh"><span class="tocnumber">3</span> <span class="toctext">Exporting Your Mesh</span></a></li>
+                          <li class="toclevel-1"><a href="#Setting_Up_A_Mesh_In_Torque_3D"><span class="tocnumber">4</span> <span class="toctext">Setting Up A Mesh In Torque 3D</span></a></li>
+                          <li class="toclevel-1"><a href="#Setting_the_View_Distance_of_Wind_Effects"><span class="tocnumber">5</span> <span class="toctext">Setting the View Distance of Wind Effects</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">6</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline"> Introduction </span></h2>
+                <p>The color of a vertex in a model allows the artist to specify how a 
+                  plant model will behave once it is brought into Torque 3D. This also 
+                  covers how a plant will respond to a wind emitter. Here is a breakdown 
+                  of how the colors affect a model: </p>
+                <ol>
+                  <li><b>Bending of branches:</b> controlled by the amount of red on a
+                    vertex. Normally the ends of branches are fully red, and the spot where
+                    they reach the trunk would be fully black (or colorless, depending on 
+                    how you are painting...see my method below), with a smooth gradation 
+                    between. </li>
+                  <li><b>Branch group instancing:</b> So that groups of branches sway
+                    independently, they need to have varying amounts of green. Usually done
+                    by selecting a clump of branches/fronds and filling with a random shade
+                    of green (anywhere from pure green to black). </li>
+                  <li><b>Flutter of leaves:</b> flutter is controlled by the amount 
+                    of blue on a vertex. Normally, the ends of fronds are fully blue so they
+                    flutter fully, but I've found that in a lot of cases (in trees, mostly)
+                    I can just fill the entire frond with blue. </li>
+                  <li><b>Vertical bend:</b> the vertical bend of a tree does not have to be painted... that is calculated automatically by its height </li>
+                </ol>
+                <a name="Vertex_Painting_Your_Model" id="Vertex_Painting_Your_Model"></a>
+                <h2> <span class="mw-headline"> Vertex Painting Your Model </span></h2>
+                <p>The following images represent the tree model with the separate vertex coloring steps: </p>
+                <p><br />
+                  The tree without any vertex coloring: </p>
+                <p><img alt="Image:tree_novertexcolor.jpg" src="images/Tree_novertexcolor.jpg" border="0" height="346" width="697" /> </p>
+                <p><br />
+                  The red coloring only, to designate the upward/downward bend of the 
+                  branches. Notice how the base of the branches are black and the ends of 
+                  the branches are red: </p>
+                <p><img alt="Image:tree_redvertexcolor.jpg" src="images/Tree_redvertexcolor.jpg" border="0" height="346" width="697" /> </p>
+                <p><br />
+                  The blue coloring only, to designate leaf fluttering. Notice how only the edges of the blades are colored: </p>
+                <p><img alt="Image:tree_bluevertexcolor.jpg" src="images/Tree_bluevertexcolor.jpg" border="0" height="346" width="697" /> </p>
+                <p><br />
+                  The green coloring only, to designate individual instances of branch bend. Each branch has its own shade of green: </p>
+                <p><img alt="Image:tree_greenvertexcolor.jpg" src="images/Tree_greenvertexcolor.jpg" border="0" height="346" width="697" /> </p>
+                <p><br />
+                  Finally, all the colors mixed together with an additive blend. Notice 
+                  that the trunk has no coloring, since it will neither flutter like a 
+                  leaf nor wave like a branch. The bend along the tree's height is done 
+                  without the use of vertex coloring: </p>
+                <p><img alt="Image:tree_allvertexcolors.jpg" src="images/Tree_allvertexcolors.jpg" border="0" height="346 width="697" /> </p>
+                <p><br />
+                  Here is a video of this in action: </p>
+                <p><br />
+                  <object width="480" height="385"><param name="movie" value="http://www.youtube.com/v/q8cjthzGcf0?fs=1&amp;hl=en_US"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/q8cjthzGcf0?fs=1&amp;hl=en_US" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="480" height="385"></embed></object>
+                <p><br />
+                  How you actually apply these color sets varies between modeling apps. The following is an example from 3D Studio Max: </p>
+                <ol>
+                  <li>Stack three separate Vertex Paint modifiers on the tree model. </li>
+                  <li>Working from the bottom, one modifier at a time, fill the 
+                    vertices with black, then paint one of the color sets listed above to 
+                    each of the three modifiers. In the end, it doesn't matter in what order
+                    the colors are created or stacked. </li>
+                  <li>After all three have been painted their own color set, set the blend mode of the top two Vertex Paint modifiers to "additive". </li>
+                  <li>Export your model as COLLADA with these modifiers on and you 
+                    should have the vertex coloring you need to get wind effects on your 
+                    meshes. Do not collapse the stack. </li>
+                </ol>
+                <p><img alt="Image:tree_colladamodifiers.jpg" src="images/Tree_colladamodifiers.jpg" border="0" height="244" width="184" /> </p>
+                <p><br />
+                  If you need to go back and tweak individual color sets/modifiers in Max,
+                  you can put their blending modes back to "normal" and turn them on and 
+                  off to isolate an individual color set. DO NOT eyeball the colors. Dial 
+                  them in. Red means pure red, or R:100%, G:0%, B: 0%. </p>
+                <a name="Exporting_Your_Mesh" id="Exporting_Your_Mesh"></a>
+                <h2> <span class="mw-headline"> Exporting Your Mesh </span></h2>
+                <p>The DTS format does not support vertex color data, which means you 
+                  will need to export your models as COLLADA files. A commonly used 
+                  plug-in is OpenCOLLADA, which is a free exporter for 3D Studio Max. </p>
+                <p><i>Note</i>: At the time this article was written, 3DS Max's 
+                  built-in COLLADA(.dae) exporter was not exporting vertex coloring 
+                  correctly. OpenCOLLADA exports both vertex coloring and User Properties 
+                  correctly. Just be aware that it appends material names with 
+                  "-material". </p>
+                <a name="Setting_Up_A_Mesh_In_Torque_3D" id="Setting_Up_A_Mesh_In_Torque_3D"></a>
+                <h2> <span class="mw-headline"> Setting Up A Mesh In Torque 3D </span></h2>
+                <p><img alt="Image:tree_final.jpg" src="images/Tree_final.jpg" border="0" height="413" width="700" /> </p>
+                <p>Once a mesh is brought into the Forest Editor (and a global wind 
+                  emitter is placed in the scene), the mesh parameters must be set 
+                  properly for your plant to come alive correctly. Definitions for mesh 
+                  parameters: </p>
+                <ul>
+                  <li><b>shapeFile</b> - Path to mesh </li>
+                </ul>
+                <ul>
+                  <li><b>collidable</b> - Indicates whether or not the mesh uses collision </li>
+                </ul>
+                <ul>
+                  <li><b>breakable</b> - (not implemented) </li>
+                </ul>
+                <ul>
+                  <li><b>radius</b> - The canopy radius in meters. This keeps plants 
+                    from being placed too close to one another and having overlapping 
+                    canopies. This value may need to be adjusted on larger plants when 
+                    placing smaller plants under their canopy (placing bushes under a tree, 
+                    for instance). This has no in-game functionality and only matters when 
+                    placing trees in your environment. </li>
+                </ul>
+                <ul>
+                  <li><b>mass</b> - Mass will generally affect how springy a plant is 
+                    in response to wind or an explosion. Think of it as a weight on the end 
+                    of a stick. Most of my trees are set to around 5, smaller plants down to
+                    0.5. </li>
+                </ul>
+                <ul>
+                  <li><b>rigidity</b> - How much the plant resists the wind force. Most of my trees are within 10-20, but some small grasses go down to 1. </li>
+                </ul>
+                <ul>
+                  <li><b>tightnessCoefficient</b> - How much the plant resists bending. Between 0 and 1. </li>
+                </ul>
+                <ul>
+                  <li><b>dampingCoefficient</b> - Slows down the sway of the plant so it won't whip back and forth forever. Between 0 and 1. </li>
+                </ul>
+                <ul>
+                  <li><b>windScale</b> - Relative scale at which this plant is affected by wind. Between 0 and 1, but will almost always be set around 1. </li>
+                </ul>
+                <ul>
+                  <li><b>trunkBendScale</b> - The amount that a plant will sway from 
+                    top to bottom. This is very sensitive. I don't have any vegetation set 
+                    higher than 0.03, and most are under 0.01. </li>
+                </ul>
+                <ul>
+                  <li><b>branchAmp</b> - Amount that a branch with sway up and down. Start well below 1. </li>
+                </ul>
+                <ul>
+                  <li><b>detailAmp</b> - The amount of leaf flutter. Start well below 1, in the 0.05 range. </li>
+                </ul>
+                <ul>
+                  <li><b>detailFreq</b> - The speed of leaf flutter. Start well below 1, in the 0.05 range. </li>
+                </ul>
+                <p><br />
+                  It may seem like a lot of these appear to be doing the same thing, but 
+                  there are subtle differences. The numbers shown in the example images 
+                  are just starting places. Your plants may differ due to the way you've 
+                  colored their vertices or set the global wind emitter. </p>
+                <a name="Setting_the_View_Distance_of_Wind_Effects" id="Setting_the_View_Distance_of_Wind_Effects"></a>
+                <h2> <span class="mw-headline"> Setting the View Distance of Wind Effects </span></h2>
+                <p>Plants in the distance will not display wind effects. This can be 
+                  changed by simply adjusting the variable assigned to this range: 
+                  $pref::windEffectRadius = 30. That sets it to 30 meters around the 
+                  camera. The default setting is 25 meters. Obviously this will affect 
+                  performance, but you can cater it to your specs. Make sure to save your 
+                  level after doing this. </p>
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline"> Conclusion </span></h2>
+                <p>This guide covered the basics of how Torque 3D utilizes vertex 
+                  painted objects. Artists are given a lot of control over forest editing.
+                  Vertex painting is an extremely important step and should be considered
+                  when developing your forest assets. In addition to the global wind 
+                  emitter, you can use a local wind emitter around anything that may 
+                  create a localized wind situation </p>
+                <ul>
+                  <li>waterfalls </li>
+                </ul>
+                <ul>
+                  <li>helicopter rotors </li>
+                </ul>
+                <ul>
+                  <li>big fans </li>
+                </ul>
+                <ul>
+                  <li>jet engine exhaust </li>
+                </ul>
+                <ul>
+                  <li>etc </li>
+                </ul></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

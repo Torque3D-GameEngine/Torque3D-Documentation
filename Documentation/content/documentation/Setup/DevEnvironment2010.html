@@ -1,0 +1,169 @@
+﻿<html>
+<link rel="stylesheet" type="text/css" href="../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../include/content.css" />
+<HEAD><SCRIPT SRC="../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../";</SCRIPT><link href="../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 61;
+   parent.leftFrame.expandToItem('tree2', 'doc61');
+   var element = parent.leftFrame.document.getElementById('doc61');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<title> Torque 3D - VS2010 Environment</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style type="text/css">
+        .style1
+        {
+            width: 577px;
+            height: 433px;
+        }
+    </style>
+</head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_Introduction_Setup_Part8 skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          </div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Setup_the_VC.2B.2B_2010_Development_Environment"><span class="tocnumber">1</span> <span class="toctext">Setup the VC++ 2010 Development Environment</span></a></li>
+                          <li class="toclevel-1"><a href="#Getting_Up_and_Running"><span class="tocnumber">2</span> <span class="toctext">Getting Up and Running</span></a></li>
+                          <li class="toclevel-1"><a href="#Setting_Up_the_Solution"><span class="tocnumber">3</span> <span class="toctext">Setting Up the Solution</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Setup_the_VC.2B.2B_2010_Development_Environment" id="Setup_the_VC.2B.2B_2010_Development_Environment"></a>
+                <h2> <span class="mw-headline"> Setup the VC++ 2010 Development Environment </span></h2>
+                <p>Now that we have all of our required SDK's and software installed, we can now start setting up our development environment. </p>
+                <p><br />
+                  The following check list of software should already be installed before proceeding with this article: </p>
+                <ul>
+                  <li> Torque T3D source code </li>
+                </ul>
+                <ul>
+                  <li> Visual Studio C++ 2010 Express </li>
+                </ul>
+                <ul>
+                  <li><a href="http://www.microsoft.com/downloads/en/details.aspx?familyid=3021d52b-514e-41d3-ad02-438a3ba730ba&amp;displaylang=en" class="external">DirectX June 2010 SDK</a></li>
+                </ul>
+                <ul>
+                  <li> PhysX SDK (if required by your project) </li>
+                </ul>
+                <ul>
+                  <li> Updated video drivers </li>
+                </ul>
+                <p><br />
+                  <i><b>Note:</b> You can use any C++ compiler for your projects. For this
+                  tutorial we decided to use Visual Studio C++ Express as it is free and 
+                  easy to set up with the Torque 3D Source code.</i> </p>
+                <a name="Getting_Up_and_Running" id="Getting_Up_and_Running"></a>
+                <h2> <span class="mw-headline"> Getting Up and Running </span></h2>
+                <p>1) Run Visual Studio 2010 either from the Windows start menu or from 
+                  the icon created by the installer, and then register the product if you have 
+                  not already done so. Register the product from the main menu by 
+                  selecting Help &gt; Register Product. Registering is free and disables 
+                  the thirty-day limit imposed by Microsoft. </p>
+                <p><br />
+                </p>
+                <p><img src="images/vs2010_register_product.png" width="577" height="289"><br /><br>
+                  2) If this is your first time using the product, take time to examine the menus and the rest of the IDE. Don't worry, it 
+                  will all become familiar after a while. </p>
+                <p><br />
+                  <img src="images/2010IDE.jpg" width="575" height="435"></p>
+                <a name="Setting_Up_the_Solution" id="Setting_Up_the_Solution"></a>
+                <h2> <span class="mw-headline"> Setting Up the Solution </span></h2>
+                <p>Before we can start compiling our source code, we need to tell the 
+                  compiler where we have installed all of our SDK Components. Initially we
+                  will start with the minimum requirements: DirectX. </p>
+                <p><br />
+                  <i><b>Note:</b> Adding SDK components in the 2010 version of VC++ 
+                  Express is now done on a solution-by-solution basis rather than the 
+                  compiler basis in prior Visual Studio products. We will use the FPS 
+                  Example solution for this guide.</i> </p>
+                <p><br />
+                  3) Open the FPS Example solution file. If you installed to the default location it should be: </p>
+                <p><br />
+                  C:\Torque\Torque 3D Pro 1.1\Examples\FPS Example\buildFiles\VisualStudio 2010\FPS Example.sln </p>
+                <p><img src="images/FPSSolution.jpg" width="679" height="493"></p><br /><br>
+                  <p>4) Once the solution has been opened, wait for the IDE to finish parsing your solution files.  This will
+                  set up all of your dependency directories for you.</p>
+                  <p><img alt="Wait for VS2010 to parse your solution." height="74" 
+                          src="images/IncludeDirectory.jpg" width="604" /></p>
+                
+                  <p>5) Visual Studio 2010 Professional is required to compile ActiveX 
+                  controls. The Torque 3D Internet Explorer browser plug-in project 
+                  requires ActiveX so we need to unload this project or our builds will 
+                  fail. To do this, right-click IE FPS Example Plugin project and select 
+                  Unload Project. </p>
+                <p><img src="images/UnloadProject.jpg" width="362" height="577"><br /><br><br>
+                  6) By default, Visual Studio will be using its Basic Settings. We need 
+                  to change it to use Expert Settings so that all the menu commands that 
+                  are required to build Torque 3D will be exposed for our use. To do this,
+                  select Tools &gt; Settings &gt; Expert Settings. </p>
+                <p><img src="images/ExpertSettings.jpg" width="506" height="145"><br /><br><br>
+                  7) All of the DirectX file paths should now be set and we have switched
+                  to Expert Settings. Next direct your attention to the Visual Studio 
+                  interface layout. If you look at the lower section of the interface, you 
+                  will notice a tabbed section. What we are looking for here is the Error 
+                  List tab and the Output tab as shown below: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <p><img src="images/ErrorList.jpg" width="680" height="599"><br /><br><br>
+                  If these tabs are not visible you can make them so by selecting each of the following commands from the menu: </p>
+                <p><br />
+                  View &gt; Output </p>
+                <p>View &gt; Other Windows &gt; Error List </p>
+                <p><br />
+                </p>
+                <p><img src="images/ErrorList2.jpg" width="577" height="433"><br /><br><br>
+                  If the Output window is floating, 
+                  drag it to the lower section and dock it. We are now ready to look at the
+                  Torque 3D source code. Before we move on, please have a look at this
+                  section of documentation explaining the layout of the source code 
+                  folders: <a href="../Introduction/DirectoryOverview.html">T3D Engine SDK Tour </a>.</p>
+                <p><br />
+                  When you are ready we can move on to the final steps of this tutorial <a href="./FirstProject.html">Part5 - Working with a T3D Project </a>.</p></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

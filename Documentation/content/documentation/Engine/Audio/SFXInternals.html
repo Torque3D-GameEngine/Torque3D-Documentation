@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 15;
+   parent.leftFrame.expandToItem('tree2', 'doc15');
+   var element = parent.leftFrame.document.getElementById('doc15');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D - SFX Internals</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_EngineOverview_SFX_Internals skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="15" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>                          
+                        <ul>
+                          <li class="toclevel-1"><a href="#SFXBuffer"><span class="tocnumber">1</span> <span class="toctext">SFXBuffer</span></a></li>
+                          <li class="toclevel-1"><a href="#SFXVoice"><span class="tocnumber">2</span> <span class="toctext">SFXVoice</span></a></li>
+                          <li class="toclevel-1"><a href="#SFXStream"><span class="tocnumber">3</span> <span class="toctext">SFXStream</span></a></li>
+                          <li class="toclevel-1"><a href="#SFXFileStream"><span class="tocnumber">4</span> <span class="toctext">SFXFileStream</span></a></li>
+                          <li class="toclevel-1"><a href="#SFXResource"><span class="tocnumber">5</span> <span class="toctext">SFXResource</span></a></li>
+                          <li class="toclevel-1"><a href="#SFXDevice"><span class="tocnumber">6</span> <span class="toctext">SFXDevice</span></a></li>
+                          <li class="toclevel-1"><a href="#SFXProvider"><span class="tocnumber">7</span> <span class="toctext">SFXProvider</span></a></li>
+                          <li class="toclevel-1"><a href="#SFXSystem"><span class="tocnumber">8</span> <span class="toctext">SFXSystem</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">9</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="SFXBuffer" id="SFXBuffer"></a>
+                <h2> <span class="mw-headline">SFXBuffer</span></h2>
+                <p>Objects of this class hold sound data on the sound device. Buffers
+                  will be deleted when no longer used but will also be freed when the
+                  device is destroyed. Use StrongWeakRefPtrs to permanently refer to
+                  SFXBuffers so that references will null out when the buffer goes away. </p>
+                <p><br />
+                  Loading and updating of sound buffers happens on dedicated
+                  SFX update threads created by the individual devices. For devices that
+                  do not create such a thread, updating will happen on the main thread;
+                  this, however, is currently only used by the Null device. </p>
+                <p><br />
+                  Buffers hold raw, uncompressed PCM sample data loaded from SFXStreams. SFXBuffers for normal, buffered playback will be loaded once in entirety and may then be used by an arbitrary number of SFXVoices for concurrent playback. </p>
+                <p><br />
+                  SFXBuffers for streamed playback will be loaded progressively in the background and are tied to a single unique SFXVoice. </p>
+                <p><br />
+                  <b>Important:</b> Do not use delete directly on an SFXBuffer.  Instead call <b>destroySelf()</b> on the buffer to delete it. Buffers may have pending asynchronous
+                  operations that need to flush out first before the buffer can actually
+                  be deleted. </p><br />
+                <a name="SFXVoice" id="SFXVoice"></a>
+                <h2> <span class="mw-headline">SFXVoice</span></h2>
+                <p>This is an abstract base class for objects on the sound device that
+                  the control playback of a particular SFXBuffer. Usually, a device will
+                  limit the number of concurrent sound playbacks it supports. SFXVoices
+                  follow the same lifecycle as SFXBuffers. An SFXVoice should never be
+                  directly deleted by clients. Leave lifetime management to
+                  reference-counting. </p>
+                <p><br />
+                  An SFXVoice promoted to playing state when its attached
+                  SFXBuffer has not yet fully loaded will temporarily transition into
+                  SFXStatusBlocked to indicate that playback can't progress. This will
+                  also happen for streamed sounds when the playback cursor is outrunning
+                  the stream feed. </p><br />
+                <a name="SFXStream" id="SFXStream"></a>
+                <h2> <span class="mw-headline">SFXStream</span></h2>
+                <p>Abstract base class for reading raw PCM sample streams. Instances of
+                  subclasses will be used for all sound loading that goes through SFX's
+                  own loading system (in contrast to sound loading happening directly
+                  through the sound API in use). Both buffered and streamed sounds are
+                  loaded through SFXStreams. </p>
+                <p><br />
+                  SFXStreams are used concurrently from multiple threads and
+                  are concurrently reference-counted to ensure proper and safe
+                  reclamation. For an SFXStream to support seeking in combination with
+                  streamed playback, it must implement cloning through the clone()
+                  method. </p>
+                <p><br />
+                  Streamed playback that also loops will require the attached SFXStream to properly reset(). </p>
+                <a name="SFXFileStream" id="SFXFileStream"></a><br />
+                <h2> <span class="mw-headline">SFXFileStream</span></h2>
+                <p>This is the abstract base class for specific file format loaders. </p><br />
+                <a name="SFXResource" id="SFXResource"></a>
+                <h2> <span class="mw-headline">SFXResource</span></h2>
+                <p>Thin wrapper that represents as sound file on disk. Performs a
+                  header read on the file to detect SFXFormat characteristics. Does not
+                  keep actual sound data. </p><br />
+                <a name="SFXDevice" id="SFXDevice"></a>
+                <h2> <span class="mw-headline">SFXDevice</span></h2>
+                <p>Abstract base class for SFX implementations against particular sound
+                  APIs. Manages SFXVoices and SFXBuffers as the primary sound device
+                  resources. The lifetimes of all sound resources are bound to their
+                  respective SFXDevice. Only one SFXDevice will ever be instanced at any
+                  one point. </p><br />
+                <a name="SFXProvider" id="SFXProvider"></a>
+                <h2> <span class="mw-headline">SFXProvider</span></h2>
+                <p>Abstract base class for objects that manage device creation on
+                  particular sound APIs. There is one SFXProvider per supported sound
+                  API. SFXProviders have no responsibilities besides enumerating,
+                  querying, and creating SFXDevices. </p><br />
+                <a name="SFXSystem" id="SFXSystem"></a>
+                <h2> <span class="mw-headline">SFXSystem</span></h2>
+                <p>Singleton class that defines the central hub for the sound system.
+                  Exposes the high-level interface of the system. Manages SFXSources and
+                  the current SFXDevice instance. Exposes global SFX parameters. </p>
+                <p><br />
+                  SFXSystem::_update() is called from the main game loop to
+                  periodically update the SFXSources in the system. Play-once source that
+                  have stopped playing will purged in the process. Sound loading,
+                  however, is usually handled on a dedicated thread rather than on the
+                  main thread. </p><br />
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>You typically will not be working directly with the SFX internals,
+                  unless you are heavily extending the SFX system. This guide was meant
+                  to show you the major internal classes that drive the SFX system.
+                  Continue reading to learn about common tips, troubleshooting, and the
+                conclusion of the SFX system documentation.<br /><br /><a href="Conclusion.html">CLICK HERE</a> to continue. </p></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 81;
+   parent.leftFrame.expandToItem('tree2', 'doc81');
+   var element = parent.leftFrame.document.getElementById('doc81');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D World Editor - Introduction</title>
+
+<style type="text/css">
+
+    .style1
+    {
+        text-decoration: underline;
+    }
+
+</style>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  class="mediawiki ns-0 ltr page-Torque3D_WorldEditor_Introduction">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          
+                        <ul>
+                          <li class="toclevel-1"><a href="#Purpose"><span class="tocnumber">1</span> <span class="toctext">Purpose</span></a></li>
+                          <li class="toclevel-1"><a href="#How_to_Use"><span class="tocnumber">2</span> <span class="toctext">Using the World Editor Documentation</span></a></li>
+                          <li class="toclevel-1"><a href="#How_to_Launch"><span class="tocnumber">3</span> <span class="toctext">How to Launch the World Editor</span></a></li>
+                          <li class="toclevel-1"><a href="#Looking_and_Moving_Around"><span class="tocnumber">4</span> <span class="toctext">Looking and Moving Around</span></a></li>
+                          <li class="toclevel-1"><a href="#Tips"><span class="tocnumber">5</span> <span class="toctext">Tips</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">6</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Purpose" id="Purpose"></a>
+                <h2> <span class="mw-headline">Purpose</span></h2>
+                <p>The World Editor is used to build and edit game levels. This includes adding and modifying terrains, buildings, foliage, cloud layers, vehicles, environmental effects, lighting effects, and much more. Aside from the <a href="../../Introduction/ToolBox.html">Toolbox</a>, the World Editor is the first (and most important) tool a new user should learn.</p>
+                <p><br />
+                  A sample game level as seen inside the World Editor: <br /><br />(<em>click to enlarge</em>) </p>
+                <a href="images/WorldEditorIntroImage.jpg" class="livethumbnail"><img src="images/WorldEditorIntroImage.jpg" width="320" height="248" largewidth="640" largeheight="497" /></a><br /><br />
+                <p>The World Editor is <span class="style1">not</span> a tool for creating game objects. Objects must be created using applications appropriate for the object type (i.e., 3DS Max to create a 3D model). However, once an object is loaded it can be modified by the World Editor in a variety of ways. The simplest modification would be a change in scale (size), but more complex modifications are also possible.  For example, the Torque <a href="../Editors/MaterialEditor.html">Material Editor</a> can be used to alter (or completely replace) textures on a 3D object or add shader effects.</p><br />
+                <p>A typical World Editor workflow might go as follows (in very simplified terms):</p><br />
+                <ol>
+                <li>Create a 3D model in an application like 3DS Max, Maya, or Blender.</li>
+                <li>Save that model to a sub folder inside your game/art directory.</li>
+                <li>Launch World Editor (which will automatically find that model if step 2 was done correctly).</li>
+                <li>Add the model to your level; position, scale, rotate, and adjust its materials as desired. </li>
+                <li>Test your changes in-game with the push of a single button.</li>
+                <li>Return to the World Editor and continue to tweak your level.</li>
+                </ol>
+                <p>Of course, there is a lot more to the World Editor than positioning 3D models. You will also be working with 2D assets like grey scale height-maps to create terrains, as well as specialized tools for creating rivers, forests, and roads.</p><br />
+                <p>Finally, it is worth noting that Torque 3D includes numerous art assets for you to play with… so you can skip steps 1 and 2 above and start building game levels right away!</p><br />
+                <a name="How_to_Use" id="How_to_Use"></a>
+                <h2> <span class="mw-headline">Using the World Editor Documentation</span></h2>
+                <p>The World Editor documentation follows a logical progression. Those who wish may work through it in a methodical way. Others may choose to skip difficult sections and jump directly to the tutorials at the end or to focus on only the features of interest.</p><br />
+                <p>Everyone learns differently, but we've found that a good way for new users to get started quickly is to follow these three steps:</p>
+                <ol>
+                    <li>Continue reading this document ("Overview") in its entirety. It covers: how to launch the World Editor, how to look and move around in a game level, and it offers a few important tips for new (and experienced) users. </li>
+                    <li>With the World Editor open, quickly skim the next document, "<a href="Interface.html">Interface</a>". You should only spend five-to-ten minutes getting an initial feel for the basic layout of the interface. Do not try to learn any features in detail.</li>
+                    <li>Try to add moving clouds to your level by following the <a href="../Adding Objects/BasicCloudLayer.html">Basic Cloud Layer instructions</a>.  Whether you are successful or not, spend no more than five minutes on this task.</li>
+                </ol>
+                <p>Do not be concerned if you have trouble completing Step 3.  Its purpose is to give you a specific task that requires direct interaction with the interface. That small exposure to the interface will go a long way towards making the remainder of the documentation more meaningful and easy to follow.</p><br />
+                <p>Once you've completed the three steps above, how you proceed is up to you. For those who prefer to jump around, we recommend you start by carefully reviewing the <a href="Interface.html">Interface</a> document.</p>
+                <br />
+				<a name="How_to_Launch"></a>
+                <h2> <span class="mw-headline">How to Launch the World Editor</span></h2>
+                <p>There are two ways to open the World Editor: (1) by using the Torque 3D Toolbox utility or (2) by using hot keys from within a running Torque game.  You will likely use both methods during development. </p>
+                <h3><span class="mw-headline">Launching from the Toolbox
+                </h3><p><br />
+                The first method is to open the World Editor using the Torque 3D <a href="../../Introduction/ToolBox.html">Toolbox</a> utility.  As described in the Toolbox documentation: select a project, select the Project Level you would like to edit, and click on the World Editor button.</p>
+                <p>(<i>click to enlarge</i>) </p>
+                <a href="images/WorldEditorLauncher.jpg" class="livethumbnail"><img src="images/WorldEditorLauncher.jpg" width="353" height="193" largewidth="707" largeheight="386" /></a><br />
+                <h3>Launching from Within a Running Game</h3>
+                <p>While your game is running, you can open or close the World Editor at any time using hot key combinations:</p>
+                <ul>
+                    <li><strong>On Windows</strong>, to open or close the World Editor, press the <strong>F11</strong> key.</li>
+                    <li><strong>On Mac OS X</strong>, to open or close the World Editor, press <strong>CMD+FN+F11</strong>.</li>
+                </ul>
+                <br />
+                <p><strong>TIP: </strong>When you first launch the World Editor, it is likely you will do so from the Toolbox. However, after you have modified your level, if you decide to test it out by clicking the Play Game button (as described in the &quot;<a href="Interface.html">Interface</a>&quot; document ), you will need to use the F11 hotkey to get back to the World Editor.  Otherwise, you would be forced to quit your game and relaunch the World Editor from the Toolbox.</p><br />
+                <a name="Looking_and_Moving_Around" id="A1"></a>
+                <h2> <span class="mw-headline">Looking and Moving Around</span></h2>
+                <p><br />While working in the World Editor, you will need to move and look around to inspect your level. </p>
+                <ul>
+                    <li><strong>Forward/Back/Left/Right</strong> movement is controlled by the corresponding arrow keys on your keyboard (the WASD keys can also be used). If you have a mouse-wheel, it can be used to move forward or backward.</li>
+                    <li><strong>Look Left/Right/Up/Down</strong> by holding the right mouse button down while moving the mouse.</li>
+                    <li><strong>Pan Left/Right/Up/Down</strong> by holding down the middle mouse button (Mouse 3) while moving the mouse. On most mice with a scroll wheel, this is achieved by depressing (not scrolling) the mouse wheel. </li>
+                </ul>
+                <p><br />
+                <strong>Note:</strong> There are a number of Camera options, discussed further in the <a href="Interface.html">Interface<a /> document, which in some cases may alter the behavior of these controls in minor ways. </p>
+                <p><br />When play testing your game outside of the World Editor, default control is typical of most First Person Shooters and can be remapped by pressing Ctrl-O (Windows) to bring up an options dialog. A few important controls are listed below:</p>
+                <ul>
+                    <li><strong>Forward/Back/Left/Right </strong>movement is controlled by the corresponding arrow keys on your keyboard (the WASD key can also be used).</li>
+                    <li><strong>Look around</strong> by moving the mouse.</li>
+                    <li><strong>Fire/Alt Fire</strong> are triggered by the left and right mouse buttons.</li>
+                    <li><strong>Jump</strong> is activated by the Space Bar.</li>
+                    <li><strong>First/Third person view</strong> is toggled by pressing TAB.</li>
+                    <li><strong>Change weapons</strong> by scrolling the mouse wheel (or press Q key). </li>
+                    <li><strong>Exit vehicles</strong> by pressing Control-F.</li>
+                    <li><strong>Return to World Editor</strong> by using the F11 hotkey (as discussed above).</li>
+                </ul>
+
+                <a name="Tips" id="Tips"></a>
+                <h2> <span class="mw-headline">Tips</span></h2>
+                <p>The following is a general list of knowledge you should keep in mind while editing a level in your game: </p>
+                <ul>
+                  <li><strong>Try to design your levels outside of the editor first.</strong> Sometimes it is helpful to have a simple verbal or visual design ready before you actually start editing. Even if it is a simple blueprint on a napkin, a level editor/artist with a reference to work from will cover ground much more quickly. </li>
+                </ul>
+                <ul>
+                  <li><strong>Prioritize your object placement.</strong> It makes sense to polish certain aspects of a level before others. For example, try to finish your Sky, Sun, and Terrain before you move on to adding rivers, foliage, and other objects. Performing major adjustments to a terrain with hundreds of objects already placed could be tedious and counterproductive. </li>
+                </ul>
+                <ul>
+                  <li><strong>Play your level regularly. </strong>After you reach a major milestone, try  actually doing the things in your level as a player would. There is a big difference between the experience of a player in a game and that of a designer with a free-floating camera in the World Editor. </li>
+                </ul>
+                <ul>
+                  <li><strong>Do not forget to optimize.</strong> Some specific World Editor objects are more appropriate than others. Use <a href="../Tutorials/CreatingFoliage.html">Ground Cover</a> instead of a 3D model with lots of grass or trees attached. As much as possible, use the Sun rather than numerous point lights to handle ambient lighting. There are other such optimizations which will become apparent towards the end of development.</li>
+                </ul>
+                <ul>
+                  <li><strong>SAVE AND SAVE OFTEN. </strong>This cannot be stressed enough. Computers crash, power goes out, cats jump on keyboards, and in rare circumstances you may encounter a yet undiscovered issue which causes data corruption. Any number of accidents can result in hours of work being lost. We recommend you save as often as you can.</li>
+                </ul><br />
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>Now that you know the purpose of the World Editor, and how to access it,
+                  we can move on to learning how to use it. Before you start placing
+                  objects or creating levels, you should learn the interface.
+                Continue on to the <a href="Interface.html">World Editor Interface</a>. </p>
+               
+                </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

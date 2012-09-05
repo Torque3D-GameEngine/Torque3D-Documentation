@@ -1,0 +1,413 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 95;
+   parent.leftFrame.expandToItem('tree2', 'doc95');
+   var element = parent.leftFrame.document.getElementById('doc95');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D World Editor - Building Terrains</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  class="mediawiki ltr ns-0 ns-subject page-Torque3D_WorldEditor_Terrain skin-monobook">
+<script type="text/javascript" src="../../../include/wz_tooltip.js"></script>
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Setup"><span class="tocnumber">2</span> <span class="toctext">Setup</span></a></li>
+                          <li class="toclevel-1"><a href="#Heightmap.2C_Opacity_Layer.2C_Terrain_Textures"><span class="tocnumber">6</span> <span class="toctext">Heightmap, Opacity Layer, Terrain Textures</span></a></li>
+                          <li class="toclevel-1"><a href="#Importing_A_Heightmap"><span class="tocnumber">7</span> <span class="toctext">Importing A Heightmap</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">8</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p>In this tutorial, we are going to create a lush valley using sample assets provided by Sickhead Games. For this guide, the terrain will be created by importing a heightmap, opacity maps, and creating new materials.</p>
+                <a name="Setup" id="Setup"></a>
+                <h2> <span class="mw-headline">Setup</span></h2>
+                <p>This article was written using a newly generated project with the Full Template, which ships with plenty of free assets for testing and learning. For this specific tutorial, you will want to download a zip file containing additional assets for testing: <a href="./TerrainFiles.zip" class="downloads">CLICK HERE TO DOWNLOAD THE ZIP FILE</a></p>
+                <p>&nbsp;</p>
+                <p>None of the modifications you are about to make are required for future tutorials, so feel free to create a new level or use an existing one for testing. As long as you have access to existing materials, you are good to go.<br />
+                </p>
+                <p><br />
+                  You will want to remove any existing TerrainBlocks since we will be creating one from scratch. Go ahead and delete any blocking objects, so you have a clean view.</p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/BlankTerrainScene.jpg" class="livethumbnail"><img src="images/BlankTerrainScene.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br /><br />             
+                  <a name="Heightmap.2C_Opacity_Layer.2C_Terrain_Textures" id="Heightmap.2C_Opacity_Layer.2C_Terrain_Textures"></a>                </h2>
+                <h2> <span class="mw-headline">Heightmap, Opacity Layer, Terrain Textures</span></h2>
+                <p>To get high-quality and professional looking terrain, you will want to use a 3rd party external tool. Examples include L3DT and GeoControl. These tools allow you to generate extremely detailed heightmaps that can be imported by Torque 3D and generate terrain data.</p>
+                <p><br />
+                  Several assets are required to successfully import and render a high quality heightmap. Most terrain generating applications provide proper exporters to get the job done. First, we will cover what these assets are. The follow example assets were provided by <a href="http://www.garagegames.com/account/profile/44904" class="external" target="_blank">Russell Fincher</a> at
+                  <a href="http://www.sickhead.com/" class="external" target="_blank">Sickhead Games</a>. These files are available for download in the setup section of this tutorial.</p>
+                <p><br />
+                  The primary asset required is the heightmap, which is an image used to store elevation data rendered in 3D by the engine. The heightmap itself needs to be a 16-bit greyscale image, power of two, and square. The lighter an area of a heightmap, the higher the elevation will be in that terrain location.</p>
+                <p><br />
+                  <b>Example Heightmap</b> </p>
+                <p><img alt="Image:HeightMapExample.jpg" src="images/HeightMapExample.jpg" border="0" width="256" height="256" /> </p>
+                <p><br />
+                  Next, you will want to use an opacity map. This map acts as a mask, which is designed to assign opacity layers. Opacity layers need to match the dimensions of the heightmap. 512x512 heightmap can only use a 512x512 opacity map.</p>
+                <p><br />
+                  If the opacity map is a RGBA image, four opacity layers will be used for the detailing (one for each channel). If you use an 8-bit greyscale image, only a single channel. You can then assign materials to the layers. This allows us to have up to 255 layers with a single ID texture map, saving memory which we can apply to more painting resolution.</p>
+                <p><br />
+                  Notice that the following example Opacity Map resembles the original heightmap.</p>
+                <p><br />
+                  <b>Example Opacity Map</b> </p>
+                <p><img alt="Image:ExampleOpacityMask.jpg" src="images/ExampleOpacityMask.jpg" border="0" width="256" height="256" /> </p>
+                <p><br />
+                  Finally, of course we want to use textures to paint the terrain. Instead of hand painting them, the opacity layer will automatically assign textures based on what channel they are loaded into. You will want to have three textures: a base (diffuse), a normal map, and a detail mask.</p>
+                <p><br />
+                  <b>Diffuse</b> </p>
+                <p><img alt="Image:ExampleBaseTex.jpg" src="images/ExampleBaseTex.jpg" border="0" width="256" height="256" /> </p>
+                <p><br />
+                  <b>Normal</b> </p>
+                <p><img alt="Image:ExampleNormalMap.jpg" src="images/ExampleNormalMap.jpg" border="0" width="265" height="265" /> </p>
+                <p><br />
+                  <b>Detail</b> </p>
+                <p><img alt="Image:ExampleDetailTex.jpg" src="images/ExampleDetailTex.jpg" border="0" width="256" height="256" /> </p>
+                <p><br />
+                  The base represents the color and flat detail of the textures. The normal map is used to render the bumpiness or depth of the texture, even though it is flat. Finally, the detail map provides up-close detail, but it absorbs most of their colors from the base map.</p>
+                <a name="Importing_A_Heightmap" id="Importing_A_Heightmap"></a>
+                <h2> <span class="mw-headline">Importing A Heightmap</span></h2>
+                <p>Now that you know what assets are required, we are going to import our first heightmap. What we are going to do is create a highly detailed valley scene, with snowcapped mountains. Since this section focuses on the World Editor, and not 3rd party tools, you are going to use sample assets. This will save time and allow you to learn the World Editor functionality first.</p>
+                <p><br />
+                  If you do not have the required files, they are available for download in the setup section of this tutorial. Again, these high quality assets were provided by <a href="http://www.garagegames.com/account/profile/44904" class="external" target="_blank">Russell Fincher</a> of <a href="http://www.sickhead.com/" class="external" target="_blank">Sickhead Games</a> - Thanks Sickhead Games!</p>
+                <p><br />
+                  Create a folder in the game/art/terrains directory of your project called "sampleTerrain." Unzip the contents of the <a href="./TerrainFiles.zip" class="downloads">file you
+                  downloaded</a> into this new folder. You should have two heightmaps, identical except for varying resolution. You will also receive three sets of textures and opacity maps.</p>
+                <p><br />
+                  With your blank room running in the World Editor, click on File-&gt;Import Terrain Heightmap </p>
+                <p><br />
+                  <img alt="Image:ImportTerrainHeightmap.jpg" src="images/ImportTerrainHeightmap.jpg" border="0" width="270" height="395" /> </p>
+                <p><br />
+                  A floating dialog will appear and allow you to setup your new terrain before importing it. </p>
+                <p><br />
+                  <img alt="Image:ImportHeightMapDialog.jpg" src="images/ImportHeightMapDialog.jpg" border="0" width="391" height="257" /> </p>
+                <p><br />
+                  <b>Name:</b>If you specify the name of an existing TerrainBlock in the
+                  dialog, it will update that TerrainBlock and its associated .ter file.
+                  Or else it creates a new one. </p>
+                <p><br />
+                  <b>Meters Per Pixel:</b> What was the TerrainBlock SquareSize, which is a floating point value that does not require power of 2 values. </p>
+                <p><br />
+                  <b>Height Scale:</b> The height in meters you want white in the heightmap to be. </p>
+                <p><br />
+                  <b>Height Map Image:</b> File path to .png or .bmp heightmap itself. Remember, this needs to be a 16-bit greyscale image, power of two, and square. </p>
+                <p><br />
+                  <b>Texture Map:</b> This involves opacity layers, which need to match
+                  the dimensions of the heightmap. If you add an RGBA image it will add 4
+                  opacity layers to the list, one for each channel. If you add an 8-bit
+                  greyscale image, it will be added as a single channel. You can then
+                  assign materials to the layers. If you do not add any layers the
+                  terrain will be created with just the Warning Material texture. </p>
+                <p><br />
+                  Keep the name default value, theTerrain. Click the browse
+                  button near Height Map Image to open a file browser dialog. Go to where
+                  you saved the terrain files, <em>game/art/terrains/sampleTerrain </em>and open
+                  the <strong>heightmap1024.png</strong>. </p>
+                <p><i>(click to enlarge)</i> </p>
+                  <a href="images/ChooseHeightmap.jpg" class="livethumbnail"><img src="images/ChooseHeightmap.jpg" width="313" height="239" largewidth="627" largeheight="479" /></a><br /><p><br />
+                  Next, click on the + button next to Texture Map to open
+                  another file browser. This is where we are going to add our opacity
+                  layers. Start by locating the prairie mask
+                  (game/art/terrains/sampleTerrain/prairie/prairie_maskX.png). You can
+                  choose the 512 or 1024, but you have to stick with that resolution for
+                  the rest of the files we will be adding. </p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/ChoosePrairieMask.jpg" class="livethumbnail"><img src="images/ChoosePrairieMask.jpg" width="313" height="239" largewidth="627" largeheight="479" /></a><br />
+                <p><br />
+                  Do not worry if you do not see the detail, as the mask is
+                  supposed to be solid white.</p><br />
+                  <p>Repeat the process to add the rock wall
+                  mask. </p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/ChooseRockWallMask.jpg" class="livethumbnail"><img src="images/ChooseRockWallMask.jpg" width="313" height="239" largewidth="627" largeheight="479" /></a><br />
+                <p><br />
+                  Perform this task one last time to add the snow mask. </p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/ChooseSnowMask.jpg" class="livethumbnail"><img src="images/ChooseSnowMask.jpg" width="314" height="239" largewidth="628" largeheight="479" /></a><br />
+                <p><br />
+                  Now that our opacity layers have been added, we are going to
+                  assign a material to each one. Click on the prairie layer, then click
+                  the Edit button in the bottom right. You will now see the Terrain
+                  Materials Editor. </p>
+                <p><br />
+                  <img alt="Image: TerrainMaterialEditor.jpg" src="images/TerrainMaterialEditor.jpg" border="0" width="393" height="321" /> </p>
+                <p><br />
+                  Click the New button, found at the top next to the garbage bin, to add a new material. You should see the entry 
+                    <em>newMaterial</em> appear at the bottom of the list to the left, under Terrain Materials.  On the right side of the gui under Material Properties, in the Name field type in Prarie, then hit Enter.  If you don't hit Enter after naming your new material, it will not be saved.  In the list on the left, the 
+                    <em>newMaterial</em> entry should change to <em>Prairie</em>.</p>
+                  <p><br />
+                  Next click the Edit button next to the Diffuse preview box. Again, a file browser will pop up allowing you to open the base texture file for the prairie material - select and open the file 
+                      <strong>\game\art\terrains\sampleTerrain\prairie\prairie_base.png</strong>. Alternatively, you can click the preview box itself, which is a checkered image until you add a texture.</p>
+                  <p><br /><em>(click to enlarge)</em></p>
+
+                <a href="images/ChoosePrairieBase.jpg" class="livethumbnail"><img src="images/ChoosePrairieBase.jpg" width="314" height="239" largewidth="628" largeheight="479" /></a><br />
+                <p><br />
+                  Once you have added the base texture, the preview box will update to show you what you opened. Next we'll do the same thing for the detail map. In the Detail preview box, below the diffuse section, click the Edit button. Using the file browser, open the detail map for our prairie material - 
+                    <strong>\game\art\terrains\sampleTerrain\prairie\prairie_detail.png</strong>.</p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/ChoosePrairieDetail.jpg" class="livethumbnail"><img src="images/ChoosePrairieDetail.jpg" width="314" height="239" largewidth="628" largeheight="479" /></a><br />
+                <p><br />
+                  Lastly, do the same thing for the normal map.  In the Normal preview box, below the Detail section, click the Edit button. Use the file browser to open the prairie normal map - 
+                    <strong>\game\art\terrains\sampleTerrain\prairie\prairie_normal.png</strong></p>
+                <p>(<i>click to enlarge)</i> </p>
+                <a href="images/ChoosePrairieNormal.jpg" class="livethumbnail"><img src="images/ChoosePrairieNormal.jpg" width="314" height="239" largewidth="628" largeheight="479" /></a><br />
+                <p><br />
+                  Now we need to set some parameters. In the Diffuse box, the Size parameter controls the physical size in meters of the base texture - set it to 500. </p>
+                  <p><br />In the Detail box, set Size to 2. This means that the material will be scaled to two meters on the terrain. On a terrain that is 1024 square meters, the Prairie material will repeat a little less than 205 times. The Distance parameter determines how far away from the camera must be before the detail map renders - set it to 50.   Set the Strength parameter to 2.</p>
+                  <p><br />Your final material properties should look like the following: </p>
+                <p><br />
+                  <img alt="Image:FinalPrairieMaterials.jpg" src="images/FinalPrairieMaterials.jpg" border="0" width="394" height="322" /> </p>
+                <p><br />
+                  Click the Apply & Select button to assign the new Prairie material to the opacity layer. </p>
+                  <p><br />The Import Terrain Height Map dialog will appear.  Next, we will add the rock wall terrain material. In the Texture Map list, select the rockWallMask opacity layer, then click Edit. </p>
+                  Repeat the process of creating a new terrain material, using the rock wall textures. Your final result will look like this: </p>
+                <p><br />
+                  <img alt="Image:FinalRockWallMaterials.jpg" src="images/FinalRockWallMaterials.jpg" border="0" width="394" height="322" /> </p>
+                <p><br />
+                  Notice that I have set the detail size to 2, and the detail distance
+                  to 50. </p>
+                  <p><br />We are going to add our final terrain material now. Back in the
+                  Import Terrain Height Map dialog, select the snowMask opacity layer
+                  then click edit. Repeat the process of creating a new terrain material,
+                  using the snow textures. Your final result will look like this: </p>
+                <p><br />
+                  <img alt="Image:FinalSnowMaterials.jpg" src="images/FinalSnowMaterials.jpg" border="0" width="394" height="322" /> </p>
+                <p><br />
+                  Now, we are all set to generate the terrain. Back in the
+                  Import Terrain Height Map dialog, click on the import button. It will
+                  take a few moments for Torque 3D to generate the terrain data from our
+                  various assets. When the import process is complete, the new
+                  TerrainBlock will be added to your scene (you might need to move your
+                  camera to see it). </p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/HeightmapTerrainAdded.jpg" class="livethumbnail"><img src="images/HeightmapTerrainAdded.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  If you zoom in close to where materials overlap, you can notice the high quality detail and smooth blending that occurs. </p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/DetailBlending.jpg" class="livethumbnail"><img src="images/DetailBlending.jpg" width="516" height="397" largewidth="1032" largeheight="795" /></a><br />
+                <h2> <span class="mw-headline">Painting/Adjusting New Material</span></h2>
+                <p>Go ahead and select the Prairie material in your Terrain Painter palette. </p>
+                <p><img alt="Image:SelectPrairieMat.jpg" src="../Editors/images/SelectPrairieMat.jpg" border="0" width="151" height="333" /> </p>
+                <p><br />
+                  Pick any location on your terrain, using any size or shape brush you wish. It does not matter where you start. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="../Editors/images/PrairiePaintBefore.jpg" class="livethumbnail"><img src="../Editors/images/PrairiePaintBefore.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  Once you are set, click and hold down the left mouse button
+                  to begin painting. Make sure you paint a fairly large area. We will be
+                  changing the properties of this material shortly, so we need to be able
+                  to see it from a distance. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="../Editors/images/PrairiePaintAfter.jpg" class="livethumbnail"><img src="../Editors/images/PrairiePaintAfter.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  From a distance, you may notice that your Prairie material
+                  looks blurry and undefined. Even though the material has a detail
+                  texture, it is not visible from this far away. Double click on your
+                  Prairie TerrainMaterial in the Terrain Painter palette. </p>
+                <p><br />
+                  Once the editor pops up, click on the Prairie entry to view its properties. Up the Detail Distance from 50 to 250. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="../Editors/images/IncreasePrairieDetailDistance.jpg" class="livethumbnail"><img src="../Editors/images/IncreasePrairieDetailDistance.jpg" width="197" height="161" largewidth="394" largeheight="322" /></a><br />
+                <p><br />
+                  Click select to close the editor. The terrain you have
+                  painted with the Prairie material has updated, and you should now see
+                  more definition even at a distance. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="../Editors/images/PrairieDetailIncreased.jpg" class="livethumbnail"><img src="../Editors/images/PrairieDetailIncreased.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  Now that the terrain looks better at a distance, what about
+                  close up? A closer view of the the Prairie-painted terrain will show
+                  off the detail texture quite well. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="../Editors/images/PrairieRepeatBefore.jpg" class="livethumbnail"><img src="../Editors/images/PrairieRepeatBefore.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  If you think the "grassy" appearance is too large or stretched, we can
+                  tweak that from the Terrain Materials Editor. With the Prairie layer
+                  still selected, open the editor. Lower the Detail Size value, which will cause the detail texture to repeat more often per meter. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="../Editors/images/IncreasePrairieRepeat.jpg" class="livethumbnail"><img src="../Editors/images/IncreasePrairieRepeat.jpg" width="236" height="185" largewidth="472" largeheight="370" /></a><br />
+                <p><br />
+                  Click select to apply the changes. Again, your painted
+                  terrain will update immediately to reflect the changes you just made.
+                  Notice how much more detailed the TerrainMaterial. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="../Editors/images/PrairieRepeatAfter.jpg" class="livethumbnail"><img src="../Editors/images/PrairieRepeatAfter.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  The values we just set are somewhat extreme. You will need
+                  to experiment with the values on your own assets to find a balanced
+                  setting that looks well up close and from a distance. The last task we
+                  are going to accomplish is swapping TerrainMaterials between layers. </p>
+                <p><br />
+                  In this tutorial, grass1 is layer0 and Prairie is layer2.
+                  Since the first layer is the base material applied to the terrain, it
+                  makes up the majority of the level. Start by selecting the first layer
+                  (grass1) in the palette. </p>
+                <p><br />
+                  <img alt="Image:SelectGrassMat.jpg" src="../Editors/images/SelectGrassMat.jpg" border="0" width="151" height="331" /> </p>
+                <p><br />
+                  Instead of manually painting the entire terrain a separate material, we
+                  can flip the layers. Double click the grass1 layer to open it up in the
+                  Terrain Materials Editor. Once it is open, select the Prairie
+                  TerrainMaterial from the list. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="../Editors/images/SwapGrassForPrairie.jpg" class="livethumbnail"><img src="../Editors/images/SwapGrassForPrairie.jpg" width="197" height="161" largewidth="394" largeheight="322" /></a><br />
+                <p><br />
+                  Click the select button. The Prairie TerrainMaterial will
+                  now be used for layer0, thus covering the majority of the TerrainBlock. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="../Editors/images/MaterialSwapAfter.jpg" class="livethumbnail"><img src="../Editors/images/MaterialSwapAfter.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  The intricacy of using TerrainMaterials and the layer system becomes
+                  much more prominent when working with opacity layers, advanced
+                  modification, and adding specific objects such as GroundCover. Also
+                  keep in mind that any asset files you modify outside of Torque 3D will
+                  automatically update in the editor. </p><br />
+                <p><br />
+                  These last two shots are used to show you the scale of this
+                  massive terrain, which retains its high level detail and levels of
+                  detail (LODs): </p>
+                <p><br />
+                  <b>From a Distance</b><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/HeightmapFinalShot1.jpg" class="livethumbnail"><img src="images/HeightmapFinalShot1.jpg" width="516" height="397" largewidth="1032" largeheight="795" /></a><br />
+                <p><br />
+                  <b>Compare to Player Scale</b><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/HeightmapFinalShot2.jpg" class="livethumbnail"><img src="images/HeightmapFinalShot2.jpg" width="516" height="397" largewidth="700" largeheight="546" /></a><br />
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>This tutorial showed you how to create a high resolution terrain from scratch by importing a quality heightmap and opacity maps. Even after you have your terrain, you can continue to tweak
+                  it using the Terrain Editor and Terrain Painter tools. </p>
+                
+                </td>
+            </tr>
+          </tbody>
+        </table>
+  </div>
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

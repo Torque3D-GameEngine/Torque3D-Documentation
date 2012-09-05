@@ -1,0 +1,695 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 1;
+   parent.leftFrame.expandToItem('tree2', 'doc1');
+   var element = parent.leftFrame.document.getElementById('doc1');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Milkshape DTS Exporter Plus</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+
+<BODY id = "BODYID" onLoad = "initComponent()" >
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<h1><a name="INTRO_INTRO">Introduction</a></h1>
+
+<p><a href="http://www.milkshape3d.com" class="external">MilkShape</a> is a 3D modelling program from chUmbaLum sOft oriented towards building art for games. MilkShape can be used to build 3D shapes for the Torque Game Engine. MilkShape is shareware and a free 30 day trial is available. It can be registered for $20. The exporter ms2dtsExporterPlus.dll is an extension to MilkShape which allows it to export the DTS files used by the Torque Game Engine. Note that you must have at least Milkshape version 1.8.3 installed to use this exporter.</p><br>
+
+<p>To use the exporter, just copy ms2dtsExporterPlus.dll to your Milkshape install directory. The next time you start Milkshape, it will appear under the export list as "Torque DTS Plus...". You should also copy the ms2dtsplus.chm help file to the Milkshape install directory to allow access to the documentation directly from the exporter dialogs. The new exporter can co-exist with the old exporter (ms2dtsExporter.dll). It should operate similarly to the original, and most models can be exported with very few changes. You can now view and edit meshes, materials and sequences before you export them. Changes will be applied to the model unless you hit Cancel.</p>
+<br>
+<p>This exporter is not yet completed. Some features are still missing, and it is possible that there are problems with those features that are implemented. If you find an error, you can help the development of this tool by providing a description of the problem, and if possible, the .ms3d, .dts, and dump.html files involved. Some features are listed as <strong>UNTESTED</strong>, these may or may not be 100% functional.</p>
+<br>
+<p>The latest version of the exporter can always be downloaded <a href="http://www.mindwedge.com/html/software.htm">here</a>.</p>
+<p></i><a href="mailto:chrisATteamrobertsonDOTcoDOTnz?subject=Milkshape DTS Exporter" class="external">Chris Robertson</a></i></p>
+<br>
+<h2>Contents</h2>
+
+<ul>
+ <li><a href="#MAIN_OVERVIEW">Main Dialog</a></li>
+ <li><a href="#MESHES_OVERVIEW">Meshes</a></li>
+ <li><a href="#MATERIALS_OVERVIEW">Materials</a></li>
+ <li><a href="#ANIM_OVERVIEW">Sequences</a></li>
+ <li><a href="#COMMENTS_OVERVIEW">Comment Strings</a></li>
+ <li><a href="#ADDINFO">Additional Information</a></li>
+ <li><a href="#CHANGELOG">Change Log</a></li>
+</ul>
+<br>
+<h2><a name="CREDITS">Credits</a></h2>
+
+<p>This exporter would not be where it is now without the following people who have been invaluable in its development. Thanks for all of your bug reports, testing and enthusiastic support!</p>
+<ul>
+	<li>David Korsgaard</li>
+	<li>David 'Rex' Whalen</li>
+	<li>Edward Maurina</li>
+	<li>Matt Fairfax</li>
+	<li>Melvin Ewing</li>
+	<li>Dale Harper</li>
+</ul>
+<br>
+<h1><a name="MAIN_OVERVIEW">Main Dialog</a></h1>
+
+<p>The main exporter dialog box appears when you select the "Torque DTS Plus..." exporter from the File-&gt;Export list. All meshes, materials and animation sequences that are to be exported are listed here, and many of the properties of each can be modified before exporting.</p><br>
+
+<p>To edit a mesh, material, or sequence, select the object by clicking the name in the first column of the list. Then press the Edit button to open the relevant edit dialog. Any changes made while the main dialog box is open are applied to the model unless you select Cancel.</p><br>
+
+<p><em>The Milkshape SDK does not support shared vertices between mesh groups, so after exporting, seams may appear in the milkshape model that are not present in the exported model. This is easily resolved by selecting the vertices and rewelding.</em></p><br>
+
+<div align=center><img src="images/exportdlg.png" width="419" height="450" border="0" alt=""></div>
+<br>
+<dl>
+   <dt>Meshes</dt><dd>Lists all meshes that will be exported, as well as their detail level. Edit a mesh by clicking its name, then selecting Edit.</dd>
+   <dt>Materials</dt><dd>Lists all materials that will be exported. Materials in the model that are not attached to any mesh are not included. Edit a material by clicking its name, then selecting Edit.</dd>
+   <dt>Sequences</dt><dd>Lists all defined animation sequences, as well as some of their properties. Edit a sequence by clicking its name, then selecting Edit.</dd>
+   <dt>Add</dt><dd>Add a new sequence. The sequence editor dialog box will open so you can edit the new sequence. New sequences will be added to the Milkshape model unless you press Cancel.</dd>
+   <dt>Remove</dt><dd>Removes the selected sequence. Removed sequences will be removed from the Milkshape model unless you press Cancel.</dd>
+   <dt>Scale</dt><dd>Global scale factor applied to the model when it is exported.</dd>
+   <dt>Use .cfg File</dt><dd>If checked, the exporter will search for a config file with the same name as the exported shape. e.g., shape.cfg for the exported shape.dts. If unchecked, the default configuration will be used. See <a href="#ADDINFO_DEFCFG">Default Configuration</a>.</dd>
+   <dt>Output Dump File</dt><dd>If checked, an HTML file called dump.html will be created in the same directory as the exported shape. See <a href="#ADDINFO_DUMP">Dump Files</a></dd>
+   <dt>Export Animations</dt><dd>If checked, animation information will be written to the DTS shape. This flag is ignored when exporting DSQ files.</dd>
+   <dt>Copy Textures</dt><dd>If checked, all textures used in the exported shape will be copied to the export directory. This flag is ignored when exporting DSQ files.</dd>
+   <dt>Generate .cs file</dt><dd>If checked, a TorqueScript .cs file will be created that can be used to load the shape (with DSQ animations) in TGE. This flag is ignored when exporting DTS files.</dd>
+   <dt>Split DSQ export</dt><dd>If checked, each animation will be stored in a separate DSQ file. The name of each file is <i>base_animname.dsq</i>. Where <i>base</i> is the name chosen in the 'Save As' dialog, and <i>animname</i> is the name of the animation. If this flag is unchecked, all animations will be stored in the same DSQ file. This flag is ignored when exporting DTS files.</dd>
+   <dt>Apply</dt><dd>Apply changes to the Milkshape model. The exporter dialog box will remain open.</dd>
+   <dt>Cancel</dt><dd>Close the exporter dialog box without applying any changes.</dd>
+   <dt>Help</dt><dd>Display this page.</dd>
+   <dt>Create Bounds Mesh</dt><dd>Creates the bounding box mesh and Root bone if they do not already exist. The bounding box mesh can be animated to generate ground transforms for walking and running animations. The bounding box is a cube equal to the extents of the current model. The changes will be applied to the model unless you press Cancel. See <a href="#ADDINFO_STRUCTURE">Shape Structure</a>.</dd>
+   <dt>Export DTS</dt><dd>Export the current shape to a dts file.</dd>
+   <dt>Export DSQ</dt><dd>Export all animation sequences to a dsq file. See <a href="#ANIM_DSQ">DSQ Export</a>.</dd>
+</dl>
+<br>
+<h1><a name="MESHES_OVERVIEW">Meshes</a></h1>
+
+<p>Most properties of a mesh can be edited using the Mesh Edit dialog box shown below.</p>
+
+<div align=center><img src="images/meshedit.png" width="443" height="420" border="0" alt=""></div>
+<br>
+<dl>
+   <dt>Name</dt><dd>Name of the mesh, not including the LOD number which is automatically appended to the end of the name.</dd>
+   <dt>LOD</dt><dd>Detail level for this mesh. The detail level indicates to the exporter what mesh is to be drawn at a given distance. The number corresponds to the pixel size in the game engine at which the shape will draw with these meshes. Meshes with negative detail levels will be exported, but not drawn. If your mesh has only one detail level, use 0.</dd>
+   <dt>Billboard</dt><dd>Checked if this mesh is a billboard. See <a href="#MESHES_BILLBOARD">Billboards</a> for more details.</dd>
+   <dt>Z Billboard</dt><dd>Checked if this mesh is a Z billboard. See <a href="#MESHES_BILLBOARD">Billboards</a> for more details.</dd>
+   <dt>Sort</dt><dd>Checked if this mesh should be sorted. See <a href="#MESHES_SORTED">Sorted Meshes</a> for more details.</dd>
+   <dt>Visibility Channel</dt><dd>This list box defines keyframes for the meshes visibility channel. See <a href="#MESHES_VIS">Visibility</a> for more details.</dd>
+   <dt>Multires</dt><dd>This list box defines auto-detail settings. See <a href="#MESHES_AUTODETAIL">Multires</a> for more details.</dd>
+   <dt>Enable AutoBillboard</dt><dd>Defines an <a href="../Primer/torque_art_primer.html#IMPOSTERS">auto-billboard</a> detail level. Note that auto-billboard detail levels are global, ie. if an auto-billboard is defined, snapshots will be taken for <b>all</b> of the meshes in the shape, not just the one used to define the auto-billboard.</dd>
+   <dt>Size</dt><dd>LOD size for the auto-billboard detail level</dd>
+   <dt>Index</dt><dd>Defines the detail level to use when generating the snapshots. Note that this is an array index rather than a detail size. So if an object has detail sizes of: 200, 150, 40, then setting Index to 1 will generate the snapshot using detail size 150.</dd>
+   <dt>Dimension</dt><dd>Defines the size of the billboard images in pixels (must be a power of 2: e.g.,. 2, 4, 8, 16....128). The larger the number, the more detailed the billboard will be.</dd>
+   <dt>Equator Steps</dt><dd>This defines the number of snapshots to take around the equator. Imagine the object being rotated around the vertical axis, then a snapshot taken at regularly spaced intervals.</dd>
+   <dt>Polar Steps</dt><dd>This defines the number of snapshots taken between the poles, at each equator step. e.g. At each equator snapshot, the globe is tilted towards each pole, and a number of snapshots taken.</dd>
+   <dt>Include Poles</dt><dd>If true, then object snapshots will be taken at the two poles. ie. with the camera looking directly down and directly up at the object.</dd>
+   <dt>Polar Angle</dt><dd>If pole snapshots are active ('Include Poles' is set), this parameter defines the camera angle within which to render the pole snapshot. e.g.,. if 'Polar Angle' is set to 0.437 radians (25 degrees), then the snapshot taken at the pole (looking directly down or up at the object) will be rendered when the camera is within 25 degrees of the pole.</dd>
+</dl>
+<br>
+<h2><a name="MESHES_LOD">Level of Detail</a></h2>
+
+<p>Detail levels indicate to the exporter what mesh is to be drawn at a given distance. The number corresponds to the pixel size in the game engine at which the mesh will be rendered. This is done by naming different detail levels of the same mesh with the same base name but a different trailing number.</p>
+<br>
+<p>e.g. If you have meshes named 'head2' and 'head36', then when the size is 36 or greater the head36 mesh would be drawn. When the size is between 2 and 36 head2 would be drawn, and when the size was less than 2 nothing would draw.</p>
+<br>
+<p>Pixel sizes are inversely proportional to the distance an object is from the camera, so a larger value (like 36) indicates the object is much closer to the camera than a smaller value (like 2).</p>
+<br>
+<p>The original Milkshape exporter output shapes with all visible meshes at detail level 0 (ie render the same mesh no matter how far away it is from the camera). If you are not making use of LOD, this is the best value to give to visible meshes.</p>
+<br>
+<p><em>Note: The exporter treats a trailing underscore character ('_') as a minus sign ('-'). Because of this, an underscore at the end of a mesh name will negate the detail level. e.g. a mesh named <b>MyMesh_2</b> will be renamed to <b>MyMesh</b> with detail level <b>-2</b>. Underscores in the middle of the name are not affected. e.g.,. <b>My_Mesh2</b> denotes a mesh called <b>My_Mesh</b> with detail level <b>2</b>.</em></p>
+<br>
+<h2><a name="MESHES_BILLBOARD">Billboards</a></h2>
+
+<p>You make an object a <a href="../Primer/torque_art_primer.html#BILLBOARDS">billboard</a> by ticking the Billboard or Z Billboard check boxes in the Edit Mesh dialog box. Note that not all detail levels of the object need to be billboard objects, so the highest detail level of a shape could be a complicated 3d shape, whereas the lowest detail could just be a billboard.</p>
+<br>
+<p><em>Note: These objects tend to have strange sorting properties if translucent materials are used.</em></p>
+<br>
+<p>The center of rotation for the billboard object is the position of the joint that the object is attached to. To attach the billboard object to a different joint, just assign all of the mesh vertices to that joint. If the billboard mesh vertices are not attached to any joint, they will be automatically assigned to the 'root' joint (which is placed at the origin during export if it does not already exist). The bb_test.ms3d example demonstrates this feature.</p>
+<br>
+<h2><a name="MESHES_SORTED">Sorted Meshes</a></h2>
+
+<p>Objects with translucent textures often times appear to sort improperly in the engine. On modern graphics hardware, drawing on the screen amounts to storing values on the graphics card for the red, green, and blue channel, and also storing values for the distance of the fragment from the camera. The later value is often referred to as the "depth-value" or "z-value". The depth value is important for determining what should be drawn in front of what.</p>
+<br>
+<p>To understand how this works, you have to understand one basic point: polygons are always drawn in an order. One is drawn first, another second, etc. So when the second is being drawn, the value of the first polygon is sitting in the frame buffer (the place on the graphics card that holds what you are drawing on the screen). This means that the graphics hardware can simply compare the depth value of the incoming pixel against the depth value of the stored pixel, and only update the frame buffer if the incoming pixel is in front of the stored pixel. That is exactly what happens.</p>
+<br>
+<p>Drawing translucent fragments also requires a combination of what is in the frame buffer already and the incoming fragment. With translucency, the incoming fragment has an "alpha-value" in addition to red, green, and blue, and the alpha value is used to blend the fragment with the framebuffer. An alpha of 1 means to over-write what's in the buffer, an alpha of 0 means not to touch the frame buffer, and an alpha of 0.5 means to mix them equally.</p>
+<br>
+<p>Translucent drawing with depth tests gets very tricky. If polygons are drawn back to front, depth tests and translucency behave well together. But when some polygons in the front are drawn first, things start to get very messy. Imagine what would happen if you had a fully translucent texture (alpha of 0) drawn first, and that it fully covered the camera and was in front of everything else. Since the alpha value is zero everywhere, it would not draw to the RGB channels. But the depth value would still be updated for the entire screen. Now everything that was drawn would fail the depth test. The result is that you would see a blank screen no matter what you draw behind the phantom polygon.</p>
+<br>
+<p>Because of this issue, translucent polygons are normally drawn with special care: the depth value is not saved but the depth test is still used. Translucent polygons are drawn after non-translucent polygons, and translucent polygons are drawn from back to front. The result is that translucent polygons behave when they overlap each other because they are drawn back to front. Translucent polygons behave when overlapping non-translucent polygons because they only drawn when they are in front of the non-translucent polygons (remember, the depth test is still carried out, the depth value just isn't stored). The phantom polygon issue is avoided because the depth value isn't stored.</p>
+<br>
+<p>One consequence of all this is that any object that draws translucent polygons must do so with special care. Furthermore, the engine itself must take special care to draw everything in the right order. In particular, the most accurate way for the game to draw the scene is to first draw the non-translucent polygons of all objects, then draw the translucent polygons of each object from furthest to closest to the camera. Each object, then, is only responsible for drawing it's own polygons so that they can sort amongst themselves.</p>
+<br>
+<p>Three space has several mechanisms built in to handle the sorting of polygons. First, parts with only non-translucent polygons are drawn first, then parts with a mixture of translucent and non-translucent polygons, and then translucent parts. Note that if you have several parts with mixed polygon types, you will likely get some inappropriate sorting, so don't do this. These are all the measures 3space takes by default. However, there are special objects that do a little more sorting on their own. These are the sort objects described below. What these objects do is order the polygons so that they will always draw back to front. Believe it or not, it is often possible to do this for all camera angles. This however, it is not always possible. In those cases, the object has different orderings for different angles (usually only a few are needed) and in really bad cases, polygons have to be split. The latter can sometimes lead to large file size. If you see this happening, you should redesign the shape.</p>
+<br>
+<p>The faces of these objects are presorted so that faces are drawn from back to front. This is used to force the sorting order of translucent objects (which are not z-buffered) This sometimes involves splitting faces and sometimes involves different orders depending on where the camera is.</p>
+<br>
+<p>To make an object a sort object, tick the Sort checkbox in the Edit Mesh dialog box. Other detail levels of this object do not have to be sort objects. You can also give the exporter some hints on how to create the sort objects. You supply these hints by editing the sort fields in the Edit Mesh dialog. The fields are:</p>
+<br>
+<dl>
+   <dt>Up</dt><dd>Used to sort objects with 'leaves' that are layered from top to bottom facing slightly up.</dd>
+   <dt>Down</dt><dd>Used to sort objects with 'leaves' that are layered from top to bottom facing slightly down.</dd>
+   <dt>NumBigFaces</dt><dd>Default 4.</dd>
+   <dt>Max Depth</dt><dd>Maximum recursion depth when sorting mesh. Default 2.</dd>
+</dl>
+<br>
+
+<br>
+<h2><a name="MESHES_VIS">Visibility</a></h2>
+
+<p>Visibility keyframes can be defined to control the 'alpha' value of a mesh when it is rendered. Frames between keyframes are interpolated, frames outside the keyframe range are clipped to the keyframe range. Visibility ranges from 0 (invisible) to 1 (fully opaque). A sequence must have Enable Visibility set to use a meshes visibility channel.</p>
+<br>
+<p><em>Note: Only rigid meshes (ie meshes attached to a single bone) can have their visibility animated.</em></p>
+<br>
+<h2><a name="MESHES_COLLISION">Collision Meshes</a></h2>
+
+<p>Any mesh whose name begins with 'Collision' will be used ingame as a collision mesh. Collision meshes are normally given a negative detail level from -1 to -8 so that they are not drawn, but you can make the collision mesh visible by giving it a positive detail level.</p>
+<br>
+<p>Collision meshes should use as few polygons as possible, and <b>must</b> be convex. The more polygons contained in the collision mesh, the greater the CPU load in determining collisions with other objects.</p>
+<br>
+<h2><a name="MESHES_LOSCOL">LOS Collision Meshes</a></h2>
+
+<p>Any mesh whose name begins with 'LOSCol' will be used as a line of sight collision mesh. These meshes are used for line of sight collision tests such as checking if a bullet will hit the model. These meshes are normally given a negative detail level from -9 to -16 so that they are not drawn. You can view the LOS collision mesh ingame by giving it a positive detail level.</p><br>
+
+<p>Like regular collision meshes, LOS meshes should use as few polygons as possible, and <b>must</b> be convex.</p>
+<br>
+<h2><a name="MESHES_AUTODETAIL">Multires (auto-detail meshes)</a></h2>
+
+<p>The exporter may be configured to automatically generate lower-detail meshes as part of the export process. The two fields of interest for each multires level is the LOD and the Percentage. The LOD field determines the size at which the multires-mesh will be displayed (just like normal geometry), and the Percentage determines the desired reduction in polygons from the original mesh. For example, adding a multires of LOD=32 and Percentage=0.5 would generate a mesh with half the number of polygons that is displayed when the shape is 32 pixels or larger on screen.</p>
+<br>
+<h1><a name="MATERIALS_OVERVIEW">Materials</a></h1>
+
+<p>Most properties of a material can be edited using the Material Edit dialog box shown below.</p>
+<br>
+<div align=center><img src="images/matedit.png" width="285" height="377" border="0" alt=""></div>
+<br>
+<dl>
+   <dt>Material Name</dt><dd>Name of the material. This is used internally by the DTS shape and does not affect the actual texture used.</dd>
+   <dt>Detail Map</dt><dd>Name of the milkshape material to use as a detail map. See <a href="#MATERIALS_DETAILMAP">Detail Mapping</a>.</dd>
+   <dt>Bump Map</dt><dd>Name of the milkshape material to use as a bump map. <i>Note that TGE does not yet support bumpmapped DTS shapes.</i></dd>
+   <dt>Reflectance Map</dt><dd>Name of the milkshape material to use as a reflectance map. <i>Not supported.</i></dd>
+   <dt>Detail Scale</dt><dd>Scale of the detail map. See <a href="#MATERIALS_DETAILMAP">Detail Mapping</a>.</dd>
+   <dt>Environment Mapping</dt><dd>Amount of environment mapping to apply. 0 for none. This value is a scaler (range 0-1) which is applied to the alpha channel of the texture to determine the level of environment mapping at each point.</dd>
+   <dt>Translucent</dt><dd>Enable transparency.</dd>
+   <dt>Additive</dt><dd>Enable additive transparency (only valid if translucent flag is checked).</dd>
+   <dt>Subtractive</dt><dd>Enable subtractive transparency (only valid if translucent flag is checked).</dd>
+   <dt>Self Illuminating</dt><dd>Enable self-illumination (lighting doesn't affect it).</dd>
+   <dt>No Mip Mapping</dt><dd>Disable mip-mapping for this material.</dd>
+   <dt>Mip Map Zero Border</dt><dd>Allows mip maps to be generated without a border.</dd>
+   <dt>Two Sided</dt><dd><i>Marks this material as two-sided. Triangles that use this material will be visible from both sides. The exporter does this by duplicating each triangle with the vertex order reversed. Note that TGEA allows true two-sided materials without duplicating the geometry, so this flag does not need to be set for models exported for use with TGEA.</i></dd>
+</dl>
+<br>
+<h2><a name="MATERIALS_DETAILMAP">Detail Mapping</a></h2>
+
+Detail maps allow you to blend two textures together as shown below:
+<br><br>
+<div align=center><img src="images/detailmaps.png" width="448" height="217" border="0" alt=""></div>
+
+The detail material is scaled by the detail scale setting before being blended with the base material. The easiest method is to make the detail texture the same size as the base texture, and set detail scale to 1.
+
+You can find an example of a shape using detail mapping in the examples folder.
+<br>
+<p><em>Note: The detail material is stored as the milkshape material index, so if you delete materials, you may need to set the name again.</em></p>
+<br>
+<h2><a name="MATERIALS_IFL">IFL Materials</a></h2>
+
+<p>An IFL file is a text file that describes which texture to use at each frame for a DTS shape. Animation sequences can be defined that use this information to switch textures automatically while the animation is playing.</p>
+<br>
+<p>IFL materials are defined in milkshape by specifying a texture with a special name in the texture field of the material. The name of the texture is the same as the IFL text file, except it has _ifl appended.</p>
+<br>
+<p>e.g.,. An IFL file, player.ifl, is shown below:</p>
+<br>
+<pre>
+texture1 2
+texture2 3
+texture3 1
+texture4 6
+</pre>
+<br>
+<p>Each line describes the texture to use, and the duration (in frames) to display it.</p>
+<br>
+<p>To use the IFL material in milkshape, a copy of the first image (texture1) is made and renamed to player_ifl. This new texture is used for uv mapping, and tells the exporter the name of the IFL file to use. It is only required during export, and is not actually used by the DTS shape.</p>
+<br>
+<p>A sequence must have the EnableIFL flag set to make use of an IFL material. You can find an example of a shape using an IFL material in the examples folder.</p>
+<br>
+<p><em>Note: IFL animations are not affected by the frame rate of the sequence in which they are played. The durations specified in the file are assumed to be at a frame rate of 30 fps.</em></p>
+<br>
+<h1><a name="ANIM_OVERVIEW">Animation</a></h1>
+
+<p>MilkShape only provides a single animation timeline, but the Torque Engine supports multiple animation sequences, each of which can be named and have different properties. Multiple sequences in MilkShape are animated on the main timeline and are split into separate sequences by the exporter. For this to happen, animation sequences must be declared indicating where each sequence starts and ends on the master timeline. This is done through materials with special names (a '*' at the start of a material name indicates that it is a sequence description). The easiest way to define sequences is using the export dialog box:</p>
+<br>
+<div align=center><img src="images/seqedit.png" width="459" height="419" border="0" alt=""></div>
+<br>
+<dl>
+   <dt>Name</dt><dd>Name of the sequence.</dd>
+   <dt>First Frame</dt><dd>First frame (inclusive) in the sequence. This number should match the frame number in the milkshape animation timeline.</dd>
+   <dt>Last Frame</dt><dd>Last frame (inclusive) in the sequence. This number should match the frame number in the milkshape animation timeline.</dd>
+   <dt>Cyclic</dt><dd>If turned on, the sequence will loop (e.g. walk and run animations). If turned off, the sequence will play once then stop (e.g. death animations). </dd>
+   <dt>FPS</dt><dd>Frames per second for this animation. This does not affect the number of keyframes, only how fast they will be played back.</dd>
+   <dt>Priority</dt><dd>Controls what sequence will affect a node when two sequences want to control the same node. The sequence with higher priority will control the node.</dd>
+   <dt>Override Duration</dt><dd>If you override the sequence duration, it will change the duration of the sequence when it plays in the game at time scale 1, but it won't otherwise change the animation data (same keyframes will be used, they'll just play at different times). This is useful for altering the speed of the ground transform of an object without scaling the animation. Most of the time, this is not used, and should be set to -1.</dd>
+   <dt>Blend</dt><dd>Makes the sequence a <a href="../Primer/torque_art_primer.html#ANIM_BLENDS">blend</a> animation.</dd>
+   <dt>Blend Reference Frame</dt><dd>The reference frame number for the blend animation. Only valid if the blend flag is set.</dd>
+   <dt>Triggers</dt><dd>Set of trigger keyframes and states. See <a href="#ANIM_TRIGGERS">Triggers</a> for details.</dd>
+   <dt>EnableMorph</dt><dd>This will force the exporter to export all mesh animations as a series of mesh snapshots. This is useful for certain types of animations (e.g. flags), but it will produce large files and does not contain animated nodes. <strong>UNTESTED</strong></dd>
+   <dt>EnableTVert</dt><dd>Enables animated texture coordinates. See <a href="#ANIM_TEXTURE">Texture Animations</a> for details.
+   <dt>EnableVis</dt><dd>Enables use of the visibility channel. See <a href="#ANIM_VIS">Visibility Channel</a> for details.</dd>
+   <dt>EnableTransform</dt><dd>Enables transform (e.g., translation and rotation) animation. Normally this setting is enabled.</dd>
+   <dt>EnableIFL</dt><dd>Enables IFL animation. See <a href="#MATERIALS_IFL">IFL Materials</a> for details.</dd>
+   <dt>Ignore Ground</dt><dd>Don't export a ground transform for this sequence. This should usually be false. See <a href="#ANIM_GROUND">Ground Transforms</a> for more details.</dd>
+   <dt>Auto-generate ground transforms</dt><dd>Allows ground transforms to be auto-generated by the exporter without having to manually animate the bounding box. Note that ground speed is assumed to be constant for the duration of the animation.</dd>
+   <dt>Ground transform FPS</dt><dd>Frame rate for ground transforms.</dd>
+   <dt>Ground X Speed</dt><dd>Ground transform speed (in Torque units per second) in the X axis. Normally this is -ve for left and +ve for right movement in Torque.</dd>
+   <dt>Ground Y Speed</dt><dd>Ground transform speed (in Torque units per second) in the Y axis. Normally this is -ve for backward and +ve for forward movement in Torque.</dd>
+   <dt>Ground Z Speed</dt><dd>Ground transform speed (in Torque units per second) in the Z axis. Normally this is -ve for downward and +ve for upward movement in Torque.</dd>
+</dl>
+<br>
+<h2><a name="ANIM_GROUND">Ground Transforms</a></h2>
+
+<p><a href="../Primer/torque_art_primer.html#ANIM_GROUND_TRANSFORM">Ground transforms</a> are generated by animating the bounding box. To generate ground transforms for a walking animation, you would animate the character walking forward (not in-place!), and animate the bounding box to move forward along with the player. The DTS exporter stores the node transforms relative to the bounding box transform (so the character will walk in-place in the ShowTool), and determines the natural ground speed of the character by examining how far the bounding box moves throughout the sequence.</p>
+<br>
+<p>The bounding box is simply a mesh with the name 'Bounds'. It is normally attached to the Root bone. You can use the main export dialog to create the bounds mesh for you automatically. The exporter can also generate (constant speed) ground transforms automatically without having to manually animate the bounding box.</p>
+<br>
+<h2><a name="ANIM_TEXTURE">Texture Animations</a></h2>
+
+<p>This is useful for things where the texture itself must animate. Scrolling computer monitors, waterfalls, and tank treads are just a few of the applications for animated texture coordinates.</p>
+<br>
+<em>Note: Texture animation is not yet supported by this exporter. Non-smooth texture animation can be faked using IFL materials. See <a href="#MATERIALS_IFL">IFL Materials</a> for details.</em>
+<br>
+<h2><a name="ANIM_VIS">Visibility Channel</a></h2>
+
+<p>A mesh can define a visibility channel (see <a href="#MESHES_OVERVIEW">Meshes</a>). Sequences that have the enableVis flag set can use this set of keyframes to control the transparency of the mesh during the sequence. This is useful for parts of the model that you may only wish to show during certain animations.</p>
+<br>
+<h2><a name="ANIM_TRIGGERS">Triggers</a></h2>
+
+<p><a href="../Primer/torque_art_primer.html#ANIM_TRIGGERS">Triggers</a> can be added to and removed from a sequence by using the Add and Remove buttons in the Edit Sequence dialog. You may define up to 30 independent trigger states per sequence.</p>
+<br>
+<p>TriggerFrame is the frame number on which a trigger event occurs.</p>
+<br>
+<p>TriggerState defines the state of a trigger.</p>
+<br>
+<p>There is one triggerFrame and triggerState per trigger. Trigger numbering starts at 0. For example, triggerFrame0 and triggerState0 are the first trigger, triggerFrame1 and triggerState1 are the second trigger, etc. Note that when you delete triggers from the list, all of the remaining triggers are renumbered starting from 0. Their frame and state attributes are retained.</p>
+<br>
+<p>Any sequence that makes use of triggers must have the ignoreGround checkbox cleared, or the triggers will not work ingame.</p>
+<br>
+<h2><a name="ANIM_DSQ">DSQ Export</a></h2>
+
+<p>Exporting animations to a DSQ file allows you to share animations with multiple DTS shapes.  DSQ files are loaded at runtime via script. e.g.</p>
+<br>
+<pre>
+singleton TSShapeConstructor(PlayerDts)
+{
+   baseShape = "./player.dts";
+   sequence0 = "./player_root.dsq root";
+   sequence1 = "./player_forward.dsq run";
+   sequence2 = "./player_back.dsq back";
+}
+</pre>
+<br>
+<p>The 'run' sequence can now be played as if it were part of the original DTS shape. A DSQ file may contain more than one animation, and is accessed like this:</p>
+<br>
+<pre>
+singleton TSShapeConstructor(PlayerDts)
+{
+   baseShape = "./player.dts";
+   sequence0 = "./player_anim.dsq root";
+   sequence1 = "./player_anim.dsq run";
+   sequence2 = "./player_anim.dsq back";
+}
+</pre>
+<br>
+<p>For a DSQ file to be compatible with a DTS shape, all nodes that they have in common must be in <b>exactly</b> the same base position and rotation. Only animated nodes need to be exported to the DSQ file.</p>
+<br>
+<p><em>Note: Milkshape normalises all bone rotations. This can be seen by opening the 'Mr Box' example file, then rotating any bone. You will notice that <b>all</b> of the bones change their rotation. This is a milkshape issue, and has nothing to do with the exporter. The result of this normalisation process is that animations produced by milkshape may not be compatible with the default Orc player. DSQ files exported from milkshape should be compatible with DTS files exported from milkshape however.</em></p>
+<br>
+<h2><a name="ANIM_BONE_WEIGHT">Bone Weights</a></h2>
+
+<p>The exporter supports up to 4 bone weights per vertex to be exported. Using bone weighting is the best way to achieve more natual animations, and helps prevent the stretching and distortion of meshes around joints (such as elbows in a humanoid mesh).</p>
+<br>
+<p>Milkshape originally supported only 1 bone weight per vertex, so a plugin is required to access the extra 4 weights. The only plugin currently available is the <i>Sims2 UniMesh Bone Tool</i> plugin (available under the Vertex menu) that is included with the Milkshape 1.7.8 install.</p>
+<br>
+<p>Note that this plugin is not related to or required by this exporter - it merely provides a way to edit the 4 bone weights, which may then be exported to a DTS shape. Please refer to the documentation for the <i>Sims2 UniMesh Bone Tool</i> plugin for details on its use.</p>
+<br>
+<p>By default (if no extra weights are set) shapes are still exported with only 1 weight per vertex.</p>
+<br>
+<h1>Comment Strings</h1>
+
+<p><a name="COMMENTS_OVERVIEW"/>Versions of milkshape before 1.7.4 did not provide any means of storing additional user information in the model. The original ms2dtsExporter stored a small number of properties in the name of the mesh or material. e.g.,. seq:walk=1-4,cyclic. Previous versions of ms2dtsExporterPlus continued this practice, although because there were far more properties to store, they were packed into a binary form, resulting in names that looked like this: *Walk=@!]!!!?&!b!!.</p>
+<br>
+<p>All user properties are now stored in the comment string of the model, mesh and material objects. There are 3 types of properties, floating point, integer and boolean (true/false). Each group stores the number of properties in that group, then a list of name=value pairs, each on a new line.</p>
+<br>
+<p>e.g.,. The comment string of an animation sequence may look like this:</p>
+<br>
+<pre>
+1
+frameRate=30
+4
+endFrame=4
+startFrame=1
+numTriggers=1
+triggerFrame0=1
+triggerState0=-1
+1
+cyclic=1
+</pre>
+<br>
+<p>Comment strings can be edited manually, but very little validation is performed when they are read by the exporter, so manual editing should be avoided. The export dialog boxes provide a much better way to edit object properties.</p>
+<br>
+<h1><a name="ADDINFO">Additional Information</a></h1>
+<br>
+<h2><a name="ADDINFO_STRUCTURE">Shape Structure</a></h2>
+
+<p>Many 3D modelling programs support some kind of tree structure that controls the hierarchy of various elements within the shape. Unfortunately, Milkshape does not support a node hierarchy so the exporter attempts to fit the Milkshape model to the following structure:</p>
+<br>
+<pre>
+ROOT
+|
+|-start01
+|   |
+|   |-LOD Markers
+|   |-base01
+|        |
+|        |-skeleton (including Root bone)
+|          |
+|          |-rigid meshes
+|
+|-skinned meshes
+|-animation sequences
+|-bounds mesh
+</pre>
+<br>
+<ul>
+   <li>The 'start01' and 'base01' nodes are dummy nodes created automatically by the exporter. They are part of the default NeverExport list, so are not present in the exported shape. If you use your own configuration file, you should add these two nodes to the NeverExport list.</li>
+   <li>LOD markers are created automatically for any detail levels that have been defined in the model. They are written into the DTS shape, and have the form:
+   <ul>
+      <li>DetailN for regular mesh details (size N)
+      <li>LOSN for line of sight collision mesh details
+      <li>CollisionN for collision mesh details
+   </ul></li>
+   <li>Rigid meshes are those that have all their vertices attached to one bone. The 'Root' bone is automatically created by the exporter if it does not already exist in the shape, and is used to catch vertices that are not attached to any bone. These meshes appear in the shape hierarchy below the bone to which they are attached.</li>
+   <li>Skinned meshes are those that have their vertices attached to more than one bone. Vertices not attached to a bone are automatically attached to the 'Root' bone.</li>
+   <li>The 'bounds' mesh is a box that contains all objects in the Milkshape model. You may define your own bounding box by creating a mesh called 'Bounds'. If no such mesh exists, it will be created automatically by the exporter.</li>
+</ul>
+<br>
+<p>You can check the structure of the exported shape by looking at the dump file.</p>
+<br>
+<p><em>Note: The bounds mesh and root bone are automatically created by the exporter if they do not already exist in the model. After the export process, they are automatically removed so the model remains unchanged. The bounds mesh and root bone can be retained by selecting 'Create Bounds Mesh' from the export dialog, then exporting or pressing 'Apply'.</em></p>
+<br>
+<h2><a name="ADDINFO_DEFCFG">Default Configuration</a></h2>
+
+<p>The exporter supports configuration files. If a configuration file is not found, the following default configuration is used:</p>
+<br>
+<pre>
++Error::AllowUnusedMeshes
+
+-Materials::NoMipMap
+-Materials::NoMipMapTranslucent
++Materials::ZapBorder
+
++Param::SequenceExport
+-Param::CollapseTransforms
+
+=Params::AnimationDelta 0.0001
+=Params::SkinWeightThreshhold 0.001
+=Params::SameVertTOL 0.00005
+=Params::SameTVertTOL 0.00005
+=Params::weightsPerVertex 1
+
++Dump::NodeCollection
++Dump::ShapeConstruction
++Dump::NodeCulling
++Dump::NodeStates
++Dump::NodeStateDetails
++Dump::ObjectStates
++Dump::ObjectStateDetails
++Dump::ObjectOffsets
++Dump::SequenceDetails
++Dump::ShapeHierarchy
+
+NeverExport
+start01
+base01
+</pre>
+<br>
+<p>A '+' sets the setting to true, '-' sets it to false, and '=' is used to set the value of a setting. Nodes in the 'NeverExport' list are not written to the DTS file. This list is mostly used for DSQ export to exclude non-animating nodes. Names in the NeverExport list can include wildcards (*). e.g., 'leg*' matches both 'leg1' and 'leg2'.</p>
+<br>
+<dl>
+   <dt>Error::AllowUnusedMeshes</dt><dd>If true, unused meshes will not cause an exporter error.</dd>
+   <dt>Materials::NoMipMap</dt><dd>Disable mip-mapping on all textures.</dd>
+   <dt>Materials::NoMipMapTranslucent</dt><dd>Disable mip-mapping on translucent textures only.</dd>
+   <dt>Materials::ZapBorder</dt><dd>If set, translucent, non-tiling materials will automatically have the MipMapZeroBorder flag set. See <a href="#MATERIALS_OVERVIEW">Materials</a>.</dd>
+   <dt>Param::SequenceExport</dt><dd>Allow animation sequences to be exported.</dd>
+   <dt>Param::CollapseTransforms</dt><dd>If set, nodes that do not contain any objects are removed.</dd>
+   <dt>Params::AnimationDelta</dt><dd>Minimum change in position or scale required for a node transform to be recognised as different to the previous transform.</dd>
+   <dt>Params::SkinWeightThreshhold</dt><dd>Minimum bone weighting for a vertex to be affected by that bone. <i>By default, if only one bone is attached to a vertex it will have weight 1, and bones not attached have weight 0.</i></dd>
+   <dt>Params::SameVertTOL</dt><dd>Minimum distance between vertices for them to be considered unique. The DTS file format stores the X,Y,Z position of each vertex in a table, then each triangle in a mesh uses indices into the vert table. Vertices closer together than the minimum distance will store only a single entry in the vert table (the shared position will be the first vertex found). Note that this has no effect on texture mapping, and is not the same as welding two vertices together in Milkshape. Set this parameter to 0 to disable it.</dd>
+   <dt>Params::SameTVertTOL</dt><dd>Minimum distance between texture coordinates for them to be considered unique. The DTS file format stores texture coordinates in a table. Coordinates closer together than this minimum distance will store only a single entry in the tvert table (the shared coordinates will be the first tvert found).</dd>
+   <dt>Params::weightsPerVertex</dt><dd>Maximum number of bone weights per vertex. Since version 2.6.1, the ms2dtsExporter supports up to 3 weights per vertex.</dd>
+   <dt>Dump::NodeCollection</dt><dd>Output details of the node collection process to the dump file.</dd>
+   <dt>Dump::ShapeConstruction</dt><dd>Output details of the shape construction process to the dump file.</dd>
+   <dt>Dump::NodeCulling</dt><dd>Output details of which nodes have been culled to the dump file.</dd>
+   <dt>Dump::NodeStates</dt><dd>Output node states to the dump file.</dd>
+   <dt>Dump::NodeStateDetails</dt><dd>Output node state information to the dump file.</dd>
+   <dt>Dump::ObjectStates</dt><dd>Output object states to the dump file.</dd>
+   <dt>Dump::ObjectStateDetails</dt><dd>Output object state information to the dump file.</dd>
+   <dt>Dump::ObjectOffsets</dt><dd>Output object offset information to the dump file.</dd>
+   <dt>Dump::SequenceDetails</dt><dd>Output sequence details to the dump file.</dd>
+   <dt>Dump::ShapeHierarchy</dt><dd>Output the shape hierarchy to the dump file.</dd>
+</dl>
+<br>
+<h2><a name="ADDINFO_DUMP">Dump Files</a></h2>
+
+<p>When the shape is exported, an HTML file called dump.html may be created in the same directory as the dts file. This file contains details of the export process, as well as the final structure of the exported shape, and may be opened in any text editor or web browser. It may be useful to track down problems with the shape or the export process.</p>
+<br>
+<h1><a name="CHANGELOG">Change Log</a></h1>
+<br>
+<h2>Version 2.8.4 - 14/06/11</h2>
+<ul>
+   <li>Fixed problem with entering negative detail sizes in edit mesh dialog</li>
+   <li>Updated documentation</li>
+</ul>
+<br>
+<h2>Version 2.8.3 - 23/07/09</h2>
+<ul>
+   <li>Fixed problem when exporting old (prior to MS 1.7.7) models where all bone weights would be 0.0</li>
+   <li>Updated documentation</li>
+</ul>
+<br>
+<h2>Version 2.8.2 - 25/11/08</h2>
+<ul>
+   <li>Fixed some entry fields in the exporter GUI not accepting non-numeric characters (- . etc)</li>
+   <li>Really fixed bone/weight support to use up to 4 weights per vertex</li>
+   <li>Updated documentation</li>
+</ul>
+<br>
+<h2>Version 2.8.1 - 14/11/08</h2>
+<ul>
+   <li>Fixed bone/weight support to use up to 4 weights per vertex (thanks Rex for doing the legwork on this one)</li>
+   <li>Updated documentation</li>
+</ul>
+<br>
+<h2>Version 2.8.0 - 06/11/08</h2>
+<ul>
+   <li>Bug fixes from Dale Harper:
+     <ul><li>fixed last frame not being exported for cyclic sequences</li>
+     <li>fixed sequence 'Overide Duration' field being stored as an integer rather than a float</li>
+     <li>fixed reported number of ground frames in dump file</li>
+     <li>fixed reported ground frame Z translation in dump file</li>
+   </ul></li>
+   <li>New functionality from Dale Harper (thanks Dale!):
+     <ul><li>added auto-generation of ground transforms to Edit Sequence dialog</li>
+   </ul>
+   <li>Added flag to generate double-sided materials</li>
+   <li>Fixed "assertion failed when stripifying (1)" bug when exporting geometry with no material attached</li>
+   <li>Rebuilt with latest version of Milkshape SDK (v1.8.4). No functionality changes.</li>
+   <li>Updated to use latest version of DTSSDKPlus. New features include:
+     <ul><li>Multires (auto generate reduced-poly geometry on export)</li>
+     <li>Autobillboards</li>
+     <li>HTML dump file output</li>
+   </ul></li>
+   <li>General GUI tidyups:
+     <ul><li>open Edit dialog automatically when adding new Trigger, Visibility or AutoDetail entry</li>
+     <li>sort Trigger, Visibility and AutoDetail lists</li>
+     <li>remove redundant 'Trigger' column from triggers list box</li>
+   </ul></li>
+   <li>Updated documentation</li>
+   <li>Added example file demonstrating billboards that rotate around a joint (rather than the origin)</li>
+</ul>
+<br>
+<h2>Version 2.7.3 - 30/01/07</h2>
+<ul>
+   <li>Fixed seams appearing between groups in exported model (thanks Jon Orantes for the bug report and test case)</li>
+   <li>Updated documentation</li>
+</ul>
+<br>
+<h2>Version 2.7.2 - 04/12/06</h2>
+<ul>
+   <li>Fixed a texture coordinate export bug introduced in the previous version.</li>
+   <li>Updated documentation</li>
+</ul>
+<br>
+<h2>Version 2.7.1 - 29/11/06</h2>
+<ul>
+   <li>Fixed unwelding problem (seams appearing) in exported model and in milkshape after exporting (thanks Rex for helping track down the cause!).</li>
+   <li>Updated documentation</li>
+</ul>
+<br>
+<h2>Version 2.7.0 - 09/11/06</h2>
+<ul>
+   <li>Fixed error when exporting after adding sequences or the bounds mesh to the shape via the exporter dialog. If you have seen seemingly random crashes with the exporter, this may have been the problem. (thanks Gordon Marsh for the bug report)</li>
+   <li>Added a progress bar</li>
+   <li>Updated documentation</li>
+</ul>
+<br>
+<h2>Version 2.6.2 - 07/11/06</h2>
+<ul>
+   <li>Fixed error in shape hierarchy: rigid meshes are now added as children of the bone to which they are attached. (thanks Simon Duggan)</li>
+   <li>Updated documentation</li>
+</ul>
+<br>
+<h2>Version 2.6.1 - 18/06/06</h2>
+<ul>
+   <li>Updated documentation</li>
+</ul>
+<br>
+<h2>Version 2.6.0 - 10/06/06</h2>
+<ul>
+   <li>Updated to milkshape SDK 1.7.7</li>
+   <li>Added support for up to 3 bone weights per vertex</li>
+</ul>
+<br>
+<h2>Version 2.5.0 - 24/12/05</h2>
+<ul>
+   <li>Added option to split DSQ export into multiple files</li>
+   <li>Added option to generate .cs file for DSQ export</li>
+   <li>Updated documentation</li>
+</ul>
+<br>
+<h2>Version 2.4.0 - 17/12/05</h2>
+<ul>
+   <li>Added support back for detail maps</li>
+   <li>Added option to copy textures to export directory</li>
+   <li>Fixed bug that prevented creation of collision detail levels (thanks Simon Duggan)</li>
+   <li>Updated documentation</li>
+</ul>
+<br>
+<h2>Version 2.3.0 - 03/10/05</h2>
+<ul>
+   <li>Fixed bug that prevented Z billboards from being exported correctly</li>
+   <li>Added billboards image to documentation</li>
+   <li>Updated documentation</li>
+</ul>
+<br>
+<h2>Version 2.2.0 - 02/05/05</h2>
+<ul>
+   <li>Fixed bug where NeverEnvMap was not being cleared for materials using environment mapping</li>
+   <li>Made main export dialog box modal</li>
+   <li>Updated documentation</li>
+</ul>
+<br>
+<h2>Version 2.1.0 - 01/05/05</h2>
+<ul>
+   <li>Fixed bug concerning mesh names ending in -1</li>
+</ul>
+<br>
+<h2>Version 2.0.0 - 17/04/05</h2>
+<ul>
+   <li>Changed to new milkshape SDK (1.7.4)</li>
+   <li>Changed naming convention to store properties in comment string</li>
+   <li>Made visibility keyframes persistant</li>
+   <li>Removed sequences are now removed from the model</li>
+   <li>Added 'Output dump file' option to export dialog</li>
+   <li>Added 'Create Bounds Mesh' button to export dialog</li>
+   <li>Various small code fixes</li>
+   <li>Added online help</li>
+   <li>Updated documentation</li>
+</ul>
+<br>
+<h2>Version 1.9.0 - 23/01/05</h2>
+<ul>
+   <li>Fixed LOSCol mesh name bug (thanks Ed Maurina)</li>
+   <li>Updated documentation</li>
+</ul>
+<br>
+<h2>Version 1.8.0 - 16/11/04</h2>
+<ul>
+   <li>Removed auxilary map (bump, detail, reflectance) support.</li>
+   <li>Added fix from Matt Fairfax for normal calculation</li>
+   <li>Updated documentation</li>
+</ul>
+<br>
+<h2>Version 1.7.0 - 27/10/04</h2>
+<ul>
+   <li>General code tidy up</li>
+   <li>Updated documentation</li>
+</ul>
+<br>
+<h2>Version 1.6.0 - 23/09/04</h2>
+<ul>
+   <li>Added support for custom bounding box</li>
+   <li>Fixed broken IFL support</li>
+   <li>Fixed problem with unattached vertices being attached to the wrong bone</li>
+   <li>Various small code fixes</li>
+   <li>Updated documentation</li>
+</ul>
+<br>
+<h2>Version 1.5.0 - 31/08/04</h2>
+<ul>
+   <li>Fixed 'fps' animation setting</li>
+   <li>Added initial DSQ support</li>
+</ul>
+<br>
+<h2>Version 1.4.0 - 24/07/04</h2>
+<ul>
+   <li>Added player example to doc/examples folder</li>
+   <li>Added base skeleton to doc/examples folder</li>
+</ul>
+<br>
+<h2>Version 1.3.0 - 21/07/04</h2>
+<ul>
+   <li>Fixed animation triggers not being exported</li>
+   <li>Added support for detail mapped materials</li>
+   <li>Added detail map example to doc/examples folder</li>
+   <li>Updated documentation</li>
+</ul>
+<br>
+<h2>Version 1.2.0 - 30/06/04</h2>
+<ul>
+   <li>Added support for IFL materials</li>
+   <li>Added IFL example to doc/examples folder</li>
+   <li>Fixed unlinked mesh error when using custom config file</li>
+   <li>Updated documentation</li>
+</ul>
+<br>
+<h2>Version 1.1.0 - 22/06/04</h2>
+<ul>
+   <li>Fixed scale setting not being applied by main dialog</li>
+   <li>Fixed dump file not working with custom config file</li>
+   <li>Added support for independent position/rotation keyframes</li>
+   <li>Updated documentation</li>
+</ul>
+<br>
+<h2>Version 1.0.0 - 19/06/04</h2>
+<ul>
+   <li>First public release</li>
+</ul>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><HEAD><SCRIPT SRC="../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../";</SCRIPT><link href="../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 63;
+   parent.leftFrame.expandToItem('tree2', 'doc63');
+   var element = parent.leftFrame.document.getElementById('doc63');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../include/content.css" />
+
+<title>Torque 3D - Software Setup</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject  page-Torque3D_Introduction_Setup skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          </div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Download_T3D"><span class="tocnumber">1</span> <span class="toctext">Download Torque 3D</span></a></li>
+                          <li class="toclevel-1"><a href="#Download_the_Required_SDK_files"><span class="tocnumber">2</span> <span class="toctext">Download The Required 
+                            SDK files</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Download_T3D" id="Download_T3D"></a>
+                <h2> <span class="mw-headline">Download Torque 3D</span></h2>
+                <p>If you have not already downloaded the complete Torque 3D file from your 
+                  user account, you can find them at the <a href="http://www.GarageGames.com/" class="external" title="http://www.GarageGames.com/" rel="nofollow">GarageGames website</a> under your account section. (My Account / My Products) </p>
+                <br /><br /><p><i>(click to enlarge)</i> </p>
+                  <a href="images/MyAcc00.jpg" class="livethumbnail"><img src="images/MyAcc00.jpg" width="390" height="97" largewidth="780" largeheight="194" /></a><br />
+                <p><br /><br />
+                  <strong>Then select the download link. </strong></p>
+                <p><img alt="File:MyAcc01.jpg" src="images/MyAcc01.jpg" border="0" height="84" width="444" /> </p>
+                <br /><br />
+                <a name="Download_the_Required_SDK_files" id="Download_the_Required_SDK_files"></a>
+                <h2> <span class="mw-headline">Download
+                  the Required SDK files</span></h2>
+                <p>To complete this tutorial we are going to need to add a few more software packages to your system. </p>
+                <p><br />
+                 If you are new to game engine programming, step through the following documents which will walk you through the downloads.</p><br />
+
+                <p><strong>Visual Studio 2008 Express</strong></p>
+                <ul>
+                  <li><a href="./VisualStudio2008.html">Installing</a></li>
+                  <li><a href="./DevEnvironment2008.html">Setting up</a></li>
+                </ul>
+                <br />
+                <p><strong>Visual Studio 2010 Express</strong><br />
+                  <ul>
+                  <li><a href="./VisualStudio2010.html">Installing</a></li>
+                  <li><a href="./DevEnvironment2010.html">Setting up</a></li>
+                </ul><br />
+                  If you have a good understanding of game engine development and are confident that you can install them on your own, then the download links are provided below:
+                  <ul>
+                  <li><a href="http://www.microsoft.com/downloads/en/details.aspx?FamilyID=3021D52B-514E-41D3-AD02-438A3BA730BA" class="external" title="http://www.microsoft.com/downloads/en/details.aspx?FamilyID=3021D52B-514E-41D3-AD02-438A3BA730BA" rel="nofollow">DirectX SDK June 2010</a> - Absolutely required for all Torque 3D development, regardless of Visual Studio version or physics needs.</li><br />
+                  <li><a href="http://www.microsoft.com/express/Downloads/" class="external" title="http://www.microsoft.com/express/Downloads/" rel="nofollow">Visual Studio C++ Express</a> - This page will allow downloading either the 2008 or 2010 version by selecting the proper tab.</li><br />
+                  <li><a href="http://supportcenteronline.com/ics/support/default.asp?deptID=1949" class="external" title="http://supportcenteronline.com/ics/support/default.asp?deptID=1949" rel="nofollow">PhysX SDK</a> - If you are going to need PhysX 
+                    for realistic physics properties in your projects, you will need to 
+                    download and install the PhysX SDK. </li>
+                </ul>
+                <br />
+                <p>Before you can download this SDK, you will need to obtain a user 
+                  account. Please follow the instructions on the 
+                  PhysX website. When you have been accepted, which may take a few days, 
+                  go ahead and download
+                  the latest PhysX SDK, again follow the websites instructions. </p><br />
+                <p>Please also note that you will also need to install the latest 
+                  PhysX System Software along with the PhysX SDK. The PhysX System Software can also be 
+                  downloaded from your account on the PhysX site. </p>
+                <p><br />It is also recommended that you download and install your latest graphic card drivers. It's always a good idea to keep these up to date. </p></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

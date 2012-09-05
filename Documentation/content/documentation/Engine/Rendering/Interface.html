@@ -1,0 +1,278 @@
+<html>
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 17;
+   parent.leftFrame.expandToItem('tree2', 'doc17');
+   var element = parent.leftFrame.document.getElementById('doc17');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D - Render System Interface</title>
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_EngineOverview_GFX_Interface skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Core_Global_Variables"><span class="tocnumber">2</span> <span class="toctext">Core Global Variables</span></a></li>
+                          <li class="toclevel-1"><a href="#Script_Classes"><span class="tocnumber">3</span> <span class="toctext">Script Classes</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#Render_Managers"><span class="tocnumber">3.1</span> <span class="toctext">Render Managers</span></a>
+                                <ul>
+                                  <li class="toclevel-3"><a href="#RenderObjectMgr"><span class="tocnumber">3.1.1</span> <span class="toctext">RenderObjectMgr</span></a></li>
+                                  <li class="toclevel-3"><a href="#RenderMeshMgr"><span class="tocnumber">3.1.2</span> <span class="toctext">RenderMeshMgr</span></a></li>
+                                  <li class="toclevel-3"><a href="#RenderTerrainMgr"><span class="tocnumber">3.1.3</span> <span class="toctext">RenderTerrainMgr</span></a></li>
+                                  <li class="toclevel-3"><a href="#RenderRefractMgr"><span class="tocnumber">3.1.4</span> <span class="toctext">RenderRefractMgr</span></a></li>
+                                  <li class="toclevel-3"><a href="#RenderImposterMgr"><span class="tocnumber">3.1.5</span> <span class="toctext">RenderImposterMgr</span></a></li>
+                                  <li class="toclevel-3"><a href="#RenderOcclusionMgr"><span class="tocnumber">3.1.6</span> <span class="toctext">RenderOcclusionMgr</span></a></li>
+                                  <li class="toclevel-3"><a href="#RenderTranslucentMgr"><span class="tocnumber">3.1.7</span> <span class="toctext">RenderTranslucentMgr</span></a></li>
+                                  <li class="toclevel-3"><a href="#RenderGlowMgr"><span class="tocnumber">3.1.8</span> <span class="toctext">RenderGlowMgr</span></a></li>
+                                </ul>
+                              </li>
+                              <li class="toclevel-2"><a href="#GFXStateBlockData"><span class="tocnumber">3.2</span> <span class="toctext">GFXStateBlockData</span></a>
+                                <ul>
+                                  <li class="toclevel-3"><a href="#Description"><span class="tocnumber">3.2.1</span> <span class="toctext">Description</span></a></li>
+                                </ul>
+                              </li>
+                              <li class="toclevel-2"><a href="#PostEffect"><span class="tocnumber">3.3</span> <span class="toctext">PostEffect</span></a>
+                                <ul>
+                                  <li class="toclevel-3"><a href="#Description_2"><span class="tocnumber">3.3.1</span> <span class="toctext">Description</span></a></li>
+                                  <li class="toclevel-3"><a href="#Methods"><span class="tocnumber">3.3.2</span> <span class="toctext">Methods</span></a></li>
+                                </ul>
+                              </li>
+                              <li class="toclevel-2"><a href="#GFXSamplerStateData"><span class="tocnumber">3.4</span> <span class="toctext">GFXSamplerStateData</span></a>
+                                <ul>
+                                  <li class="toclevel-3"><a href="#Description_3"><span class="tocnumber">3.4.1</span> <span class="toctext">Description</span></a></li>
+                                </ul>
+                              </li>
+                              <li class="toclevel-2"><a href="#GFXInit"><span class="tocnumber">3.5</span> <span class="toctext">GFXInit</span></a>
+                                <ul>
+                                  <li class="toclevel-3"><a href="#Description_4"><span class="tocnumber">3.5.1</span> <span class="toctext">Description</span></a></li>
+                                  <li class="toclevel-3"><a href="#Methods_2"><span class="tocnumber">3.5.2</span> <span class="toctext">Methods</span></a></li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">4</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p>The following categories represent the GFX interface in TorqueScript. </p><br>
+                <a name="Core_Global_Variables" id="Core_Global_Variables"></a>
+                <h2> <span class="mw-headline">Core Global Variables</span></h2>
+                <p><i>default values</i> </p></td>
+            </tr>
+          </tbody>
+        </table>
+        <ul>
+          <li>$pref::Video::displayDevice = "D3D9";
+            <ul>
+              <li>User's preference for device </li>
+            </ul>
+          </li>
+        </ul>
+        <ul>
+          <li>$pref::Video::disableVerticalSync = 1;
+            <ul>
+              <li>Toggles adapter to wait for vsync </li>
+            </ul>
+          </li>
+        </ul>
+        <ul>
+          <li>$pref::Video::mode = "1024 768 false 32 60 0";
+            <ul>
+              <li>Contains settings for video resolution, screen mode (full/windowed), bit depth, refresh rate, and anti-aliasing </li>
+            </ul>
+          </li>
+        </ul>
+        <ul>
+          <li>$pref::Video::screenShotSession = 0;
+            <ul>
+              <li>Number attached to screenshot_ file when taking an actual screenshot from within the game. </li>
+            </ul>
+          </li>
+        </ul>
+        <ul>
+          <li>$pref::Video::screenShotFormat = "PNG";
+            <ul>
+              <li>The file format of a screenshot taken in game, either .jpg or .png </li>
+            </ul>
+          </li>
+        </ul>
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr><br>
+              <td width="700"><a name="Script_Classes" id="Script_Classes"></a>
+                <br><h2> <span class="mw-headline">Script Classes</span></h2><br>
+                <a name="Render_Managers" id="Render_Managers"></a>
+                <h3> <span class="mw-headline">Render Managers</span></h3>
+                <p>For more detailed information, refer back to the <a href="RenderManagement.html">Render Management Guide</a>. </p>
+                <br>
+                <a name="RenderObjectMgr" id="RenderObjectMgr"></a>
+                <h4> <span class="mw-headline">RenderObjectMgr</span></h4>
+                <p>This class is used for rendering more than any of the other
+                  sub-managers. This manager is responsible for rendering common objects
+                  that do not have a standard mesh. </p>
+                <ul>
+                  <li>Sky </li>
+                  <li>Shadows </li>
+                  <li>Water </li>
+                  <li>Foliage </li>
+                  <li>Shapebase </li>
+                </ul>
+                <a name="RenderMeshMgr" id="RenderMeshMgr"></a>
+                <h4> <span class="mw-headline">RenderMeshMgr</span></h4>
+                <p>This class is used for rendering mesh based objects such as interiors, TSMesh, and decals. </p>
+                <a name="RenderTerrainMgr" id="RenderTerrainMgr"></a>
+                <h4> <span class="mw-headline">RenderTerrainMgr</span></h4>
+                <p>This class is used for rendering the terrain </p>
+                <a name="RenderRefractMgr" id="RenderRefractMgr"></a>
+                <h4> <span class="mw-headline">RenderRefractMgr</span></h4>
+                <p>Stock Torque 3D uses only one RenderRefractMgr. The name of the
+                  manager describes it well. This manager takes in RenderInst elements
+                  and checks to see if they have a refraction custom material. If this
+                  check succeeds, the element is maintained by the manager and makes use
+                  of the refraction rendering code. </p>
+                <a name="RenderImposterMgr" id="RenderImposterMgr"></a>
+                <h4> <span class="mw-headline">RenderImposterMgr</span></h4>
+                <p>This is a special render manager for processing single billboard imposters typically generated by the tsLastDetail class. </p>
+                <a name="RenderOcclusionMgr" id="RenderOcclusionMgr"></a>
+                <h4> <span class="mw-headline">RenderOcclusionMgr</span></h4>
+                <p>Used for performing occlusion queries on the scene. </p>
+                <a name="RenderTranslucentMgr" id="RenderTranslucentMgr"></a>
+                <h4> <span class="mw-headline">RenderTranslucentMgr</span></h4>
+                <p>Stock Torque 3D uses only one RenderTranslucentMgr. This manager is
+                  a bit more complex than the previous ones described. A RenderInst
+                  element must meet a strict set of requirements to be managed by this
+                  class. If you look at RenderTranslucentMgr::addElement(...), you can
+                  see there are 3 main <i>if(...)</i> statements checking for
+                  translucent properties and appropriate render instance type. The actual
+                  render function is quite clean, and you can gain more insight about the
+                  class by reading through it. </p>
+                <a name="RenderGlowMgr" id="RenderGlowMgr"></a>
+                <h4> <span class="mw-headline">RenderGlowMgr</span></h4>
+                <p>Just like the previous two managers, there is only one instance of
+                  RenderGlowMgr in stock Torque 3D. The name is pretty self-descriptive.
+                  This manager is responsible for accepting RenderInst elements that
+                  require rendering with a properly set up glow buffer. </p><br>
+                <a name="GFXStateBlockData" id="GFXStateBlockData"></a>
+                <h3> <span class="mw-headline">GFXStateBlockData</span></h3>
+                <p>For more detailed information, refer back to the <a href="Stateblocks.html">Stateblocks Guide</a>. </p>
+                <a name="Description" id="Description"></a>
+                <h4> <span class="mw-headline">Description</span></h4>
+                <p>Allows definition of render state via script, basically wraps a GFXStateBlockDesc </p><br>
+                <a name="PostEffect" id="PostEffect"></a>
+                <h3> <span class="mw-headline">PostEffect</span></h3>
+                <a name="Description_2" id="Description_2"></a>
+                <h4> <span class="mw-headline">Description</span></h4>
+                <p>Class used for defining post-processing effects, such as depth of field, SSAO, and light rays. </p>
+                <a name="Methods" id="Methods"></a>
+                <h4> <span class="mw-headline">Methods</span></h4>
+                <p><b>*void reload()</b>: Reloads the effect shader and textures. </p>
+                <p><br />
+                  <b>*void enable()</b>: Enables the effect. </p>
+                <p><br />
+                  <b>*void disable()</b>: Disables the effect. </p>
+                <p><br />
+                  <b>*bool toggle()</b>: Toggles the effect state returning true if we enable it. </p>
+                <p><br />
+                  <b>*bool isEnabled()</b>: Returns true if the effect is enabled. </p>
+                <p><br />
+                  <b>*void setShaderConst(): </b> Sets the shader constant buffer for this effect </p>
+                <p><br />
+                  <b>*F32 getAspectRatio()</b>: Returns width over height aspect ratio of the backbuffer. </p>
+                <p><br />
+                  <b>*const char* dumpShaderDisassembly()</b>: Dumps this PostEffect shader's disassembly to a temporary text file. Returns the fullpath of that file if successful. </p>
+                <p><br />
+                  <b>*void setShaderMacro( string key, [string value]</b>: Add/set a shader macro. </p><br>
+                <a name="GFXSamplerStateData" id="GFXSamplerStateData"></a>
+                <h3> <span class="mw-headline">GFXSamplerStateData</span></h3>
+                <a name="Description_3" id="Description_3"></a>
+                <h4> <span class="mw-headline">Description</span></h4>
+                <p>Allows definition of sampler state via script, basically wraps a GFXSamplerStateDesc </p><br>
+                <a name="GFXInit" id="GFXInit"></a>
+                <h3> <span class="mw-headline">GFXInit</span></h3>
+                <a name="Description_4" id="Description_4"></a>
+                <h4> <span class="mw-headline">Description</span></h4>
+                <p>Interface for tracking GFX adapters and initializing them into devices. </p>
+                <a name="Methods_2" id="Methods_2"></a>
+                <h4> <span class="mw-headline">Methods</span></h4>
+                <p><b>*float getSoundDuration()</b>: Return the duration (in seconds) of the sound referenced by the profile. </p>
+                <p><br />
+                  <b>*S32 getAdapterCount()</b>: Return the number of adapters available. </p>
+                <p><br />
+                  <b>*const char* getAdapterName(int id)</b>: Returns the name of a given adapter. </p>
+                <p><br />
+                  <b>*const char*getAdapterType(int id)</b>: Returns the type (D3D9, D3D8, GL, Null) of a given adapter. </p>
+                <p><br />
+                  <b>*F32 getAdapterShaderModel(int id)</b>: Returns the SM supported by a given adapter. </p>
+                <p><br />
+                  <b>*S32 getDefaultAdapterIndex()</b>: Returns the index of the adapter we'll be starting up with. </p>
+                <p><br />
+                  <b>*S32 getAdapterModeCount(int id)</b>: Gets the number of modes
+                  available on the specified adapter. id Index of the adapter to get data
+                  from. Return the number of video modes supported by the adapter, or -1
+                  if the given adapter was not found. </p>
+                <p><br />
+                  <b>*const char* getAdapterMode(int id, int modeId)</b>: Gets
+                  information on the specified adapter and mode. id Index of the adapter
+                  to get data from. Param modeId Index of the mode to get data from.
+                  Return (string) a video mode string given an adapter and mode index. </p>
+                <p><br />
+                  <b>*void createNullDevice()</b>: Create a NULL device. </p><br>
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>This interface guide covers everything you will need to know about using Torque 3D's stock render system (GFX) in TorqueScript. </p><br>
+                
+                </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

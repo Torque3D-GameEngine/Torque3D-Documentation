@@ -1,0 +1,344 @@
+<html>
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 29;
+   parent.leftFrame.expandToItem('tree2', 'doc29');
+   var element = parent.leftFrame.document.getElementById('doc29');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D - Creating a New GUI</title>
+
+
+</head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_GUIEditor_Firstgui skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2></div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Setting_Up"><span class="tocnumber">2</span> <span class="toctext">Setting Up</span></a></li>
+                          <li class="toclevel-1"><a href="#Our_First_GUI"><span class="tocnumber">3</span> <span class="toctext">Our First GUI</span></a></li>
+                          <li class="toclevel-1"><a href="#First_Control"><span class="tocnumber">4</span> <span class="toctext">First Control</span></a></li>
+                          <li class="toclevel-1"><a href="#Text_Control"><span class="tocnumber">5</span> <span class="toctext">Text Control</span></a></li>
+                          <li class="toclevel-1"><a href="#Dynamic_Text"><span class="tocnumber">6</span> <span class="toctext">Dynamic Text</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">7</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p><img alt="Image:HelloWorld.jpg" src="1_Images/HelloWorld.jpg" border="0" height="183" width="327" /> </p>
+                <p><br />
+                  This tutorial will show you how to use the Torque 3D GUI editor, where
+                  to find controls and what to do with them. We will use this lesson as a
+                  base for the rest of the series so if you are new to the GUI Editor
+                  this tutorial will be essential reading. </p>
+                <p><br />
+                  Suggested Reading: </p>
+                <ul>
+                  <li><a href="../Overview/Introduction.html">GUI Editor Overview</a> </li>
+                  <li><a href="../Overview/Interface.html">GUI Interface</a> </li>
+                  <li><a href="../../Scripting/Overview/Introduction.html">TorqueScript Reference</a> </li>
+                </ul>
+                <p><br />
+                  Covered in this tutorial: </p>
+                <ul>
+                  <li>Create a GUI with a <b>window</b>, <b>button</b> and <b>text label</b> </li>
+                  <li>Scale and position a control </li>
+                  <li>Setup basic control properties </li>
+                  <li>Dynamic label text </li>
+                  <li>How to save your GUI </li>
+                </ul><br>
+                <a name="Setting_Up" id="Setting_Up"></a>
+                <h2> <span class="mw-headline">Setting Up</span></h2>
+                <p>If you are new to Torque 3D, start with a new Blank
+                  project. The following projects will fit
+                  into any existing development environment. </p>
+                <p><br />
+                  <i><b>NOTE:</b> These tutorials will make reference to files from a
+                  blank project, so you will require knowledge of the Torque 3D file
+                  system or as recommended start from a new project.</i> </p>
+                <p><br />
+                  Let’s start a new Blank project, click on the <b>New Project</b> button: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="1_Images/NewProject.jpg" class="livethumbnail"><img src="1_Images/NewProject.jpg" width="276" height="174" largewidth="552" largeheight="348" /></a><br />
+                <p><br />
+                  Then from the following window name your new project as GUI Tutorials and select <b>Empty</b> from the drop down: </p>
+                <p><br />
+                  <img alt="Image:NameProject.jpg" src="1_Images/NameProject.jpg" border="0" height="241" width="338" /> </p>
+                <p><br />
+                  Click <b>Create</b> to make your project. A window will then show the progress of the new project creation process. When prompted click <b>OK</b> 
+                  and then <b>Finished</b> to close down this window. Your new project named "GUI tutorials" will now show up in the Torque 3D toolbox. </p><br>
+                <a name="Our_First_GUI" id="Our_First_GUI"></a>
+                <h2> <span class="mw-headline">Our First GUI</span></h2>
+                <p>Run your new project, load a mission and open the GUI Editor: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="1_Images/RunEditor.jpg" class="livethumbnail"><img src="1_Images/RunEditor.jpg" width="320" height="240" largewidth="640" largeheight="479" /></a><br />
+                <p><br />
+                  Head over to the file menu and select <b>File->New GUI</b>. Name our new "GUIHelloWorld" and leave the GUI Class set to <b>GuiControl</b> 
+                  (There can not be any spaces when naming your GUI's). Press create button to move on. </p>
+                <p><br />
+                  <img alt="Image:CreateNewGUI.jpg" src="1_Images/CreateNewGUI.jpg" border="0" height="158" width="307" /> </p>
+                <p><br />
+                  You will notice, at the right hand side of the editor there is a list tree. Click on the entry for GuiControl highlight it: </p>
+                <p><br />
+                  <img alt="Image:SelectGUI.jpg" src="1_Images/SelectGUI.jpg" border="0" height="95" width="217" /> </p>
+                <p><br />
+                  <i><b>NOTE</b>: You must highlight the GuiControl to make it the active container for adding further controls.</i> </p>
+                <p><br />
+                  Next make a save of our new GUI by going to <b>File->Save As</b>. Your file explorer will open to the current 
+                  project game folder. You need to move to folder <b>game/art/gui</b> and give your new GUI a name <b>HelloWorld.gui</b>. 
+                  Press the save button to continue. </p>
+                <p><br />
+                  <i><b>HINT</b></i>: Remember to make regular saves to prevent losing any of your work. </p><br>
+                <a name="First_Control" id="First_Control"></a>
+                <h2> <span class="mw-headline">First Control</span></h2>
+                <p><br />
+                  <b>STEP 1:</b> You will see the tab on the top right for the <b>Library</b> with all the available GUI control types, click on the tab:</p>
+                <p><br />
+                  <img alt="Image:ControlPalette.jpg" src="1_Images/ControlPalette.jpg" border="0" height="420" width="216" /> </p>
+                <p>You will notice that the <b>Library</b> can shows categories for all the available controls. 
+                Select the <b>Containers</b> category and from the list please choose <b>GuiWindowCtrl</b> it will be at the end 
+                of the common list. If you can not see the control, use the scroll bar to reach the other entries. </p>
+                <p><br />
+                  After you have clicked on the <b>guiWindowCtrl</b>, an instance of this control will be added to the editor. </p>
+                <p><br />
+                  <b>STEP 2</b>: You can move this new object by left clicking the mouse
+                  button and dragging the new window control to a new position on the
+                  screen. You can also resize this control by using the square handles.
+                  Try it now and make your window a little wider. </p>
+                <p><br />
+                  <img alt="Image:NewWindow.jpg" src="1_Images/NewWindow.jpg" border="0" height="231" width="145" /> </p>
+                <p><br />
+                  <b>STEP 3</b>: Change the name in the window title bar. Select your
+                  window control either from the control list or directly in the editor
+                  work area, now you have access to its properties. Scroll down the list
+                  of properties until you find <b>Window</b> section and change the <b>text</b> value to read <b>Hello World</b>. Press enter to fix the new text in place. </p>
+                <p><br />
+                  <img alt="Image:ChangeText.jpg" src="1_Images/ChangeText.jpg" border="0" height="668" width="262" /> </p>
+                <p><br />
+                  <b>STEP 4</b>: Now that we have a window, let's add a button. First we must
+                  ensure the new window control is highlighted as we want this to contain
+                  our button. </p>
+                <p><br />
+                  <img alt="Image:SelectWindow.jpg" src="1_Images/SelectWindow.jpg" border="0" height="142" width="261" /> </p>
+                <p><br />
+                  From the <b>Library</b> open the <b>Buttons</b> drop down and select <b>GuiButtonCtrl</b> 
+                  a new button will now be placed in the window. Move this new button to
+                  a location near the bottom of your new window. Again you can resize
+                  this button control but for now we will leave it as it is. </p>
+                <p><br />
+                  <b>STEP 5</b>: Give the button a name. With the button control selected
+                  you will have access to all of its properties. In the standard layout
+                  these will be at the bottom of the controls list. Scroll down if
+                  needed, to the section named <b>Button</b> and change the display text entry to read <b>Click Me</b>: </p>
+                <p><br />
+                  <img alt="Image:ChangeButtonText.jpg" src="1_Images/ChangeButtonText.jpg" border="0" height="114" width="259" /> </p>
+                <p><br />
+                  This will update the Button Display text, notice your new button now shows <i>Click Me</i>.
+                  Save the GUI now by using the menu bar <b>File > Save</b>. Press F10 so that you can see your
+                  new GUI with clickable button. Press F10 again to return back to the
+                  GUI Editor. </p>
+                <p><br />
+                  <i><b>HINT</b>: You can press F10 at any time to see your GUI in action</i> </p><br>
+                <a name="Text_Control" id="Text_Control"></a>
+                <h2> <span class="mw-headline">Text Control</span></h2>
+                <p>Next we will add a text label to our window, so that we can show
+                  some text when we press the button. With the <b>GuiWindowCtrl</b> selected; select the Library + <b>Text</b> 
+                  category and select a new <b>GuiTextCtrl</b> from the control library. </p>
+                <p><br />
+                  <img alt="Image:ReselectWindowCtrl.jpg" src="1_Images/ReselectWindowCtrl.jpg" border="0" height="154" width="261" /> </p>
+                <p><br />
+                Move this new text control so that it sits above the button, you can either resize it so that it is the same width as the button by changing the <b>position</b> and
+                <b>extent</b> under the <b>Layout</b> properties.
+                  To make it easier to see the text control, make sure it is
+                  selected and head over to its properties, change its <b>text</b> value to read as "<i>Waiting</i>". </p>
+                <p>
+                  Next we need to give the control a name so that we can easily refer back to it in script. Whilst the text 
+                  controls properties are open, head to the top of the list and in <b>name</b> give it the id of <b>lblHWDisplay</b> and press enter. </p>
+                <p><br />
+                  <img alt="Image:1_Images/lblHWDisplayName.jpg" src="1_Images/lblHWDisplayName.jpg" border="0" height="675" width="262" /> </p>
+                <p><br />
+                  You should have something looking like this; </p>
+                <p><br />
+                  <img alt="Image:PrototypeWindow.jpg" src="1_Images/PrototypeWindow.jpg" border="0" height="206" width="242" /> </p>
+                <p><br />
+                  <i><b>HINT</b>: Remember to save often, for ease use <b>Ctrl + S</b></i>, </p><br>
+                <a name="Dynamic_Text" id="Dynamic_Text"></a>
+                <h2> <span class="mw-headline">Dynamic Text</span></h2>
+                <p><b>STEP 1</b>: Let's make our GUI do something when we press the
+                  button. This is made very easy in Torque 3D as all you have to do is
+                  call a little bit of script from within the button property pane. The
+                  script we will use changes the text property of the text control.
+                  Remember setting the text controls name? This is where it will be
+                  needed. </p>
+                <p><br />
+                  <b>Sample Code:</b> </p>
+                <pre>lblHWDisplay.setValue("Hello World");</pre>
+                <p><br />
+                  <i><b>NOTE</b>: Do not forget the; or you will get an error.</i> </p>
+                <p><br />
+                  Select the button control. Within its properties in the <b>Control</b> section there is an entry called <b>command</b>. 
+                  It is in this property that we will enter our script from above. </p>
+                <p><br />
+                  <img alt="Image:SetCommand.jpg" src="1_Images/SetCommand.jpg" border="0" height="331" width="387" /> </p>
+                <p><br />
+                  <b>Save</b> you GUI. Press F10 and try out your button, when pressed the text should change to read "<i>Hello World</i>". </p>
+                <p><br />
+                  <b>STEP 2</b>: Now that you have pressed the button the text remains "<i>Hello World</i>" we need a way to clear and reset the display. 
+                  This can be done by adding a similar bit of script to the text control <b>Command</b> parameter.  Select the text control and in 
+                  its <b>Command</b> add the following: </p>
+                <br><pre>lblHWDisplay.setValue("Waiting");</pre>
+                <p><br />
+                  Make a save. Now when you preview your GUI you can click on
+                  the text to reset it. You may have noticed the text looks a little
+                  small, this can be easily rectified by changing the text control <b>Profile</b>.
+                  The profiles hold data such as font color, size, and many other
+                  parameters. We we will explore this in greater detail in another
+                  tutorial. </p>
+                <p><br />
+                  For now while the text control is selected go to GuiControl and change the profile to <b>GuiBigTextProfile</b>. 
+                  You may need to resize your GUI components to make every thing look nice and balanced. </p>
+                <p><br />
+                  Save and preview your GUI F10. </p>
+                <p><br />
+                  <img alt="Image:FinalGUI.jpg" src="1_Images/FinalGUI.jpg" border="0" height="183" width="327" /> </p><br>
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>In this tutorial, you learned the following concepts: </p>
+                <ul>
+                  <li>Create window, Button and text label </li>
+                  <li>Scale and position a control </li>
+                  <li>Setup basic control properties </li>
+                  <li>Dynamic label text </li>
+                  <li>How to save your GUI </li>
+                </ul>
+                <p><br />
+                  The next tutorial in this series we will look at other control types and how to use them. </p>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+<div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

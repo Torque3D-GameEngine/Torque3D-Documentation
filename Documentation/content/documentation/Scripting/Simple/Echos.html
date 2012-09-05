@@ -1,0 +1,225 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 53;
+   parent.leftFrame.expandToItem('tree2', 'doc53');
+   var element = parent.leftFrame.document.getElementById('doc53');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D - Echo Examples</title>
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_Scripting_Simple_Echos skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          
+                        <ul>
+                          <li class="toclevel-1"><a href="#Syntax_Review"><span class="tocnumber">1</span> <span class="toctext">Syntax Review</span></a></li>
+                          <li class="toclevel-1"><a href="#Example"><span class="tocnumber">2</span> <span class="toctext">Example</span></a></li>
+                          <li class="toclevel-1"><a href="#Creating_the_Script"><span class="tocnumber">3</span> <span class="toctext">Creating the Script</span></a></li>
+                          <li class="toclevel-1"><a href="#Testing_the_Script"><span class="tocnumber">4</span> <span class="toctext">Testing the Script</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">5</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Syntax_Review" id="Syntax_Review"></a>
+                <h2> <span class="mw-headline">Syntax Review</span></h2>
+                <p>The <strong>echo(...)</strong> method syntax is syntax is easy to memorize and is a extremely valuable debugging command:</p>
+                <p><br />
+                  <b>Syntax:</b> </p>
+                <table border="1" cellpadding="6" cellspacing="0" width="700">
+                  <tbody>
+                    <tr>
+                      <td bgcolor="#6699ff" width="280"><b> echo(string,all)</b></td>
+                    </tr>
+                    <tr>
+                      <td align="left" bgcolor="#eeeeee" valign="top" width="226"><p>Sends output to the console<br />
+                          <br />
+                          <i><b>Syntax</b></i><br />
+                        </p>
+                        <p>echo(string <b>text</b>, all <b>[...]</b>);<br />
+                        </p>
+                        <ul>
+                          <li><b>text</b>: Text sent to console<br />
+                          </li>
+                          <li><b>[...]</b>: Optional value, of any type, that will be appended to the text<br />
+                          </li>
+                        </ul>
+                        <p><br />
+                          <b>Returns</b><br />
+                          No return value.<br />
+                          <br />
+                          <i><b>Examples</b></i><br />
+                        </p>
+                        <pre>// Print "Hello World" in the console
+echo("Hello World");
+</pre>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table><br /><br />
+                <a name="Example" id="Example"></a>
+                <h2> <span class="mw-headline">Example</span></h2>
+                <p>Start by running a Torque 3D project. Once the game is up, open the
+                  console by pressing the tilde (~) key. In the console, type the following: </p>
+                <p><br />
+                  <b>Example 1</b> </p>
+                <pre>echo("Hello World");
+
+OUTPUT: Hello World
+</pre>
+                <p><br />
+                  Now, let's make use of the second parameter. Passing in a value for the second argument will append it to your text: </p>
+                <p><br />
+                  <b>Example 2</b> </p>
+                <pre>echo("Hello World", 3);
+
+OUTPUT: Hello World3
+</pre>
+                <p><br />
+                  Notice how there is no space between World and 3. The optional
+                  text is appended exactly how you type it. If you want, you can include
+                  your own white space to format the output: </p>
+                <p><br />
+                  <b>Example 3</b> </p>
+                <pre>echo("Hello World: ", 5);
+
+OUTPUT: Hello World: 5
+</pre>
+                <p><br />
+                  As you can see, the colon and space are included in the output.
+                  5 is still appended, but does not ignore the whitespace. In addition to
+                  <strong>echo(...)</strong>, there are two other output functions you will find useful.
+                  Their syntax and functionality are nearly identical to echo, but the
+                  output is different. </p>
+                <p><br />
+                  The two functions I'm referring to are <strong>warn(...)</strong> and
+                    <strong>error(...)</strong>. You can post a message in the console and log the same way
+                  you echo: </p>
+                <p><br />
+                  <b>Example 4</b> </p>
+                <pre>warn("Be careful. Something bad might happen");
+
+error("Something has gone horribly wrong");
+
+OUTPUT: 
+Be careful. Something bad might happen (teal color)
+Something has gone horribly wrong (red color)
+</pre>
+                <p><br />
+                  You can use these functions to output multicolored text to the console, which will help you identify problems with your scripts. </p><br /><br />
+                <a name="Creating_the_Script" id="Creating_the_Script"></a>
+                <h2> <span class="mw-headline">Creating the Script</span></h2>
+                <p>There is no real reason to have a script full of echo statements. You will want to use echo(...) while debugging your other functions. However, as an example, you can create a script consisting only of output statements.  </p>
+                <p><br />First, we need to create a new script:</p>
+                <ol>
+                    <li>Navigate to your project's <b>game/scripts/client</b> directory.</li>
+                    <li>Create a new script file called "Output.cs". In Torsion, right click on the directory, click the "New Script" option, then name your script. On Windows or OS X, create a new text file and change the extension to .cs</li>
+                    <li>Open your new script using a text editor or Torsion.</li>
+                </ol>
+                <p><br />
+                  Add the following code to the script:</p>
+                <p><br />
+                  <b>Output.cs</b> </p>
+                <pre>//-----------------------------------------------------------------------------
+// Torque 3D
+// Copyright (C) GarageGames.com 2000 - 2009 All Rights Reserved
+//-----------------------------------------------------------------------------
+
+// Create a nice border effect around these echos, makes it easier to find
+echo("************************************************************");
+echo("************************************************************");
+
+// Standard use
+echo("Hello");
+echo("World");
+echo("Hello World");
+
+// With escape commands
+echo("H\ne\nl\nl\no\nW\no\nr\nl\nd\n");
+
+// Appending
+echo("Hello World", 1);
+echo("Hello World ", 2);
+echo("Hello World: ", 3);
+
+// Warning
+warn("Warning! Watch for teal text");
+
+// Error
+error("Something has gone horribly wrong");
+echo("************************************************************");
+echo("************************************************************");
+</pre>
+                <p><br />
+                  Save the script now. </p><br /><br />
+                <a name="Testing_the_Script" id="Testing_the_Script"></a>
+                <h2> <span class="mw-headline">Testing the Script</span></h2>
+                <p>Open <b>game/scripts/client/init.cs</b> and locate the <strong>initClient()</strong> function. At the end of that function, execute your new script by typing the following: </p>
+                <pre>exec("./Output.cs");
+</pre>
+                <p><br />
+                  Run your game, then open the console by pressing 
+                    tilde (~). Look for
+                  the long string of asterisks (*****), and you will find your echo
+                  statements. <strong>Note: </strong>you may need to scroll up to find the echo statements.</p><br /><br />
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>Use echo(...), warn(...), and error(...) as often as you can. They
+                  can be very helpful when debugging your scripts. The rest of the
+                  TorqueScript documentation will use these functions to demonstrate
+                  functionality and give you cues on how things are being run. </p>
+                <p><br />
+                  To download this script example, <a href="Output.cs" class="downloads">CLICK HERE</a>.</p>
+                  
+                  </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

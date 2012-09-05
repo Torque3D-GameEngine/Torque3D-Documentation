@@ -1,0 +1,142 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../";</SCRIPT><link href="../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 32;
+   parent.leftFrame.expandToItem('tree2', 'doc32');
+   var element = parent.leftFrame.document.getElementById('doc32');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../include/content.css" />
+<title>Torque 3D - Introduction</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  class="mediawiki ns-0 ltr page-Torque3D_Introduction_Intro">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table width="700" border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          </div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#What_Is_Torque_3D.3F"><span class="tocnumber">1</span> <span class="toctext">What Is Torque 3D?</span></a></li>
+                          <li class="toclevel-1"><a href="#Requirements"><span class="tocnumber">2</span> <span class="toctext">Software Requirements</span></a></li>
+                          <li class="toclevel-1"><a href="#The_Engine"><span class="tocnumber">3</span> <span class="toctext">The Engine</span></a></li>
+                          <li class="toclevel-1"><a href="#Torque_Launcher"><span class="tocnumber">4</span> <span class="toctext">Torque Toolbox</span></a></li>
+                          <li class="toclevel-1"><a href="#TorqueScript"><span class="tocnumber">5</span> <span class="toctext">TorqueScript</span></a></li>
+                          <li class="toclevel-1"><a href="#Editors"><span class="tocnumber">6</span> <span class="toctext">Editors</span></a></li>
+                          <li class="toclevel-1"><a href="#The_Asset_Pipeline"><span class="tocnumber">7</span> <span class="toctext">The Asset Pipeline</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">8</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table><br />
+                <a name="What_Is_Torque_3D.3F" id="What_Is_Torque_3D.3F"></a>
+                <h2> <span class="mw-headline">What Is Torque 3D?</span></h2>
+                <p>Torque 3D was created by <strong>GarageGames</strong> to make the development of games easier, faster, and more affordable. It is a professional Software Development Kit ("SDK") that will save you the effort required to build a rendering system, high speed multiplayer networking, real time editors, a scripting system, and much more.</p>
+                <p><br />
+                  As part of Torque 3D, you receive full access to 100% of our engine source code. This means that you can add to, alter, or optimize any component of the engine down to the lowest level C++ rendering calls. That being said, you don't need to be an experienced C++ programmer to use Torque 3D. In fact, <strong>you do not need to know C++ at all.</strong> Using TorqueScript and the collection of tools that are included with Torque 3D, you can build complete games (of many different genres) without ever touching a single line of C++ code.</p>
+                <p><br />To understand the basics of how the engine is setup and the tools available, a short reference is included below. Further sections in the documentation explain these tools in more depth.</p><br />
+                <a name="Requirements" id="What_Is_Torque_3D.3F"></a>
+                <h2> <span class="mw-headline">System Requirements</span></h2>
+                <p><strong>OS:</strong>
+Windows XP SP3/Vista/Windows 7
+<br>
+<strong>Processor:</strong>
+1.7 GHz Processor or better
+<br>
+<strong>Memory:</strong>
+WinXP - 1GB RAM/WinVista, Win7 &ndash; 2GB RAM
+<br>
+<strong>Graphics:</strong>
+Graphics: DirectX 9.0c Shader 3.0 supported, Nvidia 6800 or 7300 or better, ATI Radeon X1300 or better
+<br>
+<strong>DirectX&reg;:</strong>
+9.0c
+<br>
+<strong>Hard Drive:</strong>
+4 Gb free disk space
+<br>
+<strong>Other Requirements:</strong>
+Nvidia (AGEIA) PhysX
+</p><br />
+                <a name="The_Engine" id="The_Engine"></a>
+                <h2> <span class="mw-headline">The Engine</span></h2>
+                <p>The engine handles all of the elements of a game that run in real time on your computer. The Torque 3D engine is written entirely in C++ and is fully accessible to you as a developer. This means you have access to the inner workings of the code to customize it for your needs. The end result is that Torque 3D allows developers to add functionality, increase optimization, and learn how everything works. Alternatively, you can build a game from scratch to release without delving into the source code. The choice of how to develop <strong>your</strong> game is up to you.</p>
+                <p><br />
+                  For example, if you wish to add MYSQL database functionality or integrate the Havok SDK to enhance your game, those paths are open to you. Another benefit of source code access is the ability to read through the comments and data structures to gain a better understanding of how the  entire system is set up. </p>
+                <p><br />
+                  Do not be intimidated. This documentation will show you how to create games without touching the source code at all. There is no need to start working with the engine's C++ code until you feel comfortable. In the meantime, you can get going with Torque 3D right away!</p>
+                <br />
+                <a name="Torque_Launcher" id="Torque_Launcher"></a>
+                <h2> <span class="mw-headline">Toolbox</span></h2>
+                <p>The first place to start using Torque 3D is the Torque Toolbox. This is the main application that launches Torque 3D. The Torque Toolbox acts as the central hub of T3D game development.</p>
+                <p><br />
+                  The Toolbox allows you to create blank projects, generate new projects based on templates and genre kits, and modify an existing game with the GUI and World Editors. From inside the interface, you can  launch the demos that ship with the engine. Toolbox also provides a direct link to access the documentation included with the engine.</p>
+                <br />
+                <a name="TorqueScript" id="TorqueScript"></a>
+                <h2> <span class="mw-headline">TorqueScript</span></h2>
+                <p>Much of your game play logic, camera controls, and user interface  will be written in TorqueScript. It is a powerful and flexible scripting language with syntax similar to C++. The key benefit of TorqueScript is that you do not need to be a code guru or know the nitty-gritty specifics of a particular language like C++. If you are already familiar with basic programming concepts, you will have a head start on building your own game. </p>
+                <p><br />
+                  Another benefit of using TorqueScript, as opposed to editing the engine's underlying C++ source code, is that you do not have to recompile your executable to see changes in your game. You simply create or modify a script, save, and then run the game from the Toolbox.</p>
+                <p><br />
+                  There are several TorqueScript <a href="../Scripting/Overview/Introduction.html">articles</a> for new developers that will help you learn the syntax, functionality, and how to use the language with the engine and editors.</p><br />
+                <a name="Editors" id="Editors"></a>
+                <h2> <span class="mw-headline">Editors</span></h2>
+                <p>Learning to work with Torque 3D editors is a large part of your initial experience. The key is to remember that the editors work in real-time and are <b>WYSIWYG</b> (<b>W</b>hat <b>Y</b>ou <b>S</b>ee <b>I</b>s <b>W</b>hat <b>Y</b>ou <b>G</b>et). When you use the editors to modify your level, you will see the changes immediately in the game.</p>
+                <p><br />
+                  <b>World Editor</b> - The World Editor is a tool that will help you assemble your game levels. With this tool, you will add and position terrain, game objects, models, environmental effects, lighting, and more.</p>
+                <p><br />
+                  <b>GUI Editor</b> - GUI stands for <b>G</b>raphical <b>U</b>ser <b>I</b>nterface.
+                  Some examples of GUIs include: splash screens, your main menu, options dialogs and in game Heads Up Displays ("HUDs"). With the GUI Editor, you can design and create your menus, player inventory system,  health bars, loading screens, and so on.</p>
+              
+                <br />
+                <a name="The_Asset_Pipeline" id="The_Asset_Pipeline"></a>
+                <h2> <span class="mw-headline">The Asset Pipeline</span></h2>
+                <p>You would not have much of a game without models, textures, and other art assets. <u>For Torque 3D, the preferred file format for 3D art assets is COLLADA.</u></p>
+                <p><br />
+                  From the COLLADA website: "<b>COLLADA</b> is a <b>COLLA</b>borative <b>D</b>esign <b>A</b>ctivity
+                  for establishing an open standard digital asset schema for interactive
+                  3D applications." In-other-words, it is a 3D model file format supported by most major art applications used to make content for games. You can create a model in 3D Studio Max, Maya, Blender, or any other 3D editor that supports the COLLADA format.</p>
+				<p><br />
+				  For those of you familiar with previous Torque engines, you can still import DTS (static models) and DSQ (animation data) files for your 3D objects. This includes static shapes, players, buildings, and props. If you already have a library of DTS and DSQs,  feel free to use them in Torque 3D. From this point on, we recommend you transition to the COLLADA open standard for new art assets.</p><br />
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>Now that you have read though this article, you are familiar with some of the most important aspects of Torque 3D. As you familiarize yourself with Torque 3D, you may also want to take a look at the various Torque <a href="http://www.garagegames.com/products/browse" class="external">add-ons</a> and <a href="http://www.garagegames.com/community/resources" class="external">community resources </a>available on our site.</p>
+                </td>
+            </tr>
+          </tbody>
+        </table></div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

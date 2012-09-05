@@ -1,0 +1,911 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 14;
+   parent.leftFrame.expandToItem('tree2', 'doc14');
+   var element = parent.leftFrame.document.getElementById('doc14');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D - SFX Interface</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_EngineOverview_SFX_Interface skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="0" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="15" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a></li>
+                          <li class="toclevel-1"><a href="#Channels"><span class="tocnumber">2</span> <span class="toctext">Channels</span></a></li>
+                          <li class="toclevel-1"><a href="#Descriptions"><span class="tocnumber">3</span> <span class="toctext">Descriptions</span></a></li>
+                          <li class="toclevel-1"><a href="#Configuring_3D_Playback"><span class="tocnumber">4</span> <span class="toctext">Configuring 3D Playback</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#.24pref::SFX::distanceModel"><span class="tocnumber">4.1</span> <span class="toctext">$pref::SFX::distanceModel</span></a></li>
+                              <li class="toclevel-2"><a href="#.24pref::SFX::dopplerFactor"><span class="tocnumber">4.2</span> <span class="toctext">$pref::SFX::dopplerFactor</span></a></li>
+                              <li class="toclevel-2"><a href="#.24pref::SFX::rolloffFactor"><span class="tocnumber">4.3</span> <span class="toctext">$pref::SFX::rolloffFactor</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Script_Classes"><span class="tocnumber">5</span> <span class="toctext">Script Classes</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#SFXDescription"><span class="tocnumber">5.1</span> <span class="toctext">SFXDescription</span></a>
+                                <ul>
+                                  <li class="toclevel-3"><a href="#Description"><span class="tocnumber">5.1.1</span> <span class="toctext">Description</span></a></li>
+                                  <li class="toclevel-3"><a href="#Properties"><span class="tocnumber">5.1.2</span> <span class="toctext">Properties</span></a></li>
+                                </ul>
+                              </li>
+                              <li class="toclevel-2"><a href="#SFXProfile"><span class="tocnumber">5.2</span> <span class="toctext">SFXProfile</span></a>
+                                <ul>
+                                  <li class="toclevel-3"><a href="#Description_2"><span class="tocnumber">5.2.1</span> <span class="toctext">Description</span></a></li>
+                                  <li class="toclevel-3"><a href="#Properties_2"><span class="tocnumber">5.2.2</span> <span class="toctext">Properties</span></a></li>
+                                  <li class="toclevel-3"><a href="#Methods"><span class="tocnumber">5.2.3</span> <span class="toctext">Methods</span></a></li>
+                                </ul>
+                              </li>
+                              <li class="toclevel-2"><a href="#SFXSource"><span class="tocnumber">5.3</span> <span class="toctext">SFXSource</span></a>
+                                <ul>
+                                  <li class="toclevel-3"><a href="#Description_3"><span class="tocnumber">5.3.1</span> <span class="toctext">Description</span></a></li>
+                                  <li class="toclevel-3"><a href="#Properties_3"><span class="tocnumber">5.3.2</span> <span class="toctext">Properties</span></a></li>
+                                  <li class="toclevel-3"><a href="#Callbacks"><span class="tocnumber">5.3.3</span> <span class="toctext">Callbacks</span></a></li>
+                                  <li class="toclevel-3"><a href="#Methods_2"><span class="tocnumber">5.3.4</span> <span class="toctext">Methods</span></a></li>
+                                </ul>
+                              </li>
+                              <li class="toclevel-2"><a href="#SFXEmitter"><span class="tocnumber">5.4</span> <span class="toctext">SFXEmitter</span></a>
+                                <ul>
+                                  <li class="toclevel-3"><a href="#Description_4"><span class="tocnumber">5.4.1</span> <span class="toctext">Description</span></a></li>
+                                  <li class="toclevel-3"><a href="#Properties_4"><span class="tocnumber">5.4.2</span> <span class="toctext">Properties</span></a></li>
+                                  <li class="toclevel-3"><a href="#Methods_3"><span class="tocnumber">5.4.3</span> <span class="toctext">Methods</span></a></li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Script_Functions"><span class="tocnumber">6</span> <span class="toctext">Script Functions</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#Device_Management"><span class="tocnumber">6.1</span> <span class="toctext">Device Management</span></a></li>
+                              <li class="toclevel-2"><a href="#Configuration"><span class="tocnumber">6.2</span> <span class="toctext">Configuration</span></a></li>
+                              <li class="toclevel-2"><a href="#Playback"><span class="tocnumber">6.3</span> <span class="toctext">Playback</span></a></li>
+                              <li class="toclevel-2"><a href="#Misc"><span class="tocnumber">6.4</span> <span class="toctext">Misc</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">7</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Overview" id="Overview"></a>
+                <h2> <span class="mw-headline">Overview</span></h2>
+                <p>SFXSources are the interface to sound playback. They are created through the SFXSystem and control all aspects of playback. The SFX system can be interfaced through a number of console methods.</p>
+                <p><br />
+                  <i><b>Note: </b>Do not create SFXSources directly through object declarations (i.e. new or singleton). This is inhibited by the SFX system.</i> </p>
+                <p><br />
+                  <a href="#SFXSource">SFXSources</a> are either created from SFXProfiles or
+                  directly from SFXStreams. The latter method is only available
+                  internally from within the engine and not exposed to script. </p>
+                <p><br />
+                  <a href="#SFXProfile">SFXProfiles</a> are created by the user. They
+                  combine sound files with SFXDescriptions that describe how to play back
+                  the particular file. </p>
+                <p><br />
+                  <a href="#SFXDescription">SFXDescriptions</a> are datablocks with a series of properties that describe aspects of sound playback. </p>
+                <p><br />
+                  <a href="#SFXSource">SFXSources</a> create <a href="SFXInternals.html#SFXVoice">SFXVoices</a> (playback
+                  controllers) and SFXBuffers (sample data buffers) on SFXDevices. This
+                  happens internally. </p>
+                <p><br />
+                  <a href="SFXInternals.html#SFXStream">SFXStreams</a> are used to load sample data
+                  into SFXBuffers. For streaming buffers, this is a continuous process.
+                  This happens internally. </p>
+                <p><br />
+                  An <strong>SFXListener</strong> instance is coupled to the
+                  SFXSystem and defines the location and velocity of the listener in 3D
+                  space. This is used for volume attenuation of 3D sounds. This happens
+                  internally. The listener is automatically updated from the game's
+                  control object. </p><br />
+                <a name="Channels" id="Channels"></a>
+                <h2> <span class="mw-headline">Channels</span></h2>
+                <p>To allow volume level adjustment to a whole batch of sounds, sounds
+                  are grouped into logical volume channels. Music can thus be separated
+                  from sound effects or voices and have its volume adjusted
+                  independently. </p>
+                <p><br />
+                  Volume channels are numbered from 0 onwards. There is a
+                  maximum of 32 channels. The core scripts currently define and use three
+                  separate channels (defined in <b>core/scripts/client/audio.cs</b>): </p><br />
+                <ul>
+                  <li>$GuiAudioType = 1;
+                    <ul>
+                        <li>Use for sounds relating to the interface. </li>
+                    </ul>
+                  </li>
+                  <li>$SimAudioType = 2;
+                    <ul>
+                        <li>Use for in-game sound effect and environmental sounds. </li>
+                    </ul>
+                  </li>
+                  <li>$MessageAudioType = 3;
+                    <ul>
+                        <li>Use for notifications (such as from chat) and possibly voices. </li>
+                    </ul>
+                  </li>
+                  <li>$MusicAudioType = 4;
+                    <ul>
+                        <li>Use for background music. </li>
+                    </ul>
+                  </li>
+                </ul></td>
+            </tr>
+          </tbody>
+        </table>
+        <table border="0" cellpadding="15" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><p><i><b>Note: </b>The master volume set on the SFX system simultaneously scales all of the volume channels.</i> </p>
+                <p><br />
+                  A set of SFXDescriptions preset to this set of channels is made
+                  available through core/scripts/client/audio.cs. These should best be
+                  used as copy-sources for custom SFXDescriptions. </p>
+                <ul>
+                  <li>AudioGui </li>
+                  <li>AudioSim </li>
+                  <li>AudioMessage </li>
+                  <li>AudioMusic </li>
+                </ul><br />
+                <a name="Descriptions" id="Descriptions"></a>
+                <h2> <span class="mw-headline">Descriptions</span></h2>
+                <p>Playback setups are described in SFXDescriptions. These are defined in <b>art/datablocks/audioProfiles.cs</b>. Some useful examples are below: </p></td>
+            </tr>
+          </tbody>
+        </table>
+        <table border="0" cellpadding="15" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><pre>*3D Sounds
+   o Single-Shot Sounds
+             + AudioDefault3D
+                # is3D = true
+                # referenceDistance = 20.0
+                # maxDistance = 100.0
+                # channel = $SimAudioType
+             + AudioClose3D
+                # is3D = true
+                # referenceDistance = 10.0
+                # maxDistance = 60.0
+                # channel = $SimAudioType
+             + AudioClosest3D
+                # is3D = true
+                # referenceDistance = 5.0
+                # maxDistance = 30.0
+                # channel = $SimAudioType
+   o Looping Sounds
+             + AudioDefaultLoop3D
+                # is3D = true
+                # isLooping = true
+                # referenceDistance = 20.0
+                # maxDistance = 100.0
+                # channel = $SimAudioType
+             + AudioCloseLoop3D
+                # is3D = true
+                # isLooping = true
+                # referenceDistance = 10.0
+                # maxDistance = 60.0
+                # channel = $SimAudioType
+             + AudioClosestLoop3D
+                # is3D = true
+                # isLooping = true
+                # referenceDistance = 5.0
+                # maxDistance = 30.0
+                # channel = $SimAudioType
+*2D Sounds
+   o Audio2D
+             + channel = $SimAudioType
+
+   o AudioStream2D
+             + isStreaming = true
+             + channel = $SimAudioType
+
+   o AudioLoop2D
+             + isLooping = true
+             + channel = $SimAudioType
+
+   o AudioStreamLoop2D
+             + isLooping = true
+             + isStreaming = true
+             + channel = $SimAudioType
+
+*Music
+   o AudioMusic2D
+             + isStreaming = true
+             + channel = $MusicAudioType
+
+   o AudioMusicLoop2D
+             + isStreaming = true
+             + isLooping = true
+             + channel = $MusicAudioType
+
+   o AudioMusic3D
+             + isStreaming = true
+             + is3D = true
+             + channel = $MusicAudioType
+
+   o AudioMusicLoop3D
+             + isStreaming = true
+             + isLooping = true
+             + is3D = true
+             + channel = $MusicAudioType
+</pre>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table border="0" cellpadding="15" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><a name="Configuring_3D_Playback" id="Configuring_3D_Playback"></a>
+                <h2> <span class="mw-headline">Configuring 3D Playback</span></h2>
+                <p>There are multiple options available for configuring volume
+                  attenuation of 3D sounds on the device. The settings are exposed as
+                  script variables and must be set in script (either from the console or
+                  add them to <strong>scripts/client/prefs.cs</strong>). </p><br />
+                <a name=".24pref::SFX::distanceModel" id=".24pref::SFX::distanceModel"></a>
+                <h3> <span class="mw-headline">$pref::SFX::distanceModel</span></h3>
+                <p>The distance model determines the rolloff function for 3D sounds,
+                  i.e. the way the volume attenuates as you move away from a 3D sound.
+                  The chosen model affects distance attenuation of all 3D sounds.
+                  Currently, there are two models available: </p>
+                <p><br />
+                  <b>"linear"</b> </p>
+                <p>Starting from a sound's reference distance, the volume fades
+                  linearly towards its set maximum distance at which point it reaches
+                  zero. </p>
+                <p><br />
+                  <i><b>Notes:</b> </i> </p>
+                <ul>
+                  <li>Linear rolloff is not supported with DirectSound. </li>
+                </ul>
+                <ul>
+                  <li>Linear rolloff is unaffected by the rolloff factor set on the device. </li>
+                </ul>
+                <p><br />
+                  <b>"logarithmic"</b> </p>
+                <p>Starting from a sound's reference distance, the volume halves
+                  every reference distance steps. This is the more realistic behavior for
+                  distance attenuation. In this model, the maximum distance only
+                  determines at which distance volume no longer decreases. </p>
+                <p><br />
+                  Instead, attenuation simply stops at the set maximum distance.
+                  Attenuation can be scaled by the rolloff factor to be faster or slower. </p><br />
+                <a name=".24pref::SFX::dopplerFactor" id=".24pref::SFX::dopplerFactor"></a>
+                <h3> <span class="mw-headline">$pref::SFX::dopplerFactor</span></h3>
+                <p>The doppler shift to apply to 3D sounds based on the relative
+                  velocity to the listener. Higher values give more pronounced doppler
+                  effects. Default is 0.5. </p><br />
+                <a name=".24pref::SFX::rolloffFactor" id=".24pref::SFX::rolloffFactor"></a>
+                <h3> <span class="mw-headline">$pref::SFX::rolloffFactor</span></h3>
+                <p>The rolloff factor scales the reference distance of a sound to
+                  determine how fast attenuation decreases a sound's volume. At 1.0,
+                  every reference distance steps will halve the volume of a sound. At
+                  0.5, every reference distance steps will have the quarter of the
+                  previous step's volume. </p>
+                <p><br />
+                  <i><b>Note: </b>The rolloff factor only affects logarithmic distance attenuation.</i> </p><br />
+                <a name="Script_Classes" id="Script_Classes"></a>
+                <h2> <span class="mw-headline">Script Classes</span></h2><br />
+                <a name="SFXDescription" id="SFXDescription"></a>
+                <h3> <span class="mw-headline">SFXDescription</span></h3>
+                <a name="Description" id="Description"></a>
+                <h4> <span class="mw-headline">Description</span></h4>
+                <p>SFXDescriptions tell the sound system how to play back a sound, i.e.
+                  they provide the parameters when setting up playback for a sound on the
+                  device. </p>
+                <a name="Properties" id="Properties"></a>
+                <h4> <span class="mw-headline">Properties</span></h4>
+                <ul>
+                  <li><b>volume [float]</b>: Base volume level for the sound. This
+                    will be the starting point for volume attenuation on the sound. Must be
+                    between 0 (min) and 1 (max). Default is 1. </li>
+                </ul>
+                <ul>
+                  <li><b>pitch [float]</b>: Pitch scale.  This speeds up or slows down playback.  Must be 
+                      greater than 0.  Default is 1. </li>
+                </ul>
+                <ul>
+                  <li><b>isLooping [bool]</b>: If true, the sound will be played in an endless loop.  Default is false. </li>
+                </ul>
+                <ul>
+                  <li><b>isStreaming [bool]</b>: If true, the sound will be progressively streamed; if false, the sound will be buffered in whole.  Default is false. </li>
+                </ul>
+                <ul>
+                  <li><b>is3D [bool]</b>: If true, the sound is positional and mixed according to its spatial properties.  Default is false. </li>
+                </ul>
+                <ul>
+                  <li><b>referenceDistance [float]</b>: Distance at which volume
+                    attenuation begins. Up to this distance, the sound retains its base
+                    volume. Also, in the exponential distance model, the reference distance
+                    determine how fast the sound volume decreases with distance. Each
+                    referenceDistance steps (scaled by the rolloff factor), the volume
+                    halves. A rule of thumb is that for sounds that require you to be close
+                    to hear them in the real world, set the reference distance to small
+                    values whereas for sounds that are widely audible set it to larger
+                    values. Only for 3D sounds. </li>
+                </ul>
+                <ul>
+                  <li><b>maxDistance [float]</b>: The distance at which attenuation
+                    stops. In the linear distance model, the attenuated volume will be zero
+                    at this distance. In the logarithmic model, attenuation will simply
+                    stop at this distance and the sound will keep its attenuated volume
+                    from there on out. Only for 3D sounds. </li>
+                </ul>
+                <ul>
+                  <li><b>coneInsideAngle [float]</b>: Specifies the angle of the
+                    inside cone in degrees. Valid values are from 0 to 360. Must be less
+                    than coneOutsideAngle. Default is 360. Only for 3D sounds. </li>
+                </ul>
+                <ul>
+                  <li><b>coneOutsideAngle [float]</b>: Specifies the angle of the outside cone in degrees.  Valid values are from 0 to 360.  Default is 360. Only for 3D sounds. </li>
+                </ul>
+                <ul>
+                  <li><b>coneOutsideVolume [float]</b>: Determines the volume scale
+                    factor applied to a source's base volume level outside of the outer
+                    cone. In the outer cone, starting from outside the inner cone, the
+                    scale factor smoothly interpolates from 1.0 (within the inner cone) to
+                    this value. At the moment, the allowed range is 0.0 (silence) to 1.0
+                    (no attenuation) as amplification is only supported on XAudio2 but not
+                    on the other devices. Only for 3D sound. </li>
+                </ul>
+                <ul>
+                  <li><b>channel [int]</b>: Volume channel that the sound will get
+                    assigned to. The base volume level of the sound will be scaled by the
+                    channel's volume level. Default is 0. </li>
+                </ul>
+                <ul>
+                  <li><b>fadeInTime [float]</b>: Number of seconds to gradually fade in volume from zero when playback starts. </li>
+                </ul>
+                <ul>
+                  <li><b>fadeOutTime [float]</b>: Number of seconds to gradually fade out volume to zero before playback stops. </li>
+                </ul>
+                <ul>
+                  <li><b>streamPacketSize [int]</b>: Number of seconds of sample data
+                    to read per streaming packet. Only for streamed sounds and only when
+                    SFX's own streaming system is used. </li>
+                </ul>
+                <ul>
+                  <li><b>streamReadAhead [int]</b>: Number of stream packets to keep
+                    buffered ahead of time. A number of packets (usually three) will
+                    generally be kept immediately on the SFX device for playback. This
+                    number controls how many more packets are read ahead of time in
+                    addition to this. Higher numbers allow to better cope with lagging
+                    stream sources but for good resource consumption, this should be kept
+                    reasonably low. Only for streamed sounds and only when SFX's own
+                    streaming system is used. </li>
+                </ul><br />
+                <a name="SFXProfile" id="SFXProfile"></a>
+                <h3> <span class="mw-headline">SFXProfile</span></h3>
+                <a name="Description_2" id="Description_2"></a>
+                <h4> <span class="mw-headline">Description</span></h4>
+                <p>An SFXProfile combines a sound file with an SFXDescription that tells how to play back the sound. SFXProfiles are datablocks, so when you define server-side SFXProfiles use the 
+                    <strong>datablock</strong> keyword. For client-side only profiles, use <strong>new</strong> or 
+                    <strong>singleton</strong>. </p>
+                <p><br />
+                  For non-streamed sounds, the SFXProfile will keep a
+                  reference to the SFXBuffer on the device once the sound has been
+                  loaded. This will allow simultaneous playbacks of the same profile to
+                  share a single SFXBuffer. A profile's sound will automatically reload
+                  when its file on disk changes. This will also update all sources that
+                  are currently using the profile. </p>
+                <p><br />
+                  By default, the sound data contained in an SFXProfile will
+                  be loaded into the SFX device when the sound is first played. This will
+                  incur a short delay on the first use. To load the sound data ahead of
+                  time independent on the first use, set the "preload" property to true.
+                  This will cause sound data to be loaded when the profile object is
+                  added to the system. </p>
+                <p><br />
+                  Once loaded, the sound data will remain loaded on the
+                  device until either the device is destroyed or the SFXProfile is
+                  deleted. Be aware that only non-streamed sounds may be preloaded.
+                  Streamed sounds always incur a certain loading delay. To ready a
+                  streamed sound for playback, attach and ready an SFXSource before
+                  playing the sound. </p>
+                <a name="Properties_2" id="Properties_2"></a>
+                <h4> <span class="mw-headline">Properties</span></h4>
+                <ul>
+                  <li><b>filename [string]</b>: The name of the file to load. It is usually best to omit extensions with sound filenames. This allows you to easily switch formats without having to change scripts. The SFX system will scan through its list of supported file formats (including extended formats supported by specific devices) to find the full filename. </li>
+                </ul>
+                <ul>
+                  <li><b>description [object]</b>: The SFXDescription to use when playing back the sound. </li>
+                </ul>
+                <ul>
+                  <li><b>preload [bool]</b>: If true, the sound file will be loaded
+                    into the SFX system as soon as the profile object gets added to
+                    Torque's object graph. This helps ensure that sounds are immediately
+                    ready for playback when the profile is used. Be aware, though, that
+                    this will also result in immediate resource consumption on the
+                    SFXDevice. Preloading will not cause disruptions in the loading process
+                    as sound loading happens in the background. Only non-streamed sounds
+                    can be preloaded. This flag is ignored for streamed sounds. To load a
+                    streamed sound into ready state before playing, create an SFXSource for
+                    it. </li>
+                </ul>
+                <a name="Methods" id="Methods"></a>
+                <h4> <span class="mw-headline">Methods</span></h4>
+                <p><b>*float getSoundDuration()</b>: Return the duration (in seconds) of the sound referenced by the profile. </p><br />
+                <a name="SFXSource" id="SFXSource"></a>
+                <h3> <span class="mw-headline">SFXSource</span></h3>
+                <a name="Description_3" id="Description_3"></a>
+                <h4> <span class="mw-headline">Description</span></h4>
+                <p>Central controller for sound playback. SFXSources control the
+                  playback of a particular SFXProfile or SFXStream. SFXSources can only
+                  be created through sfxCreateSource or the various sfxPlay functions. </p>
+                <p><br />
+                  SFXSources are explicitly created by the user through SFX
+                  functions and are valid until they are deleted. However, to reduce
+                  bookkeeping required for single-shot sounds, the system keeps a list of
+                  so called "play-once sources." An SFXSource that is created as a
+                  play-once source will only be valid for as long as it is playing. When
+                  it has finished playing, it will be automatically deleted during the
+                  next SFX update. </p>
+                <p><br />
+                  Note that while permanent references to play-once sources
+                  should not be stored in script, a reference will not become invalid
+                  in-midst of script execution. </p>
+                <p><br />
+                  Markers are used for notifications that are triggered when
+                  playback crosses over a certain playback position. Each marker has a
+                  name and an associated playback position expressed in seconds. When
+                  playback crosses over the position, the
+                  "onMarkerPassed( %source, %markerName )" callback will be
+                  called on the source. </p>
+                <p><br />
+                  This is useful for synchronizing logic to music and sound
+                  effects. Currently, using setPosition() on a source will not prevent
+                  markers being jumped over from triggering. Instead, these markers will
+                  immediately trigger on the next source update. </p>
+                <a name="Properties_3" id="Properties_3"></a>
+                <h4> <span class="mw-headline">Properties</span></h4>
+                <ul>
+                  <li><b>statusCallback [string]</b>: Name of function to call when
+                    the status of the SFXSource changes. Must take two parameters "(
+                    object %source, string %newStatus )". Default is empty which
+                    deactivates the callback. If this field is set, the source's
+                    onStatusChange callback will not trigger. </li>
+                </ul>
+                <a name="Callbacks" id="Callbacks"></a>
+                <h4> <span class="mw-headline">Callbacks</span></h4>
+                <p>These methods may be defined on SFXSources by the user and are called by the system on specific events. </p>
+                <ul>
+                  <li><b>onMarkerPassed( object this, string name )</b>: Called when a notification marker has been passed by the playback cursor.  "name" is the name of the marker. </li>
+                </ul>
+                <ul>
+                  <li><b>onStatusChange( object this, string newStatus )</b>:Called when the playback status of the source changes.  Set getStatus() for the possible values for "newStatus". </li>
+                </ul>
+                <a name="Methods_2" id="Methods_2"></a>
+                <h4> <span class="mw-headline">Methods</span></h4>
+                <ul>
+                  <li><b>bool isReady()</b>: Returns true when the source has successfully loaded all its sound data and is ready for playback. </li>
+                </ul>
+                <ul>
+                  <li><b>bool isPaused()</b>: Returns true when the source is currently in <em>paused</em> state. </li>
+                </ul>
+                <ul>
+                  <li><b>bool isPlaying()</b>: Return true when the source is
+                    currently playing. Even though a given SFXSource is in playing state,
+                    it will not emit sound data on the device if it is in blocked state
+                    (awaiting data from its SFXStream) or is in virtualized playback mode. </li>
+                </ul>
+                <ul>
+                  <li><b>bool isStopped()</b>: Returns true when the source is
+                    currently stopped. Sources will start out in stopped state and will
+                    transition back into stopped state when they have finished playing. </li>
+                </ul>
+                <ul>
+                  <li><b>string getStatus()</b>: Return the current playback status of the source.  Possible values are:
+                    <ul>
+                      <li>"playing": source is currently playing </li>
+                      <li>"stopped": source is not playing </li>
+                      <li>"paused": source has been paused </li>
+                    </ul>
+                  </li>
+                </ul>
+                <ul>
+                  <li><b>int getChannel()</b>: Return the volume channel this SFXSource is assigned to. </li>
+                </ul>
+                <ul>
+                  <li><b>float getDuration()</b>: Return the total playback time of the SFXSource's associated sound in seconds. </li>
+                </ul>
+                <ul>
+                  <li><b>setTransform( vector pos, [ vector direction ] )</b>: Set the 3D position and optionally the direction of the SFXSource. </li>
+                </ul>
+                <ul>
+                  <li><b>setCone( float innerAngle, float outerAngle, foat outsideVolume )</b>: Set the 3D sound cone of the SFXSource. </li>
+                </ul>
+                <ul>
+                  <li><b>setVolume( float volume )</b>: Set the (unattenuated) volume of the SFXSource.  Must be between 0 (min) and 1 (max). </li>
+                </ul>
+                <ul>
+                  <li><b>setPitch( float pitch )</b>: The frequency shift factor. A
+                    pitch of 1 plays back at the default frequency. A pitch of 0.5 of half
+                    the default frequency. The default frequency is the frequency of the
+                    source SFXStream. </li>
+                </ul>
+                <ul>
+                  <li><b>float getPosition()</b>: Returns the current position of the play cursor in seconds. </li>
+                </ul>
+                <ul>
+                  <li><b>setPosition( float pos )</b>: Set the position of the play cursor in seconds. </li>
+                </ul>
+                <ul>
+                  <li><b>play( [ float fadeInTime ] )</b>: Start or resume playback.
+                    If "fadeInTime" is given and is greater than 0, then the source will do a volume
+                    fade to its assigned volume in "fadeInTime" seconds. "fadeInTime"
+                    overrides a setting given in the SFXSource's SFXDescription. If the
+                    sound referred to by the source is not yet fully loaded, there may be a
+                    delay before playback actually starts. If there are more active voices
+                    than supported by the current SFX device, one SFXSource (this or
+                    another one depending on which is deemed least important) will go into
+                    virtualized playback mode as a result of calling play(). </li>
+                </ul>
+                <ul>
+                  <li><b>stop( [ float fadeOutTime ] )</b>: Stop playback. If
+                    "fadeOutTime" is given and is&nbsp; greater than 0, then the source will do a volume
+                    fade to zero in "fadeOutTime" seconds and then stop. "fadeOutTime"
+                    overrides a setting given in the SFXSource's SFXDescription. </li>
+                </ul>
+                <ul>
+                  <li><b>pause( [ float fadeOutTime ] )</b>: Pause playback. If
+                    "fadeOutTime" is given and is greater than 0, then the source will do a volume
+                    fade to zero in "fadeOutTime" seconds and then pause. "fadeOutTime"
+                    overrides a setting given in the SFXSource's SFXDescription. </li>
+                </ul>
+                <ul>
+                  <li><b>addMarker( string name, float pos )</b>: Add a marker called
+                    "name" at "pos" seconds into playback. If playback passes the given
+                    position, the "onMarkerPassed" callback will trigger. </li>
+                </ul><br />
+                <a name="SFXEmitter" id="SFXEmitter"></a>
+                <h3> <span class="mw-headline">SFXEmitter</span></h3>
+                <a name="Description_4" id="Description_4"></a>
+                <h4> <span class="mw-headline">Description</span></h4>
+                <p>An SFXEmitter is a 3D object that emits sound. It has no visible
+                  representation (except within the editor), but does have a true
+                  location and velocity in 3D world space. Even though an SFXEmitter is
+                  an object in 3D space, it need not necessarily emit a 3D sound. It can
+                  also emit non-positional 2D sounds. </p>
+                <p><br />
+                  This is useful for placing background music in a level. There are two ways to set up an SFXEmitter: </p>
+                <ul>
+                  <li>through a predefined SFXProfile ("profile" property)
+                    <ul>
+                      <li>plays the sound specified by the profile </li>
+                      <li>uses the profile's SFXDescription </li>
+                      <li>some of the emitter's properties override the settings in the profile's SFXDescription (see documentation below) </li>
+                    </ul>
+                  </li>
+                  <li>directly through a sound file ("fileName" property)
+                    <ul>
+                      <li>uses the properties on the emitter to set up a custom SFXDescription </li>
+                    </ul>
+                  </li>
+                </ul>
+                <p><br />
+                  Setting a "profile" will take precedence over setting a "fileName".
+                  Currently it is not possible to have an emitter go through a list of
+                  sounds (at least not without scripting). </p>
+                <a name="Properties_4" id="Properties_4"></a>
+                <h4> <span class="mw-headline">Properties</span></h4>
+                <ul>
+                  <li><b>profile [SFXProfile]</b>: The sound profile to play on this
+                    emitter. Either use this or "fileName" to set the sound to play. This
+                    field will take precedence over "fileName". </li>
+                </ul>
+                <ul>
+                  <li><b>fileName [FileName]</b>: The sound file to play on this emitter. </li>
+                </ul>
+                <ul>
+                  <li><b>playOnAdd [bool]</b>: If true, playback will be immediately
+                    started when the emitter is added to the scene. Applies regardless of
+                    whether "profile" or "fileName" is used. </li>
+                </ul>
+                <ul>
+                  <li><b>isLooping [bool]</b>: If true, the emitter's sound will loop
+                    infinitely. Only applies when using "fileName". For "profile", the
+                    profile SFXDescription's "isLooping" value is used. </li>
+                </ul>
+                <ul>
+                  <li><b>isStreaming [bool]</b>: If true, the sound will use streamed
+                    playback. Only applies when using "fileName". For "profile", the
+                    profile SFXDescription's "isStreaming" value is used. </li>
+                </ul>
+                <ul>
+                  <li><b>channel [int]</b>: The volume channel to play the sound in.
+                    Only applies when using "fileName". For "profile", the profile
+                    SFXDescription's "channel" value is used. </li>
+                </ul>
+                <ul>
+                  <li><b>volume [float]</b>: The base (unattenuated) volume at which
+                    to play the sound. Applies to both "profile" and "fileName". Must be
+                    between 0 (min) and 1 (max). </li>
+                </ul>
+                <ul>
+                  <li><b>pitch [float]</b>: The frequency shift factor at which to play back the sound.  Must be 
+                      greater than 0.  Applies to both "profile" and "fileName". </li>
+                </ul>
+                <ul>
+                  <li><b>fadeInTime [float]</b>: Time in seconds to fade volume from
+                    zero to full intensity when starting/resuming playback. Must be greater
+                    or equal to 0. Only applies when using "fileName". For "profile", the
+                    profile SFXDescription's "fadeInTime" value is used. </li>
+                </ul>
+                <ul>
+                  <li><b>fadeOutTime [float]</b>: Time in seconds to fade volume out
+                    to zero before stopping/pausing playback. Must be greater or equal to
+                    0. Only applies when using "fileName". For "profile", the profile
+                    SFXDescription's "fadeOutTime" value is used. </li>
+                </ul>
+                <ul>
+                  <li><b>is3D [bool]</b>: If true, the sound will be positional. Only
+                    applies when using "fileName". For "profile", the profile
+                    SFXDescription's "is3D" value is used. </li>
+                </ul>
+                <ul>
+                  <li><b>referenceDistance [float]</b>: The distance at which to
+                    start distance-based volume attenuation. Only applies to 3D sounds.
+                    Applies to both "profile" and "fileName". </li>
+                </ul>
+                <ul>
+                  <li><b>maxDistance [float]</b>: The distance at which to stop
+                    distance-based volume attenuation. Only applies to 3D sounds. Applies
+                    to both "profile" and "fileName". </li>
+                </ul>
+                <ul>
+                  <li><b>coneInsideAngle [int]</b>: Inside 3D cone angle in degrees.
+                    Must be between 0 (min) and 360 (max). Only applies to 3D sounds.
+                    Applies to both "profile" and "fileName". </li>
+                </ul>
+                <ul>
+                  <li><b>coneOutsideAngle [int]</b>: Outside 3D cone angle in
+                    degrees. Must be between 0 (min) and 360 (max). Only applies to 3D
+                    sounds. Applies to both "profile" and "fileName". </li>
+                </ul>
+                <ul>
+                  <li><b>coneOutsideVolume [float]</b>: Volume scale factor outside
+                    3D cone. Must be between (0) (min) and 1 (max). Only applies to 3D
+                    sounds. Applies to both "profile" and "fileName". </li>
+                </ul>
+                <a name="Methods_3" id="Methods_3"></a>
+                <h4> <span class="mw-headline">Methods</span></h4>
+                <ul>
+                  <li><b>play()</b>: Sends network event to start playback of the emitter (if not already playing). If called on the client (the ghost), will immediately trigger playback. </li>
+                </ul>
+                <ul>
+                  <li><b>stop()</b>: Sends network event to stop playback of the emitter (if not already stopped). If called on the client (the ghost), will immediately stop playback.  </li>
+                </ul>
+                <ul>
+                  <li><b>string getPlaybackStatus()</b>: Returns the playback status of the emitter. See SFXSource.getStatus(). If called on a server-side SFXEmitter, the emitter's client-side object (ghost) object on the local client connection will be queried.  </li>
+                </ul>
+                <ul>
+                  <li><b>bool isInRange()</b>: Returns true if the SFX listener (local connection's control object) is currently within the max range of the emitter. </li>
+                </ul><br />
+                <a name="Script_Functions" id="Script_Functions"></a>
+                <h2> <span class="mw-headline">Script Functions</span></h2><br />
+                <a name="Device_Management" id="Device_Management"></a>
+                <h3> <span class="mw-headline">Device Management</span></h3>
+                <p>Before sound playback functions can be used, a valid sound device
+                  must be created through one of the given sound providers. When using
+                  the standard<strong> game/core/</strong> scripts, this is automatically taken care of during
+                  engine startup. </p>
+                <ul>
+                  <li><b>vector sfxGetAvailableDevices()</b>: Returns a vector that
+                    describes each of the available devices. Individual devices are
+                    separated by newlines and individual properties of devices are
+                    separated by tabs. </li>
+                </ul>
+                <ul>
+                  <li><b>bool sfxCreateDevice( string provider, string device, bool useHardware, int maxBuffers )</b>:
+                    Try to create a new sound device using the given properties. This
+                    function must be called before any of the sound playback functions can
+                    be used. If there currently is an active device, it will be deleted
+                    automatically. Returns true if the operation succeeded and the device
+                    has been created. </li>
+                </ul>
+                <p><br />
+                  Each device entry has the following properties (in the order they appear in the vector): </p>
+                <ul>
+                  <li><b>providerName</b> [<i>string</i>]: The name of the sound provider (e.g. "FMOD") </li>
+                </ul>
+                <ul>
+                  <li><b>deviceName</b> [<i>string</i>]: The name of the device made available by the provider. </li>
+                </ul>
+                <ul>
+                  <li><b>hasHardware</b> [<i>bool</i>]: If true, the device has support for mixing in hardware. </li>
+                </ul>
+                <ul>
+                  <li><b>maxBuffers</b> [<i>int</i>]: Maximum number of concurrent
+                    buffers supported by the device, i.e. the maximum number of
+                    concurrently audible voices. If this is exceeded, playback
+                    virtualization will kick in and distribute the available voices across
+                    the playing sounds. </li>
+                </ul>
+                <p><br />
+                  In the 
+                    <strong>game/core</strong> scripts, sound is automatically set up during
+                  startup in the sfxStartup() function. Sounds that are playing while the
+                  sound device is being changed will be temporarily transitioned to
+                  virtualized playback and then resume normal playback once the new
+                  device has been created. </p>
+                <ul>
+                  <li><b>sfxDeleteDevice():</b> Delete the currently active sound
+                    device and release all its resources. In the core scripts, this is done
+                    automatically for you during shutdown in the sfxShutdown() function.
+                    SFXSources that are still playing will be transitioned to virtualized
+                    playback mode. When creating a new device, they will automatically
+                    transition back to normal playback. </li>
+                </ul>
+                <ul>
+                  <li><b>vector sfxGetDeviceInfo():</b> Return information about the
+                    currently active sound device. The return value is a tab-delimited
+                    string containing the following properties (in the order they appear in
+                    the vector): </li>
+                </ul>
+                <ul>
+                  <li><b>providerName [string]</b>: Name of the sound provider that supplies the device (e.g. "FMOD"). </li>
+                  <li><b>deviceName [string]</b>: Name of the device on the provider. </li>
+                  <li><b>usesHardware [bool]</b>: If true, device is set up to use hardware mixing. </li>
+                  <li><b>maxBuffers [int]</b>: Maximum number of concurrent voices the device is configured to use. </li>
+                </ul><br />
+                <a name="Configuration" id="Configuration"></a>
+                <h3> <span class="mw-headline">Configuration</span></h3>
+                <ul>
+                  <li><b>float sfxGetMasterVolume()</b>: Return the system master
+                    volume. This volume level scales the volume of all independent volume
+                    channels simultaneously. Default is 1. </li>
+                </ul>
+                <ul>
+                  <li><b>sfxSetMasterVolume( float volume )</b>: Set the system master volume.  Must be between 0 (min) and 1 (max). This will affect all currently active sounds. </li>
+                </ul>
+                <ul>
+                  <li><b>float sfxGetChannelVolume( int channel )</b>: Return the volume level of the given channel.  Will be between 0 and 1.  Default is 1. </li>
+                </ul>
+                <ul>
+                  <li><b>sfxSetChannelVolume( int channel, float volume )</b>: Set
+                    the volume level of the given channel. Must be between 0 (min) and 1
+                    (max). This will affect all sounds currently playing on that channel. </li>
+                </ul>
+                <ul>
+                  <li><b>string sfxGetDistanceModel()</b>: Return the name of the
+                    distance model currently used for distance attenuation of 3D sounds.
+                    Currently, this is either "linear" or "logarithmic". Default is set by
+                    "$pref::SFX::distanceModel". If unset, the linear distance model is
+                    used. </li>
+                </ul>
+                <ul>
+                  <li><b>sfxSetDistanceModel( string model )</b>: Set the distance
+                    model to use for distance attenuation of 3D sounds. Must be either
+                    "linear" or "logarithmic". This will affect the volume attenuation of
+                    all currently active 3D sounds. </li>
+                </ul>
+                <ul>
+                  <li><b>float sfxGetDopplerFactor()</b>: Return the factor applied
+                    to doppler effects on 3D sounds. Default is set by
+                    "$pref::SFX::dopplerFactor". If unset, default is 0.5. </li>
+                </ul>
+                <ul>
+                  <li><b>sfxSetDopplerFactor( float factor )</b>: Set the factor to
+                    apply to doppler effects on 3D sounds. Set to zero to turn off pitch
+                    shifting caused by the Doppler Effect. The higher the value, the more
+                    pronounced the Doppler Effect will be. </li>
+                </ul>
+                <ul>
+                  <li><b>float sfxGetRolloffFactor()</b>: Get the scale factor
+                    applied to distance attenuation curves of 3D sounds in the logarithmic
+                    distance model. Default is taken from "$pref::SFX::rolloffFactor". If
+                    unset, default is 1.0, i.e. no scaling. </li>
+                </ul>
+                <ul>
+                  <li><b>sfxSetRolloffFactor( float factor )</b>: Set the scale
+                    factor to apply to distance attenuation curves of 3D sounds in the
+                    logarithmic distance model. Values greater than 1 cause volume to decrease
+                    faster with distance where as values less than 1 cause volume to decrease
+                    slower. A value of 0 will disable distance attenuation. Factor must be
+                    greater or equal to 0. </li>
+                </ul><br />
+                <a name="Playback" id="Playback"></a>
+                <h3> <span class="mw-headline">Playback</span></h3>
+                <ul>
+                  <li><b>SFXSource sfxCreateSource( SFXProfile profile [, float x, float y, float z ] )</b>:
+                    Create a new SFXSource that plays the given profile. If coordinates are
+                    given, the source will be placed at the given position (though only if
+                    the given profile contains a 3D sound). The source will initially be in
+                    "stopped" state. If the sound contained in the profile has not yet been
+                    loaded, this will be initiated in the process. </li>
+                </ul>
+                <ul>
+                  <li><b>SFXSource sfxCreateSource( SFXDescription description, string filename [, float x, float y, float z ] )</b>:
+                    Create a temporary SFXProfile using the given description and filename
+                    and then create a new SFXSource that plays the profile. If coordinates
+                    are given, the source will be placed at the given position (though only
+                    if the description has is3D set to <i>true</i>). The source will initially be in "stopped" state. Loading of the given file will be initiated in the process. </li>
+                </ul>
+                <ul>
+                  <li><b>SFXSource sfxPlay( SFXSource source )</b>: Start playing the
+                    given SFXSource. This is the same as calling the play() method on the
+                    SFXSource directly. Returns source or null on failure. </li>
+                </ul>
+                <ul>
+                  <li><b>SFXSource sfxPlay( SFXProfile profile [, float x, float y, float z ] )</b>: This is the same as calling sfxPlayOnce() with the given parameters. </li>
+                </ul>
+                <ul>
+                  <li><b>SFXSource sfxPlayOnce(SFXProfile profile [, float x, float y, float z ] )</b>:
+                    Create a play-once SFXSource using the given profile and start playing
+                    it. The SFXSource will only be valid for as long as playback is
+                    running. If coordinates are given, the SFXSource will be placed at the
+                    specified position (only if the profile contains a 3D sound). The
+                    SFXSource will return in "playing" state. Returns a handle for the
+                    temporary SFXSource or null on failure. </li>
+                </ul>
+                <ul>
+                  <li><b>SFXSource sfxPlayOnce( SFXDescription description, string filename [, float x, float y, float z ] )</b>:
+                    Creates a temporary SFXProfile with the given description and filename
+                    and then instantiates a new play-once SFXSource playing the profile.
+                    The SFXSource will be valid only for as long as playback is running. If
+                    coordinates are given, the SFXSource will be placed at the specified
+                    position (only if the given SFXDescription has <b>is3D</b> set to <i>true</i>). The SFXSource will return in "playing" state. Returns a handle for the temporary SFXSource or null on failure. </li>
+                </ul>
+                <ul>
+                  <li><b>sfxStop( SFXSource source )</b>: Stop playing the given SFXSource.  This is the same as calling the stop() method directly on the SFXSource. </li>
+                </ul>
+                <ul>
+                  <li><b>sfxStopAll()</b>: Call stop() on all SFXSources that are currently playing. </li>
+                </ul><br />
+                <a name="Misc" id="Misc"></a>
+                <h3> <span class="mw-headline">Misc</span></h3>
+                <ul>
+                  <li><b>sfxDumpSources()</b>: Print a detailed rundown on all currently instantiated SFXSources to the console. </li>
+                </ul><br />
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>This interface guide covers everything you will need to know about
+                  using Torque 3D's stock sound effect system (SFX). Continue reading to
+                learn more about the SFX Internals. <a href="SFXInternals.html">CLICK HERE</a> to continue. </p></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

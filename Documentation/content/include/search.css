@@ -1,0 +1,33 @@
+.highlighter {
+   display: block;
+   margin-top: 6px;
+   margin-left: 0px;
+   font-size: 0.7em;  
+}
+
+.highlighter input {
+   vertical-align: middle;
+   margin-left: 0px;
+}
+
+.highlighter span {
+   vertical-align: middle;
+}
+
+div.search {
+	background-color: #F4F4F4;
+	padding: 8px;
+	border: 1px dashed #D0E0C2;
+	margin-left: 0px;
+	margin-right: 0px;
+	background-attachment: scroll;
+	background-image: url(../images/code_bg.jpg);
+	background-repeat: repeat-y;
+	background-position: right;
+}
+
+hr {
+   height: 2px;  
+   background-color: #56892D;
+   border: 0;
+}

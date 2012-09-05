@@ -1,0 +1,454 @@
+<html>
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 8;
+   parent.leftFrame.expandToItem('tree2', 'doc8');
+   var element = parent.leftFrame.document.getElementById('doc8');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+
+<title>Torque 3D - Adding A New Player</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_ArtistGuide_Tutorials_AddPlayer skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          </div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Setup"><span class="tocnumber">2</span> <span class="toctext">Setup</span></a></li>
+                          <li class="toclevel-1"><a href="#The_Datablock_Editor"><span class="tocnumber">3</span> <span class="toctext">The Datablock Editor</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#Player_Datablock"><span class="tocnumber">3.1</span> <span class="toctext">Player Datablock</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Player_Properties"><span class="tocnumber">4</span> <span class="toctext">Player Properties</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#Change_the_Character_Model"><span class="tocnumber">4.1</span> <span class="toctext">Change the Character Model</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Spawning"><span class="tocnumber">5</span> <span class="toctext">Spawning</span></a></li>
+                          <li class="toclevel-1"><a href="#customizing_our_Character"><span class="tocnumber">6</span> <span class="toctext">Customizing our Character</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#Custom_3rd_Person_Camera"><span class="tocnumber">6.1</span> <span class="toctext">Custom 3rd Person Camera</span></a></li>
+                              <li class="toclevel-2"><a href="#Power_up_our_Character"><span class="tocnumber">6.2</span> <span class="toctext">Power up our Character</span></a></li>
+                              <li class="toclevel-2"><a href="#Activate_Weapons"><span class="tocnumber">6.3</span> <span class="toctext">Activate Weapons</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">7</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p>One of the first things you will want to do after you have become 
+                  familiar with T3D is to change the player character model. This can 
+                  simply be achieved by using Torque 3D's powerful World Editor and its provided 
+                  game editing tool set. </p><br>
+                  <p>(<i>click to enlarge</i>) </p>
+                <a href="images/30.jpg" class="livethumbnail"><img src="images/30.jpg" width="340" height="228" largewidth="680" largeheight="456" /></a><br />
+                <p><br />
+                  In this Tutorial we are going to take a step by step look at how to 
+                  change the default player character from the Gideon model to the BoomBot
+                  model. These steps can then be easily applied to your own rigged 
+                  character model for use in your T3D project. We will explore how to 
+                  change the players characteristics through the use of the datablock 
+                  properties and how to spawn this new player into the game , and all this
+                  can be done without touching any scripting thanks to T3D's great game 
+                  editing WYSIWYG tool set. </p>
+                <p><br />
+                  <b>Topics we will look at in this tutorial: </b> </p>
+                <ul>
+                  <li> Create a new Player Datablock </li>
+                  <li> Changing the player model </li>
+                  <li> Changing Player properties </li>
+                  <li> Spawning a new player </li>
+                </ul>
+                <a name="Setup" id="Setup"></a>
+                <br><h2> <span class="mw-headline">Setup</span></h2>
+                <p>We will start off by opening the <i>Deathball Desert</i> Torque 3D project from the provided toolbox, but first I would advise you to back up this example project. </p>
+                <p><br />
+                  <b>1)</b> The example project is located in the <i>Torque 3D Pro 1.1 \Examples</i> folder. Make a backup copy of the FPS Example folder by copying it to a backup folder. </p>
+                <p><br />
+                  <b>2)</b> Launch the T3D tool box. </p>
+                  <br>
+                  <p>(<i>click to enlarge</i>) </p>
+                <p>
+                  <a href="images/00.jpg" class="livethumbnail"><img src="images/00.jpg" width="340" height="264" largewidth="680" largeheight="528" /></a><br />
+                <p><br />
+                  <b>3)</b> Select the <i>Deathball Desert</i> game </p>
+                  <br>
+                  <p>(<i>click to enlarge</i>) </p>
+                <p>
+                  <a href="images/01.jpg" class="livethumbnail"><img src="images/01.jpg" width="340" height="265" largewidth="680" largeheight="531" /></a><br />
+                <p><br />
+                  <b>4)</b> Press the world edit button, this will launch the selected game for you with an open world editor. </p>
+                  <br>
+                  <p>(<i>click to enlarge</i>) </p>
+                <p>
+                  <a href="images/03.jpg" class="livethumbnail"><img src="images/03.jpg" width="340" height="265" largewidth="680" largeheight="531" /></a><br />
+                <p><br />
+                  <i><b>HINT:</b> If you are new to T3D, you can open the World Editor by toggling the F11 key from any game mode.</i> </p>
+                  <br>
+                  <p>(<i>click to enlarge</i>) </p>
+                <p>
+                  <a href="images/04.jpg" class="livethumbnail"><img src="images/04.jpg" width="340" height="238" largewidth="680" largeheight="477" /></a><br />
+                <a name="The_Datablock_Editor" id="The_Datablock_Editor"></a>
+                <br><h2> <span class="mw-headline">The Datablock Editor</span></h2>
+                <p>T3D's world editor provides a Datablock editor for changing the 
+                  behaviours of certain in game assets, and our player character has such a
+                  Datablock. </p>
+                <p><i>For more information on the Datablock editor, please refer to the Datablock Editor section in the T3D main document.</i> </p>
+                <p><br />
+                  <b>1)</b> First we need to open the Datablock Editor, from within the World Editor press the Datablock Editor icon in the main toolbar. </p>
+                <p><br />
+                  <img alt="File:05.jpg" src="images/05.jpg" border="0" height="31" width="474" /> </p>
+                <p><br />
+                  <b>2)</b> The datablock editor has 2 main parts, the Datablock library and the datablock properties. </p>
+                <br>
+                  <p>(<i>click to enlarge</i>) </p>
+                  <p>
+                  <a href="images/11.jpg" class="livethumbnail"><img src="images/11.jpg" width="275" height="167" largewidth="550" largeheight="334" /></a><br />
+                <a name="Player_Datablock" id="Player_Datablock"></a>
+                <h3> <span class="mw-headline">Player Datablock</span></h3>
+                <p><b>1)</b> At the top of the editor there is the option for creating a new Datablock, select the <i>new</i> tab </p>
+                <p><br />
+                  <img alt="File:06.jpg" src="images/06.jpg" border="0" height="321" width="247" /> </p>
+                <p><br />
+                  <b>2)</b> As we want to create a new player character, we must first select the <i>PlayerData</i> datablock type then press the "create new datablock" icon in the upper right hand corner of this list. </p>
+                <p><br />
+                  <img alt="File:07.jpg" src="images/07.jpg" border="0" height="321" width="243" /> </p>
+                <p><br />
+                  <b>3)</b> This will open a small panel, where we can name our new 
+                  datablock and choose to copy data from any of the pre-made PlayerData 
+                  blocks. These pre-made data templates will save you a lot of set up time
+                  when dealing with larger projects, providing consistent repeatable 
+                  traits to any in game object. </p>
+                <p>Name our new DataBlock; <i>myBoombot</i> and from the dropdown select <i>DefaultPlayerData</i> </p>
+                <p><br />
+                  <img alt="File:08.jpg" src="images/08.jpg" border="0" height="169" width="203" /> </p>
+                <p><br />
+                  When you have made the selection press the Create button. </p>
+                <p><br />
+                  <b>4)</b> Select the "Existing" Tab in the DataBlock editor to return to the main list. You will notice our new datablock <i>myBoombot</i> Is now part of the PlayerData section. </p>
+                <p><img alt="File:09.jpg" src="images/09.jpg" border="0" height="320" width="245" /> </p>
+                <p><br />
+                  <i><b>NOTE:</b> The little asterisk next to our datablock lets you know this datablock has not yet been saved.</i> </p>
+                <p><br />
+                  <b>5)</b> Saving our new datablock is easily done by pressing the save icon beneath this list, press the save icon to make a save. </p>
+                <p><br />
+                  <img alt="File:10.jpg" src="images/10.jpg" border="0" height="44" width="245" /> </p>
+                <a name="Player_Properties" id="Player_Properties"></a>
+                <br><h2> <span class="mw-headline">Player Properties</span></h2>
+                <p>We have created our character datablock and saved it, now it is time 
+                  to give our new datablock some customizing so we have a unique 
+                  character. </p>
+                <p>The datablock Editor provides a property panel where we can 
+                  change many different parameters to shape the way our character will 
+                  perform. If you scroll through the property panel you will see the many 
+                  available parameters that can be changed. </p>
+                <br>
+                  <p>(<i>click to enlarge</i>) </p>
+                <a href="images/12.1.jpg" class="livethumbnail"><img src="images/12.1.jpg" width="244" height="499" largewidth="488" largeheight="999" /></a><br />
+                <br>
+                  <p>(<i>click to enlarge</i>) </p>
+                <a href="images/12.2.jpg" class="livethumbnail"><img src="images/12.2.jpg" width="240" height="436" largewidth="480" largeheight="872" /></a><br />
+                </p>
+                <p>As you can see from the above images, T3D provides a vast array of parameters for you to customize your characters. </p>
+                <p><br />
+                  <i><b>NOTE:</b> The new Character datablock will not take effect until we edit the spawning point and restart the mission.</i> </p>
+                <a name="Change_the_Character_Model" id="Change_the_Character_Model"></a>
+                <h3> <span class="mw-headline">Change the Character Model</span></h3>
+                <p>We are going to make a few changes to the player properties but it 
+                  would be great to get instant feedback as we make these changes. To do 
+                  this our game needs to reference our new player datablock when the 
+                  player is spawned. </p>
+                <p><br />
+                  Before we continue with the spawning, we need to make one quick edit; Change the mesh to the Boombot model. </p>
+                <p><br />
+                  <b>1)</b> With <i>myBoombot</i> datablock selected in the datablock list, scroll down through the properties until you find the <i>Render</i> section. </p>
+                <p>Change the <i>shapeFile</i> property to point to the location of the Boombot model.
+                  Click on the [...] button to open the file browser. </p>
+                <p><br />
+                  <img alt="File:13.jpg" src="images/13.jpg" border="0" height="185" width="293" /> </p>
+                <p><br />
+                  Locate the file <i>FPS Example\game\art\shapes\actors\BoomBot\BoomBot.dts</i> and press Ok </p>
+                <p><br />
+                  <b>2)</b> Now we have a new mesh press the save datablock button </p>
+                <p><br />
+                  <img alt="File:10.jpg" src="images/10.jpg" border="0" height="44" width="245" /> </p>
+                <p><b>3)</b> Next make a save of the level by using the main menu<i> File&gt;SaveLevel</i> </p>
+                <a name="Spawning" id="Spawning"></a>
+                <br><h2> <span class="mw-headline">Spawning</span></h2>
+                <p>Before we can play with our new character datablock, we need to make 
+                  it the current player. This is done by editing the spawn sphere so that 
+                  when the game loads it will spawn a player using our new datablock. </p>
+                <p><br />
+                  <b>1)</b> Select the Object editor icon from the main tool bar to open the scene tree. </p>
+                <p><br />
+                  <img alt="File:14.jpg" src="images/14.jpg" border="0" height="32" width="472" /> </p>
+                <p><br />
+                  <b>2)</b> Inside the <i>PlayerDropPoints</i> folder, delete all but the top spawn sphere. </p>
+                <p><br />
+                  <i><b>HINT:</b> To delete you can either use RMB context menu on the selected item or alternatively press the delete key.</i> </p>
+                <p><br />
+                  <img alt="File:15.jpg" src="images/15.jpg" border="0" height="242" width="207" /> </p>
+                <p><br />
+                  <b>3)</b> Select the remaining Spawn Sphere and in the properties, change the section <i>Spawn&gt;spawnDataBlock</i> property to our new datablock;<i> myBoombot</i> </p>
+                <p><br />
+                  <img alt="File:16.jpg" src="images/16.jpg" border="0" height="112" width="228" /> </p>
+                <p><br />
+                  <b>4)</b> Make a save of the level. </p>
+                <p><br />
+                  <b>5)</b> Exit and re-open the level. </p>
+                <p><br />
+                  <img alt="File:17.jpg" src="images/17.jpg" border="0" height="427" width="353" /> </p>
+                <p><br />
+                  <i><b>HINT:</b> You can also exit the level by pressing the ESC key</i> </p>
+                <p><br />
+                  <b>6)</b> Press Tab to go into 3rd person mode and you will see the Boombot model as your player character. </p>
+                  <br>
+                  <p>(<i>click to enlarge</i>) </p>
+                <p>
+                  <a href="images/18.jpg" class="livethumbnail"><img src="images/18.jpg" width="340" height="263" largewidth="680" largeheight="526" /></a><br />
+                <p><br />
+                  It is now time to make a few changes to our character. We want to give 
+                  our new character some enhanced performance, a faster movement speed, a 
+                  power jump and a better 3rd person camera view! </p>
+                <a name="customizing_our_Character" id="customizing_our_Character"></a>
+                <br><h2> <span class="mw-headline">Customizing our Character</span></h2>
+                <p>First we will change some of the camera settings. </p>
+                <p><br />
+                  <b>1)</b> Open the world editor if you have not done so already, press F11 </p>
+                <p><br />
+                  <b>2)</b> Open the datablock editor and select our new datablock; <i>myBoombot</i> datablock from the library list. </p>
+                <a name="Custom_3rd_Person_Camera" id="Custom_3rd_Person_Camera"></a>
+                <h3> <span class="mw-headline">Custom 3rd Person Camera</span></h3>
+                <p><b>1)</b> Set your camera mode to 3rd person mode. </p>
+                <p><br />
+                  <img alt="File:19.jpg" src="images/19.jpg" border="0" height="243" width="359" /> </p>
+                <p><br />
+                  <i><b>HINT:</b> you can toggle the cameras in the world editing mode by pressing ALT + C</i> </p>
+                <p><br />
+                  <b>2)</b> From the properties locate the camera section; here you will 
+                  find many parameters for changing the way the camera will perform whilst
+                  using our myBoombot datablock. We want to move our camera further away 
+                  from the character and adjust the free look angle for use in the vanity 
+                  view. </p>
+                <p><br />
+                  <i>Camera&gt;cameraMaxDist to equal 5</i> </p>
+                <p><i>Camera&gt;maxFreelookAngle to equal 4</i> </p>
+                <p><br />
+                  <img alt="File:21.jpg" src="images/21.jpg" border="0" height="239" width="207" /> </p>
+                <p><br />
+                  <b>3)</b> Make a save of the datablock by pressing the datablock save icon. </p>
+                <p><br />
+                  <b>4)</b> Try it now; press and hold the V key whilst moving the mouse view. Now when you move the camera it will orbit the player. </p>
+                  <br>
+                  <p>(<i>click to enlarge</i>) </p>
+                <p>
+                  <a href="images/20.jpg" class="livethumbnail"><img src="images/20.jpg" width="340" height="263" largewidth="680" largeheight="526" /></a><br />
+                <a name="Power_up_our_Character" id="Power_up_our_Character"></a>
+                <h3> <span class="mw-headline">Power up our Character</span></h3>
+                <p>Let us give our character a powerful jump and a faster movement speed. </p>
+                <p><br />
+                  <b>1)</b> Look in the myBoombot datablock properties for the <i>Movement: Jumping section</i>, and make the following changes: </p>
+                <p><i>JumpForce to equal 300</i> </p>
+                <p><i>jumpDelay to equal 1</i> </p>
+                <p><br />
+                  <img alt="File:22.jpg" src="images/22.jpg" border="0" height="183" width="205" /> </p>
+                <p><br />
+                  <b>2)</b> Make a save of the myBoombot datablock. </p>
+                <p><br />
+                  <b>3)</b> Try it now, Press the space bar to jump </p>
+                <p><br />
+                  <b>4)</b> You may notice that when we land from a jump we get the player
+                  damaged, camera shake.  To prevent the player from receiving damage 
+                  when jumping we need to edit the <i>Interaction: Ground Impact</i> section. </p>
+                <p><br />
+                  <i>groundImpactMinSpeed to equal 200</i> </p>
+                <p><br />
+                  <img alt="File:23.jpg" src="images/23.jpg" border="0" height="112" width="204" /> </p>
+                <p><br />
+                  <i><b>NOTE:</b> this value will also affect any falling damage, not just from jumping. </i> </p>
+                <p><br />
+                  <b>5)</b> Now time to give our character enhanced speed. Look for the Movement: section and make the following change: </p>
+                <p><br />
+                  <i>Movement: maxForwardSpeed to equal 20</i> </p>
+                <p><br />
+                  <img alt="File:24.jpg" src="images/24.jpg" border="0" height="293" width="206" /> </p>
+                <a name="Activate_Weapons" id="Activate_Weapons"></a>
+                <h3> <span class="mw-headline">Activate Weapons</span></h3>
+                <p>If you have tried to shoot using our new character, you will have 
+                  noticed that the weapons are not working. We need to provide myBoombot 
+                  with an inventory item; our weapon and some ammo. </p>
+                <p><br />
+                  <b>1)</b> Located at the bottom of the properties panel you will find 
+                  the Dynamic fields section. In this section we need to provide the 
+                  inventory weapon item property and the inventory ammo property. </p>
+                <p>The following image show the fields present in the default player datablock. </p>
+                <p><br />
+                  <img alt="File:25.jpg" src="images/25.jpg" border="0" height="321" width="446" /> </p>
+                <p><br />
+                  <b>2)</b> In the Dynamic Fields section, press the green plus icon to add a new field. </p>
+                <p><br />
+                  <img alt="File:26.jpg" src="images/26.jpg" border="0" height="41" width="205" /> </p>
+                <p>This adds an empty property field. </p>
+                <p><img alt="File:27.jpg" src="images/27.jpg" border="0" height="41" width="198" /> </p>
+                <p><br />
+                  <b>3)</b> Add a second property field by pressing the plus button again and edit the contents to match the following image: </p>
+                <p><i>maxInvRocketLauncher to value 1</i> </p>
+                <p><i>maxInvRocketLauncherAmmo to value 500</i> </p>
+                <p><br />
+                  <img alt="File:28.jpg" src="images/28.jpg" border="0" height="86" width="282" /> </p>
+                <p><br />
+                  <i><b>HINT:</b> if you need to remove an entry press the delete entry icon</i> </p>
+                <p><br />
+                  <img alt="File:29.jpg" src="images/29.jpg" border="0" height="86" width="282" /> </p>
+                <p><br />
+                  <b>4)</b> Make a save of <i>myBoombot</i> datablock and also make a save of the level. </p>
+                <p><br />
+                  <b>5)</b> To get the new dynamic fields up and running you will need to 
+                  close and re-open the level. Once you have loaded your level your player
+                  character will be armed and dangerous. </p>
+                  <br>
+                  <p>(<i>click to enlarge</i>) </p>
+                <p>
+                  <a href="images/31.jpg" class="livethumbnail"><img src="images/31.jpg" width="340" height="228" largewidth="680" largeheight="456" /></a><br />
+                <a name="Conclusion" id="Conclusion"></a>
+                <br><h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>In this tutorial we have looked at each of the steps involved in 
+                  creating a new custom character, from how to change the mesh associated 
+                  with the custom datablock, to how this new datablock can be spawned as 
+                  the player character. </p><br>
+                <p>There are many available properties that have a direct effect 
+                  upon how the new character will interact with the game environment, 
+                  experiment and play with some of these other settings to learn how they 
+                  affect the player's abilities. </p>
+                <p><br />
+                  As always, remember to make regular saves and most of all have fun!</p></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

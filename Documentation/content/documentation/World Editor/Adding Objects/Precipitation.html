@@ -1,0 +1,225 @@
+<html>
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 72;
+   parent.leftFrame.expandToItem('tree2', 'doc72');
+   var element = parent.leftFrame.document.getElementById('doc72');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D - Precipitation</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_WorldEditor_Precipitation skin-monobook">
+<script type="text/javascript" src="../../../include/wz_tooltip.js"></script>
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2></div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Adding_Precipitation"><span class="tocnumber">2</span> <span class="toctext">Adding Precipitation</span></a></li>
+                          <li class="toclevel-1"><a href="#Precipitation_Properties"><span class="tocnumber">3</span> <span class="toctext">Precipitation Properties</span></a></li>
+                          <li class="toclevel-1"><a href="#PrecipitationData_Properties"><span class="tocnumber">4</span> <span class="toctext">PrecipitationData Properties</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">5</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p>The Torque 3D World Editor allows you to quickly add different types
+                  of precipitation to your level. However, Precipitation is used as a general term meaning any type of particle moving downward. The ability to quickly add rain, snow, or even a sandstorm to your
+                  level is built into the editor. <br />
+                  <a name="Adding_Precipitation" id="Adding_Precipitation"></a>                </p>
+                <h2> <span class="mw-headline">Adding Precipitation</span></h2>
+                <p>To add Precipitation to a level, switch to the Library tab in the Scene Tree panel. Click on the Level tab amd double-click the Environment folder. Locate the Precipitation entry. </p>
+                <p><br />
+                  <img alt="Image:PrecipLibrary.jpg" src="images/PrecipLibrary.jpg" border="0" height="322" width="209" /> </p>
+                <p><br />
+                Double-click the Precipitation entry.The Create Object dialog will appear.</p>
+                <p><br />
+                  <img alt="Image:NamePrecipRain.jpg" src="images/NamePrecipRain.jpg" border="0" height="115" width="256" /> </p>
+                <p><br />
+                Enter a name for your Precipitation object. The Precipitation data field allows you to choose a datablock to start with as the basis for your new object. Click the drop down box for a list of available datablocks. </p>
+                <p><br />
+                  <img alt="Image:UseHeavyRainDB.jpg" src="images/UseHeavyRainDB.jpg" border="0" height="115" width="257" /> </p>
+                <p><br />For the Full template, your only choice is <em>HeavyRain</em> so select it then click Create New. Your new Precipitation object will be added to your level, and rain will start falling automatically. The stock datablock for HeavyRain simulates a light shower, so you may not see much rain falling: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/PrecipAdded.jpg" class="livethumbnail"><img src="images/PrecipAdded.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  The <i>HeavyRain</i> datablock is located in the <b>game/art/datablocks/environment.cs</b> file. Its initial data contains the following: </p>
+                <pre>datablock PrecipitationData(HeavyRain)
+{
+   soundProfile = "HeavyRainSound";
+
+   dropTexture = "art/environment/precipitation/rain";
+   splashTexture = "art/environment/precipitation/water_splash";
+   dropSize = 0.35;
+   splashSize = 0.1;
+   useTrueBillboards = false;
+   splashMS = 500;
+};
+</pre>
+                <p><br />
+                  We will get into manipulating the datablock later.</p>
+                <br>
+                <a name="Precipitation_Properties" id="Precipitation_Properties"></a>
+                <h2> <span class="mw-headline">Precipitation Properties</span></h2>
+                <p><br />Additional properties can be changed with the Inspector pane. To change a Precipitation objects properties using the Inspector Pane click the Scene tab, then click the name of your new Precipitation object. The Inspector pane will update to display the current properties of your new sun.</p>
+                <p>Hover over each section in the image below to see a description of the fields within it:</p>
+                <p><br /><img src="images/PrecipitationName.jpg" width="192" border="0" height="80" onMouseOver="Tip('<strong>name</strong>: <i>TypeName</i>. Optional global name of this object.<br><br><strong>id</strong> : <i>TypeCaseString</i>. SimObjectId of this object. Read Only.<br><br><strong>Source Class</strong> : <i>TypeCaseString</i>. Source code class of this object. Read Only.', WIDTH, 450)" onMouseOut="UnTip()" > <br />
+                  <img src="images/PrecipitationTransform.jpg" width="192" border="0" height="76" onMouseOver="Tip('<strong>position</strong>: <i>MatrixPosition</i>. Object world position.<br><br><strong>rotation</strong> : <i>MatrixOrientation</i>. Object world orientation.<br><br><strong>scale</strong> : <i>Point3F</i>. Object world scale.', WIDTH, 450)" onMouseOut="UnTip()" > <br />
+                  <img src="images/PrecipitationGeneral.jpg" width="192" border="0" height="75" onMouseOver="Tip('<strong>numDrops</strong>: <i>TypeS32</i>. Number of drops allowed to exists in the precipitation box at any one time.<br><br><strong>boxWidth</strong> : <i>TypeF32</i>. Width of precipitation box.<br><br><strong>boxHeight</strong> : <i>TypeF32</i>. Height of precipitation box.', WIDTH, 450)" onMouseOut="UnTip()" > <br />
+                  <img src="images/PrecipitationRendering.jpg" width="192" border="0" height="237" onMouseOver="Tip('<strong>dropSize</strong>: <i>TypeF32</i>. Size of each drop of precipitation. This will scale the texture.<br><br><strong>splashSize</strong> : <i>TypeF32</i>. Size of each splash animation for when a drop collides.<br><br><strong>splashMS</strong> : <i>TypeS32</i>. Life of splashes in milliseconds.<br><br><strong>animateSplashes</strong> : <i>TypeS32</i>. Check to enable splash animation on collision.<br><br><strong>dropAnimateMS</strong> : <i>TypeS32</i>. If greater than zero, will animate the drops from the frames in the texture.<br><br><strong>fadeDist</strong> : <i>TypeF32</i>. The distance at which fading of the drops begins.<br><br><strong>fadeDistEnd</strong> : <i>TypeF32</i>. The distance at which fading of the particles ends.<br><br><strong>useTrueBillboards</strong> : <i>TypeBool</i>. Check to make drops true (non axis-aligned) billboards.<br><br><strong>useLighting</strong> : <i>TypeBool</i>. Check to enable shading of the drops and splashes by the sun color.<br><br><strong>glowIntensity</strong> : <i>TypeColorF</i>. Set to 0 to disable the glow or or use it to control the intensity of each channel.<br><br><strong>reflect</strong> : <i>TypeBool</i>. This enables the precipitation to be rendered during reflection passes. This is expensive.<br><br><strong>rotateWithCamVel</strong> : <i>TypeBool</i>. Enables drops to rotate to face camera.', WIDTH, 450)" onMouseOut="UnTip()" > <br />
+                  <img src="images/PrecipitationCollision.jpg" width="192" border="0" height="75" onMouseOver="Tip('<strong>doCollision</strong>: <i>TypeBool</i>. Allow collision with world objects.<br><br><strong>hitPlayers</strong> : <i>TypeBool</i>. Allow collision on player objects.<br><br><strong>hitVehicles</strong> : <i>TypeBool</i>. Allow collision on vechiles.', WIDTH, 450)" onMouseOut="UnTip()" > <br />
+                  <img src="images/PrecipitationMovement.jpg" width="192" border="0" height="129" onMouseOver="Tip('<strong>followCam</strong>: <i>TypeBool</i>. Enables system to follow the camera or stay where it is placed.<br><br><strong>useWind</strong> : <i>TypeBool</i>. Check to have the Sky property windSpeed affect precipitation.<br><br><strong>minSpeed</strong> : <i>TypeF32</i>. Minimum speed that a drop will fall.<br><br><strong>maxSpeed</strong> : <i>TypeF32</i>. Maximum speed that a drop will fall.<br><br><strong>minMass</strong> : <i>TypeF32</i>. Minimum mass of a drop.<br><br><strong>mMaxMass</strong> : <i>TypeF32</i>. Maximum mass of a drop.', WIDTH, 450)" onMouseOut="UnTip()" > <br />
+                  <img src="images/PrecipitationTurbulence.jpg" width="192" border="0" height="75" onMouseOver="Tip('<strong>useTurbulence</strong>: <i>TypeBool</i>. Check to enable turubulence. This causes precipitation drops to spiral while falling.<br><br><strong>maxTurbulence</strong> : <i>TypeF32</i>. Radius at which precipitation drops spiral when turbulence is enabled.<br><br><strong>turbulenceSpeed</strong> : <i>TypeF32</i>. Speed at which precipitation drops spiral when turbulence is enabled.', WIDTH, 450)" onMouseOut="UnTip()" > <br />
+                  <img src="images/PrecipitationMisc.jpg" width="192" border="0" height="75" onMouseOver="Tip('<strong>nameTag</strong>: <i>TypeCaseString</i>. Name of the precipitation box.<br><br><strong>dataBlock</strong> : <i>TypeGameBaseDataPtr</i>. Script datablock used for game objects.<br><br><strong>isRenderEnabled</strong> : <i>TypeBool</i>. Only render if true (and if class is render-enabled, too).', WIDTH, 450)" onMouseOut="UnTip()" > <br />
+                  <img src="images/PrecipitationSimbase.jpg" width="192" border="0" height="75" onMouseOver="Tip('<strong>canSaveDynamicFields</strong>: <i>typeBool</i>. True if dynamic fields (added at runtime) should be saved, defaults to true.<br><br><strong>internalName</strong> : <i>TypeString</i>. Non-unique name used by child objects of a group.<br><br><strong>parentGroup</strong> : <i>TypeString</i>. Group object belongs to.', WIDTH, 450)" onMouseOut="UnTip()" /><br />
+                  <img src="images/PrecipitationNamespace.jpg" width="192" border="0" height="75" onMouseOver="Tip('<strong>superClass</strong>: <i>TypeString</i>. Links object to script super class (parent) namespace.<br><br><strong>class</strong>: <i>TypeString</i>. Links object to script class namespace.<br><br><strong>className</strong>: <i>TypeString</i>. Legacy version of class field.<br><br>', WIDTH, 450)" onMouseOut="UnTip()" ><br />
+                  <img src="images/PrecipitationDynamic.jpg" width="192" border="0" height="92" onMouseOver="Tip('<strong>(n/a)</strong>: <i>*</i>. No stock dynamic values.', WIDTH, 450)" onMouseOut="UnTip()" > <br />
+                </p>
+                <br>
+                <a name="PrecipitationData_Properties" id="PrecipitationData_Properties"></a>
+                <h2> <span class="mw-headline">PrecipitationData Properties</span></h2>
+                <p>When you add a Precipitation object to a level from the Library, you are adding the actual 
+                    precipitation object. In order for the object to work however it must be assigned a datablock. Datablocks have their own set of properties which are transmitted over a server to each client. When creating or editing a PrecipitationData datablock, you will be modifying the following properties: </p>
+                <p><br />
+                  <i>(hover over image for descriptions</i> </p>
+                <img src="images/DBBaseProp.jpg" width="223" border="0" height="99" onMouseOver="Tip('<strong>name</strong>: <i>TypeCaseString</i>. Datablock name.<br><br><strong>Id</strong> : <i>SimObjectId</i>. SimObjectId of this object. Read Only.<br><br><strong>Source Class</strong> : <i>const char *</i>. Source code class of this object. Read Only.', WIDTH, 450)" onMouseOut="UnTip()" > <br />
+                  <img src="images/DBGenProp.jpg" width="223" border="0" height="165" onMouseOver="Tip('<strong>soundProfile</strong>: <i>TypeSFXTrackName</i>. A datablock that describes sound data for playback.<br><br><strong>dropTexture</strong> : <i>TypeFilename</i>. Texture filename for drop particles.<br><br><strong>dropShader</strong> : <i>TypeString</i>. The name of the shader used for raindrops.<br><br><strong>splashTexture</strong> : <i>TypeFilename</i>. Texture filename for splash particles.<br><br><strong>splashShader</strong> : <i>TypeString</i>. The name of the shader used for rain splash.<br><br><strong>dropsPerSide</strong> : <i>TypeS32</i>. How many drops are on a side of the raindrop texture.<br><br><strong>splashesPerSide</strong> : <i>TypeS32</i>. How many splash are on a side of the splash texture.<br><br><strong>category</strong> : <i>TypeCaseString</i>. Used by the Creator in the editor to classify creatable shapes.', WIDTH, 450)" onMouseOut="UnTip()" > <br />
+                  <img src="images/DBSimBase.jpg" width="223" border="0" height="75" onMouseOver="Tip('<strong>canSaveDynamicFields</strong>: <i>typeBool</i>. True if dynamic fields (added at runtime) should be saved, defaults to true.<br><br><strong>internalName</strong> : <i>TypeString</i>. Non-unique name used by child objects of a group.<br><br><strong>parentGroup</strong> : <i>TypeString</i>. Group object belongs to.', WIDTH, 450)" onMouseOut="UnTip()" /><br />
+                  <img src="images/DBNameSpace.jpg" width="223" border="0" height="75" onMouseOver="Tip('<strong>superClass</strong>: <i>TypeString</i>. Links object to script super class (parent) namespace.<br><br><strong>class</strong>: <i>TypeString</i>. Links object to script class namespace.<br><br><strong>className</strong>: <i>TypeString</i>. Legacy version of class field.<br><br>', WIDTH, 450)" onMouseOut="UnTip()" ><br />
+                  <img src="images/DBDynamic.jpg" width="223" border="0" height="57" onMouseOver="Tip('<strong>(n/a)</strong>: <i>*</i>. No stock dynamic values.', WIDTH, 450)" onMouseOut="UnTip()" > <br />
+                </p>
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>Of all the objects you can add to a level, Precipitation has the
+                  widest range of applications. Remember, this object is not limited to
+                   rain. Anything that can fall from the sky or float in the air over
+                  large areas can be simulated with Precipitation: snow, sandstorms,
+                  falling ash and rock, fireflies, and so on. Take the time to experiment
+                  with this to see what you can come up with.</p>
+                </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

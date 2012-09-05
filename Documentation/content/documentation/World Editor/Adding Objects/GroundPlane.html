@@ -1,0 +1,237 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 71;
+   parent.leftFrame.expandToItem('tree2', 'doc71');
+   var element = parent.leftFrame.document.getElementById('doc71');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D World Editor - GroundPlane</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_WorldEditor_GroundPlane skin-monobook">
+<script type="text/javascript" src="../../../include/wz_tooltip.js"></script>
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Adding_A_GroundPlane"><span class="tocnumber">2</span> <span class="toctext">Adding A GroundPlane</span></a></li>
+                          <li class="toclevel-1"><a href="#GroundPlane_Properties"><span class="tocnumber">3</span> <span class="toctext">GroundPlane Properties</span></a></li>
+                          <li class="toclevel-1"><a href="#Modifying_Scale"><span class="tocnumber">4</span> <span class="toctext">Modifying Scale</span></a></li>
+                          <li class="toclevel-1"><a href="#Changing_Material"><span class="tocnumber">5</span> <span class="toctext">Changing Material</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">6</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p>The GroundPlane object provides you with a solid piece of geometry that acts as floor for a level, while avoiding the use of a terrain object or big plane mesh. You can assign a material to the GroundPlane so that it has a unique appearance. Unlike terrain, a GroundPlane cannot be manipulated like a normal ground surface raising or lowering areas of it.  </p>
+                <p><br />
+                From a practical perspective, the GroundPlane object is most useful for creating prototype missions or experimenting with models or other objects. An example would be creating a demo to show a model or material, when you do not care about the surface you are displaying them on. This type of situation only requires a flat surface within the level to drop them on. A GroundPlane object is a perfect candidate to supply that surface. For actual game play levels, you will most likely want to use a TerrainBlock.  </p><br />
+                <a name="Adding_A_GroundPlane" id="Adding_A_GroundPlane"></a>
+                <h2> <span class="mw-headline">Adding A GroundPlane</span></h2>
+                <p>To add a GroundPlane to a level, switch to the Object Editor tool and select the Library tab. Click on the Level tab. Double-click the Environment folder and locate the GroundPlane entry.</p><br />
+                <p><img alt="Image:Library_GroundPlane.jpg" src="images/Library_GroundPlane.jpg" border="0" width="239" height="324" /> </p><br />
+                <p><img alt="Image:NewGroundPlane.jpg" src="images/NewGroundPlane.jpg" border="0" width="256" height="115" /> </p>
+                <p><br />
+                Double-click the GroundPlane entry. A new GroundPlane will automatically be added to your scene. A "no material" orange texture will be applied. </p>
+                <p>(<i>click to enlarge</i>) </p>
+                <a href="images/GroundPlaneAdded.jpg" class="livethumbnail"><img src="images/GroundPlaneAdded.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />"
+                <a name="GroundPlane_Properties" id="GroundPlane_Properties"></a>
+                <h2> <span class="mw-headline">GroundPlane Properties</span></h2>
+                <p><br />Properties can be changed with the Inspector pane. To change a GroundPlanes properties using the Inspector Pane click the Scene tab, then click the name of your new Ground Plane object. The Inspector pane will update to display the current properties of your new Ground Plane.</p>
+
+                <p><br /><b>Name:</b> <i>TypeName</i>. Optional global name of this object.</p>
+                <p><br /><b>id:</b> <i>TypeCaseString</i>. SimObjectId of this object. Read Only.</p>
+                <p><br /><b>Source Class:</b> <i>TypeCaseString</i>. Source code class of this object. Read Only.</p>
+                <h4>Plane</h4>
+                <p><br /><b>squareSize:</b> <i>F32</i>. World units per grid cell edge.</p>
+                <p><br /><b>scaleU:</b> <i>F32</i>. Scale factor for U texture coordinates.</p>
+                <p><br /><b>scaleV:</b> <i>F32</i>. Scale factor for V texture coordinates.</p>
+                <p><br /><b>Material:</b> <i>TypeMaterialName</i>. Instantiated material based on given material name.</p>
+                <h4>Editing</h4>
+                <p><br /><b>isRenderEnabled:</b> <i>TypeBool</i>. Toggles whether the object is rendered.</p>
+                <p><br /><b>isSelectionEnabled:</b> <i>TypeBool</i>. Toggles whether the object is selectable in the editor.</p>
+                <p><br /><b>hidden:</b> <i>TypeBool</i>. Toggles whether the object is visible.</p>
+                <p><br /><b>locked:</b> <i>TypeBool</i>. Toggles whether the object is editable.</p>
+                <h4>Mounting</h4>
+                <p><br /><b>mountPID:</b> <i>TypeName</i>. PersistentID of the object we are mounted to. </p>
+                <p><br /><b>mountNode:</b> <i>TypeName</i>. Node object is mounted to.</p>
+                <p><br /><b>mountPos:</b> <i>TypeName</i>. Position in relation to the mounted node.</p>
+                <p><br /><b>mountRot:</b> <i>TypeName</i>. Rotation in relation to the mounted node.</p>
+                <h4>Object</h4>
+                <p><br /><b>internalName:</b> <i>typeString</i>. Non-unique name used by child objects of a group.</p>
+                <p><br /><b>parentGroup:</b> <i>typeString</i>. Group object belongs to.</p>
+                <p><br /><b>class:</b> <i>TypeString</i>. Links object to a script class namepsace.</p>
+                <p><br /><b>superClass:</b> <i>TypeString</i>. Links object to a script super class (parent) namespace.</p>
+                <h4>Persistence</h4>
+                <p><br /><b>canSave:</b> <i>TypeName</i>. Optional global name of this object.</p>
+                <p><br /><b>canSaveDynamicFields:</b> <i>typeBool</i>. True if dynamic fields (added at runtime) should be saved, defaults to true.</p>
+                <p><br /><b>persistentId:</b> <i>TypeName</i>. Optional global name of this object.</p>
+
+
+                <p><br /><img src="images/GroundPlaneInspector.png" height="712" width="212" /></p>
+                <a name="Modifying_Scale" id="Modifying_Scale"></a>
+                <h2> <span class="mw-headline">Modifying Scale</span></h2>
+                <p>The material currently displayed on the object
+                  is a general warning texture: </p>
+                <p><img alt="Image:warnMat.png" src="images/WarnMat.png" border="0" width="256" height="256" /> </p>
+                <p><br />
+                  You can change the way this material is tiled across the
+                  plane by adjusting the square size and UV scale. Scroll through the
+                  properties until you get to the Plane set. </p>
+                <p><br />
+                  <img alt="Image:GPPlaneProperties.jpg" src="images/GPPlaneProperties.jpg" border="0" width="195" height="99" /> </p>
+                <p><br />
+                  Start by observing the squareSize. At 256, you will notice
+                  that each tile is large and stretching the material further. We can
+                  push more tiles per meter with tighter UV
+                  scaling. Set the squareSize to 128, then set scaleU and scaleV to 2. </p><br />
+                <p><img alt="Image:HigherUV.jpg" src="images/HigherUV.jpg" border="0" width="196" height="98" /> </p>
+                <p><br />
+                  The words on the material are much closer and appear to have been shrunken. </p>
+                <p>(<i>click to enlarge</i>) </p>
+                <a href="images/FinalUV.jpg" class="livethumbnail"><img src="images/FinalUV.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />"
+                <a name="Changing_Material" id="Changing_Material"></a>
+                <h2> <span class="mw-headline">Changing Material</span></h2>
+                <p>The warning material is a bit of an eyesore, so we will change that now. Click on the Material property in the Plane section of properties to bring up a list of available materials. </p>
+                <p>(<i>click to enlarge</i>) </p>
+                <a href="images/MaterialMenu.jpg" class="livethumbnail"><img src="images/MaterialMenu.jpg" width="320" height="230" largewidth="640" largeheight="460" /></a><br />
+                <p><br />Select a material then click the Select button. Your GroundPlane will automatically be updated to use the new material you have selected.</p>
+                <br />
+                <p>(<i>click to enlarge</i>) </p>
+                <a href="images/NewMaterialAdded1.jpg" class="livethumbnail"><img src="images/NewMaterialAdded1.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />"
+                <p><br />
+                  That is the extent of your control over the material
+                  displayed on a GroundPlane. If you are using an extremely large
+                  texture, you could increase the squareSize and UV scale to make the
+                  tiling less blatant. </p><br />
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>In this article, we covered the creation of a GroundPlane and how to modify it to work for your level. Remember that while it is useful for prototypes and very niche games, you will want to consider using Torques Terrain objects as a final solution for your ground. </p>
+                  </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

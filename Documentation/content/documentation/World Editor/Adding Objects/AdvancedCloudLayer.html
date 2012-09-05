@@ -1,0 +1,270 @@
+<html>
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 68;
+   parent.leftFrame.expandToItem('tree2', 'doc68');
+   var element = parent.leftFrame.document.getElementById('doc68');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D - Advanced Clouds</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_WorldEditor_AdvancedCloudLayer skin-monobook">
+<script type="text/javascript" src="../../../include/wz_tooltip.js"></script>
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2></div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Adding"><span class="tocnumber">2</span> <span class="toctext">Adding</span></a></li>
+                          <li class="toclevel-1"><a href="#Properties"><span class="tocnumber">3</span> <span class="toctext">Properties</span></a></li>
+                          <li class="toclevel-1"><a href="#Cloud_Layers"><span class="tocnumber">4</span> <span class="toctext">Cloud Layers</span></a></li>
+                          <li class="toclevel-1"><a href="#Editing_Cloud_Texture"><span class="tocnumber">5</span> <span class="toctext">Editing Cloud Texture</span></a></li>
+                          <li class="toclevel-1"><a href="#Regarding_Movement"><span class="tocnumber">6</span> <span class="toctext">Regarding Movement</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">7</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p>Once you have decided on your level's sky, whether it's a Sky Box or Scatter Sky, you can continue to customize the scene with clouds. There are two cloud objects you can choose between. This guide covers the Cloud Layer object. </p>
+                <p><br />
+                  The Cloud Layer object uses the material system and procedurally generates clouds in the atmosphere. This cloud layer is extremely powerful and flexible. For the most realistic simulation of an atmosphere, the Cloud Layer is highly recommended.  </p>
+                <a name="Adding" id="Adding"></a>
+                <h2> <span class="mw-headline">Adding a Cloud Layer</span></h2>
+                <p>To add a Cloud Layer object,  select the Library tab in the Scene Tree panel. Click on the Level tab and double-click the Environment folder.  Locate the Cloud Layer entry: </p>
+                <p><br />
+                  <img alt="Image:AdvCloudLibrary.jpg" src="images/AdvCloudLibrary.jpg" border="0" height="324" width="211" /> </p>
+                <p><br />
+                  Double-click the Cloud Layer entry. The Create Object dialog box will appear: </p>
+                <p><br />
+                  <img alt="Image:CreateAdvCloud.jpg" src="images/CreateAdvCloud.jpg" border="0" height="115" width="256" /> </p>
+                <p><br />
+                  Enter a name for your Cloud Layer object then click the Create New button. A Cloud Layer object will be added to your level. The three procedural cloud layers generated by the Cloud Layer object will be rendering and moving across the sky slowly: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/AdvCloudAdded.jpg" class="livethumbnail"><img src="images/AdvCloudAdded.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  <br />
+                  At any time you can toggle the visibility of the cloud layer by locating the isRenderEnabled field under the 
+                    Editing properties: </p>
+                <p><br />
+                  <img alt="Image:ToggleBasicCloudRender.jpg" src="images/ToggleBasicCloudRender.jpg" border="0" height="92" width="187" /> </p>
+                <p><br />
+                  When you toggle this property, the clouds will render according to the status of the check box: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/BCRenderDisable.jpg" class="livethumbnail"><img src="images/BCRenderDisable.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  <br>
+                  <a name="Properties" id="Properties"></a>                </p>
+                <h2> <span class="mw-headline">Cloud Layer Properties</span></h2>
+                <p><br />
+                Additional properties can be changed with the Inspector pane. To change a Cloud Layers properties using the Inspector Pane, click the Scene tab, and then click the name of your new Cloud Layer object. The Inspector pane will update to display the current properties of your new sun.</p>
+                  <p><br /><img src="images/AdvCloudInspector.png" height="707" width="212" /></p>
+                  <h4>Inspector</h4>
+                  <p><br /><b>Name:</b> <i>TypeName</i>. Optional global name of this object.</p>
+                  <p><b>id:</b> <i>TypeCaseString</i>. SimObjectId of this object. Read Only.</p>
+                  <p><b>Source Class:</b> <i>TypeCaseString</i>. Source code class of this object. Read Only.</p>
+                  <h4>Transform</h4>
+                  <p><b>position:</b> <i>MatrixPosition</i>. Object world position.</p>
+                  <p><b>rotation:</b> <i>MatrixOrientation</i>. Object world orientation.</p>
+                  <p><b>scale:</b> <i>Point3F</i>. Object world scale.</p>
+                  <h4>CloudLayer</h4>
+                  <p><b>texture:</b> <i>TypeImageFilename</i>. An RGBA texture which should contain normals and opacity/height.</p>
+                  <p><b>baseColor:</b> <i>TypeColorF</i>. Base cloud color.</p>
+                  <p><b>exposure:</b> Brightness scale so CloudLayer can be overblown if desired.</p>
+                  <p><b>coverage:</b> <i>TypeF32</i>. Fraction of sky covered by clouds 0 to 1.</p>
+                  <p><b>windSpeed:</b> </p>
+                  <p><b>height:</b> <i>TypeF32</i>. Abstract number which controls the curvature and height of the dome mesh.</p>
+                  <h4>Editing</h4>
+                  <p><b>isRenderEnabled:</b> <i>TypeBool</i>. Toggle whether rendering of this object is enabled.</p>
+                  <p><b>isSelectionEnabled:</b> <i>TypeBool</i>. Toggle whether to allow selection in the editor.</p>
+                  <p><b>hidden:</b> <i>TypeBool</i>. Toggle whether this object is visible.</p>
+                  <p><b>locked:</b> <i>TypeBool</i>. Toggle whether this object can be changed.</p>
+                  <h4>Mounting</h4>
+                  <p><b>mountPID:</b> Unique identifier of the mount.</p>
+                  <p><b>mountNode:</b> Node where the mount occurs.</p>
+                  <p><b>mountPos:</b> Offset for positioning the node.</p>
+                  <p><b>mountRot:</b> Rotation of this object in relation to the mount node.</p>
+                  <h4>Object</h4>
+                  <p><b>internalName:</b> <i>TypeString</i>. Non-unique name used by child objects of a group.</p>
+                  <p><b>parentGroup:</b> <i>TypeString</i>. Group object belongs to.</p>
+                  <p><b>class:</b> <i>TypeString</i>. Links object to script class namespace.</p>
+                  <p><b>superClass:</b> <i>TypeString</i>. Links object to script super class (parent) namespace.</p>
+                  <h4>Persistence</h4>
+                  <p><b>canSave:</b> <i>typeBool</i> Toggle whether the object can be saved in the editor.</p>
+                  <p><b>canSaveDynamicFields:</b> <i>typeBool</i>. True if dynamic fields (added at runtime) should be saved, defaults to true.</p>
+                  <p><b>persistentId:</b> Unique ID of this object.</p>
+
+                <a name="Cloud_Layers" id="Cloud_Layers"></a>
+                <h2> <span class="mw-headline">Cloud Layers</span></h2>
+                <p>While editing your Cloud Layer object, you may discover the need to
+                  edit individual layers. Under the Textures property section you will
+                  find layers labeled by an index. Each index refers to a layer and
+                  determines rendering order. The layer[0] will be rendered first,
+                  layer[1] next, and finally layer[2]. In simpler terms: </p>
+                <ul>
+                  <li>layer[0] is drawn on top of the sky. </li>
+                  <li>layer[1] is drawn on top of layer[0]. </li>
+                  <li>layer[2] is drawn on top of layer[1]. </li>
+                </ul>
+                <p><br />
+                  Unlike 
+                    the Basic Clouds object, you cannot toggle the visibility of each layer. All three work together for procedural generation. </p><br>
+                <a name="Editing_Cloud_Texture" id="Editing_Cloud_Texture"></a>
+                <h2> <span class="mw-headline">Editing Cloud Texture</span></h2>
+                <p>The very first visual modification you can make is selecting a
+                  texture. This is the first field under the CloudLayer properties. The
+                  stock Cloud Layer uses the following normal map: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/clouds_normal_displacement.png" class="livethumbnail"><img src="images/clouds_normal_displacement.png" width="512" height="512" largewidth="1024" largeheight="1024" /></a><br />
+                <p><br />
+                  Cloud Layer does not use a diffuse texture. Color is
+                  calculated per-pixel based on the normal map using the sun/ambient/fog
+                  colors. It is designed to work with the ScatterSky and
+                  TimeOfDay where simple/constant diffuseMap based color will not work.
+                  For the procedural layer to work, the texture needs to be 4-channel.
+                  RGB (red blue green) is a normal map and A (alpha) is the transparency. </p>
+                <p><br />
+                  <a name="Regarding_Movement" id="Regarding_Movement"></a>                </p>
+                <h2> <span class="mw-headline">Regarding Movement</span></h2>
+                <p>Unfortunately, static images cannot properly show how the remaining fields affect the Cloud Layer since they all pertain to the motion of the clouds. Clouds can only move horizontally, they can not move up and down. This horizontal movement is described in the 
+                    <strong>texDirection</strong> property. </p>
+                <p><br />
+                  The <strong>texDirection</strong> property takes two values, separated by a space: "X Y". Each value corresponds to the axis a texture should scroll on as well as the direction of movement on that axis. The range of each value is -1.0 to 1.0. For example, a value of "1 0" will scroll the texture directly along the X axis in the positive direction with no movement along the Y axis. </p>
+                <p><br />
+                  Two properties control how fast the cloud layer moves: <b>texSpeed</b> and <b>windSpeed</b>. The <b>windSpeed</b> property is a global modifier, whereas <b>texSpeed</b> will affect a single layer. The two are added to each other to
+                  determine a layer's final speed. If either is set to 0, the cloud layer
+                  will not move. The higher the number, the faster your cloud texture
+                  will scroll across the sky. </p><br>
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>In a previous guide, you learned how to add a Basic Clouds object to a level  utilizing three simple textures. The Cloud Layer object is intended to simulate a random atmosphere. To more realistically simulate an atmosphere, you can use the Scatter Sky object in conjunction with either cloud layer object. </p>
+                <p><br />
+                  Choosing between the Cloud Layer object and Basic Cloud object is completely up to you. The decision can come down to optimization or aesthetics, based on your level. 
+                  
+                  </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

@@ -1,0 +1,563 @@
+<html>
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 96;
+   parent.leftFrame.expandToItem('tree2', 'doc96');
+   var element = parent.leftFrame.document.getElementById('doc96');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D - Creating Foliage</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_WorldEditor_GroundCover skin-monobook">
+<script type="text/javascript" src="../../../include/wz_tooltip.js"></script>
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <br><a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2></div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Setup"><span class="tocnumber">2</span> <span class="toctext">Setup</span></a></li>
+                          <li class="toclevel-1"><a href="#Adding_GroundCover"><span class="tocnumber">3</span> <span class="toctext">Adding GroundCover</span></a></li>
+                          <li class="toclevel-1"><a href="#Creating_GroundCover_Material"><span class="tocnumber">4</span> <span class="toctext">Creating GroundCover Material</span></a></li>
+                          <li class="toclevel-1"><a href="#Assigning_Terrain_Material"><span class="tocnumber">5</span> <span class="toctext">Assigning Terrain Material</span></a></li>
+                          <li class="toclevel-1"><a href="#Basic_Modifications"><span class="tocnumber">6</span> <span class="toctext">Basic Modifications</span></a></li>
+                          <li class="toclevel-1"><a href="#3D_Shapes"><span class="tocnumber">7</span> <span class="toctext">3D Shapes</span></a></li>
+                          <li class="toclevel-1"><a href="#Advanced_Modifications"><span class="tocnumber">8</span> <span class="toctext">Advanced Modifications</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">9</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <br><a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p>In this tutorial, we are going to create multiple types of foliage using a single GroundCover object. By the end, you should know how to add a GroundCover object, create a 2D material for it, assign terrain layers, and mix different variations of 3D shapes and 2D 
+                    images.
+                <br><a name="Setup" id="Setup"></a>                </p>
+                <h2> <span class="mw-headline">Setup</span></h2>
+                <p>This article will use a new project created from the Full template, which includes sample assets for testing and learning. To save time and focus on the World Editor, we will use the sample assets and learn about asset creation later.</p>
+                <p><br />If you have not covered the <a href="BuildingTerrains.html">Building Terrains Tutorial</a>, then please do so before working through this tutorial. It assumes that you have gone through that one before starting here.</b></p>
+                <p><br />Switch to the Terrain  Painter  editor by choosing Editors->Terrain Painter from the menu or by hitting F3.  On the right side of the screen, find the Terrain Painter Material Selector pane. This lists the current materials loaded and available to paint the terrain.</p>
+                <p><br />Since GroundCover is directly tied to Terrain Materials, you will want to make sure you have more than one available. If you only have one material available, click the New Layer button in the Terrain Painter Material Selector pane, and select a new material to load.</p>
+                <p><br />In this example, I am using a sand texture and a grass texture: </p>
+                <p><br />
+                  <img alt="Image:GCTerTex.jpg" src="images/GCTerTex.jpg" border="0" height="423" width="208" /> </p>
+                <p><br />
+                  Select one of the materials and paint a small area on the terrain. We will be isolating a GroundCover example to this patch: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/GrassPatch1.jpg" class="livethumbnail"><img src="images/GrassPatch1.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />From the players perspective, you should still be able to distinguish between the terrain textures. This will help demonstrate the GroundCover populating on a specific layer: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/GrassPatch2.jpg" class="livethumbnail"><img src="images/GrassPatch2.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <br><a name="Adding_GroundCover" id="Adding_GroundCover"></a>
+                <h2> <span class="mw-headline">Adding GroundCover</span></h2>
+                <p>To add a GroundCover object: switch to the Object Editor (F1); select the Library tab in the Scene Tree panel; click on the Level tab; double-click the Environment folder; and locate the GroundCover entry: </p>
+                <p><br />
+                  <img alt="Image:GroundCoverLibrary.jpg" src="images/GroundCoverLibrary.jpg" border="0" height="324" width="208" /> </p>
+                <p><br />Double-click the GroundCover entry. The Create Object dialog box will appear: </p>
+                <p><br />
+                  <img alt="Image:CreateGroundCover.jpg" src="images/CreateGroundCover.jpg" border="0" height="137" width="256" /> </p>
+                <p><br />Enter a name for your GroundCover object. We will be creating a GroundCover object from scratch, so leave the rest of the fields blank for now, then click the Create New Object button. A new GroundCover object will be added to your level. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/GroundCoverAdded.jpg" class="livethumbnail"><img src="images/GroundCoverAdded.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+               
+                <br><a name="Creating_GroundCover_Material" id="Creating_GroundCover_Material"></a>
+                <h2> <span class="mw-headline">Creating a GroundCover Material</span></h2>
+                <p>Because we did not select a material, the system will render small simple shapes on the terrain with the default orange "No Material" texture. To assign a material, scroll through the GroundCover properties until you get to the 
+                    <strong>GroundCover General</strong> section. In the Material field, click on the globe icon to open the Material Selector: </p>
+                <p><br />
+                  <b>Material Field</b> </p>
+                <p><img alt="Image:GCMaterialField.jpg" src="images/GCMaterialField.jpg" border="0" height="57" width="193" /> </p><br>
+                <p><br />When the Material Selector appears, you have the option to pick an existing material or create a new one. If you are working with the Full template, there will not be a decent grass texture loaded so we are going to create one. Click on the "Create New Unmapped Material" button: </p>
+                <p><br />
+                  <img alt="Image:CreateNewMatButton.jpg" src="images/CreateNewMatButton.jpg" border="0" height="105" width="213" /> </p>
+                <p><br />Now click the Select button at the bottom right of the dialog. At this point, the new material has been applied to the GroundCover. The system is still rendering an orange shape, but for a very different reason. Previously, we had no material selected. Now we have a material, but it has not been assigned a texture. Click on the Material Editor icon in the Tool Selector bar to activate the Material Editor tool: </p>
+                <p><br />
+                  <b>Activate Material Editor</b> </p>
+                <p><img alt="Image:ActivateMatEd.jpg" src="images/ActivateMatEd.jpg" border="0" height="66" width="227" /> </p>
+                <p><br />The Material Preview and Material Properties panes should now be visible on the right of the screen.  Your GroundCover material will already be the active entry. At the top of the Material Properties pane find the 
+                    <strong>Material</strong> field and change the value to <strong>Grass</strong> . This will be the name of your new material. Press the Enter key to apply the change, and then click the Floppy Disk icon to save it.  
+                    <strong>NOTE: You MUST press Enter after typing your material name before clicking the save icon or your new material will not be saved!</strong></p>
+                <p><br />
+                  <img alt="Image:NameMaterialGrass.jpg" src="images/NameMaterialGrass.jpg" border="0" height="89" width="209" /> </p>
+                <p><br />
+                  Next, scroll down to the Basic Texture Maps section. Right
+                  now the Diffuse Map is assigned to the default "No Material" texture.
+                  Click on the preview image or the Edit button: </p>
+                <p><br />
+                  <img alt="Image:GCEditDiffuse.jpg" src="images/GCEditDiffuse.jpg" border="0" height="191" width="209" /> </p>
+                <p><br />
+                  A file browser should pop up allowing you to select a texture. Navigate to the <b>game/art/environment</b> directory. Select the <b>plant2.png</b> texture, then click Open. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/SelectPlant2.jpg" class="livethumbnail"><img src="images/SelectPlant2.jpg" width="284" height="230" largewidth="569" largeheight="460" /></a><br />
+                <p><br />
+                  If you are not using the Full Template, but do not have a
+                  plant texture, you can use the following image (save to desktop or drag
+                  to your folder): </p>
+                <p><br />
+                  <img alt="Image:plant2.png" src="images/Plant2.png" border="0" height="256" width="128" /> </p>
+                <p><br />
+                  After you load the plant2 texture as the Diffuse Map, your
+                  Material Preview will update to show the rendering. The GroundCover in
+                  your level will also automatically update. However, you will notice a
+                  glaring problem. The material is rendering black where there should be
+                  transparency: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/BlackPlantMat.jpg" class="livethumbnail"><img src="images/BlackPlantMat.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  To fix this, scroll down to the <b>Advanced (all layers)</b> section of the Material Editor. Check the <b>Alpha Threshold</b> box, then set the value to something close to 20.13 (or whatever looks 
+                    best to you): </p>
+                <p><br />
+                  <img alt="Image:GCAlphaThreshold.jpg" src="images/GCAlphaThreshold.jpg" border="0" height="122" width="206" /> </p>
+                <p><br /><strong>SAVE YOUR MATERIAL AGAIN</strong> by clicking the floppy disk icon at the top of the Material Properties pane. Once you are finished with your material, switch back to the Object Editor (F1). Your GroundCover should now be rendering the plant material you have selected. Now is a good time to also save your level. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/GCFinishedMat.jpg" class="livethumbnail"><img src="images/GCFinishedMat.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <br><a name="Assigning_Terrain_Material" id="Assigning_Terrain_Material"></a>
+                <h2> <span class="mw-headline">Assigning Terrain Material</span></h2>
+                <p>Currently, the GroundCover is placing the grass material on all of the terrain:</p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p><a href="images/GCEverywhere.jpg" class="livethumbnail"><img src="images/GCEverywhere.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />To limit the placement of GroundCover to a specific region, such as the area we painted previously, you must set the terrain layer for the Ground Cover. In the Scene Tree pane, click the Scene tab and select your grass GroundCover object. Scroll down to the 
+                    <strong>GroundCover General </strong>set of fields. GroundCover General contains a sub-section of properties, listed under 
+                    <strong>Types</strong>. <strong>Types</strong> is an array where each entry controls a section of the GroundCover.  Expand the Types field by clicking on the + icon. </p>
+                <p><br />
+                  <img alt="Image:GCLayers.jpg" src="images/GCLayers.jpg" border="0" height="109" width="205" /> </p>
+                <p><br />The GroundCover is a single object that is covering the entire terrain. The object itself is comprised of eight sections, Types[0] through Types[7]. Each section can be told what, where, and how to render a material or shape. You can feasibly have the GroundCover object rendering a unique  material or shape on eight different terrain layers. </p>
+                <p><br />
+                With the above information in mind, it is time to assign the GroundCover to terrain materials. Scroll through the properties until you get to Types[0]. Click on the box icon in the 
+                    <strong>layer</strong> field. The Material Selector for terrains should appear. Select the material you used earlier to paint the patch, such as the dirt_grass shown here: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/GCPickGrass.jpg" class="livethumbnail"><img src="images/GCPickGrass.jpg" width="320" height="230" largewidth="640" largeheight="460" /></a><br />
+                <p><br />Click the Select  button, the GroundCover will stop placing the plant shapes on the entire terrain. It should now only be placing the foliage on the patch that you painted: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/GCCoverGrass.jpg" class="livethumbnail"><img src="images/GCCoverGrass.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  If you are having a difficult 
+                    time seeing this change, locate the <b>maxElements</b> field and increase the value dramatically: </p>
+                <p><br />
+                  <img alt="Image:GCIncreaseCount.jpg" src="images/GCIncreaseCount.jpg" border="0" height="48" width="192" /> </p>
+                <p><br />The GroundCover should now be rendering with quite a few more shapes on the isolated terrain material. The higher the maxElements value, the more shapes will be rendered: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/GCCountIncreased.jpg" class="livethumbnail"><img src="images/GCCountIncreased.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  Just for the sake of testing, go back to the <b>Types[0]-&gt;layer</b> property. Click on the 
+                    box icon to open the Material Selector, then
+                  choose the sand texture (or whatever your main material is): </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/GCPickSand.jpg" class="livethumbnail"><img src="images/GCPickSand.jpg" width="320" height="230" largewidth="640" largeheight="460" /></a><br />
+                <p><br />
+                  Click the <i>Select</i> button to apply the material
+                  change. The plant billboard should now only be rendering on the main
+                  terrain material, avoiding all others including the patch of you
+                  painted earlier. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/GCCoverSand.jpg" class="livethumbnail"><img src="images/GCCoverSand.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  Before proceeding, go ahead and switch the <b>Types[0]-&gt;layer</b> field back to the isolated terrain material. Next, we will go through the more basic customizations of a GroundCover object. </p>
+                <br><a name="Basic_Modifications" id="Basic_Modifications"></a>
+                <h2> <span class="mw-headline">Basic Modifications</span></h2>
+                <p></p>
+                <h3>Size Variations</h3>
+                <p>Before we get into the really advanced changes, we will focus on editing a single section of the GroundCover: <b>Types[0]</b>.
+                  Right now, the GroundCovering should be rendering a single type of
+                  material within an isolated section of the terrain. The following
+                  changes will affect this section only. </p>
+                <p><br />Expand Types[0], then scroll down to the <strong>sizeMin</strong> and 
+                    <strong>sizeMax</strong> values. The default values should be 1 and 1, which means every shape will be rendered at the same size. Go ahead and change that by setting the sizeMin to 0.8 and sizeMax to 5. </p>
+                <p><br />
+                  <img alt="Image:GCAdjustSize1.jpg" src="images/GCAdjustSize1.jpg" border="0" height="39" width="192" /> </p>
+                <p><br />There should now be a dramatic staggering in the size of the shapes. Some will be huge, while others will look smaller than they originally did. This is a great way to increase the realism of your GroundCover: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/GCSizeAdjusted.jpg" class="livethumbnail"><img src="images/GCSizeAdjusted.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  These sizes might be too extreme, so go ahead and balance them a little bit more so we can easily view the rest of our edits: </p>
+                <p><br />
+                <br />
+                  <img alt="Image:GCAdjustSize2.jpg" src="images/GCAdjustSize2.jpg" border="0" height="40" width="192" /> </p>
+                <h3>Elevation Limitations</h3>
+                <p><br />
+                The <strong>minElevation</strong> and <strong>maxElevation</strong> properties can be used to limit the GroundCover object to only generate shapes and materials within a range of terrain elevations. But, changes to these properties are difficult to see if your level is not set up to handle the parameters. We will walk through an example to illustrate. Go ahead and set the minElevation to 300. After doing so the GroundCover will disappear: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/GCMinElevation.jpg" class="livethumbnail"><img src="images/GCMinElevation.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />The elevation properties control the height range within which the GroundCover object will place shapes in your level based on the elevation of the terrain at each and every point. When the minSize was increased from -9999 to 300, that decreases the range within which shapes will be generated. he GroundCover object should now only be placing objects on the terrain where the terrains elevation is 300 meters and higher. The default elevation of TerrainBlock is higher than 300 meters , so it is too low for the GroundCover object to have placed shapes on it.  </p>
+                <p><br />
+                Perform a quick adjustment to illustrate this behavior. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <p><img alt="Image:GCSetHeightValue.jpg" src="images/GCSetHeightValue.jpg" border="0" height="320" width="373" /> </p>
+                <p><br />
+                  Open the Terrain Editor (F2), then switch to the Set Height tool  <img alt="Image:SetHeightIcon.jpg" src="images/SetHeightIcon.jpg" border="0" height="22" width="26" />.
+                  On the toolbar at the top of the screen, find the Height field and change it to 300.  Select a portion of the terrain that should have the GroundCover, then click on it. The terrain should instantly shoot up to 300 . If you move your camera to the top, you should now be able to see your GroundCover: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/GCShowMinElev.jpg" class="livethumbnail"><img src="images/GCShowMinElev.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                
+                <p><br />Go ahead and change the <strong>minElevation</strong> field back to -99999, so the grass returns to where it was originally</p>
+                <h3>Clumping</h3>
+                <p><br />
+                  The clumping ability of GroundCover is another way to add to
+                  the realism or diversity of your level. The
+                  clumping properties (<b>minClumpCount</b>, <b>maxClumpCount</b>, and <b>clumpRadius</b>) will cause the objects in your current Types[x] entry to group together in designated patterns. </p>
+                <p><br />
+                  To fully demonstrate this, make sure you can clearly see lots of
+                  objects being placed by the GroundCover. For example, I have switched
+                  to the sand terrain material (since I am using a dark shape) and
+                  increased the count to a huge number: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/ClumpBefore1.jpg" class="livethumbnail"><img src="images/ClumpBefore1.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                The default values for the clump properties are all 1. This means the system will place a single shape within a 1 meter spacing. Set your GroundCover properties to the following: </p>
+                <p><br />
+                  <img alt="Image:ClumpValues1.jpg" src="images/ClumpValues1.jpg" border="0" height="73" width="192" /> </p>
+                <p><br />The system will now procedurally place between two and six objects within a one meter space, creating clusters of shapes around the terrain: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/ClumpAfter1.jpg" class="livethumbnail"><img src="images/ClumpAfter1.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  If there is too much clustering or your objects are
+                  unrealistically overlapping, you may need to increase the clumpRadius.
+                  Go ahead and set the clumpRadius to 5. There will still be clustering,
+                  but now the objects should space out more evenly: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/ClumpAfter2.jpg" class="livethumbnail"><img src="images/ClumpAfter2.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  These were a few of the basic modifications you can make to
+                  a GroundCover object. There are a few additional properties which will
+                  be covered in later sections. For now, take some time to experiment
+                  with the values mentioned above. When you are ready proceed to the next
+                  section. </p>
+                <br><a name="3D_Shapes" id="3D_Shapes"></a>
+                <h2> <span class="mw-headline">3D Shapes</span></h2>
+                <p>Up till now, the shapes that the GroundCover has been placing have been rendered using billboards. If you are unfamiliar with this term, a billboard is a way of faking the appearance of a 3D object by using a flat image that is rotated as the camera moves so that it is always facing the camera. The material we have been using is a simple 2D image with transparency, representing a plant. </p>
+                <br>
+                <p>By just displaying this simple image and always rotating it to face the camera we avoid having to create an actual model of a plant with a trunk, limbs, and hundreds of leaves. Displaying and rotating a simple image in this manner uses much less processing power than rendering a full 3D model and all its details. Multiply that performance savings times the number of shapes that are generated by a GroundCover object and the result is more power for other aspects of your game, while still producing an adequate depiction of ground foliage. </p>
+                <p><br />However, if you wish to automate the placement of real 3D objects in your level, you can still do so using the GroundCover object. In this next example, we will replicate a 3D model of a tree rather than a billboard image of a tree. Keep in mind that creating a large forest using this method is not the best approach. It is merely an example using a 3D shape which you should have available to you since it is included in the Full template. Creating such a forest for use in a real level is best left up to the <a href="../Editors/ForestEditor.html">Forest Editor</a>, since it is a more powerful tool designed to do just that. If you are not concerned with precision and collision, then the GroundCover object might work just fine. </p>
+                <p><br />Start by deleting any existing GroundCover objects in your scene. Using the same procedure as before, switch to the Terrain Painter tool and paint a much larger portion of the terrain with your secondary material: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/GCPaintLarge.jpg" class="livethumbnail"><img src="images/GCPaintLarge.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  Now  add some trees using a Ground Cover object. Switch to the Object Editor tool; select the Library tab; select the Level sub-tab; double-click the environment folder; locate the GroundCover object and double-click it. The Create Object dialog box will appear:</p>
+                <p><br />
+                  <img alt="Image:GCNameTrees.jpg" src="images/GCNameTrees.jpg" border="0" height="137" width="256" /> </p>
+                <p><br />Enter a name for your ground Cover object, then click on the Shape File [Optional] field which will open a file browser. Navigate to the 
+                    <strong>game/art/shapes/trees/defaulttree</strong> directory within your project. Select the
+                    <strong>defaulttree.DAE</strong> file, then click the Open button. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/GCTreeDae.jpg" class="livethumbnail"><img src="images/GCTreeDae.jpg" width="285" height="230" largewidth="570" largeheight="461" /></a><br />
+                <p><br />Your selection will be placed in the Shape File [Optional] field and will be the shape that the Ground Cover object will replicate. Click the Create New button to add your new GroundCover object to the scene. Unlike material billboards, the GroundCover object should be rendering full 3D models. Without designating a terrain material, the trees should be located on your entire terrain: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/GCTreesAdded.jpg" class="livethumbnail"><img src="images/GCTreesAdded.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  Scroll down to the <b>Types[0]-&gt;layer</b> property.
+                  Click on the blue box to open up the Material Selector. Once the
+                  dialog appears, select the alternative material (such as the
+                  dirt_grass): </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/GCPickGrass.jpg" class="livethumbnail"><img src="images/GCPickGrass.jpg" width="320" height="230" largewidth="640" largeheight="460" /></a><br />
+                <p><br />
+                  After you click the <i>Select</i> button, the trees will
+                  only be placed on the terrain material you picked. In this case, the
+                  trees will only be located on the grassy terrain: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/GCTreesOnGrass.jpg" class="livethumbnail"><img src="images/GCTreesOnGrass.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  The adjusting properties will affect 3D models the same as
+                  the billboards we were editing earlier. For example, you can
+                  increase the <b>maxElements</b> to a very high number to simulate a forest only on the grassy terrain: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/GCForest.jpg" class="livethumbnail"><img src="images/GCForest.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />There is one property that is very specific to 3D models. You might notice that the trees disappear very quickly when you move away from them. This is controlled by the 
+                    <strong>shapeCullRadius</strong> property. This property is the distance at which 3D shapes are completely prevented from rendering. </p>
+                <br>
+                <p>Low values might be OK for first person views, but at a higher range the results will not appear as you might expect. For example, this terrain looks void of trees in the upper half when in fact they are there but they are not being displayed. They are not displayed because they are further away from the camera than the shapeCullRadius distance of the Ground Cover Object: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/GCLowShapeCull.jpg" class="livethumbnail"><img src="images/GCLowShapeCull.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />If you increase the value of shapeCullRadius, you will be able to see 3D shapes further out from where the camera is located. Try setting the value to something like 500. If you want your whole terrain to be within the area covered by the shapeCullRadius, then you must enter a value at least as great as the Resolution property of the TerrainBlock when you created it: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/GCHighShapeCull.jpg" class="livethumbnail"><img src="images/GCHighShapeCull.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  You should now have a basic understanding of how the
+                  GroundCover system works. However, instead of moving on to the next
+                  guide we are going to dive deeper into the features that make Torque
+                  3D GroundCover so powerful and flexible. Continue reading to learn a
+                  few more advanced modifications. </p>
+                <br><a name="Advanced_Modifications" id="Advanced_Modifications"></a>
+                <h2> <span class="mw-headline">Advanced Modifications</span></h2>
+                <p>In the same level you have been using, delete all GroundCover
+                  objects. If you have already discarded the level, then create a new
+                  terrain and make sure you have at least two separate terrain materials
+                  being rendered. Create a new GroundCover object, filling out only its
+                  name. Leave the other fields blank: </p>
+                <p><br />
+                  <img alt="Image:GCNameFoliage.jpg" src="images/GCNameFoliage.jpg" border="0" height="137" width="256" /> </p>
+                <p><br />
+                  Click the <i>Create New</i> button to add the new
+                  GroundCover object to the level. Next, we will create a new material
+                  for this GroundCover. However, this will be a special image. Instead of
+                  a single material representing an individual plant, we are going to
+                  create a material that represents five plants. </p>
+                <p><br />
+                  Save the following image to your <b>game/art/environment/</b> directory: </p>
+                <p><br />
+                  <b>foliage.png</b> </p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/foliage.png" class="livethumbnail"><img src="images/foliage.png" width="512" height="602" largewidth="1024" largeheight="1204" /></a><br />
+                <p><br />Notice how this new image file contains several plant images, stitched together in a single 1024x1024 png file. The GroundCover can easily separate these individual plant images in order to use them all, but it needs a material to do so. Select your new GroundCover object.  Scroll through the properties until you get to the GroundCover General section. Click on the Material Selector icon  <img alt="Image:GCMatPropIcon.jpg" src="images/GCMatPropIcon.jpg" border="0" height="16" width="16" />. </p>
+                <p><br />Now we're going to go through the process of creating a new material like we did before - you know the drill.  When the Material Selector appears, click on the "Create New Unmapped Material" button. Then click the Select button.</p>
+                <p><br />
+                  <img alt="Image:CreateNewMatButton.jpg" src="images/CreateNewMatButton.jpg" border="0" height="105" width="213" /> </p>
+                <p><br />At this point, the new material has been applied to the GroundCover. We have a material, but it has not been assigned a texture so once again you will see the special "No Material" texture. Go ahead and click on the Material Editor icon to activate the tool: </p>
+                <p><br />
+                  <b>Activate Material Editor</b> </p>
+                <p><img alt="Image:ActivateMatEd.jpg" src="images/ActivateMatEd.jpg" border="0" height="66" width="227" /> </p>
+                <p><br />When the Material Editor opens, your GroundCover material will already be the active entry. Change the Material name to 
+                    <strong>Foliage</strong>, hit Enter, then click the Floppy Disk icon to save.
+                    <strong>NOTE: You MUST press the Enter key before clicking the save icon or your new material WILL NOT be saved!</strong> Next, scroll down to the Basic Texture Maps section. Right now the Diffuse Map is assigned to the default "No Material" texture. Click on the preview image or the Edit button. A file browser should pop up allowing you to select a texture. Navigate to the 
+                    <strong>game/art/environment</strong> directory. Select the <strong>foliage.png</strong> texture that you just placed there, and then click Open. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/SelectFoliagePng.jpg" class="livethumbnail"><img src="images/SelectFoliagePng.jpg" width="285" height="230" largewidth="570" largeheight="461" /></a><br />
+                <p><br />Your initial Foliage material is going to look very odd. This is due to the Alpha Threshold being disabled which causes the black areas to show as black rather than be transparent:  </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/InitialFoliageMat.jpg" class="livethumbnail"><img src="images/InitialFoliageMat.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  To fix this, scroll down to the <b>Advanced (all layers)</b> section of the Material Editor. Check the <b>Alpha Threshold</b> box, then set the value to something close to 20.13 (or whatever looks 
+                    best to you): </p>
+                <p><br />
+                  <img alt="Image:GCAlphaThreshold.jpg" src="images/GCAlphaThreshold.jpg" border="0" height="122" width="206" /> </p>
+                <p><br />
+                    <strong>Save your material</strong> by clicking the floppy icon again. Once you are finished with your material, it should resemble the following in the preview: </p>
+                <p><br />
+                  <img alt="Image:FinalFoliageMat.jpg" src="images/FinalFoliageMat.jpg" border="0" height="202" width="202" /></p>
+                <p><br />Now is a good time to also save your level if you want. When you are ready switch back to the Object Editor using F1. Your GroundCover should now be rendering the combined plant material. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/BeforeUVEditor1.jpg" class="livethumbnail"><img src="images/BeforeUVEditor1.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  Within each Types[x] 
+                    entry, we can use the UV Editor to designate which part of the material to use 
+                    for the billboard rendering. The UV Editoris located under the Types section of 
+                    the properties, in the billboardUVs field. Click on the square icon to activate the UV
+                  Editor: </p>
+                <p><br />
+                  <img alt="Image:UVEditorIcon.jpg" src="images/UVEditorIcon.jpg" border="0" height="53" width="187" /> </p>
+                <p><br />
+                  The UV Editor is extremely simple to use. When the dialog
+                  appears, you will be presented a box comprised of nine points. You can
+                  drag the edges of the box around to isolate specific parts of a
+                  material: </p>
+                <p><br />
+                  <img alt="Image:UVEditor.jpg" src="images/UVEditor.jpg" border="0" height="340" width="453" /> </p>
+                <p><br />With the foliage material, this is exactly what we need to draw a single plant for this layer. Choose one of the plants you wish to render on the grass, such as the one in the bottom left. Click and drag the blue boxes until just that plant is enclosed in the square: </p>
+                <p><br />
+                  <img alt="Image:GCFirstUVEdit.jpg" src="images/GCFirstUVEdit.jpg" border="0" height="340" width="453" /> </p>
+                <p><br />Once you are certain of your placement, click the OK button. The Types[0] layer will now only be rendering the section of the material that you surrounded. Rather than create five separate GroundCover objects, you can use a single material and one GroundCover object with each layer displaying a different plant, that is, section of the image. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/AfterUVEditor1.jpg" class="livethumbnail"><img src="images/AfterUVEditor1.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />In this manner we can also isolate the individual plant types to specific terrain textures. In<strong> Types[0]&gt;layer</strong>, click the box icon to bring up the Material Selector. Select a terrain material to limit this plant to: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/GCPickGrass.jpg" class="livethumbnail"><img src="images/GCPickGrass.jpg" width="320" height="230" largewidth="640" largeheight="460" /></a><br />
+                <p><br />Go ahead and make a few more edits to Types[0], such as adjusting the clumping properties. Ultimately, you are aiming to create something that appears varied, as it would in nature, rather than a systematic placement of objects: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/GCFinalGrassEdit.jpg" class="livethumbnail"><img src="images/GCFinalGrassEdit.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />For the next step, collapse the [0] entry and expand <strong>Types[1]</strong>. For this section of the GroundCover, we are going to render another piece of the foliage from that same texture on a separate terrain material. Go ahead and assign 
+                    <strong>Types[1]-&gt;layer</strong> to another material that is in your level: </p>
+                <p><br />
+                  <img alt="Image:Types1.jpg" src="images/Types1.jpg" border="0" height="141" width="192" /> </p>
+                <p><br />
+                  After you have assigned the terrain material, you might notice nothing is rendering. This behavior is controlled by the <b>probability</b> property: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/ZeroProb.jpg" class="livethumbnail"><img src="images/ZeroProb.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />This property is a decimal value, which represents the likelihood (percentage) of an shape being placed by the GroundCover object. A value of 0.0 results in a 0 percent change, 0.5 is a 50% chance, and 1.0 is 100% chance that an object will be placed. By default, the probability is set to zero for all Types except Types[0]. </p>
+                <p><br />
+                  Go ahead and set <b>Types[1]-&gt;probability</b> to 1,
+                  which will fully activate the placement of the foliage material. We
+                  need to make two more modifications. First, activate the UV Editor for
+                  this entry. Drag the UV boundaries to a less green image: </p>
+                <p><br />
+                  <img alt="Image:GCSecondUVEdit.jpg" src="images/GCSecondUVEdit.jpg" border="0" height="340" width="453" /> </p>
+                <p><br />Next, set Types[1]->layer to another material in your level to isolate the placement of our new billboards. The final result should be Types[0] rendering a one type of plant on one material, and Types[1] rendering a different plant on the other material: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/SeparateFoliage.jpg" class="livethumbnail"><img src="images/SeparateFoliage.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />Separating billboards from within a single material is not the only function you can do when modifying the Types section. It is possible to mix in 3D shapes as well. Collapse Types[0] and Types [1], then expand Types [2]. Locate the Types[2]>shapeFilename property - click the box next to it: </p>
+                <p><br />
+                  <img alt="Image:Types2ShapeFileName.jpg" src="images/Types2ShapeFileName.jpg" border="0" height="127" width="188" /> </p>
+                <p><br />
+                  Navigate to the <b>game/art/shapes/trees/defaulttree</b> directory. Select the <b>defaulttree.DAE</b> file, then click open. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/GCTreeDae.jpg" class="livethumbnail"><img src="images/GCTreeDae.jpg" width="285" height="230" largewidth="570" largeheight="461" /></a><br />
+                <p><br />
+                  After you click open, the 3D shape will be set. Next, assign <b>Types[2]-&gt;layer</b> to the grass terrain material and set <b>Types[2]-&gt;probability</b> to 1. This will result in many trees rendering on the grass terrain: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/GCManyTrees.jpg" class="livethumbnail"><img src="images/GCManyTrees.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />For our example, there are way too many trees. Under the GroundCover General section we have the maxElements property set to 90,000. If we adjust this number, we will have less trees being placed. However, this also affects our other layers. This can be a problem. </p>
+                <p><br />
+                  Rather than fiddling with the maxElements property, we can
+                  adjust Types[2]-&gt;probability. Set the value of probability to 0.1,
+                  which will cause the GroundCover to place quite a few less trees: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                  <a href="images/ReducedProb.jpg" class="livethumbnail"><img src="images/ReducedProb.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  As you can see, the GroundCover is extremely powerful. With
+                  a single object, we were able to place multiple types of foliage
+                  (billboards), separate the foliage based on terrain material, and even
+                  mix in 3D models: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/GCFinal.jpg" class="livethumbnail"><img src="images/GCFinal.jpg" width="520" height="402" largewidth="1040" largeheight="804" /></a><br />
+                <br><a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>The GroundCover object can add an immense amount of ambiance to your level. It is one of the most powerful and flexible Torque 3D objects. Continue experimenting by trying different types of settings, art, and level arrangements.</p>                  </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

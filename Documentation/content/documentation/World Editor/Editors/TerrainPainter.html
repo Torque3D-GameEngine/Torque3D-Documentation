@@ -1,0 +1,336 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 93;
+   parent.leftFrame.expandToItem('tree2', 'doc93');
+   var element = parent.leftFrame.document.getElementById('doc93');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D World Editor - Terrain Painter</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  class="mediawiki ltr ns-0 ns-subject page-Torque3D_WorldEditor_TerrainPainter skin-monobook">
+<script type="text/javascript" src="../../../include/wz_tooltip.js"></script>
+<table width="700" cellspacing="0" cellpadding="0" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="15" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Setup"><span class="tocnumber">2</span> <span class="toctext">Setup</span></a></li>
+                          <li class="toclevel-1"><a href="#Interface"><span class="tocnumber">3</span> <span class="toctext">Interface</span></a></li>
+                          <li class="toclevel-1"><a href="#Terrain_Materials_Editor"><span class="tocnumber">4</span> <span class="toctext">Terrain Materials Editor</span></a></li>
+                          <li class="toclevel-1"><a href="#Painting"><span class="tocnumber">5</span> <span class="toctext">Painting</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">6</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p>Just as the name implies, the Terrain Painter is a tool built into
+                  Torque 3D's World Editor which allows you to paint your terrain with
+                  various materials, such as grass, dirt, rocks, and so on. </p>
+                <p><br />
+                  Like the rest of the editors, the Terrain Painter is a
+                  WYSIWYG editor. As you change your terrain materials and paint the
+                  surface, you can see what the changes will look like in real time as if
+                  you were playing your game. </p>
+                <p><br />
+                  You can use the Terrain Painter to make wide-spread modification to a
+                  blank terrain, or use finer and more detailed brushes to touch up
+                  imported terrain layers/textures. Let's get started by setting up your
+                  environment. </p><br />
+                <a name="Setup" id="Setup"></a>
+                <h2> <span class="mw-headline">Setup</span></h2>
+                <p>In order to follow along with this article you should generate a new project with the Full Template. This template ships with plenty of free assets for testing and learning. To save time and focus on this specific tools section of the documentation we are going to bypass asset creation and use the assets that come with that template.  </p>
+                <p><br />You will want to remove the existing TerrainBlock since we will be creating a terrain from scratch for this article. To remove the existing terrain: switch to the Object Editor (F1); in the Scene Tree panel on the right of the screen click the Scene tab; click the arrow next to the MissionGroup folder to expand it; select the TerrainBlock entry labelled: 
+                    <strong>theTerrain</strong>:</p>
+                <br />
+                <p><img alt="Image:SelectTerrain.jpg" src="images/SelectTerrain.jpg" border="0" width="237" height="324" /> </p>
+                <p><br />
+                  Click on the trash can icon in the top of the tab to delete it, or press the Delete key.</p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/BlankScene.jpg" class="livethumbnail"><img src="images/BlankScene.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br /><br />
+                <p><br />
+                  Now create a fresh terrain to use when following this article. From the main menu select File > Create Blank Terrain. The Create New Terrain dialog will appear. Enter 
+                    <strong>theTerrain</strong> as the name of your new TerrainBlock; set the resolution to 512; select the flat terrain option; and click the Create New button</p>
+                <p><br />
+                  You should now have a fresh flat TerrainBlock to use when following along with this article. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/TENewTerrainAdded.jpg" class="livethumbnail"><img src="images/TENewTerrainAdded.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <a name="Interface" id="Interface"></a>
+                <h2> <span class="mw-headline">Interface</span></h2>
+                <p>The Terrain Painter interface is extremely simple to use. You can
+                  open the Terrain Painter using one of two methods. One way is through
+                  the file menu, clicking on Tools-&gt;Terrain Painter: </p>
+                <p><img alt="Image:TerrainPainterMenu.jpg" src="images/TerrainPainterMenu.jpg" border="0" width="213" height="152" /> </p>
+                <p><br />
+                  The other method is to click the Terrain Editor shortcut in the Toolbar: </p>
+                <p><img alt="Image:TerrainPainterShortcut.jpg" src="images/TerrainPainterShortcut.jpg" border="0" width="300" height="84" /> </p>
+                
+                <p><br />There are four main areas of the interface you will focus on while using this tool.</p>
+                <h2>The Brush</h2>
+                <p><br />
+                  Using the Terrain Painter is very similar to painting on a piece of paper with a brush except here you are painting on the terrain by dragging the mouse across the screen. Your brush is represented as a circle or a square in your scene's view. This visual outline allows you to know where your brush is located and what portion of the terrain it will affect when you move it. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/PainterCircleBrush.jpg" class="livethumbnail"><img src="images/PainterCircleBrush.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  The image shown above is displaying the default brush style when you first open the Terrain Painter. If you wish to change your brush type, you can modify it via the Brush Settings found in the Tool Settings toolbar at the top of the screen. Brush Settings are only active while using the Terrain Painter. </p>
+                <p><br />
+                  <img alt="Image:PainterBrushSettings.jpg" src="images/PainterBrushSettings.jpg" border="0" width="250" height="30" /> </p>
+                <p><br />
+                  The first setting allows you to choose your brush shape. The
+                  default option is a circle. If you click on the square shape, your
+                  brush's grid will take on that appearance. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/PainterSquareBrush.jpg" class="livethumbnail"><img src="images/PainterSquareBrush.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  You will find the Brush Size slider next to the shape
+                  settings. You can move the slider from left (smaller) to right (larger)
+                  to change the size. </p>
+                <p><img alt="Image:PainterSizeSlider.jpg" src="images/PainterSizeSlider.jpg" border="0" width="119" height="53" /> </p>
+                <p><br />
+                  The stock value is typically small, usually a 9x9 grid. The
+                  more you increase the slider value, the greater the grid will grow. The
+                  change will add an equal number of rows and columns, as shown below. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/PainterLargeBrush.jpg" class="livethumbnail"><img src="images/PainterLargeBrush.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  You can find the Terrain Painter palette docked on the right
+                  side of the editor. This panel is similar to a traditional painter's
+                  palette in the real world. Instead of swatches of color, the Terrain
+                  Painter's palette is populated by TerrainMaterials which you use to
+                  paint the terrain. </p>
+                <p><img alt="Image:PainterPalette.jpg" src="images/PainterPalette.jpg" border="0" width="207" height="363" /> </p>
+                <p><br />
+                  A TerrainMaterial is a collection of three textures combined into a single layer. The three textures are the base (also known as diffuse), detail, and normal map. A preview of which TerrainMaterial (or layer) is shown in the box at the top of the palette labeled Terrain Painter Material Preview. </p>
+                <a name="Terrain_Materials_Editor" id="Terrain_Materials_Editor"></a>
+                <h2> <span class="mw-headline">Terrain Materials Editor</span></h2>
+                <p>When you wish to add a new TerrainMaterial, click on the New Layer entry in the palette. </p>
+                <p><br />
+                  <img alt="Image:NewLayerButton.jpg" src="images/NewLayerButton.jpg" border="0" width="201" height="48" /> </p>
+                <p><br />
+                  Once you click on the entry, the Terrain Materials Editor window will appear. This tool is completely separate from the basic <a href="MaterialEditor.html">Material Editor</a>, as TerrainMaterials are structured and used much differently than other Torque 3D materials which are used on shapes in the world placed with the World Editor. </p>
+                <p><br />
+                  <img alt="Image:TerrainMaterialEditor.jpg" src="images/TerrainMaterialEditor.jpg" border="0" width="391" height="318" /> </p>
+                <p><br />
+                  <b>Terrain Materials:</b>The TerrainMaterials list contains all the currently available textures for creating terrain materials.</p>
+                <p><b>New Button:</b>Clicking the Page icon in the Terrain materials header creates a new TerrainMaterial entry for editing.</p>
+                <p><b>Delete Button:</b>Clicking the Trash can icon in the Terrain materials headerdeletes the currently selected TerrainMaterial.</p>
+                <p><b>Apply &amp; Select Button:</b>Clicking this button closes the Terrain Materials Editor and returns to what ever operation brought you to the dialog, for the purposes of this article it returns you back to the Terrain Painter Material Selector and adds the selected TerrainMaterial as a new material ready to be used for painting.</p>
+                <p><b>Cancel Button:</b> Close editor without making a choice. </p>
+                <p><br />Clicking on an entry in the Terrain Materials list updates the Material Properties pane on the right to display the current properties of that material.</p>
+                <h3>Material Properties Pane</h3>
+                <p>The Material Properties pane contains a Name field, which is used as the label assigned to the material and three sub-sections which describe the textures that define the material.</p>
+                <p><b>Name:</b>Assigns the name of the TerrainMaterial which will appear in the Terrain Materials list. </p><br />
+                <p><strong><u>Diffuse Sub-Section</u></strong></p>
+                <p>Shows a preview and the properties of the materials Diffuse texture, which provides the color and base appearance of the material. The Diffuse texture is also commonly referred to as the Base texture for this reason.</p><br />
+                <p><b>Edit Button:</b> Clicking this button allows you to select the texture to assign to this aspect of the material. </p>
+                <p><b>Trash Can Button:</b> Clicking this button clears the texture that has been selected for this section.</p>
+                <p><b>Use Side Projection:</b> Terrain textures are normally applied top-down, which can result in stretching. This toggle causes a material to smoothly merge and conform to steep terrain if needed.</p>
+                <p><b>Diffuse Size:</b> Controls the physical size, in meters, of the base texture.</p><br />
+                <p><strong><u>Detail Sub-Section:</u></strong></p>
+                <p>Shows a preview and the properties of the materials Detail Map, which gives the material a more defined, crisp look. If you are familiar with advanced rendering concepts this is accomplished using additive blending and per-layer fade distance techniques.</p><br />
+                <p><b>Edit Button:</b> Clicking this button allows you to select the texture to assign to this aspect of the material. </p>
+                <p><b>Trash Can Button:</b> Clicking this button clears the texture that has been selected for this section. </p>
+				<p><b>Detail Size:</b> How close the camera must be before the detail map begins rendering in meters. </p>
+                <p><b>Detail Distance:</b> Determines how bold the detail appears on the base texture. </p><br />
+                <p><strong><u>Normal Sub-Section:</u></strong></p>
+                <p>Shows a preview and the properties of the materials Detail Map, which gives the material a more defined, crisp look. If you are familiar with advanced rendering concepts this is accomplished using additive blending and per-layer fade distance techniques.</p><br />
+                <p><b>Edit Button:</b> Clicking this button allows you to select the texture to assign to this aspect of the material. </p>
+                <p><b>Trash Can Button:</b> Clicking this button clears the texture that has been selected for this section. </p>
+                <p><b>Parallax Scale:</b> Adjusts the intensity of the parallax depth in normal maps. </p>
+                <a name="Painting" id="Painting"></a>
+                <h2> <span class="mw-headline">Painting</span></h2>
+                <p>Before we begin painting, we will add a second TerrainMaterial to our palette (if the project you have open already has more than one feel free to skip this step). </p>
+                <p><br />
+                  To add a new material click the New Layer button in the Terrain Painter Material Selector. The Terrain Materials Editor will open.  Click any TerrainMaterial in the list other than the one that is already in your palette, such as the "rocktest" material shown here. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <img alt="Image:TerrainMaterialEditor.jpg" src="images/TerrainMaterialEditor.jpg" border="0" width="391" height="318" /> </p>
+                <p><br />
+                  Once you have the material selected, click the Apply & Select button. Once you have done this, the new layer will have been added to your palette and available for painting.</p>
+                  <p><br />This is a good time to take a look behind the scenes to understand a little of how Torque 3D organizes materials and how it uses them for other operations to your advantage.What you can not see in the interface is that the system has associated each of the TerrainMaterials in your palette with a numbered layer. Throughout these documents you will see, or may have already seen, that material layers are used to control aspects of object placement such as which layer automatic object placement will occur on. </p>
+                  <p><br />If you started with a project that was created with the Full template and added the rocktest material in the last step then the system now considersgrass1 to be layer0 and rocktest to be layer1. This allows you, whenever asked, to select layers using something meaningful to you rather than remembering some random numbering system. When asked to select a layer you can simply pick the grass or rocktest layer from a list and the system will use and apply the proper numbered layer to perform the related operation. </p>
+                  <p><br />All this becomes very important in reducing the amount of work that is needed to create realistic terrain. The TerrainMaterials that you apply with the Terrain Painter tool not only give the terrain the appearance of natural materials but they can be used to automatically generate and restrict foliage and other shapes when used in conjunction with objects such as GroundCover.</p>
+                <p><br />
+                  <p><img alt="Image:PainterPalette.jpg" src="images/PainterPaletteRocks.jpg" border="0" width="210" height="410" /> </p>
+                <p><br />
+                  Now, on to learning to paint. Make sure you have the new material selected in the Terrain Painter Material Selector. So we can more easily see the modifications we are about to make, set your brush size to about 25. </p>
+                <p><img alt="Image:PainterIncreaseCameraSize.jpg" src="images/PainterIncreaseCameraSize.jpg" border="0" width="115" height="42" /> </p>
+                <p><br />
+                  Now, find a section of the terrain you wish to paint. Here, we started in a corner of the TerrainBlock. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/PaintRockBefore.jpg" class="livethumbnail"><img src="images/PaintRockBefore.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  Click and hold down the left mouse button, then begin dragging the brush around the screen in a sweeping motion. The terrain will update in real time to reflect the painting of the new TerrainMaterial. When you let go of the mouse button, the Terrain Painter will stop laying down the material. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/PaintRockAfter.jpg" class="livethumbnail"><img src="images/PaintRockAfter.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  You should have noticed that your brush clamped to the terrain as long as the cursor was over the block. This happens regardless of any terrain modification or elevation occurring, as shown in the following example. Notice how the brush distorts to wrap around the elevated terrain. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/PainterBrushClamping.jpg" class="livethumbnail"><img src="images/PainterBrushClamping.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  Even though you just paved a large section of rock material, you can still paint over it. Decrease the Brush Size to approximately 9, so we can paint a more exact line of terrain. </p>
+                <p><img alt="Image:PainterSetCamera9.jpg" src="images/PainterSetCamera9.jpg" border="0" width="114" height="36" /> </p>
+                <p><br />
+                  We are going to paint a path over our rocky area. In the Terrain Painter palette, select the first material (desert_sand_03 in this image). </p>
+                <p><img alt="Image:SwitchToDesert.jpg" src="images/SwitchToDesert.jpg" border="0" width="208" height="408" /> </p>
+                <p><br />
+                  Now, using your mouse cursor move the brush to the edge of our rocky area. You can start it just before the rocky area, or even on top of it. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/PaintPathBefore.jpg" class="livethumbnail"><img src="images/PaintPathBefore.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  Click and hold down the left mouse button to begin painting then sweep your mouse in a curving motion across the rocky area. When you are finished, let go of the mouse and examine or your winding path made of grass.</p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/PathPaintAfter.jpg" class="livethumbnail"><img src="images/PathPaintAfter.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  If you were to drop down to the player's camera view, you can see where the two TerrainMaterials meet each other after editing. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/PathCloseup.jpg" class="livethumbnail"><img src="images/PathCloseup.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  Take the time to experiment with different brush sizes and
+                  shapes to see what kind of patterns you can come up with. When you are
+                  ready, read on to learn how to add a new TerrainMaterial with higher
+                  quality and detail. </p><br />
+                <a name="Painting.2FAdjusting_New_Material" id="Painting.2FAdjusting_New_Material"></a>
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>This article walked you through the Terrain Painter's interface,
+                  typical usage, and TerrainMaterial system. Use in conjunction with the
+                  Terrain Editor, you can fabricate some amazing and realistic terrain
+                  for your game. Remember to save your work often and do not be afraid to
+                  experiment first. </p>
+                </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

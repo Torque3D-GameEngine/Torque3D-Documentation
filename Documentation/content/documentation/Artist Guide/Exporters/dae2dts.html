@@ -1,0 +1,92 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 0;
+   parent.leftFrame.expandToItem('tree2', 'doc0');
+   var element = parent.leftFrame.document.getElementById('doc0');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>DAE 2 DTS</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+
+<BODY id = "BODYID" onLoad = "initComponent()" >
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+<h2>DAE2DTS</h2>
+
+<p>The dae2dts tool is a command-line application used to convert COLLADA (DAE) models to Torque shape (DTS) or animation (DSQ) files. The tool is invoked from the windows command prompt as follows:</p><br>
+
+<pre>
+dae2dts [options] daeFilename
+</pre>
+<br>
+<p>Where <i>daeFilename</i> is the path to the COLLADA (.dae) file to convert (the DAE file does not need to be in the same folder as the dae2dts tool). The tool exit code is zero on success or non-zero on failure, making it suitable for use within a larger batch conersion process. The following options are available:</p><br>
+<dl>
+ <dt>--config cfgFilename</dt><dd>Set the conversion configuration filename. Reserved for future use; not currently supported.</dd>
+ <dt>--output dtsFilename</dt><dd>Set the output DTS filename. If not specified, the output will have the same base name as the input DAE file, but with DTS (or DSQ) extension.</dd>
+ <dt>--dsq</dt><dd>If set, all sequences in the shape will be saved to DSQ files (one for each sequence) instead of being embedded in the DTS file. The generated DTS file will not contain any animation sequences.</dd>
+ <dt>--dsq-only</dt><dd>Same as --dsq, but no DTS file will be saved (handy for animation only input files).</dd>
+ <dt>--compat</dt><dd>If set, the tool will attempt to write to DTS v24 for compatibility with non-T3D engines (TGE, TGEA, ShowToolPro etc). By default, the dae2dts tool outputs DTS v26 files which can only be loaded in T3D based products (T3D can also load DTS v24 files). DTS v24 supports only a single UV set, around 11000 maximum triangles per mesh, and does not support vertex colors. Also, COLLADA models that use autobillboards may not be saved correctly to DTS v24.</dd>
+ <dt>--diffuse<dt><dd>If set, the tool will use each material's diffuse texture as the material name (instead of the COLLADA &lt;material&gt; name) for compatibility with simple TGE materials.</dd>
+ <dt>--materials</dt><dd>If set, the tool will generate a materials.cs script in the output folder to define Materials used in the shape.</dd>
+ <dt>--verbose</dt><dd>If set, the tool will output progress information</dd>
+</dl>
+<br>
+<h3>Examples</h3>
+
+<p>A COLLADA model, player.dae, contains 3 animation clips: root, run, shoot.</p>
+
+<pre>
+# Convert to 'player.dts' (all animations are embedded in the DTS file)
+dae2dts player.dae
+
+# Convert to 'orc.dts', and generate 'orc_root.dsq', 'orc_run.dsq' and
+# 'orc_shoot.dsq' (all files compatible with TGE, TGEA and ShowToolPro)
+dae2dts --compat --dsq --output orc.dts C:\shapes\player.dae
+
+# Extract animations only and store in 'player_root.dsq', 'player_run.dsq' and
+# 'player_shoot.dsq'
+dae2dts --dsq-only player.dae
+</pre>
+
+<h3>Materials</h3>
+
+<p>A major difference between a COLLADA and a DTS model is in the naming of materials. DTS files only support a single material name, which historically (TGE) has been used to reference the diffuse texture. For example, a DTS material that uses the texture <i>wood.jpg</i> would be called <i>wood</i>. When Torque loads this model, if there are no script Materials defined that mapTo <i>wood</i>, the engine looks for a JPG, PNG, or BMP file with that name in the same directory as the model.</p><br>
+
+<p>However, in a modelling application (and in Torque3D!), a material encompasses much more than just the diffuse texture. When a model is exported to the COLLADA file format, the name of the material in the modelling app is stored in the &lt;material&gt; tag in the COLLADA file.</p><br>
+
+<p>The default behavior of the dae2dts tool is to use the COLLADA &lt;material&gt; element name as the material name in the DTS file, which means the model will not display correctly in Torque unless materials.cs has been setup correctly. There are two approaches to solve this issue for dae2dts converted models:</p><br>
+
+<ol>
+ <li>Name the material in the 3D app the same as the diffuse texture file, or use the <i>--diffuse</i> option to do it automatically at conversion time. This is the recommended approach for engines that do not support scripted Materials (TGE, ShowToolPro).</li>
+ <li>Create a materials.cs file in the same directory as the model (or have the tool create it for you), and define a script Material object that maps to each COLLADA material name. This is the recommended approach if your engine supports scripted Materials as it will give you greater flexibility in naming your materials.</li>
+</ol>
+<br>
+<h3>Further Reading</h3>
+
+<p>See the <a href="../Importing Assets/COLLADALoader.html">Torque COLLADA Loader</a> documentation for more details about how Torque loads COLLADA files, and for which COLLADA features are supported.</p><br>
+
+<p>TSShapeContructor allows you to modify the loaded COLLADA model in-memory before it is saved to DTS or DSQ. The TSShapeConstructor script can be created by hand, or by using the T3D Shape Editor tool (available in the T3D demo for non-T3D licensees). See TSShapeConstructor in the Torque 3D - Script Manual for more details.</p>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

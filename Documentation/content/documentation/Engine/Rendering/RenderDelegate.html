@@ -1,0 +1,187 @@
+<html>
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 19;
+   parent.leftFrame.expandToItem('tree2', 'doc19');
+   var element = parent.leftFrame.document.getElementById('doc19');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D - GFX RenderDelegate</title>
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_EngineOverview_GFX_RenderDelegate skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Concept"><span class="tocnumber">1</span> <span class="toctext">Concept</span></a></li>
+                          <li class="toclevel-1"><a href="#SkyBox_Example"><span class="tocnumber">2</span> <span class="toctext">SkyBox Example</span></a></li>
+                          <li class="toclevel-1"><a href="#RenderObjectExample"><span class="tocnumber">3</span> <span class="toctext">RenderObjectExample</span></a></li>
+                          <li class="toclevel-1"><a href="#RenderDelegate_vs_Other_Render_Methods"><span class="tocnumber">4</span> <span class="toctext">RenderDelegate vs Other Render Methods</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">5</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Concept" id="Concept"></a>
+                <h2> <span class="mw-headline">Concept</span></h2>
+                <p>The concept and functionality behind RenderDelgate gives you, the
+                  developer, a lot of flexibility when you are creating your own
+                  rendering objects. RenderDelgates are based on the system sending a
+                  signal, which is caught by an object's RenderDelegate. The
+                  RenderDelgate itself calls an object's render function. </p>
+                <p><br />
+                  Let's take a look at a few simple examples. </p><br>
+                <a name="SkyBox_Example" id="SkyBox_Example"></a>
+                <h2> <span class="mw-headline">SkyBox Example</span></h2>
+                <p>The SkyBox object is a great example of a custom object that
+                  requires rendering. The class is derived from SceneObject, which does
+                  not have a rendering function. Open <b>engine/source/environment/skyBox.h</b>. If you scroll through the SkyBox class, you will find the declaration of its RenderDelegate: </p>
+                <pre>/// Our render delegate.
+void _renderObject( ObjectRenderInst *ri, SceneState *state, BaseMatInstance *mi );
+</pre>
+                <p><br />
+                  Open skyBox.cpp (<i>same directory</i>), then locate the
+                  SkyBox::prepRenderImage(...) function. At the bottom of the function,
+                  Sky's RenderDelegate is bound. In the following code, read each line's
+                  comment to understand what is happening: </p>
+                <pre>// Create a render instance by asking the RenderPassManager for one
+ObjectRenderInst *ri = state-&gt;getRenderPass()-&gt;allocInst&lt;ObjectRenderInst&gt;();
+
+// Bind the SkyBox's rendering function to the renderDelegate
+ri-&gt;renderDelegate.bind( this, &amp;SkyBox::_renderObject );
+
+// Set the Render Instance Type (RIT)
+ri-&gt;type = RenderPassManager::RIT_Sky;
+
+// Set the sorting keys
+ri-&gt;defaultKey = 10;
+ri-&gt;defaultKey2 = 0;
+
+// Add the render instance to the manager
+state-&gt;getRenderPass()-&gt;addInst( ri );
+</pre>
+                <p><br />
+                  When binding, we are passing in the SkyBox class (<i>this</i>), and its rendering function. Let's say 
+                    the rendering function had a different name, such as _renderSky. </p>
+                <pre>ri-&gt;renderDelegate.bind( this, &amp;SkyBox::_renderSky);
+</pre>
+                <p><br />
+                  What we are doing is preparing the SkyBox class to receive a
+                  render signal and act on it. One of our manager's (which we will
+                  discuss in a minute), will parse through all of its contained objects.
+                  When it comes across SkyBox, it will send a render signal to the class.
+                  It doesn't care about the name of the rendering function, it just tells
+                  the object to render with certain information: </p>
+                <pre>void SkyBox::_renderObject( ObjectRenderInst *ri, SceneState *state, BaseMatInstance *mi )
+{
+   ...
+
+   GFXTransformSaver saver;  
+   GFX-&gt;setVertexBuffer( mVB );         
+      
+   MatrixF worldMat = state-&gt;getCameraTransform();     
+
+   SceneGraphData sgData;
+   sgData.objTrans = worldMat;
+   
+   ...
+</pre><br>
+                <a name="RenderObjectExample" id="RenderObjectExample"></a>
+                <h2> <span class="mw-headline">RenderObjectExample</span></h2>
+                <p>No doubt, if you are reading through these engine docs you are most
+                  likely a programmer. Regardless of your experience, diving head first
+                  into Torque 3D's source code can be overwhelming. If you need a very
+                  simple RenderDelegate example, you do not have to dig through the
+                  entire Player-&gt;ShapeBase-&gt;etc hierarchy. </p>
+                <p><br />
+                  Instead, an example class was written specifically for demonstrating a basic RenderDelegate: <b>RenderObjectExample</b>. The source files, renderObjectExample.h and .cpp, are found in <b>engine/source/T3D/examples</b>. Every line has been heavily commented to explain the purpose of the class. </p>
+                <p><br />
+                  RenderObjectExample has even been exposed to script and the
+                  World Editor. You can add a RenderObjectExample to your scene while
+                  debugging the engine, and go through each line of rendering code step
+                  by step. </p><br>
+                <a name="RenderDelegate_vs_Other_Render_Methods" id="RenderDelegate_vs_Other_Render_Methods"></a>
+                <h2> <span class="mw-headline">RenderDelegate vs Other Render Methods</span></h2>
+                <p>A render object (using a RenderDelegate) handles its own rendering
+                  by submitting itself as an ObjectRenderInst along with a delegate for
+                  its render() function. However, the preferred rendering method in the
+                  engine is to submit a MeshRenderInst along with a Material, vertex
+                  buffer, primitive buffer, and transform and let the RenderMeshMgr
+                  handle the actual rendering. </p>
+                <p><br />
+                  With that in mind, you may be wondering why you should ever
+                  use a RenderDelegate when some of the most important classes do not use
+                  it: Player, Item, ShapeBase, etc. While writing the actual rendering
+                  code can be complex, deciding on which method to use is simple. </p>
+                <p><br />
+                  When you have access to an object's 3D geometry (mesh) and
+                  material (textures and texture properties), you might as well make use
+                  of the mesh and shape rendering systems. This includes anything using
+                  COLLADA and .DTS. </p>
+                <p><br />
+                  If your new object does not use 3D geometry, you should
+                  look into using the RenderDelegate system. More importantly,
+                  integration of 3rd party technologies that handle their own rendering,
+                  such as <a href="http://www.speedtree.com/" class="external" title="http://www.speedtree.com/" rel="nofollow">SpeedTree</a> or <a href="http://www.scaleform.com/" class="external" title="http://www.scaleform.com/" rel="nofollow">Scaleform</a>, should definitely use RenderDelegates. </p><br>
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>This goal of this document was to provide you with an introduction
+                  and specific examples of the RenderDelegate system. Should you decide
+                  to create your own custom classes which require object rendering,
+                  please refer back to this doc. </p>
+                <p><br />
+                  Remember, if your new object has a 3D mesh and makes use of the material
+                  system, you are encouraged to follow the example set by
+                  RenderMeshExample and RenderObjectExample. If you are implementing a
+                  very custom object, or a are integrating a 3rd party product with its own rendering, using a
+                  RenderDelegate will be much easier. </p>
+                  
+                  </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

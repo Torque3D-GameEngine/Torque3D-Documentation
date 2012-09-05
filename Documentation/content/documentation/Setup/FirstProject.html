@@ -1,0 +1,333 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><HEAD><SCRIPT SRC="../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../";</SCRIPT><link href="../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 64;
+   parent.leftFrame.expandToItem('tree2', 'doc64');
+   var element = parent.leftFrame.document.getElementById('doc64');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../include/content.css" />
+
+<title>Torque 3D - Software Setup</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject  page-Torque3D_Introduction_Setup skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          </div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Working_with_a_T3D_Project"><span class="tocnumber">1</span> <span class="toctext">Working with a T3D 
+                            Project</span></a></li>
+                          <li class="toclevel-1"><a href="#Create_a_new_project"><span class="tocnumber">2</span> <span class="toctext">Create a new project</span></a></li>
+                          <li class="toclevel-1"><a href="#Your_new_Project"><span class="tocnumber">3</span> <span class="toctext">Your new Project</span></a></li>
+                          <li class="toclevel-1"><a href="#The_Source_code"><span class="tocnumber">4</span> <span class="toctext">The Source code</span></a></li>
+                          <li class="toclevel-1"><a href="#The_Project"><span class="tocnumber">5</span> <span class="toctext">The Project</span></a></li>
+                          <li class="toclevel-1"><a href="#Your_first_Compile"><span class="tocnumber">6</span> <span class="toctext">Your 
+                              First Compile</span></a></li>
+                          <li class="toclevel-1"><a href="#The_Project_Build"><span class="tocnumber">7</span> <span class="toctext">The Project Build</span></a></li>
+                          <li class="toclevel-1"><a href="#Run_your_project"><span class="tocnumber">8</span> <span class="toctext">Run your project</span></a></li>
+                          <li class="toclevel-1"><a href="#Summary"><span class="tocnumber">9</span> <span class="toctext">Summary</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Working_with_a_T3D_Project" id="Working_with_a_T3D_Project"></a>
+                <h2> <span class="mw-headline">Working with a T3D Project</span></h2>
+                <p>Before we move on and load a T3D project, you should familiarize yourself with the layout of the source code folders by taking the <a href="../Introduction/DirectoryOverview.html">T3D Engine SDK Tour</a>. When you are ready return here to continue.</p>
+                <p><br />
+                When a new project is created it generates Visual Studio solution files (*.sln) for both VC++ 2005 and 2008. Solution files tell Visual Studio what files are in a project and how to build it so that it can be run. Solution files can be found in a folder similar to: </p>
+                <p><br />
+                  <i>Torque 3D\My Projects\Project\buildFiles\VisualStudio 2008</i> </p><br />
+                  <p><br />Where &lt;Project&gt;  is the name of the project that was created.</p>
+                <a name="Create_a_new_project" id="Create_a_new_project"></a>
+                <p>To create a new project, open the T3D Toolbox utility from your main Windows menu. You may also double click the icon that was created on your desktop when it was installed. After the utility open select  <i>New Project</i>. </p>
+                <br /><p><i>(click to enlarge)</i> </p>
+                <a href="images/P5_00.jpg" class="livethumbnail"><img src="images/P5_00.jpg" width="358" height="279" largewidth="716" largeheight="558" /></a><br />
+                <p><br />
+                  Enter a name for your project <i>T3D_Tutorial_Project</i> then press the Create button. </p>
+                <p><img alt="File:P5_01.jpg" src="images/P5_01.jpg" border="0" height="282" width="396" /> </p>
+                <p>&nbsp;</p>
+                <p>The toolbox utility will now create a new project for you. </p>
+                <br /><p><i>(click to enlarge)</i> </p>
+                <p><a href="images/P5_02.jpg" class="livethumbnail"><img src="images/P5_02.jpg" width="318" height="185" largewidth="637" largeheight="370" /></a></p>
+                <p><br />
+                </p>
+                <p>When completed press the OK button, also click the Finish 
+                  button on the Creation window.</p>
+                <p><img alt="File:P5_03.jpg" src="images/P5_03.jpg" border="0" height="142" width="328" /> </p>
+                <a name="Your_new_Project" id="Your_new_Project"></a>
+                <h2> <span class="mw-headline">Your new Project</span></h2>
+                <p>Open your T3D folder and look for the My Projects folder. This is where your newly created project will have been created. </p>
+                <br /><p><i>(click to enlarge)</i> </p>
+                <p><a href="images/P5_04.jpg" class="livethumbnail"><img src="images/P5_04.jpg" width="239" height="184" largewidth="479" largeheight="368" /></a></p>
+                <p><br />
+                    <a name="The_Source_code" id="The_Source_code"></a>
+                </p>
+                <h2> <span class="mw-headline">The Source code</span></h2>
+                <p>One of the strengths of Torque 3D is that the source code for the entire engine is included with your license. For programmers or projects that are outside of the traditional box, this is an important feature. The rest of this article will walk you through creating Torque projects with Visual C++ Express.</p>
+                <p><br />We can open the source code via two methods -- one directly via Visual C++ Express and the other with the T3D Toolbox utility. First we will look at the traditional approach. </p>
+                <p><br />
+                  <b>Method 1: Traditional</b> Open Visual C++ if it is not already open, and then from the menu select  <i>File&gt;Open&gt;Project/Solution.</i></p>
+                <p><img alt="File:P5_05.jpg" src="images/P5_05.jpg" border="0" height="324" width="463" /> </p>
+                <p>&nbsp;</p>
+                <p>Navigate to the location where your new project has been created, and then move down into the folder appropriate for your version of Visual C++. If you kept the defaults, they should be either:</p>
+                <p><br />
+                <i>Torque 3D\My Projects\&lt;Project&gt;\buildFiles\VisualStudio 2005</i></p>
+                <p><br />or</p>
+                <p><br />
+                  <em>Torque 3D\My Projects\&lt;Project&gt;\buildFiles\VisualStudio 2008</em></p>
+                <p><br />Then open the file in that folder with the .sln file extension:</p>
+                <p>&lt;Project&gt;.sln<br /></p>
+                <p><br />Where &lt;Project&gt; is the name of the project you are opening.</p>
+                <p align="left"><br />
+                  <i>Torque 3D  Pro 1.1\My 
+                  Projects\T3D_Tutorial_Project\buildFiles\VisualStudio 2008\T3D_Tutorial_Project.sln</i></p>
+                <p><br />
+                </p>
+                <p><br />
+                  <b>Method 2: The Quickest</b></p>
+                  <p><br /><b>NOTE: This method will not yet work with Visual Studio C++ 2010.</b></p>
+                  <p><br />Open the Torque 3D Toolbox utility if it is not already open. From its main window with the Project tab selected, select your new project from the list, and then  press the 
+                      C++ Edit Source button. </p>
+                <br /><p><i>(click to enlarge)</i> </p>
+                <a href="images/P5_06.jpg" class="livethumbnail"><img src="images/P5_06.jpg" width="358" height="279" largewidth="716" largeheight="558" /></a><br /><br />
+                <p>The Visual Studio Version dialog will appear. Select the version of Visual Studio that you are using from the drop down list. In this example we will use 2008. </p>
+                <p><br />
+                  <img alt="File:P5_07.jpg" src="images/P5_07.jpg" border="0" height="139" width="216" /> </p>
+                <p><br />
+                  Click OK and Visual Studio 2008 should open displaying your new project. You 
+                  can press OK on the following
+                  window, if it is still open. </p>
+                <p><br />
+                  <img alt="File:P5_08.jpg" src="images/P5_08.jpg" border="0" height="164" width="516" /> </p><br /><br />
+                <a name="The_Project" id="The_Project"></a>
+                <h2> <span class="mw-headline">The Project</span></h2>
+                <p>Your project should now be open inside Visual Studio 2008 and should look 
+                    something like the following: </p>
+                <br /><p><i>(click to enlarge)</i> </p>
+                <a href="images/P5_09.jpg" class="livethumbnail"><img src="images/P5_09.jpg" width="422" height="323" largewidth="844" largeheight="647" /></a><br /><br />
+                <p>Look through the project folders in the tree. Look for the folder with the same name as your project but with "DLL" on the end. In the sample screen below, that would be the folder named: T3D_Tutorial_Project DLL.</p>
+                <p><br />
+                This folder contains the game-related C++ files that will directly make the game function. The other projects in the solution are required by a Torque game project and are already setup to properly link to it. You do not need to work with these files in order to create a game, except in very advanced development. This information is beyond the scope of this document. </p>
+                <p><br />
+                  <img alt="File:P5_13.jpg" src="images/P5_13.jpg" border="0" height="650" width="231" /> </p><br /><br />
+                <a name="Your_first_Compile" id="Your_first_Compile"></a>
+                <h2> <span class="mw-headline">Your First Compile</span></h2>
+                <p>There is one last thing we must do before we can start a compile. </p>
+                <p><br />
+                  <b>IMPORTANT :</b> If you are using VS C++ Express (2005, 2008, or 2010), you will not be able to compile the IE T3D plug-in project. If this is not disabled, you will get a compiler error. Everything will compile fine on the full version of Visual Studio. This warning is only for the Express version. If you are running the full version or Visual Studio and not Express, then skip ahead to the next section, <a href="#The_Project_Build">The Project Build</a>.</p>
+                  <p><br />Otherwise continue on to disable the plugin so that you can successfully build your game project.</p>
+                <p><br />
+                  <b>How to Disable the IE Plugin:</b> Look for the folder with "Plugin" at the end of its name. In this example called:  <i>IE T3D_Tutorial_Project Plugin</i>. </p>
+                <p>&nbsp;</p>
+                <p><img alt="File:P5_10.jpg" src="images/P5_10.jpg" border="0" height="396" width="269" /> </p>
+                <p>&nbsp;</p>
+                <p>Right mouse click on the folder name and from the menu select <em>Unload Project</em>. This will prevent Visual Studio from including this code when the project is compiled.  </p>
+                <p><br />
+                  <img alt="File:P5_11.jpg" src="images/P5_11.jpg" border="0" height="566" width="311" /> </p>
+                <p>&nbsp;</p>
+                <p>The folder should now be grayed out. </p>
+                <p><img alt="File:P5_12.jpg" src="images/P5_12.jpg" border="0" height="390" width="288" /> </p><br /><br />
+                <a name="The_Project_Build" id="The_Project_Build"></a>
+                <h2> <span class="mw-headline">The Project Build</span></h2>
+                <p><br />The process of compiling and linking a project, also known as building the project, creates the executable file for your game from the C++ source code. </p>
+                <p>To build the project, select either <em>Release</em> or  <em>Debug</em> from the 
+                    <em>Solutions Configuration</em> drop down list on the toolbar. </p>
+                <p><br />A Release type build is a much lighter package as it requires none of the extra debugging information included in a debug build. As a general rule, Release builds will run faster. For more information on this subject, please refer to your compilers help documentation. </p>
+                <p>&nbsp;</p>
+                <p>To build the solution, from the menu select <em>Build>Build Solution</em> or press F7. </p>
+                <p><br />
+                This will start compiling the project which may take a few minutes depending on the capabilities of your computer. You can see the progress from the output window on the output tab which we opened earlier. </p>
+                <p><img alt="File:P5_14.jpg" src="images/P5_14.jpg" border="0" height="229" width="518" /> </p>
+                <p>&nbsp;</p>
+                <p>During compilation if any errors or warnings occur, you can see these from the output windows 
+                    <em>Error List</em> Tab which we also opened earlier.</p>
+                <p><br />
+                  When the compiler has completed the build and has done all the linking, the 
+                  output window 
+                  should show something similar to the following with no errors or 
+                  warnings. This is typical 
+                  of a successful clean build. </p>
+                <p><img alt="File:P5_15.jpg" src="images/P5_15.jpg" border="0" height="225" width="589" /> </p>
+                <p>&nbsp;</p>
+                <p>If you opted to build for a Release you can try rebuilding the 
+                  project as a Debug type. </p><br /><br />
+                <a name="Run_your_project" id="Run_your_project"></a>
+                <h2> <span class="mw-headline">Run your project</span></h2>
+                <p>Now that the project has been built, you can locate the executable file inside the project folder. Again, if you used the project creation defaults it will be located in:</p>
+                <p><br />
+                  <i>Torque 3D\My Projects\&lt;Project&gt;\game<Project>.exe </p>
+                <p><br />
+                  Or for a more direct way, while we have our compiler open you can just head up 
+                    to the menu and select:</p>
+                <p><br />
+                    <i>Debug &gt; Start Debugging</i> if you made a debug build </p>
+                    <p><br />or</p>
+                <p><br />
+                    <i>Debug &gt; Start without debugging</i> if you made a 
+                  release build </p>
+                <p><br />
+                  <img alt="File:P5_16.jpg" src="images/P5_16.jpg" border="0" height="264" width="476" /> </p>
+                <p>&nbsp;</p>
+                <p>If all has gone well and you followed all the necessary steps, your project should run and be ready for you to begin your T3D development journey. </p><br /><br />
+                <a name="Summary" id="Summary"></a>
+                <h2> <span class="mw-headline">Summary</span></h2>
+                <p>Setting up your T3D development environment and fully understanding the 
+                  folders and files can be a time-consuming process and can be quite a bewildering 
+                  experience to the newcomer. But this is time-well-spent 
+                  as you will be able to modify and compile your project engine as you see
+                  fit. </p>
+                <p><br />
+                  Please read the other documentation provided to help you better 
+                  understand the World Editor/ GUI Editor
+                  and scripting. </p>
+                <p><br />
+                  <a href="http://docs.GarageGames.com/torque-3d/official/" class="external" title="http://docs.GarageGames.com/torque-3d/official/" rel="nofollow">T3D
+                  Documentation</a> - The Official T3D Documentation </p>
+                <p><br />
+                  <a href="http://www.GarageGames.com/documentation/torque-3d" class="external" title="http://www.GarageGames.com/documentation/torque-3d" rel="nofollow">T3D Resources page</a> - links to many T3D related 
+                  subjects </p>
+                <p><br />
+                  Visit the forums regularly as there is a wealth of community knowledge 
+                  for you to learn.
+                 </p>
+                <p><br />
+                  <a href="http://www.GarageGames.com/community/forums" class="external" title="http://www.GarageGames.com/community/forums" rel="nofollow">Forums</a> - Forums on all Torque-related subjects 
+                  including a T3D Section </p>
+                <p><br />
+                  You can gain a lot of engine code experience by visiting the resources 
+                  section and downloading some
+                  of the examples. By modifying the source code to include these examples, 
+                  you will learn much about
+                  how the engine works and add new engine features. </p>
+                <p><br />
+                  <a href="http://www.GarageGames.com/community/resources" class="external" title="http://www.GarageGames.com/community/resources" rel="nofollow">Torque
+                  Resources</a> - Add on codes / scripts and other useful items </p>
+                <p><br />
+                  Start small and work your way through to bigger and better things. This 
+                  way you create a strong foundation
+                  of knowledge which will support many of your future projects. </p>
+                <p><br />
+                  Happy game developing. </p></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

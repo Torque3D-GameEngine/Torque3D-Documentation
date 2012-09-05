@@ -1,0 +1,209 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 6;
+   parent.leftFrame.expandToItem('tree2', 'doc6');
+   var element = parent.leftFrame.document.getElementById('doc6');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 5;
+   parent.leftFrame.expandToItem('tree2', 'doc5');
+   var element = parent.leftFrame.document.getElementById('doc5');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+
+<title>Torque 3D Character Primer (Rough)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style type="text/css">
+        .style1
+        {
+            height: 18px;
+            text-align: left;
+        }
+        .style2
+        {
+            text-align: left;
+        }
+        .style3
+        {
+            height: 18px;
+        }
+        .style4
+        {
+            text-align: left;
+            height: 32px;
+        }
+        .style5
+        {
+            height: 18px;
+            text-align: left;
+            width: 171px;
+        }
+        .style6
+        {
+            text-align: left;
+            height: 32px;
+            width: 171px;
+        }
+        .style7
+        {
+            text-align: left;
+            width: 171px;
+        }
+    </style>
+</head>
+
+<BODY id = "BODYID" onLoad = "initComponent()"  id = "BODYID" onLoad = "initComponent()" >
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<a name="INTRO"></a><h2>Introduction</h2>
+
+<h3>Character Setup Pipeline</h3>
+<p>Characters in T3D can be setup to use different weapon animations and share those animations between different skinned meshes with the same skeleton hierarchy.  
+So a standard T3D character would have COLLADA files for the character’s skinned mesh and skinned skeleton as well as for the character’s animations with just the 
+skeleton for each weapon pose.  The animations can be exported individually or combined in one .dae file that is split up through the shape editor.</p>
+<table title="Third Person Weapon Player Animation Names" style="border: 1px; border-style:outset">
+<tbody>
+<tr><td class="style3" colspan="2" style="border: 1px; border-style: inset"><p align="center"><strong>Third Person Weapon Player Animation Names</strong></p></td></tr>
+<tr><td class="style5" style="border: 1px; border-style: inset">Back: (Loops) </td><td class="style1" style="border: 1px; border-style: inset">Run backward</td></tr>
+<tr><td class="style6" style="border: 1px; border-style: inset">Crouch_Back: (Loops) </td><td class="style4" style="border: 1px; border-style: inset">Crouch walk backward</td></tr>
+<tr><td class="style7" style="border: 1px; border-style: inset">Crouch_Forward: (Loops) </td><td class="style2" style="border: 1px; border-style: inset">Crouch walk forward</td></tr>
+<tr><td class="style7" style="border: 1px; border-style: inset">Crouch_Root: (Loops) </td><td class="style2" style="border: 1px; border-style: inset">Crouch idle</td></tr>
+<tr><td class="style7" style="border: 1px; border-style: inset">Crouch_Side: (Loops) </td><td class="style2" style="border: 1px; border-style: inset">Crouch move right</td></tr>
+<tr><td class="style7" style="border: 1px; border-style: inset">Death#: </td><td class="style2" style="border: 1px; border-style: inset">Where ‘#’ is can be a number for multiple death sequences that will be picked randomly.  So Death1, Death2, etc.</td></tr>
+<tr><td class="style7" style="border: 1px; border-style: inset">Fall: (Loops) </td><td class="style2" style="border: 1px; border-style: inset">Character is falling</td></tr>
+<tr><td class="style7" style="border: 1px; border-style: inset">Head: (Blend) </td><td class="style2" style="border: 1px; border-style: inset">Usually a 9 frame animation that only affects the neck and head and works in conjunction with the “Look” animation.  Frame 1 is looking 
+    straight up, frame 5 is looking straight forward and 9 is looking down</td></tr>
+<tr><td class="style7" style="border: 1px; border-style: inset">Jump: </td><td class="style2" style="border: 1px; border-style: inset">Character jumping</td></tr>
+<tr><td class="style7" style="border: 1px; border-style: inset">Land: </td><td class="style2" style="border: 1px; border-style: inset">Character landing</td></tr>
+<tr><td class="style7" style="border: 1px; border-style: inset">Look: (Blend) </td><td class="style2" style="border: 1px; border-style: inset">Usually a 9 frame animation that only affects the spine and works in conjunction with the “Head” animation.  Frame 1 is looking straight up, frame 
+    5 is looking straight forward and 9 is looking down</td></tr>
+<tr><td class="style7" style="border: 1px; border-style: inset">Reload: (Blend) </td><td class="style2" style="border: 1px; border-style: inset">Reloading the weapon</td></tr>
+<tr><td class="style7" style="border: 1px; border-style: inset">Root: (Loops) </td><td class="style2" style="border: 1px; border-style: inset">More commonly known as the idle animation in most parts of the industry.  Just the character standing and breathing</td></tr>
+<tr><td class="style7" style="border: 1px; border-style: inset">Run: (Loops) </td><td class="style2" style="border: 1px; border-style: inset">Character running</td></tr>
+<tr><td class="style7" style="border: 1px; border-style: inset">Side: (Loops) </td><td class="style2" style="border: 1px; border-style: inset">Character side stepping to the right.  This animation will be played in reverse when moving to the left</td></tr>
+<tr><td class="style7" style="border: 1px; border-style: inset">Sitting: (Loops) </td><td class="style2" style="border: 1px; border-style: inset">Character sitting in a vehicle</td></tr>
+<tr><td class="style7" style="border: 1px; border-style: inset">Swim_Back: (Loops) </td><td class="style2" style="border: 1px; border-style: inset">Swimming backward</td></tr>
+<tr><td class="style7" style="border: 1px; border-style: inset">Swim_Forward: (Loops) </td><td class="style2" style="border: 1px; border-style: inset">Swimming forward</td></tr>
+<tr><td class="style7" style="border: 1px; border-style: inset">Swim_Idle: (Loops) </td><td class="style2" style="border: 1px; border-style: inset">Treading water</td></tr>
+<tr><td class="style7" style="border: 1px; border-style: inset">Swim_Left: (Loops) </td><td class="style2" style="border: 1px; border-style: inset">swimming left</td></tr>
+<tr><td class="style7" style="border: 1px; border-style: inset">Swim_Right: (Loops) </td><td class="style2" style="border: 1px; border-style: inset">Swimming right</td></tr>
+</tbody>
+</table>
+<p>After that you add the animations through the shape editor by going to sequence tab (labeled “Seq”). Click on the new sequence icon and a file browsing dialog will open.  
+Select the sequence COLLADA file you want.  Now define the time range that you want by changing the numbers at the beginning and end of the timeline.  Complete this process for each sequence 
+that you wish to add.</p>
+
+<p>Optionally you can define an object called “BOUNDS” that can be used to define the object's origin (as opposed to your 3d content application’s origin) and is used to define the 
+speed that the object is intended to be moving at.  Such as during a run sequence, if you had a character running forward at 1 meter a second in your 3d application’s scene 
+and had the “BOUNDS” object follow your character then when you bring it into Torque 3D and assigned to the player’s run animation then the playback speed of the animation can 
+be adjusted depending on the speed that the player is moving through the game world.  What this means is that animations don’t have any sliding issues caused by the character's in 
+game speed not matching with the designed animation speed.</p>
+
+<h3>Hitboxes and Damage Location specifications</h3>
+
+<p>Currently, the player's hitbox defined by their bounding box. In order to get damage locations we have cut the player's world box up into pieces as defined by the 
+following sections in the Player's datablock:</p>
+<ul>
+    <li>boundingBox</li>
+    <li>boxHeadPercentage</li>
+    <li>boxTorsoPercentage</li>
+    <li>boxHeadLeftPercentage</li>
+    <li>boxHeadRightPercentage</li>
+    <li>boxHeadBackPercentage</li>
+    <li>boxHeadFrontPercentage</li>
+</ul>
+<p>The player's boundingBox determines the length in each dimension the bounding box should encompass. From the standard player datablock, its sections would look like the following:</p>
+    <img src="images/CharacterPrimerHitBoxOverview.png" /> 
+
+<p>It may be easiest to come up with these numbers by taking a render of the player, and using an imaging program to determine what percentage of the player makes up their legs/head/torso.</p>
+
+<p>In order to take advantage of these damage locations we use the function Player::getDamageLocation(). One of the best places to call this is from the Projectile:onCollision or Armor::Damage() as 
+we'll have the position of the projectile, the player to call getDamageLocation() and a good place to modify the damage if  we wanted to do extra damage on a headshot or less damage to the legs.</p>
+
+<p>GetDamageLocation() will return a string using the defined boundingbox percentages from the player datablock. In C++ it more or less transforms the projectile's location form world space to object 
+space, multiplies the player's bounding box by its percentages, then checks to see if the hit location is greater than, or less than the bounding box dimension multiplied by the percentage. For example, if 
+the bounding box's dimension was 1, it will multiply 1 by 0.43, and check if the bullet's location is less than or 
+    equal to this value. If it's less than the torso, then it counts as a leg shot. 
+    The system 
+then does the same test in the other dimensions to see if the front/back or left/right was hit.</p>
+
+<p>The string returned will be one of the following:</p>
+<p>Possible locations:</p>
+<ul>
+    <li>legs </li>
+    <li>torso </li>
+    <li>head </li>
+</ul>
+<p>Head modifiers:</p>
+<ul>
+    <li>left_back </li>
+    <li>middle_back </li>
+    <li>right_back </li>
+    <li>left_middle </li>
+    <li>middle_middle </li>
+    <li>right_middle </li>
+    <li>left_front </li>
+    <li>middle_front </li>
+    <li>right_front </li>
+</ul>
+<p>Legs/Torso modifiers:</p>
+<ul>
+    <li>front_left </li>
+    <li>front_right </li>
+    <li>back_left </li>
+    <li>back_right </li>
+</ul>
+
+<p>For example, a perfect headshot would be “head_middle_front”, head_middle_back, or “head_middle_middle”. A shot to the front left leg would be “legs_left_front”.</p>
+
+<p>As we can see in the picture, there are situations where we can register a hit from the headbox that actually wouldn't “hit” the player. Such as shooting a bullet in the 
+boxHeadRightPercentage area from the front of the player would fly over the player shoulder, but register a hit in the engine. It may be necessary to do some math to see 
+if the bullet will actually pass through the center of the player's head box to get realistic results.</p>
+    <img src="images/CharacterPrimerHitBoxRescale.png" />
+
+<h1>Conclusion</h1>
+<p><br />This article has described the basic animation setup for a custom character's standard "third person" rig.  With this information you will be able to animate a custom character so that 
+it will interact with the standard Torque 3D character animation system.&nbsp; 
+    Additionally, we&#39;ve covered the requisite information for reading basic hit 
+    locations from a Torque 3D player.</p>
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

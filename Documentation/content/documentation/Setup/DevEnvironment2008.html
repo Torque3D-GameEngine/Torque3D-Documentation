@@ -1,0 +1,252 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><HEAD><SCRIPT SRC="../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../";</SCRIPT><link href="../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 60;
+   parent.leftFrame.expandToItem('tree2', 'doc60');
+   var element = parent.leftFrame.document.getElementById('doc60');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../include/content.css" />
+
+<title>Torque 3D - Software Setup</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject  page-Torque3D_Introduction_Setup skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          </div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Setup_the_Development_environment"><span class="tocnumber">1</span> <span class="toctext">Setup the Development 
+                            environment</span></a></li>
+                          <li class="toclevel-1"><a href="#Getting_up_and_running"><span class="tocnumber">2</span> <span class="toctext">Getting Up and running</span></a></li>
+                          <li class="toclevel-1"><a href="#Setting_up_the_Compiler"><span class="tocnumber">3</span> <span class="toctext">Setting Up the Compiler</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Setup_the_Development_environment" id="Setup_the_Development_environment"></a>
+                <h2> <span class="mw-headline">Setup the Development environment</span></h2>
+                <p>With the required SDKs and software installed, we can 
+                  now start setting up our development
+                  environment. </p>
+                <p><br />
+                  Check list: </p>
+                <ul>
+                  <li> DirectX February 2010 SDK </li>
+                  <li> PhysX SDK if required </li>
+                  <li> Visual Studio C++ 2008 Express </li>
+                  <li> Updated video drivers </li>
+                  <li> Torque T3D source code downloaded from your user account. </li>
+                </ul>
+                <p><br />
+                  Please note, you can use any C++ compiler for your projects. For this 
+                  tutorial we decided to use 
+                  Visual Studio C++ Express as it is free and easy to set up with the T3D 
+                  Source code. </p><br />
+                <a name="Getting_up_and_running" id="Getting_up_and_running"></a>
+                <h2> <span class="mw-headline">Getting up and running</span></h2>
+                <p><b>1)</b> Run Visual Studio 2008 and register the product if you have
+                  not done so already. To do this head to the <i>Help</i> menu, select the option <i>Register Product</i>. Registering
+                  is free and prevents the 30 day limit. </p>
+                  <br /><p><i>(click to enlarge)</i> </p>
+                <a href="images/Pt4_00.jpg" class="livethumbnail"><img src="images/Pt4_00.jpg" width="251" height="193" largewidth="503" largeheight="386" /></a><br /><br /><br />
+                <p><b>2)</b> If this is your first time using the product, take time to look around the menus and the rest 
+                  of the IDE. Don't worry, it will all become familiar after a while. </p><br /><p><i>(click to enlarge)</i> </p>
+                <a href="images/733px-Pt4_01.jpg" class="livethumbnail"><img src="images/733px-Pt4_01.jpg" width="366" height="299" largewidth="733" largeheight="599" /></a><br /><br />
+                <a name="Setting_up_the_Compiler" id="Setting_up_the_Compiler"></a>
+                <h2> <span class="mw-headline">Setting up the Compiler</span></h2>
+                <p>Before we can start compiling our source code, we need to tell the 
+                  compiler where we have installed
+                  all of our SDK Components. Initially we will start with the minimum 
+                  requirement -- DirectX. </p>
+                <p><br />
+                  <b>3)</b> Open the option window from menu&gt;Tools&gt;Options... </p>
+                <p><br />
+                  <img alt="File:Pt4_02.jpg" src="images/Pt4_02.jpg" border="0" height="271" width="406" /> </p><br />
+                <p><b>4)</b> From this window, on the left-hand side there is a 
+                  panel with sub menu headings. Open the <i>Projects and Solution &gt; VC++ Directories</i>. This section is where
+                  we tell Visual Studio where to 
+                  find any additional files that will be required when we compile the T3D 
+                  engine, e.g. DirectX </p><br /><p><i>(click to enlarge)</i> </p>
+                <a href="images/Pt4_03.jpg" class="livethumbnail"><img src="images/Pt4_03.jpg" width="378" height="219" largewidth="757" largeheight="438" /></a><br /><br /><br />
+                <p><b>5)</b> On the top right hand side of this window, you will find
+                  a drop down list <i>Show directories for:</i>. From this list select <i>Executable files</i>. </p><br /><p><i>(click to enlarge)</i> </p>
+                <a href="images/Pt4_04.jpg" class="livethumbnail"><img src="images/Pt4_04.jpg" width="378" height="219" largewidth="757" largeheight="438" /></a><br /><br />
+                <p><br />
+                  <b>6)</b> Next select the small folder icon. This will open up a new 
+                  selection in the window. </p><br /><p><i>(click to enlarge)</i> </p>
+                <a href="images/Pt4_05.jpg" class="livethumbnail"><img src="images/Pt4_05.jpg" width="378" height="219" largewidth="757" largeheight="438" /></a><br /><br /><br />
+                <p><b>7)</b> After clicking on the folder icon, we are presented with a
+                  selection in the lower window which includes
+                  a browse-to button icon. If not already showing, please press this icon 
+                  and locate your DirectX
+                  installation folder. If you installed to the default location it should 
+                  be; </p>
+                <p><br />
+                  <i>Program Files\Microsoft DirectX SDK (February 2010)\Utilities\Bin\x86</i> </p>
+                <br /><p><i>(click to enlarge)</i> </p>
+                <a href="images/Pt4_06.jpg" class="livethumbnail"><img src="images/Pt4_06.jpg" width="378" height="219" largewidth="757" largeheight="438" /></a><br /><br /><br />
+                <p><b>8)</b> Next we will select the "Include Files" section from 
+                  the top right drop down. </p><br /><p><i>(click to enlarge)</i> </p>
+                <a href="images/Pt4_07.jpg" class="livethumbnail"><img src="images/Pt4_07.jpg" width="378" height="219" largewidth="757" largeheight="438" /></a><br /><br />
+                <p><br />
+                  <b>9)</b> Once again select the folder icon as we did in steps 6 and
+                  7 above.  This time we want to
+                  locate the DirectX include folder. If you installed to the default 
+                  location, it should be; </p>
+                <p><br />
+                  <i>C:\Program Files\Microsoft DirectX SDK (February 2010)\Include</i> </p><br /><p><i>(click to enlarge)</i> </p>
+                <a href="images/Pt4_08.jpg" class="livethumbnail"><img src="images/Pt4_08.jpg" width="378" height="219" largewidth="757" largeheight="438" /></a><br /><br /><br />
+                <p><b>10)</b> Now we need to add the path to our directX library 
+                  files, select library from the top
+                  dropdown. </p><br /><p><i>(click to enlarge)</i> </p>
+                <a href="images/Pt4_10.jpg" class="livethumbnail"><img src="images/Pt4_10.jpg" width="378" height="219" largewidth="757" largeheight="438" /></a><br /><br /><br>
+                <p><b>11)</b> Use the folder icon to add a folder 
+                  path, and select the folder where the DirectX
+                  library files are located. If you installed to the default location, it 
+                  should be; </p>
+                <p><br />
+                  <i>C:\Program Files\Microsoft DirectX SDK (February 2010)\Lib\x86</i> </p>
+               <br /><p><i>(click to enlarge)</i> </p> 
+                  <a href="images/Pt4_09.jpg" class="livethumbnail"><img src="images/Pt4_09.jpg" width="378" height="219" largewidth="757" largeheight="438" /></a><br /><br /><br />
+                <p><b>12)</b> That is all the DirectX file paths 
+                  added.
+                  Next, point your attention to the VS IDE layout. If you 
+                  look at the lower section of the 
+                  interface, you will notice a tabbed section. What we are looking for here
+                  is the Error List Tab and the <i>Output</i> Tab as shown below. </p><br /><p><i>(click to enlarge)</i> </p>
+                <a href="images/733px-Pt4_11.jpg" class="livethumbnail"><img src="images/733px-Pt4_11.jpg" width="366" height="299" largewidth="733" largeheight="599" /></a><br /><br /><br />
+                <p>If these tabs are not visible, you can make them so via the menu: </p>
+                <p><i>menu&gt;View&gt;Output</i> </p>
+                <p><i>menu&gt;View&gt;Other Windows&gt;Error List</i> </p>
+                <br /><p><i>(click to enlarge)</i> </p><a href="images/Pt4_12.jpg" class="livethumbnail"><img src="images/Pt4_12.jpg" width="296" height="228" largewidth="593" largeheight="456" /></a><br /><br />
+                <br /><p>If the Output window is floating, 
+                  drag it to the lower section and dock it.
+                  We are now ready to look at the T3D source code. Before we move on, 
+                  please have a look at this section of 
+                  documentation explaining the layout of the source code folders: <a href="../Introduction/DirectoryOverview.html" class="external" title="http://docs.torquepowered.com/torque-3d/official/content/documentation/Getting%20Started/DirectoryOverview.html" rel="nofollow">T3D Engine SDK Tour</a></p>
+                <p><br />
+                  When you are ready, we can move on to the final steps of this tutorial <a href="./FirstProject.html" title="Torque3D/Introduction/Setup/Part5">Part 5 - Working with a T3D 
+                  Project</a>. </p></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

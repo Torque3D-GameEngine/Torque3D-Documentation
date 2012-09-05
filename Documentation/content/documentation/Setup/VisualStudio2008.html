@@ -1,0 +1,195 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><HEAD><SCRIPT SRC="../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../";</SCRIPT><link href="../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 66;
+   parent.leftFrame.expandToItem('tree2', 'doc66');
+   var element = parent.leftFrame.document.getElementById('doc66');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../include/content.css" />
+
+<title>Torque 3D - Software Setup</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject  page-Torque3D_Introduction_Setup skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
+
+<tr>
+<td width="700">
+
+<div id="globalWrapper">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          </div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Install_Visual_Studio_C.2B.2B_2008_Express"><span class="tocnumber">1</span> <span class="toctext">Install Visual Studio 
+                            C++ 2008 Express</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Install_Visual_Studio_C.2B.2B_2008_Express" id="Install_Visual_Studio_C.2B.2B_2008_Express"></a>
+                <h2> <span class="mw-headline">Install Visual Studio C++ 2008 Express</span></h2>
+                <p><br />We are now going to download and install the free Visual Studio C++ Express. Currently T3D has a solution for either VS C++ 2008 or 2010. If you already have one of these products installed then skip ahead to 
+                    <a href="DevEnvironment2008.html">Setup the Development Environment</a>.</p>
+                <p><br />Otherwise point your browser at the following link <a href="http://www.microsoft.com/express/Downloads" class="external" title="http://www.microsoft.com/express/Downloads" rel="nofollow">Visual Studio C++ Express</a> then click on the appropriate tab for the version that you want to load.</p>
+                <p><br />
+                  <b>1) </b>Select  the &quot;Visual C++ 2008 Express&quot; option, then click the download button. </p>
+                  <p><br /></p>
+                <p><i>(click to enlarge)</i> </p>
+                  <a href="images/Vs_00.jpg" class="livethumbnail"><img src="images/Vs_00.jpg" width="359" height="322" largewidth="719" largeheight="644" /></a><br /><br /><br />
+                <p><b>2)</b> Save the file. </p>
+                <p><br />
+                  <img alt="File:Vs_01.jpg" src="images/Vs_01.jpg" border="0" height="307" width="412" /> </p><br /><br />
+                <p><b>3)</b> Locate the file "vcsetup.exe" and run it. Depending 
+                  upon your account settings User account control may ask for 
+                  permission. After the data has unpacked, click next. </p><br /><p><i>(click to enlarge)</i> </p>
+                <a href="images/Vs_02.jpg" class="livethumbnail"><img src="images/Vs_02.jpg" width="252" height="225" largewidth="504" largeheight="451" /></a><br /><br />
+                <p><b>4)</b> Read and accept the terms and conditions, and then press Next. </p><br /><p><i>(click to enlarge)</i> </p>
+                <a href="images/Vs_03.jpg" class="livethumbnail"><img src="images/Vs_03.jpg" width="252" height="225" largewidth="504" largeheight="451" /></a><br /><br>
+                <p><b>5)</b> If you do not need Microsoft SQL server, deselect (uncheck) this 
+                  option and press Next. </p><br />
+                <p><i>(click to enlarge)</i> </p>
+                  <p><a href="images/Vs_04.jpg" class="livethumbnail"><img src="images/Vs_04.jpg" width="252" height="225" largewidth="504" largeheight="451" /></a></p>
+                  <p><br />
+                    <br />
+                    </p>
+                  <p><b>6)</b> Select the program destination location or leave the 
+                  default setting. Please ensure you are connected
+                  to the internet as the installer may need to download additional files. 
+                  Press the Install button. </p><br />
+                  <p><i>(click to enlarge)</i> </p>
+                  <p><a href="images/Vs_05.jpg" class="livethumbnail"><img src="images/Vs_05.jpg" width="252" height="225" largewidth="504" largeheight="451" /></a></p>
+                  <p><br />
+                    </p>
+                  <p><b>7)</b> The progress window will now be shown. This may take 
+                  some time to complete. </p>
+                  <p>&nbsp;</p>
+                  <p><i>(click to enlarge)</i> </p>
+                <a href="images/Vs_06.jpg" class="livethumbnail"><img src="images/Vs_06.jpg" width="252" height="225" largewidth="504" largeheight="451" /></a><br />
+                <p>&nbsp;</p>
+                <p><b>8)</b> If all has gone well, you will be presented with the final window. <b>Note:</b> You must register the product with Microsoft within thirty days of installing it. It is free and simple to register the product. Register now using the link in the final window or later from within the application (after you have started it). Click Exit to complete the install.</p>
+                <p>&nbsp;</p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/Vs_07.jpg" class="livethumbnail"><img src="images/Vs_07.jpg" width="252" height="225" largewidth="504" largeheight="451" /></a><br />
+                <p><br />
+                  Now we are ready to move forwards to the next step. </p>
+                <p><a href="./DevEnvironment2008.html" title="Torque3D/Introduction/Setup/Part4">Part4 - Setup the Development
+                environment</a> </p></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

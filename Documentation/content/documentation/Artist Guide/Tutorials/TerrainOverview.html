@@ -1,0 +1,403 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 11;
+   parent.leftFrame.expandToItem('tree2', 'doc11');
+   var element = parent.leftFrame.document.getElementById('doc11');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D World Editor - Building Terrains</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  class="mediawiki ltr ns-0 ns-subject page-Torque3D_WorldEditor_Terrain skin-monobook">
+<script type="text/javascript" src="../../../include/wz_tooltip.js"></script>
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Setup"><span class="tocnumber">2</span> <span class="toctext">Setup</span></a></li>
+                          <li class="toclevel-1"><a href="#Heightmap"><span class="tocnumber">3</span> <span class="toctext">Heightmap, Opacity Layer, Terrain Textures</span></a></li>
+                          <li class="toclevel-1"><a href="#Importing_A_Heightmap"><span class="tocnumber">4</span> <span class="toctext">Importing A Heightmap</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">5</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p>In this tutorial, we are going to create a lush valley using sample assets provided by Sickhead Games. 
+                For this guide, the terrain will be created by importing a heightmap, opacity maps, and creating new materials.</p>
+                <a name="Setup" id="Setup"></a>
+                <h2> <span class="mw-headline">Setup</span></h2>
+                <p>This article was written using a newly generated project with the
+                  Full Template, which ships with plenty of free assets for testing and
+                  learning. For this specific tutorial, you will want to download a zip file containing additional assets for testing: 
+                  <a href="./TerrainFiles.zip" class="downloads">CLICK HERE TO DOWNLOAD THE ZIP FILE</a></p>
+                <p>&nbsp;</p>
+                <p>None of the modifications you are about to make are
+                  required for future tutorials, so feel free to create a new level or
+                  use an existing one for testing. As long as you have access to existing
+                  materials, you are good to go. <br />
+                </p>
+                <p><br />
+                  You will want to remove any existing TerrainBlocks, Waterblock, or GroundPlane since we
+                  will be creating a terrain from scratch. To delete objects, use the Object Editor and select the object in the Scene tab and press the delete key </p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/BlankTerrainScene.jpg" class="livethumbnail"><img src="images/BlankTerrainScene.jpg" border="0" width="320" height="247" largewidth="640" largeheight="495" /></a><br /><br />             
+                  <a name="Heightmap" id="Heightmap.2C_Opacity_Layer.2C_Terrain_Textures"></a>                </h2>
+                <h2> <span class="mw-headline">Heightmap, Opacity Layer, Terrain Textures</span></h2>
+                <p>To create high-quality and professional looking terrain, you will want
+                  to use a 3rd party external tool. Examples include 
+                  <a href="http://www.bundysoft.com/L3DT/" class="external" target="_blank">L3DT</a> 
+                  and <a href="http://www.geocontrol2.com/e_index.htm" class="external" target="_blank">GeoControl</a>.
+                  These tools allow you to generate extremely detailed heightmaps that
+                  can be imported by Torque 3D and generate terrain data. </p>
+                <p><br />
+                  Several assets are required to successfully import and render a high
+                  quality heightmap. Most terrain generating applications provide proper
+                  exporters to get the job done. First, we will cover what these assets
+                  are. The example assets you downloaded in the previous section were provided by 
+                  <a href="http://www.garagegames.com/account/profile/44904" class="external" target="_blank">Russell Fincher</a> at
+                  <a href="http://www.sickhead.com/" class="external" target="_blank">Sickhead Games</a>. </p>
+                <p><br />
+                  The primary asset required is the heightmap, which is an
+                  image used to store elevation data rendered in 3D by the engine. The
+                  heightmap itself needs to be a 16bit greyscale image, with width/height of a power of two(256x256,  1024x1024), and
+                  square. The lighter an area of a heightmap, the higher the elevation
+                  will be in that terrain location. </p>
+                <p><br />
+                  <b>Example Heightmap</b> </p>
+                <p><img alt="Image:HeightMapExample.jpg" src="images/HeightMapExample.jpg" border="0" width="256" height="256" /> </p>
+                <p><br />
+                  Next, you will want to use an opacity map. This map acts as
+                  a mask, which is designed to assign opacity layers. Opacity layers need
+                  to match the dimensions of the heightmap. For instance, a 512x512 heightmap can only
+                  use a 512x512 opacity map. </p>
+                <p><br />
+                  If the opacity map is a RGBA image, four opacity layers will be used
+                  for the detailing (one for each channel). If you use an 8bit greyscale
+                  image, only a single channel. You can then assign materials to the
+                  layers. This allows us to have up to 255 layers with a single ID
+                  texture map, saving memory which we can apply to more painting
+                  resolution. </p>
+                <p><br />
+                  Notice that the following example Opacity Map resembles the original heightmap. </p>
+                <p><br />
+                  <b>Example Opacity Map</b> </p>
+                <p><img alt="Image:ExampleOpacityMask.jpg" src="images/ExampleOpacityMask.jpg" border="0" width="256" height="256" /> </p>
+                <p><br />
+                  Finally, of course we want to use textures to paint the
+                  terrain. Instead of hand painting them, the opacity layer will
+                  automatically assign textures based on what channel they are loaded
+                  into. You will want to have three textures: a base (diffuse), a normal
+                  map, and a detail mask. </p>
+                <p><br />
+                  <b>Diffuse</b> </p>
+                <p><img alt="Image:ExampleBaseTex.jpg" src="images/ExampleBaseTex.jpg" border="0" width="256" height="256" /> </p>
+                <p><br />
+                  <b>Normal</b> </p>
+                <p><img alt="Image:ExampleNormalMap.jpg" src="images/ExampleNormalMap.jpg" border="0" width="265" height="265" /> </p>
+                <p><br />
+                  <b>Detail</b> </p>
+                <p><img alt="Image:ExampleDetailTex.jpg" src="images/ExampleDetailTex.jpg" border="0" width="256" height="256" /> </p>
+                <p><br />
+                  The base represents the color and flat detail of the textures. The
+                  normal map is used to render the bumpiness or depth of the texture,
+                  even though it is flat. Finally, the detail map provides up-close
+                  detail, but it absorbs most of their colors from the base map. </p>
+                <a name="Importing_A_Heightmap" id="Importing_A_Heightmap"></a>
+                <h2> <span class="mw-headline">Importing A Heightmap</span></h2>
+                <p>Now that you know what assets are required, we are going to import
+                  our first heightmap. What we are going to do is create a highly
+                  detailed valley scene, with snowcapped mountains. Since this section
+                  focuses on the World Editor, and not 3rd party tools, you are going to
+                  use sample assets. This will save time and allow you to learn the World
+                  Editor functionality first. </p>
+                <p><br />
+                  You should have already downloaded the sample artwork used in this tutorial. If not, click 
+                  <a href="./TerrainFiles.zip"class="downloads">HERE</a> to download a .zip file containing all of the
+                  assets you need for this tutorial. Again, these high quality assets
+                  were provided by <a href="http://www.garagegames.com/account/profile/44904" class="external" target="_blank">Russell Fincher</a> of 
+                  <a href="http://www.sickhead.com/" class="external" target="_blank">Sickhead Games</a>. The team has
+                  provided a lot of tech to Torque 3D, but they also strongly believe in
+                  solid documentation and have been a big help. </p>
+                <p><br />
+                  Create a folder in the game/art/terrains directory of your
+                  project called "sampleTerrain." Unzip the contents of the <a href="./TerrainFiles.zip" class="downloads">file you
+                  downloaded</a> into this new folder. You should have two heightmaps,
+                  identical except for varying resolution. You will also receive three sets
+                  of textures and opacity maps. </p>
+                <p><br />
+                  With your blank room running in the World Editor, click on File-&gt;Import Terrain Heightmap </p>
+                <p><br />
+                  <img alt="Image:ImportTerrainHeightmap.jpg" src="images/ImportTerrainHeightmap.jpg" border="0" width="264" height="262" /> </p>
+                <p><br />
+                  A floating dialog will appear and allow you to setup your new terrain before importing it. </p>
+                <p><br />
+                  <img alt="Image:ImportHeightMapDialog.jpg" src="images/ImportHeightMapDialog.jpg" border="0" width="391" height="257" /> </p>
+                <p><br />
+                  <b>Name:</b>If you specify the name of an existing TerrainBlock in the
+                  dialog Torque will update that TerrainBlock and its associated .ter file.
+                  Otherwise Torque will create a new one. </p>
+                <p><br />
+                  <b>Meters Per Pixel:</b> Sets the size of the Terrain Block based on the imported heightmap. 
+                  For instance, if you set the Meters Per Pixel to 2 and the heightmap is 512x512 pixels, the 
+                  TerrainBlock's size will be 1024x1024 meters.  Meters Per Pixel is a floating point value that 
+                  does not require power of 2 values. </p>
+                <p><br />
+                  <b>Height Scale:</b> Sets the maximum height in meters you want white (RGB: 255, 255, 255) in the heightmap to be. </p>
+                <p><br />
+                  <b>Height Map Image:</b> File path to .png or .bmp heightmap itself. Remember, this needs to be a 16bit greyscale image, power of two, and square. </p>
+                <p><br />
+                  <b>Texture Map:</b> This involves opacity layers, which need to match
+                  the dimensions of the heightmap. If you add an RGBA image it will add 4
+                  opacity layers to the list, one for each channel. If you add a 8bit
+                  greyscale image, it will be added as a single channel. You can then
+                  assign materials to the layers. If you do not add any layers the
+                  terrain will be created with just the Warning Material texture. </p>
+                <p><br />
+                  Keep the name default value, theTerrain. Click the browse
+                  button near <b>Height Map</b> Image to open a file browser dialog. Go to where
+                  you saved the terrain files, game/art/terrains/sampleTerrain and open
+                  the heightmap512.png. </p>
+                <p><i>(click to enlarge)</i> </p>
+                  <a href="images/ChooseHeightmap.jpg" class="livethumbnail">
+                  <img src="images/ChooseHeightmap.jpg" border="0" width="313" height="239" largewidth="627" largeheight="479" /></a><br /><p><br />
+                  Next, click on the + button next to <b>Texture Map</b> to open
+                  another file browser. This is where we are going to add our opacity
+                  layers. Start by locating the prairie mask
+                  (game/art/terrains/sampleTerrain/prairie/prairie_maskX.png). You can
+                  choose the 512 or 1024, but you have to stick with that resolution for
+                  the rest of the files we will be adding. </p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/ChoosePrairieMask.jpg" class="livethumbnail">
+                <img src="images/ChoosePrairieMask.jpg" border="0" width="313" height="239" largewidth="627" largeheight="479" /></a><br />
+                <p><br />
+                  Do not worry if you do not see the detail, as the mask is
+                  supposed to be solid white. Repeat the process to add the rock wall
+                  mask. </p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/ChooseRockWallMask.jpg" class="livethumbnail">
+                <img src="images/ChooseRockWallMask.jpg" border="0" width="313" height="239" largewidth="627" largeheight="479" /></a><br />
+                <p><br />
+                  Perform this task one last time to add the snow mask. </p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/ChooseSnowMask.jpg" class="livethumbnail">
+                <img src="images/ChooseSnowMask.jpg" border="0" width="280" height="239" largewidth="627" largeheight="479" /></a><br />
+                <p>Your final settings should look like the following before continuing: </p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/prairieMaskList.jpg" class="livethumbnail">
+                <img src="images/prairieMaskList.jpg" border="0" width="206" height="140" largewidth="412" largeheight="279" /></a><br />
+                <p><br />
+                  Now that our opacity layers have been added, we are going to
+                  assign a material to each one. Click on the prairieMask layer, then click
+                  the edit button in the bottom right. You will now see the Terrain
+                  Materials Editor. </p>
+                <p><br />
+                  <img alt="Image: TerrainMaterialEditor.jpg" src="images/TerrainMaterialEditor.jpg" border="0" width="394" height="321" /> </p>
+                <p><br />
+                  Click the New button, found at the bottom next to the garbage bin, to add a new material. Type in Prairie
+                  for the name, then click the Edit button next to the Diffuse preview
+                  box. Again, a file browser will will pop up allowing you to open the
+                  base texture file for the prairie material. Alternatively, you can click the preview box itself, which is a checkered image until you add a texture.</p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/ChoosePrairieBase.jpg" class="livethumbnail">
+                <img src="images/ChoosePrairieBase.jpg" border="0" width="314" height="239" largewidth="628" largeheight="479" /></a><br />
+                <p><br />
+                  Once you have added the base texture, the preview box will
+                  update to show you what you opened. Click on the Change button under
+                  the Detail Map box. Using the file browser, open the detail map for our
+                  prairie material. </p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/ChoosePrairieDetail.jpg" class="livethumbnail">
+                <img src="images/ChoosePrairieDetail.jpg" border="0" width="314" height="239" largewidth="628" largeheight="479" /></a><br />
+                <p><br />
+                  Next, click on the Change button under Normal Map box. Use the file browser to open the prairie normal map. </p>
+                <p>(<i>click to enlarge)</i> </p>
+                <a href="images/ChoosePrairieNormal.jpg" class="livethumbnail">
+                <img src="images/ChoosePrairieNormal.jpg" border="0" width="314" height="239" largewidth="628" largeheight="479" /></a><br />
+                <p><br />
+                  The Diffuse size controls the physical size in meters of the base texture. Before we are finished with this new material, set the
+                  Detail Size to 2. This means that the material will be scaled to two meters on the terrain. On a terrain that is 1024 square meters, 
+                  the Prairie material will repeat a little less than 205 times. The Detail distance determines how far away from the camera must be 
+                  before the detail map renders. Additionally, change the Detail Strength to 2.  This controls how the strength of Detail map blending 
+                  with the Diffuse map, a higher number.  Your final material properties should look like
+                  the following: </p>
+                <p><br />
+                  <img alt="Image:FinalPrairieMaterials.jpg" src="images/FinalPrairieMaterials.jpg" border="0" width="394" height="322" /> </p>
+                <p><br />
+                  Click the Select button to assign the new Prairie material
+                  to the opacity layer. Next, we will add the rock wall terrain material.
+                  Back in the Import Terrain Height Map dialog, select the rockWallMask
+                  opacity layer then click edit. </p>
+                <p><br />
+                  Repeat the process of creating a new terrain material, using the rock wall textures. Your final result will look like this: </p>
+                <p><br />
+                  <img alt="Image:FinalRockWallMaterials.jpg" src="images/FinalRockWallMaterials.jpg" border="0" width="394" height="322" /> </p>
+                <p><br />
+                  Notice that I have set the detail size to 2, and the detail distance
+                  to 50. We are going to add our final terrain material now. Back in the
+                  Import Terrain Height Map dialog, select the snowMask opacity layer
+                  then click edit. Repeat the process of creating a new terrain material,
+                  using the snow textures. Your final result will look like this: </p>
+                <p><br />
+                  <img alt="Image:FinalSnowMaterials.jpg" src="images/FinalSnowMaterials.jpg" border="0" width="394" height="322" /> </p>
+                <p><br />
+                  Now, we are all set to generate the terrain. Back in the
+                  Import Terrain Height Map dialog, click on the import button. It will
+                  take a few moments for Torque 3D to generate the terrain data from our
+                  various assets. When the import process is complete, the new
+                  TerrainBlock will be added to your scene (you might need to move your
+                  camera to see it). </p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/HeightmapTerrainAdded.jpg" class="livethumbnail">
+                <img src="images/HeightmapTerrainAdded.jpg" border="0" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  If you zoom in close to where materials overlap, you can notice the high quality detail and smooth blending that occurs. </p>
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/DetailBlending.jpg" class="livethumbnail">
+                <img src="images/DetailBlending.jpg" border="0" width="516" height="397" largewidth="1032" largeheight="795" /></a><br />
+                <p><br />
+                  These last two shots are used to show you the scale of this
+                  massive terrain, which retains its high level detail over several levels of
+                  detail (LODs): </p>
+                <p><br />
+                  <b>From a Distance</b><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/HeightmapFinalShot1.jpg" class="livethumbnail">
+                <img src="images/HeightmapFinalShot1.jpg" border="0" width="516" height="397" largewidth="1032" largeheight="795" /></a><br />
+                <p><br />
+                  <b>Compare to Player Scale</b><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/HeightmapFinalShot2.jpg" class="livethumbnail">
+                <img src="images/HeightmapFinalShot2.jpg" border="0" width="512" height="384" largewidth="1023" largeheight="767" /></a><br />
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>This tutorial showed you how to create a high resolution terrain from scratch, by importing a quality heightmap and opacity maps. Even after you have your terrain, you can continue to tweak
+                  it using the Terrain Editor and Terrain Painter tools. </p>
+                </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

@@ -1,0 +1,448 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 86;
+   parent.leftFrame.expandToItem('tree2', 'doc86');
+   var element = parent.leftFrame.document.getElementById('doc86');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D - Material Editor</title>
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_MaterialEditor skin-monobook">
+<script type="text/javascript" src="../../../include/wz_tooltip.js"></script>
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          </div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Typical_Use"><span class="tocnumber">2</span> <span class="toctext">Typical Use</span></a></li>
+                          <li class="toclevel-1"><a href="#Setup"><span class="tocnumber">3</span> <span class="toctext">Setup</span></a></li>
+                          <li class="toclevel-1"><a href="#Interface"><span class="tocnumber">4</span> <span class="toctext">Interface</span></a></li>
+                          <li class="toclevel-1"><a href="#Editing_an_Existing_Material"><span class="tocnumber">5</span> <span class="toctext">Editing an Existing Material</span></a></li>
+                          <li class="toclevel-1"><a href="#Creating_a_New_Material"><span class="tocnumber">6</span> <span class="toctext">Creating a New Material</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">7</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p>Torque 3D's Material Editor allows an artist to quickly create and
+                  edit a game object's materials without ever touching a line of code.
+                  This tool can preview and edit materials mapped to an object in real
+                  time from the World Editor. Materials are categorized for ease of
+                  organization, and the editor is designed to be backwards-compatible
+                  with any existing script files. Materials are defined within script files named materials.cs </p><br />
+                <a name="Typical_Use" id="Typical_Use"></a>
+                <h2> <span class="mw-headline">Typical Use</span></h2>
+                <p>The Material Editor quickly comes into play when you are building
+                  your level by placing objects into the scene. As an example situation,
+                  let us assume you have a light fixture you or another artist has
+                  exported for use in Torque 3D. The creation of this object was a
+                  multi-step process. </p>
+                <p><br />
+                  The object's geometry had to be created in a 3D modeling
+                  app, such as 3DS Max, Maya or Blender. Once the geometry was finished, a 2D
+                  graphical application was used to create the various textures that make
+                  up the high quality appearance: base texture (diffuse map), normal map,
+                  detail map, etc. </p>
+                <p><br />
+                  The rendered view of this object looks fine in the originating application, 
+                  which leads you to believe it is ready to be imported into
+                  your game's level. When you drop the lighting fixture into the world,
+                  there is a good chance it will fit right in based on your existing design.
+                  The theme and color scheme are likely a match. </p>
+                <p><br />
+                  However, once your object is in the level you might notice
+                  something is off. While the stand alone object viewed in an external
+                  tool looked great, the object now seems out of sync with your level's
+                  lighting, tone, or specific room theme. </p>
+                <p><br />
+                  This is not the fault of the artist or design. What has
+                  happened is the materials for your object have either not been assigned
+                  or need to be tweaked to perfection in specific instances. Instead of
+                  going back into the art tool or adjusting properties in code, you can
+                  use the Material Editor to edit the appearance of your object by
+                  adjusting the texture maps and their properties. </p>
+                  <a name="Setup" id="Setup"></a>
+                <h2> <span class="mw-headline">Setup</span></h2>
+                <p>
+                  While running the World Editor, object by using the Object Editor (F1) 
+                  (a lighting fixture in this situation). The next step is to open the
+                  Material Editor by choosing from the menu "Editors -> Material Editor", or with the hotkey (F4). The
+                  following image is an example of an object being edited with the
+                  Material Editor. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/MatEditorView.jpg" class="livethumbnail"><img src="images/MatEditorView.jpg" width="320" height="240" largewidth="640" largeheight="480" /></a><br />
+                <p><br />
+                  Before you begin your editing, read on to learn about the interface and usage of the Material Editor. </p><br />
+                <a name="Interface" id="Interface"></a>
+                <h2> <span class="mw-headline">Interface</span></h2>
+                <p>
+                To switch to the Material Editor press the F4 key or from the main menu select Editors -> Material Editor.
+                <p><br />
+                Each major section of the Material Editor is separated via a header,
+                  such as Lighting Properties or Animation Properties. The fields found in
+                  these sections directly manipulate a materials properties in real time.
+                  Hover your mouse over each section in the following image to get a
+                  description of fields and how they are adjusted: </p>
+                <p><br />
+                  <b>Main Editor:</b> </p>
+                <p><br />
+                  <i>(hover mouse for details)</i> </p>
+                <img src="images/MatEdPreview.jpg" width="213" border="0" height="253" onmouseover="Tip('<strong>Cube</strong>:  Changes the Preview Mesh.<br><br><strong>Square Symbols</strong>:  Change Normal Light Color.<br><br><strong>Preview in World</strong>:  Show changes made in material editor on selected object in scene view.<br><br><strong>Bottom Right</strong>:  Click square to change color of background preview.', WIDTH, 400)" onmouseout="UnTip()" > <br />
+                <img src="images/MatEdProperties.jpg" width="213" border="0" height="90" onmouseover="Tip('<strong>Edit Material</strong>: Select and Edit an Existing Material (E).<br><br><strong>Floppy Disk</strong>:   Save material.<br><br><strong>Trash Can</strong>:   Delete Material.<br><br><strong>Name.dts</strong>:   Name of 3D asset using this material.<br><br><strong>First Drop Down</strong>:   Texture associated with material.<br><br><strong>Material</strong>:   Name of material.<br><br><strong>Square with Ball</strong>:   Swap current material mapped to this mesh for another.<br><br><strong>2nd Trash Icon</strong>:   Remove this material from mesh target.', WIDTH, 400)" onmouseout="UnTip()" > <br />
+                  <img src="images/MatEdTextureMaps.jpg" width="213" border="0" height="204" onmouseover="Tip('<strong>Diffuse Map</strong>: Base texture for material.<br><br><strong>Normal Map</strong>: Bump map that provides higher detail to mesh without extra polygons.<br><br><strong>Overly Map</strong>: Texture draw on top of other maps.<br><br><strong>Detail Map</strong>: Texture providing additional detail via lightening and darkening base map using high pass filter.<br><br><strong>Light Map</strong>: Texture using baked lighting info.<br><br><strong>Tone Map</strong>: Map which scales the RGB values of material. Used to calculate HDR.', WIDTH, 400)" onmouseout="UnTip()" > <br />
+                  <img src="images/MatEdTextureMaps2.jpg" width="213" border="0" height="348" onmouseover="Tip('<strong>Diffuse Map</strong>: Base texture for material.<br><br><strong>Normal Map</strong>: Bump map that provides higher detail to mesh without extra polygons.<br><br><strong>Overly Map</strong>: Texture draw on top of other maps.<br><br><strong>Detail Map</strong>: Texture providing additional detail via lightening and darkening base map using high pass filter.<br><br><strong>Light Map</strong>: Texture using baked lighting info.<br><br><strong>Tone Map</strong>: Map which scales the RGB values of material. Used to calculate HDR.', WIDTH, 400)" onmouseout="UnTip()" > <br />
+                  <img src="images/MatEdLighting.jpg" width="213" border="0" height="173" onmouseover="Tip('<strong>Specular</strong>: Enables the use of Pixel Specular (shininess) for this layer. The slider adjust the strengt, and you can set the color of the specularity.<br><br><strong>Glow</strong>: Determines if this layer will Glow or not.<br><br><strong>Exposure</strong>: Intensifies glow and emission.<br><br><strong>Emissive</strong>: Causes an object to not be affected by lights. Good for materials from light source objects.', WIDTH, 400)" onmouseout="UnTip()" > <br />
+                  <img src="images/MatEdAnimsRotate.jpg" width="213" border="0" height="112" onmouseover="Tip('<strong>Purpose</strong>: Causes material to rotate along the surfaces of the mesh it is mapped to.<br><br><strong>U and V Sliders</strong>: Determines the direction of U/V coordinate rotation.<br><br><strong>Speed</strong>: Rate of coordinate rotation.', WIDTH, 400)" onmouseout="UnTip()" > <br />
+                  <img src="images/MatEdAnimsScroll.jpg" width="213" border="0" height="97" onmouseover="Tip('<strong>Purpose</strong>: Causes material to scroll along the surfaces of the mesh it is mapped to.<br><br><strong>U and V Sliders</strong>: Determines the direction of U/V coordinate scrolling.<br><br><strong>Speed</strong>: Rate of coordinate scrolling.', WIDTH, 400)" onmouseout="UnTip()" > <br />
+                  <img src="images/MatEdAnimsWave.jpg" width="213" border="0" height="88" onmouseover="Tip('<strong>Purpose</strong>: Causes the material to scroll in a wavy manner along the surfaces of the mesh it is mapped to.<br><br><strong>Wave Type</strong>: Switch between sine, triangle, and sqaure wave patterns.<br><br><strong>Amplitude</strong>: Changes the positive and negative crest of the wave (intensity).<br><br><strong>Frequency</strong>: Adjust wave length, which is the number of waves per time interval.', WIDTH, 400)" onmouseout="UnTip()" > <br />
+                  <img src="images/MatEdAnimsSequence.jpg" width="213" border="0" height="71" onmouseover="Tip('<strong>Purpose</strong>: Animates texture by frames.<br><br><strong>Frames per Sec</strong>: How many frames to display per second.<br><br><strong>Frames</strong>: Number of total frames in the sequence.', WIDTH, 400)" onmouseout="UnTip()" > <br />
+                  <img src="images/MatEdAdvancedProps.jpg" width="213" border="0" height="207" onmouseover="Tip('<strong>Purpose</strong>: Adjusts advanced parameters that affects transparency calculations.<br><br><strong>Transparency Blending</strong>: Sets material to use transparent blending modes.<br><br><strong>Transparent Z Write</strong>: Can be used to help force a proper Z Ordering when Z Ordering issues occur. Only valid on materials with Transparency.<br><br><strong>Alpha Threshold</strong>: When enabled, causes pixels under a specific alpha threshold to get discarded rather than be computed..<br><br><strong>Cast Shadows</strong>: Material determines whether target mesh is allowed to cast shadows.<br><br><strong>Double Sided</strong>: Determines if this material will be rendered from both sides of a polygon.<br><br><strong>Blending Box</strong>: Determines type of blending and reflection applied on the transparent object..', WIDTH, 400)" onmouseout="UnTip()" > <br />
+                </p>
+                <p><br />
+                  <b>Material Selector:</b> </p>
+                <p>When you wish to swap the material mapped to an object or create
+                  a new material, you will use the Material Selector. To change the material on an object, 
+                  it must first be selected. If you do not know how to select an object, refer to the 
+                  <a href="Interface.html#Tool_Selector_and_Palette">Object Editor</a> 
+                  documentation, then switch back to the Material Editor (F4). The Material Properties pane on the 
+                  right side of the screen displays the properties that describe the material of the selected object.</p>
+                <p><br />
+                <img alt="Image:material_properties_small.png" src="images/material_properties_small.png" border="0" height="93" width="300" /> </p>
+                <p>
+                At the top-right of the pane there is a value named Material. Click on the globe 
+                <img alt="Image:material_globe.png" src="images/material_globe.png" border="0" height="25" width="22" />
+                to the right side of it. <br />This will bring up the Material Selector window. 
+                <p><br /><i>(click to enlarge)</i> </p>
+                <a href="images/MaterialSelector.jpg" class="livethumbnail"><img src="images/MaterialSelector.jpg" border="0" width="240" height="172" largewidth="480" largeheight="345" /></a><br />
+                <p><br />
+                  The center section of this dialog displays a list of all materials currently loaded in the game. 
+                  OClicking on any material selects it which will cause the panes on the right to update and display 
+                  information about the material. This information is limited to a preview of the material’s Diffuse 
+                  texture, the name of the diffuse texture, and a list of filter tags. </p>
+                <p><br />
+                  On the left is a list of filters. The filter system is used to organize your materials for ease of use, 
+                  and contains types and tags. To create a new tag, click the new tag button: </p>
+                <p><br />
+                  <img alt="Image:CreateNewFilter.jpg" src="images/CreateNewFilter.jpg" border="0" height="252" width="210" /> </p>
+                <p><br />
+                  The Create New Tag dialog will pop up: </p>
+                <p><br />
+                  <img alt="Image:NameFilter.jpg" src="images/NameFilter.jpg" border="0" height="101" width="274" /> </p>
+                <p><br />
+                  Enter a name for your new the tag then click the Create button. In this example, you will be grouping all 
+                  the materials related to cliffs. Whenever a 
+                  material is selected, the Material Tags section on the right will be updated to show 
+                  all the tags that you have created, each with a checkbox. Clicking 
+                  the box of a specific tag will associate that tag with the current material. Clicking a checked box 
+                  will dissociate the tag from the material. </p>
+                <p><br />
+                  <img alt="Image:MaterialTagged.jpg" src="images/MaterialTagged.jpg" border="0" height="283" width="151" /> </p>
+                <p><br />
+                  The list of materials can be filtered using the tags assigned to them. 
+                  To filter the material list use the tags section on the far 
+                  left. When you click on the check box for tag it tells the system to include materials 
+                  that have that tag in the list. Any materials that do not have at least one of 
+                  the checked tags will be filtered out of the list. </p><br />
+                <a name="Editing_an_Existing_Material" id="Editing_an_Existing_Material"></a>
+                <h2> <span class="mw-headline">Editing an Existing Material</span></h2>
+                <p>Your game's levels can potentially contain thousands of different
+                  objects with varying purposes: explosive barrels, ammo crates, static
+                  light fixtures, solid walls, etc. Each one will have a material that
+                  might need subtle tweaking to fit in, such as a glowing light bulb. </p>
+                <p><br />
+                  In this example, you will adjust the properties of this bridge materials. </p>
+                <p><br />
+                  <img alt="Image:LightFixture.jpg" src="images/LightFixture.jpg" border="0" height="200" width="200" /> </p>
+                <p><br />
+                  Remember that you can preview the changes in the scene as
+                  well as the preview box in the Material Editor. You will start by toggling
+                  the Specular property of the material used for the metal pipe. Without
+                  Specular enabled, an object will not have a shine and will thus appear flat. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/MatSpecOff.jpg" class="livethumbnail"><img src="images/MatSpecOff.jpg" width="320" height="214" largewidth="640" largeheight="427" /></a><br />
+                <p>When the Specular property is enabled, the cube in the preview
+                  box will have a shiny appearance. In the
+                  scene, the metal will also be shinier due to the lighting reflection. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/MatSpecOn.jpg" class="livethumbnail"><img src="images/MatSpecOn.jpg" width="320" height="213" largewidth="640" largeheight="425" /></a><br />
+                <p><br />
+                  The specularity can be adjusted further by specifying a
+                  color. Clicking the box next to the Specular property will open a color
+                  picker. In this dialog, you can change the color shading and alpha level which dictates how transparent the shading will be.  </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/MatSpecColorPicker.jpg" class="livethumbnail"><img src="images/MatSpecColorPicker.jpg" width="239" height="178" largewidth="478" largeheight="355" /></a><br />
+                <p><br />
+                  The green tint selected in this example will make the specular change more apparent in the preview window. </p>
+                
+                <p><img alt="Image:MatSpecGreen1.jpg" src="images/MatSpecGreen1.jpg" border="0" height="199" width="234" /> </p>
+                <p><br />
+                  In your level, this specularity change gives you a better
+                  idea of how lighting is affecting the object and where it is the shiniest. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/MatSpecGreen2.jpg" class="livethumbnail"><img src="images/MatSpecGreen2.jpg" width="320" height="213" largewidth="640" largeheight="426" /></a><br />
+                <p><br />
+                  Enabling the Glow property will result in a dramatic change
+                  in appearance. The light reflected off the pipe is now much more
+                  intense and blurred. While this is a nice affect, it may not be
+                  appropriate for every material. Even though this pipe can now glow, it
+                  is not an actual source of light. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/MatGlowOn.jpg" class="livethumbnail"><img src="images/MatGlowOn.jpg" width="320" height="214" largewidth="640" largeheight="428" /></a><br />
+                <p><br />
+                  The final lighting property is the Emissive toggle. The
+                  toggle causes an object to not be affected by lights. This is excellent
+                  for materials on light source objects, but toggling it on just any material
+                  can have an odd effect. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/MatEmissiveOn.jpg" class="livethumbnail"><img src="images/MatEmissiveOn.jpg" width="320" height="213" largewidth="640" largeheight="425" /></a><br />
+                <p><br />
+                  To get a better idea of how to effectively use the lighting
+                  properties, another material on the mesh should be studied. A single
+                  object can have multiple materials mapped to it. Switching assigned
+                  materials is as simple as clicking the drop-down box next to the
+                  object's file name: </p>
+                <p><br />
+                  <img alt="Image:MatTunLight.jpg" src="images/MatTunLight.jpg" border="0" height="109" width="245" /> </p>
+                <p><br />
+                  This material affects the surface associated with the object's light source, such as a light bulb. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/TunLightView.jpg" class="livethumbnail"><img src="images/TunLightView.jpg" border="0" width="150" height="150" largewidth="342" largeheight="342" /></a><br />
+                <p><br />
+                  With all of the lighting properties disabled, the light will look like any other object in the level. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/LightWithSpec.jpg" class="livethumbnail"><img src="images/LightWithSpec.jpg" border="0" width="150" height="150" largewidth="331" largeheight="331" /></a><br />
+                <p>Enabling the Specular property will cause the more reflective areas to give off subtle light bounce. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/LightWithEmissive.jpg" class="livethumbnail"><img src="images/LightWithEmissive.jpg" border="0" width="150" height="232" largewidth="304" largeheight="471" /></a><br />
+                <p>Enabling the emissive property causes the material to ignore
+                  lighting calculations, which returns the bright colors of the diffuse
+                  texture. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/LightWithEmissive.jpg" class="livethumbnail"><img src="images/LightWithEmissive.jpg" border="0" width="150" height="232" largewidth="304" largeheight="471" /></a><br /><br /><br />
+                <p>Enabling the Glow property simulates a light emission effect, similar to how a light bulb would appear. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/LightWithGlow.jpg" class="livethumbnail"><img src="images/LightWithGlow.jpg" border="0" width="150" height="317" largewidth="245" largeheight="517" /></a><br />
+                <p><br />
+                  Showing the material&#39;s animation effects is difficult with still images. If you 
+                    experiment with Rotation, Scroll, and Wave animation properties you will 
+                    immediately see how they affect your material. The following is a still image 
+                    captured while the
+                  texture is being scaled in a triangular pattern using the Wave
+                  Animation. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/MatWaveSample.jpg" class="livethumbnail"><img src="images/MatWaveSample.jpg" border="0" width="320" height="214" largewidth="640" largeheight="427" /></a><br /><br />
+                <a name="Creating_a_New_Material" id="Creating_a_New_Material"></a>
+                <h2> <span class="mw-headline">Creating a New Material</span></h2>
+                <p>While developing your game, you will most likely be using your own
+                  assets. When you add a model to the scene, it will be assigned the
+                  default “No Material” texture which serves as a warning to the designer 
+                  that no material has been assigned to an object. This material is 
+                  automatically used for all assets before they have a mapped materials. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/CubeAdded.jpg" class="livethumbnail"><img src="images/CubeAdded.jpg" border="0" width="320" height="213" largewidth="640" largeheight="426" /></a><br /><br /><br />
+                <p>If you have already created the textures for your object,
+                  creating and assigning a material is a simple process. Start by
+                  clicking the globe symbol next to the Material name box. </p>
+                <p><img alt="Image:ChangeMaterial.jpg" src="images/ChangeMaterial.jpg" border="0" height="98" width="251" /> </p><br /><br />
+                <p>The Material Selector dialog will appear: </p>
+                <p><img alt="Image:CreateNewMaterial.jpg" src="images/CreateNewMaterial.jpg" border="0" height="239" width="291" /> </p>
+                <p>Click the Create New Unmapped Material button found at the top right of the Material section’s header.</p>
+                <p>A new material will be added to the
+                  list with a name similar to newMaterial_0. Click on the material to
+                  view it in the Diffuse Preview section. </p>
+                <p><img alt="Image:NewMaterialCreated.jpg" src="images/NewMaterialCreated.jpg" border="0" height="398" width="154" /> </p><br /><br />
+                <p>Click the Select button to use that selected material for the object you are editing. 
+                  After the Material Selector closes, you will be prompted to save
+                  any material changes that you may have made before entering the Material Selector. 
+                  Do so if you wish to retain any
+                  changes that you made prior to creating the material. </p>
+                <p><img alt="Image:SaveMaterialChanges.jpg" src="images/SaveMaterialChanges.jpg" border="0" height="115" width="298" /> </p><br /><br />
+                <p>Your new material will have replaced the material selection in the Material Properties pane back in the 
+                Material Editor and should now be displayed in the Material field. Type in the real name you want for your 
+                new material to be known by then press the Enter key. In this example, the name of the material is "boxxy." </p>
+                <p><img alt="Image:NameNewMaterial.jpg" src="images/NameNewMaterial.jpg" border="0" height="90" width="250" /> </p><br /><br />
+                <p>Before editing anything else, click the Save Material button, represented by the floppy disk symbol to save the new material. </p>
+                <p><b>NOTE:</b> You MUST press the Enter key after typing the material name BEFORE clicking the Save Material button or the material will not be properly saved.</p>
+                <p><img alt="Image:SaveMaterial.jpg" src="images/SaveMaterial.jpg" border="0" height="90" width="250" /> </p><br /><br />
+                <p>Now, scroll down to the Texture Maps section of the Material Editor. This is where you will be adding the actual texture files that define this new material. </p>
+                <p><img alt="Image:ChangeTextureMaps.jpg" src="images/ChangeTextureMaps.jpg" border="0" height="152" width="207" /> </p><br /><br />
+                <p>Click on the Diffuse Map preview or the Edit button in that section to open a file
+                  browser. Navigate to your diffuse texture, or sometimes referred to as the base texture. 
+                  Select the file that you want to use as for this new material then click the Open button. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/ChooseDiffuse.jpg" class="livethumbnail"><img src="images/ChooseDiffuse.jpg" border="0" width="301" height="208" largewidth="602" largeheight="416" /></a><br /><br /><br />
+                <p>Your preview window and scene should immediately be updated to reflect the addition of your texture. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                  <a href="images/NormalAdded.jpg" class="livethumbnail"><img src="images/NormalAdded.jpg" border="0" width="320" height="214" largewidth="640" largeheight="427" /></a><br /><br /><br />
+                  <br />
+                <p>Repeat the process to add your Normal map. Click on the preview or edit button in the Normal Map section. When the file
+                  browser appears, select your normal map texture. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/ChooseNormal.jpg" class="livethumbnail"><img src="images/ChooseNormal.jpg" border="0" width="305" height="269" largewidth="610" largeheight="539" /></a><br /><br /><br />
+                <p>Once again, your scene will be updated to reflect the changes
+                  that have been made to the material. Click the save button to retain
+                  these changes. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/NormalAdded.jpg" class="livethumbnail"><img src="images/NormalAdded.jpg" border="0" width="320" height="214" largewidth="640" largeheight="427" /></a><br /><br /><br />
+                <p>If you open the Material Selector again, you will notice your
+                  new material has been saved in the list. This material is now 
+                  available to be assigned to any other meshes within the project 
+                  without having to go through the whole
+                  process of redefining it again. </p>
+                <p><br />
+                <a name="Conclusion" id="A1"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>This article covered the basics of using Torque 3D's powerful
+                  Material Editor. As with any other editing tool, remember to
+                  <b>save</b> and <b>save often</b>. Take some time to experiment with
+                  existing materials provided in our demos, or work with your own
+                  materials to get a feel for the the utility.</p>
+                </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

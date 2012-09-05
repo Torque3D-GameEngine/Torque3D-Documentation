@@ -1,0 +1,302 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 76;
+   parent.leftFrame.expandToItem('tree2', 'doc76');
+   var element = parent.leftFrame.document.getElementById('doc76');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque 3D World Editor - Sun</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+
+<BODY id = "BODYID" onLoad = "initComponent()"  class="mediawiki ns-0 ltr page-Torque3D_WorldEditor_Sun">
+<script type="text/javascript" src="../../../include/wz_tooltip.js"></script>
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table width="700" border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#A_New_Sun"><span class="tocnumber">2</span> <span class="toctext">Adding A Sun</span></a></li>
+                          <li class="toclevel-1"><a href="#Sun_Properties"><span class="tocnumber">3</span> <span class="toctext">Sun Properties</span></a></li>
+                          <li class="toclevel-1"><a href="#Azimuth_and_Elevation"><span class="tocnumber">4</span> <span class="toctext">Azimuth and Elevation</span></a></li>
+                          <li class="toclevel-1"><a href="#Adjusting_Elevation"><span class="tocnumber">5</span> <span class="toctext">Adjusting Elevation</span></a></li>
+                          <li class="toclevel-1"><a href="#Adjusting_Azimuth"><span class="tocnumber">6</span> <span class="toctext">Adjusting Azimuth</span></a></li>
+                          <li class="toclevel-1"><a href="#Standard_Lighting"><span class="tocnumber">7</span> <span class="toctext">Standard Lighting</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">8</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p>The Sun object is used to control the  global lighting settings in the level. The main settings include ambient coloring, azimuth, and elevation. The lighting effects produced by the Sun are 100% dynamic, which means as soon as you change a setting it is immediately reflected in the level. In short, the Sun lets you control the day/night cycle of your level. </p><br />
+                <a name="A_New_Sun" id="A_New_Sun"></a>
+                <h2> <span class="mw-headline">Adding a Sun</span></h2>
+                <p>To add a Sun start by opening the Library tab in the Scene Tree dialog. Once the Library tab is active, click on Level sub-tab, then double-click the Environment subcategory. </p>
+                <p><img alt="Image:EnvironmentObjects.jpg" src="images/EnvironmentObjects.jpg" width="209" border="0" height="324" /> </p>
+                <p><br />
+                Double-clicking the Basic Sun object will open the Create Object Dialog. From here, you can change a few basic properties, such as the name, starting color, and location. Enter a name then click the Create New button.</p>
+                <p><img alt="Image:AddSun.jpg" src="images/AddSun.jpg" width="255" border="0" height="157" /> </p>
+                
+                <br />
+                <a name="Sun_Properties" id="Sun_Properties"></a>
+                <h2> <span class="mw-headline">Sun Properties</span></h2>
+                <p><br />
+                Additional properties can be changed with the Inspector pane. To change the Sun properties using the Inspector Pane click the Scene tab, then click the name of your new sun object. The Inspector pane will update to display the current properties of your new sun.</p>
+                <p>(<i>hover over each category to see fields and values</i>) </p>
+                <img src="images/SunNameProperty.jpg" width="227" border="0" height="80" onmouseover="Tip('<strong>name</strong>: <i>TypeName</i>. Optional global name of this object.<br><br><strong>id</strong> : <i>TypeCaseString</i>. SimObjectId of this object. Read Only.<br><br><strong>Source Class</strong> : <i>TypeCaseString</i>. Source code class of this object. Read Only.', WIDTH, 450)" onmouseout="UnTip()" /><br />
+                  <img src="images/SunTransform.jpg" width="227" border="0" height="74" onmouseover="Tip('<strong>position</strong>: <i>MatrixPosition</i>. Object world position.<br><br><strong>rotation</strong> : <i>MatrixOrientation</i>. Object world orientation.<br><br><strong>scale</strong> : <i>Point3F</i>. Object world scale.', WIDTH, 450)" onmouseout="UnTip()" > <br />
+                  <img src="images/OrbitProperty.jpg" width="227" border="0" height="57" onmouseover="Tip('<strong>azimuth</strong>: <i>TypeF32</i>. The horizontal angle of the sun measured clockwise from the positive Y world axis.<br><br><strong>elevation</strong> : <i>TypeF32</i>. The elevation angle of the sun above or below the horizon.', WIDTH, 450)" onmouseout="UnTip()" > <br />
+                  <img src="images/SunLightingProperty.jpg" width="227" border="0" height="93" onmouseover="Tip('<strong>color</strong>: <i>TypeColorF</i>. Color shading applied to surfaces in direct contact with light source.<br><br><strong>ambient</strong> : <i>TypeColorF</i>. Color shading applied to surfaces not  in direct contact with light source, such as in the shadows or interiors.<br><br><strong>brightness</strong> : <i>TypeF32</i>. Adjust the global Sun contrast/intensity.<br><br><strong>castShadows</strong> : <i>TypeBool</i>. Enables/disables shadows cast by objects due to Sun light.', WIDTH, 450)" onmouseout="UnTip()" > <br />
+                  <img src="images/SunCoronaProperty.jpg" width="227" border="0" height="112" onmouseover="Tip('<strong>coronaEnabled</strong>: <i>TypeBool</i>. Enable or disable rendering of the corona sprite.<br><br><strong>coronaTexture</strong> : <i>TypeImageFilename</i>. Texture for the corona sprite.<br><br><strong>coronaScale</strong> : <i>TypeF32</i>. Scale the rendered size of the corona ( texture size * coronaScale = visible pixel dimensions.<br><br><strong>coronaTint</strong> : <i>TypeColorF</i>. Modulates the corona sprite color ( if coronaUseLightColor is false ).<br><br><strong>coronaUseLightColor</strong> : <i>TypeBool</i>. Modulate the corona sprite color by the color of the light ( overrides coronaTint ).', WIDTH, 450)" onmouseout="UnTip()" > <br />
+                  <img src="images/SunMiscProperty.jpg" width="227" border="0" height="74" onmouseover="Tip('<strong>flareType</strong>: <i>TypeLightFlareDataPtr</i>. Datablock for the flare and corona produced by the Sun.<br><br><strong>flareScale</strong> : <i>TypeF32</i>. Changes the size and intensity of the flare.<br><br><strong>isRenderEnabled</strong> : <i>TypeBool</i>. Only render if true (and if class is render-enabled, too).', WIDTH, 450)" onmouseout="UnTip()" > <br />
+                  <img src="images/SunAdvLighProp.jpg" width="227" border="0" height="219" onmouseover="Tip('<strong>attenuationRatio</strong>: <i>TypePoint3F</i>. The proportions of constant, linear, and quadratic attenuation to use for the falloff for point and spot lights.<br><br><strong>shadowType</strong> : <i>TypeEnum</i>. The type of shadow to use on this light.<br><br><strong>cookie</strong> : <i>TypeStringFilename</i>. A custom pattern texture which is projected from the light.<br><br><strong>texSize</strong> : <i>TypeS32</i>. The texture size of the shadow map.<br><br><strong>overDarkFactor</strong> : <i>TypePoint4F</i>. The ESM shadow darkening factor.<br><br><strong>shadowDistance</strong> : <i>TypeF32</i>. The distance from the camera to extend the PSSM shadow.<br><br><strong>shadowSoftness</strong> : <i>TypeF32</i>. Adjusts shadow edge clarity.<br><br><strong>numSplits</strong> : <i>TypeF32</i>. The logrithmic PSSM split distance factor.<br><br><strong>fadeStartDistance</strong> : <i>TypeF32</i>. Start fading shadows out at this distance.  0 equates to  auto calculate this distance.<br><br><strong>lastSplitTerrainOnly</strong> : <i>TypeBool</i>. This toggles only terrain being rendered to the last split of a PSSM shadow map.', WIDTH, 450)" onmouseout="UnTip()" > <br />
+                  <img src="images/SunAdvLightmapProp.jpg" width="227" border="0" height="76" onmouseover="Tip('<strong>representedInLightmap</strong>: <i>TypeBool</i>. This light is represented in lightmaps (static light, default: false).<br><br><strong>shadowDarkenColor</strong> : <i>TypeColorF</i>. The color that should be used to multiply-blend dynamic shadows onto lightmapped geometry (ignored if representedInLightmap is false).<br><br><strong>includeLightmappedGeometryInShadow</strong> : <i>TypeBool</i>. This light should render lightmapped geometry during its shadow-map update (ignored if representedInLightmap is false).', WIDTH, 450)" onmouseout="UnTip()" > <br />
+                  <img src="images/SunSimbaseProp.jpg" width="227" border="0" height="75" onmouseover="Tip('<strong>canSaveDynamicFields</strong>: <i>typeBool</i>. True if dynamic fields (added at runtime) should be saved, defaults to true.<br><br><strong>internalName</strong> : <i>TypeString</i>. Non-unique name used by child objects of a group.<br><br><strong>parentGroup</strong> : <i>TypeString</i>. Group object belongs to.', WIDTH, 450)" onmouseout="UnTip()" /><br />
+                  <img src="images/SunNamespaceProp.jpg" width="227" border="0" height="75" onmouseover="Tip('<strong>superClass</strong>: <i>TypeString</i>. Links object to script super class (parent) namespace.<br><br><strong>class</strong>: <i>TypeString</i>. Links object to script class namespace.<br><br><strong>className</strong>: <i>TypeString</i>. Legacy version of class field.<br><br>', WIDTH, 450)" onmouseout="UnTip()" ><br />
+                  <img src="images/SunDynamic.jpg" width="227" border="0" height="48" onmouseover="Tip('<strong>(n/a)</strong>: <i>*</i>. No stock dynamic values.', WIDTH, 450)" onmouseout="UnTip()" > <br />
+
+                <br /><br />
+
+                <a name="Azimuth_and_Elevation" id="Azimuth_and_Elevation"></a>
+                <h2> <span class="mw-headline">Azimuth and Elevation</span></h2>
+                <p>The Azimuth and Elevation fields are very important to determining
+                  the global position of the sun, which affects the lighting intensity and
+                  shadow casting for every object in your level. You cannot think of
+                  these two fields as numbers that simply move your sun or make it
+                  higher. Azimuth and Elevation are actually angles: </p>
+                <p><img alt="Image:azimuth.jpg" src="images/azimuth.jpg" width="212" border="0" height="224" /> </p>
+                <p>Elevation (El) is measured between 0 and 180 degrees. It refers to
+                  the vertical angle measured from the geometric horizon (0°) towards the
+                  zenith (+90°). </p>
+                <ul>
+                  <li>0° will place the Sun at one end of the horizon as though it were just about to rise or set. </li>
+                  <li>90° will place the Sun directly over the level, shining straight down. </li>
+                  <li>180° will place the Sun at the opposite end of the horizon as though it were 
+                      just about to rise or set.</li>
+                </ul>
+                <p><br />
+                  Azimuth ranges between 0 and 360 degrees, and refers to a horizontal angle which determines the direction the Sun is facing 
+                    in the level. </p>
+                <ul>
+                  <li>0° is true North. </li>
+                  <li>90° is due east. </li>
+                  <li>180° is due south. </li>
+                  <li>270 is due west. </li>
+                </ul>
+                <p><br />
+                  If you have a completely flat terrain with no objects, it will
+                  be difficult for you to visually measure the  position of the Sun. You
+                  can use any object you want as a reference, but make sure you have your
+                  camera fixed on it to see the changes that you are making. </p><br />
+                <a name="Adjusting_Elevation" id="Adjusting_Elevation"></a>
+                <h2> <span class="mw-headline">Adjusting Elevation</span></h2>
+                <p>Go ahead and set the  Azimuth and Elevation of the Sun to 0, which should give you a very dark level. </p>
+                <p>(<i>click to enlarge</i>) </p>
+                <a href="images/Elevation0.jpg" class="livethumbnail"><img src="images/Elevation0.jpg" width="320" height="269" largewidth="640" largeheight="538" /></a>
+                <p><br />
+                At this point, the angle of the Sun matches the horizon of your level perfectly. By increasing the elevation to 45, and you will see the objects in your level begin to cast short shadows. If you dont see the shadows changing make sure that you do not have more than one sun in your scene. The World Builder allows more than one sun in a scene, which obviously will change the light and shadows within a level.</p>
+                <p>(<i>click to enlarge</i>) </p>
+                <a href="images/Elevation45.jpg" class="livethumbnail"><img src="images/Elevation45.jpg" width="320" height="269" largewidth="640" largeheight="538" /></a>
+                <p><br />
+                  Thinking back to angles, if 0° is parallel with the horizon,
+                  then 90° degrees will be directly overhead. Change the elevation to 90. You will see all of  the shadows for the objects are directly below, just
+                  as in real life when the sun is sitting at zenith (straight overhead). </p>
+                <p>(<i>click to enlarge</i>) </p>
+                <a href="images/Elevation90.jpg" class="livethumbnail"><img src="images/Elevation90.jpg" width="320" height="269" largewidth="640" largeheight="538" /></a>
+                <p><br />
+                  Setting the elevation to 180 will place the Sun at the
+                  opposite end of the horizon, once again resulting in a dark level. If
+                  you really focus, there is a slight change in shadow direction than
+                  when the  elevation was 0°. </p>
+                <p>(<i>click to enlarge</i>) </p>
+                <a href="images/Elevation180.jpg" class="livethumbnail"><img src="images/Elevation180.jpg" width="320" height="269" largewidth="640" largeheight="538" /></a><br />
+                <a name="Adjusting_Azimuth" id="Adjusting_Azimuth"></a>
+                <h2> <span class="mw-headline">Adjusting Azimuth</span></h2>
+                <p>The  Azimuth of the Sun is measured clockwise from a fixed
+                    overhead perspective. To help you
+                  understand this rotation, we are going to adjust the Aazimuth of the Sun so
+                  that shadows of an object rotate like a sun dial or hands on a clock. </p>
+                <p><br />
+                  If you set the elevation to 45 and azimuth to 0, it will look like the shadow is pointing at 12 o'clock (if viewed from overhead). <br /><br />
+                  (<i>click to enlarge</i>) </p>
+                <a href="images/Azimuth0.jpg" class="livethumbnail"><img src="images/Azimuth0.jpg" width="320" height="251" largewidth="640" largeheight="502" /></a>
+                <p><br />
+                  Now, increase the azimuth by 45. At a sharp 45° angle, the  shadow looks like it is pointing at 1 o'clock.<br /><br />
+                  (<i>click to enlarge</i>) </p>
+                <a href="images/Azimuth45.jpg" class="livethumbnail"><img src="images/Azimuth45.jpg" width="320" height="251" largewidth="640" largeheight="502" /></a>
+                <p><br />
+                  If you set the azimuth property to 90, you will notice a
+                  very familiar angle. The object and its shadow are forming a perfect
+                  right angle.<br /><br />
+                  (<i>click to enlarge</i>) </p>
+                <a href="images/Azimuth90.jpg" class="livethumbnail"><img src="images/Azimuth90.jpg" width="320" height="251" largewidth="640" largeheight="502" /></a>
+                <p><br />
+                  Half of a full rotation is 180°. After Setting the azimuth to this
+                  value, the  shadow will now be pointing in the opposite
+                  direction from its original state.<br /><br />
+                  (<i>click to enlarge</i>) </p>
+                <a href="images/Azimuth180.jpg" class="livethumbnail"><img src="images/Azimuth180.jpg" width="320" height="251" largewidth="640" largeheight="502" /></a>
+                <p><br />
+                  Now, set the azimuth property to 270 and watch as the shadow points to
+                  9 O'clock. The shadow should be pointing directly opposite from the 90°
+                  setting.<br /><br />
+                  (<i>click to enlarge</i>) </p>
+                <a href="images/Azimuth270.jpg" class="livethumbnail"><img src="images/Azimuth270.jpg" width="320" height="251" largewidth="640" largeheight="502" /></a>
+                <p><br />
+                  Finally, set the azimuth to 360. We have achieved full rotation.
+                  Careful examination will show that even though your shadows are
+                  pointing in the same direction as the 0° setting, they have been
+                  flipped. </p>
+                <p>(<i>click to enlarge</i>) </p>
+                <a href="images/Azimuth360.jpg" class="livethumbnail"><img src="images/Azimuth360.jpg" width="320" height="251" largewidth="640" largeheight="502" /></a><br /><br />
+                <a name="Standard_Lighting" id="Standard_Lighting"></a>
+                <h2> <span class="mw-headline">Standard Lighting</span></h2>
+                <p>The last topic we are going to touch on that is specific to the Sun object is standard lighting. Under the Lighting properties of the sun object there are three variables to adjust. Checking the castShadows box will cause surfaces to project shadows based on the direction of the sunlight. Removing the check will disable any shadows cast due to the Sun. If you uncheck that box you'll see that the shadows you have been observing will not be displayed at all.</p>
+                <p><br />
+                  In addition to creating shadows, the light from the Sun will also affect the
+                  color shading of all surfaces in the level. There is a subtle, yet
+                  important difference between the <b>color</b> and <b>ambient</b> fields. If you want realistic lighting color, you will need to tweak both values.</p>
+                <p><br />
+                  The value of the <b>color</b> field will shade all
+                  surfaces that are in direct contact with the sunlight. A completely
+                  black color will make it seem like there is no light at all. Using the
+                  color picker to choose an orange hue will result in a sunset
+                  appearance for your level. </p>
+                <p><br />
+                  Ambient light is the available light in a space, whether from natural or mechanical sources. It is applied to everything in the world and also contributes to the direct lighting of the sun. The 
+                    <strong>ambient</strong> field will  lighten dark shadows <strong>and</strong> brighten well lit surfaces based on the color value.</p>
+                <br />
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>In this article, we covered how to create a new Sun,
+                  how the various attributes affect your scene, and how to use azimuth
+                  and elevation concurrently. </p>
+                <p><br />
+                Proper global lighting can dramatically change the appearance of a level, as well as aid in certain game play aspects, such as providing a day and night cycle. You should continue to experiment with the settings and see what lighting effects you can create including simulating different times of the day. </p>
+               </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

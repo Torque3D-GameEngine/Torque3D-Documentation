@@ -1,0 +1,934 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 44;
+   parent.leftFrame.expandToItem('tree2', 'doc44');
+   var element = parent.leftFrame.document.getElementById('doc44');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque3D - RTS Prototype</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_Scripting_Advanced_RTSPrototype skin-monobook">
+<table width="700" cellspacing="0" cellpadding="0" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="15" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Mouse_Setup"><span class="tocnumber">2</span> <span class="toctext">Mouse Setup</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#Mouse_Cursor_Toggling"><span class="tocnumber">2.1</span> <span class="toctext">Mouse Cursor Toggling</span></a></li>
+                              <li class="toclevel-2"><a href="#Mouse_Click_Reaction"><span class="tocnumber">2.2</span> <span class="toctext">Mouse Click Reaction</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Mouse-Driven_Input"><span class="tocnumber">3</span> <span class="toctext">Mouse-Driven Input</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#Player_Spawning"><span class="tocnumber">3.1</span> <span class="toctext">Player Spawning</span></a></li>
+                              <li class="toclevel-2"><a href="#Movement"><span class="tocnumber">3.2</span> <span class="toctext">Movement</span></a></li>
+                              <li class="toclevel-2"><a href="#Spawning_Enemy_Targets"><span class="tocnumber">3.3</span> <span class="toctext">Spawning Enemy Targets</span></a></li>
+                              <li class="toclevel-2"><a href="#Attacking"><span class="tocnumber">3.4</span> <span class="toctext">Attacking</span></a></li>
+                              <li class="toclevel-2"><a href="#Tweaking_Attacks"><span class="tocnumber">3.5</span> <span class="toctext">Tweaking Attacks</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Destination_Markers"><span class="tocnumber">4</span> <span class="toctext">Destination Markers</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#Creating_a_Material"><span class="tocnumber">4.1</span> <span class="toctext">Creating a Material</span></a></li>
+                              <li class="toclevel-2"><a href="#Creating_a_Decal"><span class="tocnumber">4.2</span> <span class="toctext">Creating a Decal</span></a></li>
+                              <li class="toclevel-2"><a href="#Spawning_the_Marker"><span class="tocnumber">4.3</span> <span class="toctext">Spawning the Marker</span></a></li>
+                              <li class="toclevel-2"><a href="#Erasing_the_Marker"><span class="tocnumber">4.4</span> <span class="toctext">Erasing the Marker</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Camera_Modes"><span class="tocnumber">5</span> <span class="toctext">Camera Modes</span></a>
+                            <ul>
+                              <li class="toclevel-2"><a href="#Orbit_Camera"><span class="tocnumber">5.1</span> <span class="toctext">Orbit Camera</span></a></li>
+                              <li class="toclevel-2"><a href="#Overhead_Camera"><span class="tocnumber">5.2</span> <span class="toctext">Overhead Camera</span></a></li>
+                            </ul>
+                          </li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">6</span> <span class="toctext">Conclusion</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p>Torque 3D's stock demos and templates are setup for first person
+                  shooter (FPS) games. However, the engine has multiple camera modes that
+                  can change the perspective and how the game is controlled. In this
+                  tutorial, we are going to modify the camera and mouse controls to
+                  emulate different game types: Hack &amp; Slash and RTS. </p>
+                <p><br />
+                  This guide will be working with the stock Full Template,
+                  created from Toolbox. If you have not done so, create a new project
+                  using this template. All of the code provided in this tutorial can be
+                  applied to this project with ease. You will also be provided with new
+                  assets (models and textures) you can import into the project. </p><br />
+                <p>Some of the topics that will be covered are: </p>
+                <ul>
+                  <li>Advanced scripting </li>
+                  <li>Camera manipulation </li>
+                  <li>Simple AI </li>
+                  <li>Object spawning </li>
+                  <li>Mouse and keyboard input </li>
+                  <li>Basic RTS and Hack &amp; Slash mechanics </li>
+                </ul>
+                <p><br />
+                  Before you begin, you should be familiar with the following guides. Make sure you have read these before proceeding: </p><br />
+                <ul>
+                  <li>TorqueScript Syntax </li>
+                  <li>Camera Modes </li>
+                  <li>World Editor Interface </li>
+                  <li>Adding 3D Shapes </li>
+                  <li>Material Editor </li>
+                  <li>Decal Editor </li>
+                  <li>Datablock Editor </li>
+                </ul>
+                <p><br />
+                  The Full Template used for this tutorial project should contain base art and scripts needed to run the game, but we want to use some custom models. Start by <a href="rts_prototype_art.zip" class="downloads">CLICKING HERE</a> to download a zip file containing the sample assets.</p>
+                <p>&nbsp;</p>
+                <p>Copy the art folder in the zip file on top of your project's art file. This will add the models, their datablocks, and their materials to your project if they do not exist. When you are ready, continue reading to configure your mouse controls. </p>
+                <br />
+                <p>The zip file adds two new models to the project. One is a simple, static building. The other is a custom player model called Boom Bot. While you can simply drag and drop these models in via the World Editor, we need to hook up a script file prepared specifically for Boom Bot.</p>
+                <br />
+                <p>To get <strong>Boom Bot</strong> fully working, open <b>game/art/datablocks/datablockExec.cs</b> Scroll down until you see the following code:</p>
+                <br />
+                <pre>exec("./player.cs");</pre>
+                <br />
+                <p>Just below that line, add the following:</p>
+                <br />
+                <pre>exec("./BoomBot.cs");</pre>
+                <br />
+                <a name="Mouse_Setup" id="Mouse_Setup"></a>
+                <h2> <span class="mw-headline">Mouse Setup</span></h2>
+                <p>The following code will change the way mouse input affects movement and click interaction. </p><br />
+                <a name="Mouse_Cursor_Toggling" id="Mouse_Cursor_Toggling"></a>
+                <h3> <span class="mw-headline">Mouse Cursor Toggling</span></h3>
+                <p>Normally, the camera is controlled by an actor in FPS (aim) mode. To
+                  focus on just mouse and camera work, we need to change how the default
+                  camera is controlled. Open <b>game/scripts/server/gameCore.cs</b>. In function <b>GameCore::preparePlayer(%game, %client)</b>, locate the following line: </p>
+                <pre>%game.spawnPlayer(%client, %playerSpawnPoint);</pre>
+                <p><br />
+                  Change this code by adding a third argument to the function call: </p>
+                <pre>%game.spawnPlayer(%client, %playerSpawnPoint, false);</pre>
+                <p><br />
+                  The function being modified is <b>GameCore::spawnPlayer(%game, %this, %spawnPoint, %noControl)</b>, located in <b>game/core/scripts/server/gameCore.cs.</b> The last two arguments determine the location of spawning (%spawnPoint) and
+                  whether or not the actor object controls the camera (%noControl). We need to address that next.</p>
+                <p>Immediately below the <strong>%game.spawnPlayer()</strong> function, add the following code:</p>
+<pre>
+   if (%client.getControlObject() == %client.player)  
+   {  
+      %client.camera.setVelocity("0 0 0");  
+      %control = %client.camera;  
+   }  
+   else  
+   {  
+      %client.player.setVelocity("0 0 0");  
+      %control = %client.player;  
+   }  
+   %client.setControlObject(%control);  
+</pre>
+<p>This sets us up to correctly control the camera from the new fly mode.</p>
+                <p><br />
+                  If you run the game, you will now be using a free fly
+                  camera instead of an FPS view controlled by the actor. Next, we need to
+                  be able to control the on/off state of the in game mouse cursor. Open <b>game/scripts/client/default.bind.cs</b>.  At the end of the file, add the following: </p>
+                <pre>// Turn mouse cursor on or off
+// If %val is true, the button was pressed in
+// If %val is false, the button was released
+function toggleMouseLook(%val)
+{
+   // Check to see if button is pressed
+   if(%val)  
+   {
+      // If the cursor is on, turn it off.
+      // Else, turn it on
+      if(Canvas.isCursorOn())
+         hideCursor();
+      else
+         showCursor();
+   }
+}
+
+// Bind the function toggleMouseLook to the keyboard 'm' key
+moveMap.bind(keyboard, "m", "toggleMouseLook");
+</pre>
+                <p><br />
+                  Next, open your file browser and delete <b>scripts/client/config.cs</b>,
+                  if it exists. This file contains custom keybinds created for your game.
+                  It will override the variables and functions you add to <strong>default.bind.cs</strong>.
+                  However, if you delete this file and run your game, a new one will be
+                  regenerated with your updated. </p>
+                <p><br />
+                  If you start the game now, it will still default to a free
+                  flying (mouse look)camera. By hitting the 'm' key you will be able to toggle "mouse
+                  look" mode. If mouse look is on, you can control your view direction by
+                  moving the mouse. If it is off, you can move your cursor around on the
+                  screen. You can switch back to an actor controlled camera by pressing
+                  Alt + C. </p>
+                <p><br />
+                  We will go ahead and force the cursor to be on as soon as the level loads. Open <b>game/art/gui/playGui.gui</b>. You can edit .gui files just like any other script file. Look for the <b>noCursor</b> field. Make the following change to this field: </p>
+                <pre>noCursor = "0";
+</pre>
+                <p><br />
+                  Now that you've freed up the mouse from aiming duties, it's time to put it to other uses. </p><br />
+                <a name="Mouse_Click_Reaction" id="Mouse_Click_Reaction"></a>
+                <h3> <span class="mw-headline">Mouse Click Reaction</span></h3>
+                <p>Open <strong>game/scripts/gui/playGui.cs</strong>. Add the following function at the end of the file: </p>
+                <pre>// onRightMouseDown is called when the right mouse button is clicked in the scene
+// %pos is the screen (pixel) coordinates of the mouse click
+// %start is the world coordinates of the camera
+// %ray is a vector through the viewing 
+// frustum corresponding to the clicked pixel
+function PlayGui::onRightMouseDown(%this, %pos, %start, %ray)
+{
+   // find end of search vector
+   %ray = VectorScale(%ray, 2000);
+   %end = VectorAdd(%start, %ray);
+   
+   // only care about terrain objects
+   %searchMasks = $TypeMasks::TerrainObjectType;
+
+   // search!
+   %scanTarg = ContainerRayCast( %start, %end, %searchMasks );
+   
+   // If the terrain object was found in the scan
+   if( %scanTarg )
+   {
+      // spawn a new object at the intersection point
+      %obj = new TSStatic()
+      {
+         position = getWords(%scanTarg, 1, 3);
+         shapeName = "art/shapes/building/orcburrow.dts";
+         collisionType = "Visible Mesh";
+         scale = "0.5 0.5 0.5";
+      };
+
+      // Add the new object to the MissionCleanup group
+      MissionCleanup.add(%obj);
+   }
+}
+</pre>
+                <p><br />If you run the game now, it should place a building on the terrain wherever you right-click. We will implement other 
+                    <strong>GameTSCtrl::onMouseDown </strong>and <strong>GameTSCtrl::onMouseUp</strong> methods later in this tutorial.
+                </p><br />
+                <a name="Mouse-Driven_Input" id="Mouse-Driven_Input"></a>
+                <h2> <span class="mw-headline">Mouse-Driven Input</span></h2>
+                <p>Without FPS controls and player aiming, we need a new way to control
+                  the Player object. The best examples of a mouse driven game genre are RTS
+                  and Hack &amp; Slash. Typically, these game types allow you to move and
+                  attack using the mouse buttons. Let's start with movement. </p><br />
+                <a name="Player_Spawning" id="Player_Spawning"></a>
+                <h3> <span class="mw-headline">Player Spawning</span></h3>
+                <p>At this point, we can spawn an AI player to stand in for the stock player.
+                  This AI will be controlled by our mouse inputs. Torque 3D uses a
+                  simple spawn system, which can be easily modified to spawn any kind of
+                  object (of any class).</p>
+                  <p><br />Open Toolbox, select the <b>empty terrain</b> level, then click the World Editor button. </p>
+                <p><br />
+                  Once you are in the editor, locate the spawn sphere in the scene.
+                  It is represented by a green octahedron, which will turn into green
+                  sphere when you click on it: </p>
+                <br />
+                <p><i>(click to enlarge)</i> </p>
+                <a href="images/RTS_SpawnSphere.jpg" class="livethumbnail"><img src="images/RTS_SpawnSphere.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br /><br />
+                  You can also locate a spawn sphere by browsing the Scene Tree, under the PlayerDropPoints SimGroup: </p>
+                <p><br />
+                  <img alt="Image:RTS_SpawnSphere2.jpg" src="images/RTS_SpawnSphere2.jpg" border="0" height="254" width="208" /> </p>
+                <p><br />
+                  If you have multiple spawn spheres, delete all except for one. We can
+                  control what type of actor is spawned by changing the properties of the
+                  remaining spawn sphere. Select the sphere, then change the spawnClass
+                  to <b>AIPlayer</b> and spawnDatablock to <b>BoomBotData.</b> Also, change the name of the spawn sphere to <b>PlayerSpawn</b>. </p>
+                <p><br />
+                  <img alt="Image:RTS_SpawnProperties.jpg" src="images/RTS_SpawnProperties.jpg" border="0" height="112" width="265" /> </p><br />
+                <a name="Movement" id="Movement"></a>
+                <h3> <span class="mw-headline">Movement</span></h3>
+                <p>Now that we have an AI player spawning in the game, we can send it commands. Open <b>game/scripts/gui/playGui.cs</b>. In the function <b>onRightMouseDown</b>, select the following lines: </p>
+                <pre>// If the terrain object was found in the scan
+if( %scanTarg )
+{
+   // spawn a new object at the intersection point
+   %obj = new TSStatic()
+   {
+      position = getWords(%scanTarg, 1, 3);
+      shapeName = "art/shapes/building/orcburrow.dts";
+      scale = "0.5 0.5 0.5";
+   };
+
+   // Add the new object to the MissionCleanup group
+   MissionCleanup.add(%obj);
+}
+</pre>
+                <p><br />
+                  Replace that code with this: </p>
+                <pre>if( %scanTarg )
+{
+   ClientGroup.getObject(0).player.setMoveDestination( getWords(%scanTarg, 1, 3) );
+}
+</pre>
+                <p><br />
+                  The new command you are using is quite complex and is calling multiple functions at once. We can break this down: </p><br />
+                <p><b>ClientGroup</b> - Special SimGroup that keeps track of all client game connections </p>
+                <p><b>.getObject(0)</b> - Accesses (by 0 index) the first client
+                  connection stored in the SimGroup. Since this is tutorial is not
+                  intended to be a full, multiplayer RTS game, you can always use the 0
+                  index to access your connection. </p>
+                <p><b>.player</b> - Accesses the player object (AIPlayer, in this
+                  case) of the current client connection. Without using a global variable
+                  assigned to this this player reference, you always want to go through
+                  the game's connection to access the object. This goes for other similar
+                  objects, such as the camera. </p>
+                <p><b>.setMoveDestination</b><i>(getWords(...))</i> - Calls AIPlayer member function which will move the actor to an (X,Y,Z) location in the world </p>
+                <p><b>getWords(</b><i>%scanTarg, 1, 3)</i> - Grabs the coordinates from the object found during the scan, in string format </p>
+                <p><br />
+                  Save your script and run the game. You should now be able to
+                  direct the AI player to wherever you right-click on the terrain. This
+                  only works if you have mouse look disabled, and your cursor is present
+                  on screen. </p><br />
+                <a name="Spawning_Enemy_Targets" id="Spawning_Enemy_Targets"></a>
+                <h3> <span class="mw-headline">Spawning Enemy Targets</span></h3>
+                <p>Our player looks lonely and bored. We should give him some targets, and the means of disposing them. Open <b>game/scripts/client/default.bind.cs</b>, and add the following to the bottom of the file: </p>
+                <pre>// Spawn an AI guy when key is pressed down
+function spawnAI(%val)
+{
+   // If key was pressed down
+   if(%val)
+   {
+      // Create a new, generic AI Player
+      // Position will be at the camera's location
+      // Datablock will determine the type of actor
+      new AIPlayer() 
+      {
+         position = LocalClientConnection.camera.getPosition();
+         datablock = "DefaultPlayerData";
+      };
+   }
+}
+
+// Bind the function spawnAI to the keyboard 'b' key
+moveMap.bind(keyboard, b, spawnAI);
+</pre>
+                <p><br />
+                  In the above code, a new example of accessing a client
+                  connection is shown. Instead of ClientGroup, the code uses
+                  LocalClientConnection. In a "single player" environment, you can use
+                  these two interchangeably. Due to Torque 3D's architecture, there will
+                  always be a server and at least one client connection. </p>
+                <p><br />
+                  The common practice for choosing which to use is as follows: </p>
+                <ul>
+                  <li><b>Accessing From A Client</b> - Use LocalClientConnection. This will always access your connection, player, camera, etc. </li>
+                </ul>
+                <ul>
+                  <li><b>Accessing From Server</b> - Use
+                    ClientGroup.getObject(%index). Multiple connections to choose from.
+                    This is good for applying the same functionality to all connections, or
+                    isolating specific ones based on ID. </li>
+                </ul>
+                <p><br />
+                  Again, do not forget to delete <b>game/scripts/client/config.cs</b>.
+                  You can run the game, then press the 'b' key to spawn stationary AI
+                  targets in the same position as your camera. If gravity is enabled,
+                  they will fall until they hit the terrain. </p><br />
+                <a name="Attacking" id="Attacking"></a>
+                <h3> <span class="mw-headline">Attacking</span></h3>
+                <p>Currently, we have a player we can control, and targets that can die. Let's give the player some combat skills. In <b>game/scripts/gui/playGui.cs</b>, add the following function to the bottom of the script: </p>
+                <pre>// onMouseDown is called when the left mouse
+// button is clicked in the scene
+// %pos is the screen (pixel) coordinates of the mouse click
+// %start is the world coordinates of the camera
+// %ray is a vector through the viewing 
+// frustum corresponding to the clicked pixel
+function PlayGui::onMouseDown(%this, %pos, %start, %ray)
+{   
+   %ray = VectorScale(%ray, 1000);
+   %end = VectorAdd(%start, %ray);
+
+   // Only care about players this time
+   %searchMasks = $TypeMasks::PlayerObjectType;
+
+   // Search!
+   %scanTarg = ContainerRayCast( %start, %end, %searchMasks );
+
+   // Get our player/actor
+   %ai = LocalClientConnection.player;
+   
+   // If an enemy AI object was found in the scan
+   if( %scanTarg )
+   {
+      // Get the enemy ID
+      %target = firstWord(%scanTarg);
+
+      // Don't shoot at yourself
+      if( %target != %ai )
+      {
+         // Cause our AI object to aim at the target
+         // offset (0, 0, 1) so you don't aim at the target's feet
+         %ai.setAimObject(%target, "0 0 1");
+         
+         // Tell our AI object to fire its weapon
+         %ai.setImageTrigger(0, 1);
+         return;
+      }
+   }
+
+   // If no valid target was found, or left mouse
+   // clicked again on terrain, stop firing and aiming
+   %ai.setAimObject(0);
+   %ai.setImageTrigger(0, 0);
+}
+</pre>
+                <p><br />
+                  Now, your player will continuously shoot at any other player you left click on (accuracy not guaranteed). Press the 'b' key to spawn targets to shoot at and blast away. The AI player will be locked in auto-fire mode until you left click on the terrain or on another target.</p>
+                <p><br />
+                  We now have the base functionality for moving the player and the camera, selecting a target, and attacking is now complete.</p><br />
+                <a name="Tweaking_Attacks" id="Tweaking_Attacks"></a>
+                <h3> <span class="mw-headline">Tweaking Attacks</span></h3>
+                <p>You might have noticed some flaws with the base code: </p>
+                <ul>
+                  <li>The first shot usually misses </li>
+                  <li>AI keeps shooting after enemy is dead </li>
+                  <li>Enemy does not appear to &quot;die&quot; when health reaches 0</li>
+                </ul>
+                <p><br />
+                  We are going to try and correct these one at a time using
+                  TorqueScript and the editors. Let's start by making our first shot be
+                  on target. The reason the first shot may miss entirely is because the
+                  AI is firing before it has fully turned to aim at the target. </p>
+                <p><br />
+                  To fix this, open <b>scripts/gui/playGui.cs.</b>, scroll down to the PlayGui::onMouseDown function, and locate the following line of code: </p>
+                <pre>// Tell our AI object to fire its weapon
+%ai.setImageTrigger(0, 1);
+</pre>
+                <p><br />
+                  Replace the above code with the following: </p>
+                <pre>// Tell our AI object to fire its weapon in 100 milliseconds
+%ai.schedule(100, "setImageTrigger", 0, 1);
+                </pre>
+                <p><br />
+                  Remember, the %ai variable contains a handle to our AI player
+                  object. The AIPlayer object, which is a child class of SimObject, can
+                  make use of a method named <b>schedule.</b> Instead of calling the setImageTrigger function immediately, we can schedule it to go off in delayed manner. </p>
+                <p><br />
+                  <b>Schedule (ConsoleMethod) Parameters</b> </p>
+                <pre>simObject.schedule(time, command, arg1...argN)</pre>
+                <ul>
+                  <li><b>time</b> - Number of milliseconds to wait before calling the command. </li>
+                </ul>
+                <ul>
+                  <li><b>command</b> - Member function (belonging to the simObject using schedule) to call </li>
+                </ul>
+                <ul>
+                  <li><b>arg1...argN</b> - Parameters, comma separated, to pass into the command. </li>
+                </ul>
+                <p><br />
+                  The AI we control should now have time to turn and face the target
+                  before firing off the first shot. The code is currently delayed by 100
+                  milliseconds, so you can adjust that number based on desired
+                  performance. </p>
+                <p><br />
+                  Next, we will change the auto-fire behavior. Instead of having the AI
+                  constantly attack a target, even after it is dead, we are going to
+                  modify the code to only cause our player to attack when a mouse button
+                  is clicked. In the same function we were just working in, locate the
+                  first schedule line we created </p>
+                <pre>// Tell our AI object to fire its weapon in 100 milliseconds
+%ai.schedule(100, "setImageTrigger", 0, 1);
+</pre>
+                <p><br />
+                  Then add the following directly under it: </p>
+                <pre>// Stop firing in 150 milliseconds
+%ai.schedule(150, "setImageTrigger", 0, 0);
+</pre>
+                <p><br />
+                  If you have not been saving after every script change, you
+                  should definitely do so. Save, then run your game to test the changes
+                  made to the attack routine. Your AI should now be facing the target on
+                  the first shot, and only attack when you click on the target. </p>
+                <p><br />
+                  There is one more change we can make to make the combat provide more feedback. Each enemy AI starts with health, which is diminished each time it gets shot. The Full template this tutorial is based on is originally intended for a FPS deathmatch game. When an actor dies, a death animation is played.</p>
+                  <br />
+                  <p>The death animation code can be found in <b>game/scripts/server/player.cs</b>. Open this file, then scroll down to the following function:</p>
+                  <br />
+                  <pre>
+function Player::playDeathAnimation(%this)
+{
+if (isObject(%this.client))
+   {
+      if (%this.client.deathIdx++ > 11)
+         %this.client.deathIdx = 1;
+      %this.setActionThread("Death" @ %this.client.deathIdx);
+   }
+   else
+   {
+      %rand = getRandom(1, 11);
+      %this.setActionThread("Death" @ %rand);
+   }
+}</pre>
+                <p><br />
+                <p>The template uses Gideon as the stock actor. The model ships with 11 death animations, which are labeled as "death#" (where # is 1 - 11). This works well for a Player constantly dying, but for an AIPlayer in this tutorial, we only need 1 death animation. This tutorial also mainly works as a client side (single player) prototype.</p><br />
+                <p>In simpler terms, we do not need to use the death index (.deathIdx) or %client variables. We can simply call the first death animation available. Change the <em>::playDeathAnimation(...)</em> function to the following:</p>
+                <pre>
+function Player::playDeathAnimation(%this)
+{
+   if (isObject(%this.client))
+   {
+      if (%this.client.deathIdx++ > 11)
+         %this.client.deathIdx = 1;
+      %this.setActionThread("Death" @ %this.client.deathIdx);
+   }
+   else
+   {
+      %rand = getRandom(1, 11);
+      %this.setActionThread("Death" @ %rand);
+   }
+}
+</pre>
+                <br />
+                <p>Now, when the target AI loses all its health it will play a death animation and eventually disappear.</p>
+                  <br />
+                <a name="Destination_Markers" id="Destination_Markers"></a>
+                <h2> <span class="mw-headline">Destination Markers</span></h2>
+                <p>In most RTS or Hack &amp; Slash games, some kind of marker is placed
+                  on the ground where you clicked. This is usually a visual aid to let
+                  you know the move assignment was given, the destination has been set,
+                  and the AI is moving. </p>
+                <p><br />
+                  We are going to add this functionality to our prototype to
+                  make it easier to track our AI player using the Material Editor, Decal
+                  Editor, and TorqueScript. First, we need to create a material for the
+                  marker. </p><br />
+                <a name="Creating_a_Material" id="Creating_a_Material"></a>
+                <h3> <span class="mw-headline">Creating a Material</span></h3>
+                <p>To get started on our marker creation, run your project in the <strong>World Editor</strong>. Next, open the 
+                    <strong>Material Editor</strong> and click on the <i>Create New Material</i> button. </p>
+                <p><br />
+                  <img alt="Image:MarkerNewMaterialButton.jpg" src="images/MarkerNewMaterialButton.jpg" border="0" height="106" width="208" /> </p>
+                <p><br />
+                  At this point, the current material will be switched to an 
+                    orange warning texture signifying that no diffuse map has been applied. Change the Material name to "gg_marker" and press enter to apply the
+                  change. Next, click on the Diffuse Map box to open the file browser.
+                  Navigate to the <b>game/art/decals</b> folder and select the g_marker.png file. This asset was given to you at the beginning of this guide: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/MarkerFile.jpg" class="livethumbnail"><img src="images/MarkerFile.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  Your new material is nearly complete. However, you should notice that
+                  the marker file and the material do not look the same. Compare the two: </p>
+                <p><br />
+                  <b>Marker File</b> </p>
+                <p><img alt="Image:g_marker.png" src="images/G_marker.png" border="0" height="253" width="253" /> </p>
+                <p><br />
+                  <b>Material</b> </p>
+                <p><img alt="Image:gMaterialBefore.jpg" src="images/GMaterialBefore.jpg" border="0" height="250" width="208" /> </p>
+                <p><br />
+                  This is easy to fix. While editing the gg_marker material,
+                  go to the very bottom in the Advanced Properties section and turn on
+                  Alpha Threshold: </p>
+                <p><br />
+                  <img alt="Image:toggleAlphaThreshold.jpg" src="images/toggleAlphaThreshold.jpg" border="0" height="120" width="189" /> </p>
+                <p><br />
+                  This will immediately toggle alpha visibility of the material: </p>
+                <p><br />
+                  <img alt="Image:alphaToggled.jpg" src="images/AlphaToggled.jpg" border="0" height="249" width="209" /> </p>
+                <p><br />
+                  Move the threshold slider until you get to a smooth GarageGames icon circle, which should be around 80: </p>
+                <p><br />
+                  <img alt="Image:gMaterialAfter.jpg" src="images/GMaterialAfter.jpg" border="0" height="250" width="208" /> </p>
+                <p><br />
+                  You are finished with the material. Click save the save button, which will write out the following data to <b>game/art/material.cs:</b> </p>
+                <pre>singleton Material(gg_marker)
+{
+   mapTo = "unmapped_mat";
+   diffuseMap[0] = "art/markers/g_marker.png";
+   alphaTest = "1";
+   alphaRef = "80";
+};
+</pre>
+                <p><br />
+                  This is the benefit of using the visual editor to create your
+                  materials and decals, instead of manually writing them out in
+                  TorqueScript. Let's move on to creating the decal. </p><br />
+                <a name="Creating_a_Decal" id="Creating_a_Decal"></a>
+                <h3> <span class="mw-headline">Creating a Decal</span></h3>
+                <p>To create a marker decal, run the <strong>World Editor</strong> and then open the
+                    <strong>Decal Editor</strong>. Click on the <i>New Decal Data</i> button, next to the garbage bin <img src="images/btn_delete.png" height="21" width="17" />, and name your new entry "gg_decal". </p>
+                <p><br />
+                  <img alt="Image:MarkerNewDecal.jpg" src="images/MarkerNewDecal.jpg" border="0" height="213" width="249" /> </p>
+                <p><br />
+                  Next, click on the box in the Material Field of the decal properties, as shown below: </p>
+                <p><br />
+                  This should open the Material Selector. Locate the gg_maker material we created earlier, click on it, then press the <i>Select</i> button: </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/SelectGGMarker.jpg" class="livethumbnail"><img src="images/SelectGGMarker.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  The Decal Editor's preview box will display what your new decal will look like in the scene. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/GGDecalMade.jpg" class="livethumbnail"><img src="images/GGDecalMade.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <p><br />
+                  That's all that needs to be done to create the decal. Save your level, and your decal data will automatically be written out to <b>game/art/decals/managedDecalData.cs</b>: </p>
+                <pre>datablock DecalData(gg_decal)
+{
+   textureCoordCount = "0";
+   Material = "gg_marker";
+};
+</pre><br />
+                <a name="Spawning_the_Marker" id="Spawning_the_Marker"></a>
+                <h3> <span class="mw-headline">Spawning the Marker</span></h3>
+                <p>Now that we have a destination marker, we need to add it upon
+                  clicking on the terrain and then delete it when our player reaches its
+                  destination. Start by opening <b>game/scripts/gui/playGui.cs</b>. Find the <strong>PlayGui::onRightMouseDown</strong> function. Inside of this function, replace everything inside this code block: </p>
+                <pre>if( %scanTarg )
+{
+   // Replace everything in here
+}
+</pre>
+                <p><br />
+                  With the following code: </p>
+                <pre>
+// Get access to the AI player we control
+%ai = LocalClientConnection.player;
+      
+// Get the X,Y,Z position of where we clicked
+%pos = getWords(%scanTarg, 1, 3);
+      
+// Get the normal of the location we clicked on
+%norm = getWords(%scanTarg, 4, 6);
+      
+// Set the destination for the AI player to
+// make him move
+%ai.setMoveDestination( %pos );
+
+// If the AI player already has a decal (0 or greater)
+// tell the decal manager to delete the instance of the gg_decal
+if( %ai.decal &gt; -1 )
+   decalManagerRemoveDecal( %ai.decal );
+
+// Create a new decal using the decal manager
+// arguments are (Position, Normal, Rotation, Scale, Datablock, Permanent)
+// AddDecal will return an ID of the new decal, which we will
+// store in the player
+%ai.decal = decalManagerAddDecal( %pos, %norm, 0, 1, "gg_decal", true );
+</pre>
+                <p><br />
+                  Save your script, then run the game. When you right click on the
+                  terrain, the GarageGames symbol should render as a decal at the
+                  destination. </p>
+                <p><br />
+                  <i>(click to enlarge)</i> </p>
+                <a href="images/MarkerDestination.jpg" class="livethumbnail"><img src="images/MarkerDestination.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br /><br /><br />
+                <a name="Erasing_the_Marker" id="Erasing_the_Marker"></a>
+                <h3> <span class="mw-headline">Erasing the Marker</span></h3>
+                <p>The last thing we need to do is erase the destination marker when our AI player gets to it. Open the <b>game/art/datablocks/BoomBot.cs</b> file, then add the following: </p>
+                <pre>// This is a callback function
+// This is automatically called by the engine as part 
+// of the AI routine
+// %this - The BoomBotData datablock
+// %obj - The instance of this datablock (our AI Player)
+function BoomBotData::onReachDestination(%this, %obj)
+{
+   // If there was a decal placed, then it was
+   // stored in this %obj variable (see playGui.cs)
+   // Erase the decal using the decal manager
+   if( %obj.decal &gt; -1 )
+      decalManagerRemoveDecal(%obj.decal);
+}
+</pre>
+                <p><br />
+                  Now, when the AI player reaches its destination the marker will be deleted. </p><br />
+                <a name="Camera_Modes" id="Camera_Modes"></a>
+                <h2> <span class="mw-headline">Camera Modes</span></h2>
+                <p>Now that you've got control of your character, it's time to improve
+                  on the camera controls. By default, the Full Template starts observers
+                  in "Fly" mode - as if you were an insect
+                  flying around the level. This is fine for observing an FPS match, but
+                  not very easy to control for a top-down style game. </p>
+                <p><br />
+                  Fortunately, there are other camera modes that may be better suited to this type of game play. </p><br />
+                <a name="Orbit_Camera" id="Orbit_Camera"></a>
+                <h3> <span class="mw-headline">Orbit Camera</span></h3>
+                <p><br />Open the Torque Toolbox, select the <strong>empty terrain</strong> level, then click the World Editor button.
+Once you are in the editor, locate the spawn sphere in the scene, we previously named it PlayerSpawn, and select it.
+</p>
+                <p>Add the following to the spawnScript field:</p>
+                <pre>// OrbitObject mode requires an object to orbit
+LocalClientConnection.camera.setOrbitObject($SpawnObject, mDegToRad(50) @ " 0 0", 0, 30, 30);
+</pre>
+                <p><br />
+                  Lets break this command down.
+                  LocalClientConnection.camera.setOrbitObject() puts the camera into
+                  OrbitObject mode. The first argument is the object to orbit around.
+                  When the spawn script is called, the $SpawnObject variable is
+                  automatically created for you in the engine. Since our AI player is
+                  what is being spawned, that is what we need to orbit. </p>
+                <p><br />
+                  The second argument is a vector representing the angle of
+                  the camera in (x, y, z) or (pitch, roll, yaw) if you prefer. Here it is
+                  pitched 50 degrees down, with 0 roll and 0 yaw. </p>
+                <p><br />
+                  The next three arguments are the allowed distances from the target: min
+                  distance, max distance and current distance: here 0, 30 and 30
+                  respectively. This function may take additional optional parameters: an
+                  ownership flag denoting if the object orbited by the camera belongs to
+                  the camera's client, an offset if the camera should focus
+                  somewhere other than the object's center, and a flag specifying if the
+                  camera should be locked. </p>
+                <p><br />
+                  If you were to start the game now, the camera would be
+                  locked on to your character. Pressing 'm' will allow you to reposition
+                  the camera angle, although it will still follow the player. </p><br />
+                <a name="Overhead_Camera" id="Overhead_Camera"></a>
+                <h3> <span class="mw-headline">Overhead Camera</span></h3>
+                <p>Cameras used by RTS games are slightly different from the Hack &amp;
+                  Slash or Fly cameras. They are characterized by a camera that moves
+                  laterally along the x and y axis, but generally not in z. This can be
+                  realized in T3D by using the "Overhead" camera mode: </p>
+                <p><br />
+                  Earlier in this tutorial, you were told to name your spawn sphere <b>PlayerSpawn.</b> The following code will not work if you have not performed this step.
+                  Add the following to the spawn script field in the spawn sphere
+                  properties. </p>
+                  <p><br />Open the Torque Toolbox, select the <strong>empty terrain</strong> level, then click the World Editor button.</p>
+                  <p><br />Once you are in the editor, locate the spawn sphere in the scene, we previously named it PlayerSpawn, and select it.</p>
+                  <p><br />Add the following to the spawnScript field (Replacing the code we added in the last section)s:</p>
+                <pre>LocalClientConnection.camera.position = VectorAdd(PlayerSpawn.position, "0 0 30");
+LocalClientConnection.camera.lookAt(PlayerSpawn.position);
+LocalClientConnection.camera.controlMode = "Overhead";
+</pre>
+                <p><br />
+                  With this setup, the camera will be free to move around with the
+                  standard "wasd" controls, but it will not move vertically in the world.
+                  This lets you pan around the battlefield more easily than in the Fly
+                  mode. </p>
+                <p><br />
+                  To enable vertical movement, open <strong>game/scripts/client/default.bind.cs</strong>.  Locate the line following line: </p>
+                <pre>moveMap.bind(keyboard, b, spawnAI);
+</pre>
+                <p><br />
+                  Just below it, add below the following: </p>
+                <pre>moveMap.bind( keyboard, e, moveup );
+moveMap.bind( keyboard, c, movedown );
+</pre>
+                <p><br />
+                  If you are a traditional RTS player and wish to use the mouse
+                  wheel, there is an alternative solution to adjusting camera elevation.
+                  At the bottom of default.bind.cs, add this function: </p>
+                <pre>// Adjusts the height of the camera using the mouse wheel
+function mouseZoom(%val)
+{
+   // If wheel was scrolled forward
+   // move camera closer to the ground
+   if(%val &gt; 0)
+   {
+      commandToServer('adjustCameraHeight', -3);
+   }
+   // If wheel was scrolled back
+   // move camera away from the ground
+   else
+   {
+      commandToServer('adjustCameraHeight', 3);
+   }
+}
+</pre>
+                <p><br />
+                  Next, open<b> game/scripts/server/commands.cs.</b> We will add the server command to adjust the camera height at the bottom of the script file: </p>
+                <pre>// Server command that adjusts camera height
+function serverCmdadjustCameraHeight(%client, %adjustment)
+{
+   // Take the current camera position (a vector)
+   // Then add or subtract from the Z element, based on
+   // the %adjustment value passed in
+   %client.camera.position = VectorAdd(%client.camera.position, "0 0 " @ %adjustment);
+}
+</pre>
+                <p><br />
+                  A new method of calling functions has been introduced. In the
+                  above code, we are sticking to the client/server architecture of Torque
+                  3D. Typically, actions such as navigating through GUIs, rendering, and
+                  input are handled on the client. However, when actions have an effect
+                  on the game, they should be performed on the server. </p>
+                <p><br />
+                  Camera location can usually be handled as a client operation, but this
+                  is a good opportunity to show off the client/server communication. The
+                  default.bind.cs is a client script, which contains the client function
+                  mouseZoom(...). This is only called when there is a client action, such
+                  as the mouse wheel input. </p>
+                <p><br />
+                  Once the client action has been performed, a message is
+                  sent to the server to act on it: <strong>commandToServer('adjustCameraHeight',
+                  -3);</strong>. The first parameter is the name of the server command/function to
+                  call, and the rest of the parameters are arguments used by the command.
+                  In this situation, based on the direction of the mouse wheel rotation a
+                  positive or negative 3 will be sent to the server command which adjusts
+                  the camera elevation by the value. </p>
+                <p><br />
+                <p>Now that the functions are set up, all that is left is creating a key bind to call them. Back in default.bind.cs, add the following to the bottom of the script:</p>
+                <pre>moveMap.bind( mouse, zaxis, mouseZoom );</pre>
+                <br />
+                <p>You should be able to zoom in and out on your actor using your mouse's scroll wheel</p>
+                <br />
+                  If you want to play around with the camera settings created in this tutorial, add the following code to the bottom of <b>game/scripts/server/commands.cs</b>. </p>
+                <pre>function serverCmdRTSOrbit(%client)
+{
+   %client.camera.setOrbitObject(%client.player, mDegToRad(30) @ " 0 0", 0, 25, 25);
+}
+
+function serverCmdRTSOverhead(%client)
+{
+   %client.camera.position = VectorAdd(%client.camera.position, "0 0 5" );
+   %client.camera.lookAt(%client.player.position);
+   %client.camera.controlMode = "Overhead";
+}
+</pre>
+                <p><br />
+                  You can call these functions using the usual commandToServer syntax. Just type the following in the console (press ~) </p>
+                <pre>commandToServer('RTSOrbit');
+
+commandToServer('RTSOverhead');
+</pre><br />
+                <a name="Conclusion" id="Conclusion"></a>
+                <h2> <span class="mw-headline">Conclusion</span></h2>
+                <p>The purpose of this tutorial was to show you some of the more
+                  advanced capabilities of TorqueScript, and combine the language with
+                  Torque 3D's visual editors to create a prototype game. As you just
+                  experienced, getting a non-FPS prototype game started does not take
+                  long. </p>
+                <p><br />
+                  Make sure you have read through all the comments
+                  accompanying the new code, as they are part of the tutorial. At this
+                  point you can move on to other tutorials, or improve upon the code to
+                  create something more unique. There is always room for improvement,
+                  such as: </p>
+                <ul>
+                  <li>Changing the projectile behavior by adjusting the velocity, damage, and explosion radius </li>
+                  <li>Make the targets move around and attack the player </li>
+                  <li>Add key bindings to change camera modes on the fly </li>
+                  <li>Handle building placement along with the player controls </li>
+                </ul><br />
+                <p>You can download the completed scripts by <a href="rts_prototype_scripts.zip" class="downloads">CLICKING HERE</a>.<br />
+                <br />If you wish to download the scripts and assets in a single file, <a href="rts_prototype.zip" class="downloads">CLICK HERE</a>.</p>
+                
+                </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        
+        
+    
+  </div>
+  
+  </div>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>
