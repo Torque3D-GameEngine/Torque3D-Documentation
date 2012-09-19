@@ -1,7 +1,18 @@
-Torque3D-Documentation
-======================
+Torque3D
+========
 
-Torque 3D reference documentation
+MIT Licensed Open Source version of [Torque 3D](http://www.garagegames.com/products/torque-3d) from [GarageGames](http://www.garagegames.com)
+
+More Information
+----------------
+
+* Documentation is in the [Torque3D-Documentation](https://github.com/GarageGames/Torque3D-Documentation) GitHub repo.
+* T3D [Beginner's Forum](http://www.garagegames.com/community/forums/73)
+* T3D [Professional Forum](http://www.garagegames.com/community/forums/63)
+* GarageGames [Professional Services](http://services.garagegames.com/)
+
+License
+-------
 
 Copyright (c) 2012 GarageGames, LLC
 
