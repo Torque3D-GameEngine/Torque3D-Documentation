@@ -1,12 +1,12 @@
 Torque3D
 ========
 
-MIT Licensed Open Source version of [Torque 3D](http://www.garagegames.com/products/torque-3d) from [GarageGames](http://www.garagegames.com)
+Documentation for MIT Licensed Open Source version of [Torque 3D](http://www.garagegames.com/products/torque-3d) from [GarageGames](http://www.garagegames.com)
 
 More Information
 ----------------
 
-* Documentation is in the [Torque3D-Documentation](https://github.com/GarageGames/Torque3D-Documentation) GitHub repo.
+* Main repo on GitHub: [Torque3D](https://github.com/GarageGames/Torque3D)
 * T3D [Beginner's Forum](http://www.garagegames.com/community/forums/73)
 * T3D [Professional Forum](http://www.garagegames.com/community/forums/63)
 * GarageGames [Professional Services](http://services.garagegames.com/)
