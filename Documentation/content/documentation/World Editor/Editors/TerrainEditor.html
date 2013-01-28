@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
 <SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
@@ -14,9 +14,9 @@
 <link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
 <script>
    // this script chunk is to update the ToC to the current doc and expand it
-   pageID = 92;
-   parent.leftFrame.expandToItem('tree2', 'doc92');
-   var element = parent.leftFrame.document.getElementById('doc92');
+   pageID = 106;
+   parent.leftFrame.expandToItem('tree2', 'doc106');
+   var element = parent.leftFrame.document.getElementById('doc106');
    if((element) && (element.className==parent.leftFrame.nodeClosedClass))
 {
    element.className = parent.leftFrame.nodeOpenClass
@@ -27,7 +27,20 @@
 <link rel="stylesheet" type="text/css" href="../../../include/content.css" />
 <title>Torque 3D World Editor - WaterBlock</title>
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style type="text/css">
+        .style1
+        {
+            width: 445px;
+            height: 411px;
+        }
+        .style2
+        {
+            width: 265px;
+            height: 155px;
+        }
+    </style>
+</head>
 <BODY id = "BODYID" onLoad = "initComponent()"  class="mediawiki ltr ns-0 ns-subject page-Torque3D_WorldEditor_TerrainEditor skin-monobook">
 <script type="text/javascript" src="../../../include/wz_tooltip.js"></script>
 <table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
@@ -80,23 +93,29 @@
                  The Terrain Editor is a powerful tool and allows for more than just adding hills or holes. You can cut channels for rivers, generate valleys for a mountainous region, turn a rocky mountain chain into a series of smooth hills, and other similar advanced operations. </p><br />
                 <a name="Setup" id="Setup"></a>
                 <h2> <span class="mw-headline">Setup</span></h2>
-                <p>In order to follow along with this article, you should generate a new project with the Full Template. This template ships with plenty of free assets for testing and learning. To save time and focus on this specific tools section of the documentation, we are going to bypass asset creation and use the assets that come with that template.  </p>
-                <p><br />You will want to remove the existing TerrainBlock, since we will be creating a terrain from scratch for this article. To remove the existing terrain: switch to the Object Editor (F1); in the Scene Tree panel on the right of the screen click the Scene tab; click the arrow next to the MissionGroup folder to expand it; select the TerrainBlock entry labelled: 
-                    <strong>theTerrain</strong>:</p>
-                <br />
-                <p><img alt="Image:SelectTerrain.jpg" src="images/SelectTerrain.jpg" border="0" width="237" height="324" /> </p>
+                <p><br />In order to follow along with this article, you should generate a new project with the Full Template 
+                    or the Full PhysX Template. This template ships with plenty of free assets for testing and learning. To save time and focus on this specific tools section of the documentation, we are going to bypass asset creation and use the assets that come with that template.  </p>
+                  <p><br />It is recommended that you open the Empty Room level in the World Editor and then 
+                      select File &gt; New Level to create a fresh mission file to work in.  </p>
+                  <p><br />Once your new blank level is created it should look like this:</p>
+                  <p><i>(click to enlarge)</i> </p>
+                <a href="images/BlankScene.jpg" class="livethumbnail"><img src="images/BlankScene.jpg" width="320" height="247" largewidth="655" largeheight="511" /></a><br /><br />
                 <p><br />
-                  Click on the trash can icon in the top of the tab to delete it, or press the Delete key.</p>
-                <p><i>(click to enlarge)</i> </p>
-                <a href="images/BlankScene.jpg" class="livethumbnail"><img src="images/BlankScene.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br /><br />
-                <p><br />
-                  Now create a fresh terrain to use when following this article. From the main menu select File > Create Blank Terrain. The Create New Terrain dialog will appear. Enter 
+                  Now create a fresh terrain to use when following this article. From the main menu select File > Create Blank Terrain. </p>
+                  <p>
+                      <img alt="" src="images/FileMenuCreateBlankTerrain.jpg" /></p>
+                  <p>The Create New Terrain dialog will appear. Enter 
                     <strong>theTerrain</strong> as the name of your new TerrainBlock; set the resolution to 512; select the flat terrain option; and click the Create New button</p>
+                  <p>
+                      <img alt="" src="images/CreateNewTerrainDialog.jpg" /></p>
                 <p><br />
-                  You should now have a fresh flat TerrainBlock to use when following along with this article. </p>
+                  You should now have a fresh flat TerrainBlock to use when following along with this article.&nbsp; 
+                    If the terrain is created below the default GroundPlane object, you can simply 
+                    delete the GroundPlane by selecting it in the Scene Tree and then clicking the 
+                    trash can icon at the top right or by pressing the<strong> Delete</strong> key.</p>
                 <p><br />
                   <i>(click to enlarge)</i> </p>
-                <a href="images/TENewTerrainAdded.jpg" class="livethumbnail"><img src="images/TENewTerrainAdded.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <a href="images/TENewTerrainAdded.jpg" class="livethumbnail"><img src="images/TENewTerrainAdded.jpg" width="320" height="247" largewidth="655" largeheight="511" /></a><br />
                 <a name="Interface" id="Interface"></a>
                 <h2> <span class="mw-headline">Interface</span></h2>
                 <p>To switch to the Terrain Editor press the F2 key or from the main menu select Editors > Terrain Editor.</p>
@@ -113,10 +132,12 @@
                   At the top, the Toolbar has updated to show various brush options. The brush options will change the intensity and pattern of your terrain modification. </p>
                 <p><br />
                   <i>(hover over each section to see a description)</i> </p>
-                <img src="images/BrushSetting.jpg" width="156" border="0" height="51" onmouseover="Tip('<strong>Brush Shape</strong>: Toggles between a round or square brush.', WIDTH, 400)" onmouseout="UnTip()" > <br />
-                <img src="images/BrushSize.jpg" width="120" border="0" height="51" onmouseover="Tip('<strong>Brush Size</strong>: Changes the size of the grid that makes up the brush, increasing or decreasing the amount of terrain being modified.', WIDTH, 400)" onmouseout="UnTip()" > <br />
-                <img src="images/BrushPressure.jpg" width="140" border="0" height="51" onmouseover="Tip('<strong>Brush Pressure</strong>: Determines the amount of modification being applied to the terrain.', WIDTH, 400)" onmouseout="UnTip()" > <br />
-                <img src="images/BrushSoftness.jpg" width="165" border="0" height="51" onmouseover="Tip('<strong>Brush Softness</strong>: Determines how much of the brush is affected by the pressure and intensity.', WIDTH, 400)" onmouseout="UnTip()" > <br />
+                <p>
+                <img src="images/BrushSetting.jpg" width="156" border="0" height="51" onmouseover="Tip('<strong>Brush Shape</strong>: Toggles between a round or square brush.', WIDTH, 400)" onmouseout="UnTip()" >
+                <img src="images/BrushSize.jpg" width="120" border="0" height="51" onmouseover="Tip('<strong>Brush Size</strong>: Changes the size of the grid that makes up the brush, increasing or decreasing the amount of terrain being modified.', WIDTH, 400)" onmouseout="UnTip()" >
+                <img src="images/BrushPressure.jpg" width="140" border="0" height="51" onmouseover="Tip('<strong>Brush Pressure</strong>: Determines the amount of modification being applied to the terrain.', WIDTH, 400)" onmouseout="UnTip()" >
+                <img src="images/BrushSoftness.jpg" width="165" border="0" height="51" onmouseover="Tip('<strong>Brush Softness</strong>: Determines how much of the brush is affected by the pressure and intensity.', WIDTH, 400)" onmouseout="UnTip()" >
+                </p>
                 <p><br />
                   Finally, while moving the mouse over the terrain, you will see a circle drawn around the mouse cursor. This is the Terrain Editor brush and is controlled by your mouse. You can use this brush to "paint" your terrain adjustments by left clicking and dragging the cursor. </p>
                 <p><br />
@@ -126,7 +147,7 @@
                 <h2> <span class="mw-headline">Brush Settings</span></h2>
                 <p>Now we will go into deeper explanation of how the brush options can affect your terrain editing, and how the editor lets you know what you are doing. </p><br />
                 <p>On the toolbar at the top of the screen, find the Brush Settings section. You should see a circular icon and square icon. </p><br />
-                <p><img src="images/BrushSetting.jpg" width="156" border="0" height="51"></p><br />
+                <p><img src="images/BrushSetting.jpg" border="0"></p><br />
                 <p>Toggling between the two will change the shape of your brush. </p><br />
                 <a name="Shape" id="Shape"></a>
                 <h3> <span class="mw-headline">Shape</span></h3>
@@ -135,22 +156,24 @@
                 <a href="images/CircleBrush.jpg" class="livethumbnail"><img src="images/CircleBrush.jpg" width="320" height="247" largewidth="640" largeheight="497" /></a><br />
                 <p><b>Square Brush:</b> </p>
                 <p><i>(click to enlarge)</i> </p>
-                <a href="images/SquareBrush.jpg" class="livethumbnail"><img src="images/SquareBrush.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br /><br />
+                <a href="images/SquareBrush.jpg" class="livethumbnail"><img src="images/SquareBrush.jpg" width="320" height="247" largewidth="655" largeheight="511" /></a><br /><br />
                 <a name="Size" id="Size"></a>
                 <h3> <span class="mw-headline">Size</span></h3>
                 <p>In the Size section you will find a box with a number in it. When you click on the arrow, a slider will appear.</p>
                 <p><br />
-                  <img alt="image:BrushSizeSlider.jpg" src="images/BrushSizeSlider.jpg" border="0" width="119" height="42" /> </p>
+                  <img alt="image:BrushSizeSlider.jpg" src="images/BrushSizeSlider.jpg" 
+                        border="0" /> </p>
                 <p><br />
-                  This slider goes from 0 to 100, and it changes the size of your brush allowing it to modify larger sections of the terrain.  </p>
+                  This slider goes from 0 to 40, and it changes the size of your brush allowing it to modify larger sections of the terrain.  </p>
                 <p><br />
                   (<i>click to enlarge)</i> </p>
-                <a href="images/LargeBrush.jpg" class="livethumbnail"><img src="images/LargeBrush.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br /><br />
+                <a href="images/LargeBrush.jpg" class="livethumbnail"><img src="images/LargeBrush.jpg" width="320" height="247" largewidth="655" largeheight="511" /></a><br /><br />
                 <a name="Pressure" id="Pressure"></a>
                 <h3> <span class="mw-headline">Pressure</span></h3>
                 <p>The Pressure setting is a decimal number ranging from 0.0 to 100.0, and determines how much change is applied to the terrain under the brush.</p>
                 <p><br />
-                  <img alt="Image:BrushPressureSlider.jpg" src="images/BrushPressureSlider.jpg" border="0" width="133" height="40" /> </p>
+                  <img alt="Image:BrushPressureSlider.jpg" src="images/BrushPressureSlider.jpg" 
+                        border="0" /> </p>
                 <p><br />
                   The easiest way to understand brush pressure is to think of using a real paintbrush on a piece of paper. The harder you press as you stroke, the more paint the brush will leave on the paper. Pressing lightly but going over and over the same spot again and again will also leave more paint behind. </p>
                 <p><br />
@@ -161,7 +184,8 @@
                 <a name="Softness" id="Softness"></a>
                 <h3> <span class="mw-headline">Softness</span></h3>
                 <p>The Softness setting directly affects the intensity of the entire brush's surface. Like the others, it is represented by a slider. The number is a decimal value ranging between 0.0 and 100.0, with 100.0 being the softest and 0.0 the hardest. </p>
-                <p><img alt="Image:BrushSoftnessSlider.jpg" src="images/BrushSoftnessSlider.jpg" border="0" width="127" height="36" /> </p>
+                <p><img alt="Image:BrushSoftnessSlider.jpg" src="images/BrushSoftnessSlider.jpg" 
+                        border="0" /> </p>
                 <p><br />
                   The harder the brush is, the more dramatically the terrain under the brush will change. Think of a paint brush that has been dipped in paint and allowed to somewhat dry. The entire brush will be harder and thus will leave more paint behind than the same brush which has not dried and hardened. Since the entire brush has hardened the pattern that it leaves will be the same, that is more paint in the center and less at the edges, but the overall amount of paint will increase across the whole surface. If you allow the brush to completely dry then the entire brush will be the same hardness and thus will leave the same amount of paint across its entire surface. </p>
                   <p><br />Because you can not change the softness of a mouse cursor, the Terrain Editor provides the Softness settings to emulate these characteristics. Setting the softness to 0.0, meaning the brush has no softness at all, will result in the entire brush being hard. The edges will be just as hard as the center and so the entire brush will leave the same amount of change behind. The result will be in a sharp rise between the terrain and the brush edges, producing a cliff:</p> 
@@ -217,17 +241,17 @@
                   Despite the elevation of your current selection, the section under the hardest part of the brush will still adjust more dramatically. Using the default Softness Curve, if the center of the brush is just to the edge of a hill, you can adjust nearby terrain to match elevation. Terrain under the softer part of the brush will still elevate, but not as much. </p>
                 <p><br />
                   <i>(click to enlarge)</i> </p>
-                <a href="images/AdjustmentIntensity.jpg" class="livethumbnail"><img src="images/AdjustmentIntensity.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <a href="images/AdjustmentIntensity.jpg" class="livethumbnail"><img src="images/AdjustmentIntensity.jpg" width="320" height="247" largewidth="655" largeheight="511" /></a><br />
                 <p><br />
                   Before moving on to the next tool, we will experiment with the softness value. Set the softness of your current brush to 1 (very hard). Move the brush over a flat section of the terrain. </p>
                 <p><br />
                   <i>(click to enlarge)</i> </p>
-                <a href="images/HardAdjustmentBefore.jpg" class="livethumbnail"><img src="images/HardAdjustmentBefore.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <a href="images/HardAdjustmentBefore.jpg" class="livethumbnail"><img src="images/HardAdjustmentBefore.jpg" width="320" height="247" largewidth="655" largeheight="511" /></a><br />
                 <p><br />
                   Click on the terrain and drag your mouse up. Instead of an elevated hill with a smooth slope, your brush should have created a flat plateau with completely vertical sides. With a softness of 1, your brush's shape will be used to extrude the terrain in a sharp manner. </p>
                 <p><br />
                   <i>(click to enlarge)</i> </p>
-                <a href="images/HardAdjustmentAfter.jpg" class="livethumbnail"><img src="images/HardAdjustmentAfter.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br /><br />
+                <a href="images/HardAdjustmentAfter.jpg" class="livethumbnail"><img src="images/HardAdjustmentAfter.jpg" width="320" height="247" largewidth="655" largeheight="511" /></a><br /><br />
                 <a name="Add_Dirt_Tool" id="Add_Dirt_Tool"></a>
                 <h2> <span class="mw-headline">Raise Height Tool</span></h2>
                 <p><img alt="Image:AddDirtIcon.jpg" src="images/AddDirtIcon.jpg" border="0" width="36" height="28" /> </p>
@@ -236,12 +260,12 @@
                   Set your brush size to 20, pressure to 40, and softness to 100. Find a flat section of the terrain and move your mouse cursor to that location to hover the brush. </p>
                 <p><br />
                   <i>(click to enlarge)</i> </p>
-                <a href="images/RaiseHeightBefore.jpg" class="livethumbnail"><img src="images/RaiseHeightBefore.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <a href="images/RaiseHeightBefore.jpg" class="livethumbnail"><img src="images/RaiseHeightBefore.jpg" width="320" height="247" largewidth="655" largeheight="511" /></a><br />
                 <p><br />
                   When you are ready, click and hold the left mouse button and begin dragging your brush in a direction. The terrain should elevate wherever your brush passes over. You can use this to create a hill over a long section of terrain. </p>
                 <p><br />
                   <i>(click to enlarge)</i> </p>
-                <a href="images/RaiseHeightAfter.jpg" class="livethumbnail"><img src="images/RaiseHeightAfter.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <a href="images/RaiseHeightAfter.jpg" class="livethumbnail"><img src="images/RaiseHeightAfter.jpg" width="320" height="247" largewidth="655" largeheight="511" /></a><br />
                 <p><br />
                   Using a lower brush pressure results in less dramatic terrain elevation as you "paint". This allows you to be more exact in cases where you need to. </p>
                 <a name="Excavate_Tool" id="Excavate_Tool"></a>
@@ -250,12 +274,16 @@
                 <p>The Lower Height tool functions completely opposite of the Raise Height tool. Instead of elevating, you can dig holes in the terrain with this tool. Again, use a circular brush with 20 size, 40 pressure, and 100 softness. With the Lower Height tool selected, locate a flat section of the terrain and hover your brush over it. </p>
                 <p><br />
                   <i>(click to enlarge)</i> </p>
-                <a href="images/ExcavateBefore.jpg" class="livethumbnail"><img src="images/ExcavateBefore.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <a href="images/LowerTerrainBefore.jpg" class="livethumbnail">
+                  <img src="images/LowerTerrainBefore.jpg" width="320" height="247" 
+                      largewidth="655" largeheight="511" /></a><br />
                 <p><br />
                   Click and hold down the left mouse button. As you do so, the terrain will sink down below the brush. If you sweep your mouse as if you are painting, you will create a path of lowered terrain. The longer you hold the mouse in a single location, the deeper the hole will be. </p>
                 <p><br />
                   <i>(click to enlarge)</i> </p>
-                <a href="images/ExcavateAfter.jpg" class="livethumbnail"><img src="images/ExcavateAfter.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br /><br />
+                <a href="images/LowerTerrainAfter.jpg" class="livethumbnail">
+                  <img src="images/LowerTerrainAfter.jpg" width="320" height="247" 
+                      largewidth="655" largeheight="511" /></a><br /><br />
                 <a name="Smooth_Tool" id="Smooth_Tool"></a>
                 <h2> <span class="mw-headline">Smooth Tool</span></h2>
                 <p><img alt="Image:SmoothIcon.jpg" src="images/SmoothIcon.jpg" border="0" width="36" height="30" /> </p>
@@ -264,12 +292,12 @@
                   Keeping the same settings we have been working, locate a jagged section of terrain. If you have to, create one with the Raise Height tool first. Make sure the elevation difference is significant. Select the Smooth tool then hover the brush over the applicable terrain. </p>
                 <p><br />
                   <i>(click to enlarge)</i> </p>
-                <a href="images/SmoothBefore.jpg" class="livethumbnail"><img src="images/SmoothBefore.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br /><br />
+                <a href="images/SmoothBefore.jpg" class="livethumbnail"><img src="images/SmoothBefore.jpg" width="320" height="247" largewidth="655" largeheight="511" /></a><br /><br />
                 <p><br />
                   Click and hold the left mouse button, then make small circles around the peak of the terrain section. The tip should lower and have a broader surface. The broader your sweep, the more terrain is affected by the smoothing process. </p>
                 <p><br />
                   <i>(click to enlarge)</i> </p>
-                <a href="images/SmoothAfter.jpg" class="livethumbnail"><img src="images/SmoothAfter.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br /><br />
+                <a href="images/SmoothAfter.jpg" class="livethumbnail"><img src="images/SmoothAfter.jpg" width="320" height="247" largewidth="655" largeheight="511" /></a><br /><br />
                 <a name="Add_Noise_Tool" id="Add_Noise_Tool"></a>
                 <h2> <span class="mw-headline">Paint Noise Tool</span></h2>
                 <p><img alt="Image:AddNoiseIcon.jpg" src="images/AddNoiseIcon.jpg" border="0" width="36" height="29" /> </p>
@@ -278,17 +306,17 @@
                   Select the Paint Noise tool, then set your brush to size 15, 50 pressure, and 100 softness. Locate a large section of flat terrain and move your camera to a high elevation. </p>
                 <p><br />
                   <i>(click to enlarge)</i> </p>
-                <a href="images/AddNoiseBefore.jpg" class="livethumbnail"><img src="images/AddNoiseBefore.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <a href="images/AddNoiseBefore.jpg" class="livethumbnail"><img src="images/AddNoiseBefore.jpg" width="320" height="247" largewidth="655" largeheight="511" /></a><br />
                 <p><br />
                   Click and hold the left mouse button down then begin to "paint" the terrain by dragging it in random patterns. Try making several concentric circles, varying spirals, zig-zag motions, etc. You should eventually see some definition forming. </p>
                 <p><br />
                   <i>(click to enlarge)</i> </p>
-                <a href="images/AddNoiseAfter1.jpg" class="livethumbnail"><img src="images/AddNoiseAfter1.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <a href="images/AddNoiseAfter1.jpg" class="livethumbnail"><img src="images/AddNoiseAfter1.jpg" width="320" height="247" largewidth="655" largeheight="511" /></a><br />
                 <p><br />
                   When you are finished with the tool, fly your camera around the section of the terrain to see how the terrain was affected. Keep in mind that most of these changes were random, which can add much needed detail to your terrain but can cause some weird effects. The Smooth tool can be used to go back and blend out any such effects that do not look natural.</p>
                 <p><br />
                   <i>(click to enlarge)</i> </p>
-                <a href="images/AddNoiseAfter2.jpg" class="livethumbnail"><img src="images/AddNoiseAfter2.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <a href="images/AddNoiseAfter2.jpg" class="livethumbnail"><img src="images/AddNoiseAfter2.jpg" width="320" height="247" largewidth="655" largeheight="511" /></a><br />
                 <p><br />
                   You can use this tool on terrain that has already been modified to remove unrealistic adjustments, such as perfectly smooth or flat slopes. </p><br />
                 <a name="Flatten_Tool" id="Flatten_Tool"></a>
@@ -297,18 +325,18 @@
                 <p>The Flatten tool is used to make the terrain surrounding the brush's starting point be equal to that points elevation. In other words, this either lower or raise your terrain to the same elevation as that starting point. </p>
                 <p><br />
                   Use a circular brush with 15 size, 50 pressure, and 100 softness. Find a section of terrain that is elevated. Position your brush near it, but on a flatter section of the terrain. </p>
-                <a href="images/FlattenBefore.jpg" class="livethumbnail"><img src="images/FlattenBefore.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <a href="images/FlattenBefore.jpg" class="livethumbnail"><img src="images/FlattenBefore.jpg" width="320" height="247" largewidth="655" largeheight="511" /></a><br />
                   <i>(click to enlarge)</i> </p>
                   <p><br />
                   Click and hold your left mouse button, then drag it toward and over the elevated terrain until you have swept over most of it. You should see that the tool has flattened a strip of terrain, based on the brush's location as it swept. The flattening process will become weaker the further you take the brush into the higher terrain such that it will not cut a path that is exactly the elevation of the starting point but rather relative to it and the terrain you are crossing. If you sweep the Flatten tool slowly across a hilly terrain, you will see that it is well suited for specialized tasks such as creating road and rail beds or mountain passes. Creating these types of features can be accomplished using the other tools but this tool in particular makes that job much easier.</p>
                 <p><br />
                   <i>(click to enlarge)</i> </p>
-                <a href="images/FlattenBefore.jpg" class="livethumbnail"><img src="images/FlattenBefore.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <a href="images/FlattenBefore.jpg" class="livethumbnail"><img src="images/FlattenBefore.jpg" width="320" height="247" largewidth="655" largeheight="511" /></a><br />
                 <p><br />
                   If you make several sweeps in the same direction, from the same starting point, your terrain will eventually smooth out into a flat plateau almost level with your original starting point. </p>
                 <p><br />
                   <i>(click to enlarge)</i> </p>
-                <a href="images/FlattenAfter2.jpg" class="livethumbnail"><img src="images/FlattenAfter2.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <a href="images/FlattenAfter2.jpg" class="livethumbnail"><img src="images/FlattenAfter2.jpg" width="320" height="247" largewidth="655" largeheight="511" /></a><br />
                 <p><br />
                   This is generally handy for clearing a smooth path from one elevation to another. However, this is not the optimal approach for flattening huge sections of terrain. The other tools can perform that process much faster and more efficiently. </p><br />
                   <h2> <span class="mw-headline">Set Height Tool</span></h2>
@@ -317,32 +345,33 @@
                 <p><br />Use a circular brush with a size of 15, pressure of 50 and softness of 100, and a height of 520.</p>
                 <p><br />
                   <i>(click to enlarge)</i> </p>
-                <a href="images/SetHeightBefore.jpg" class="livethumbnail"><img src="images/SetHeightBefore.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <a href="images/SetHeightBefore.jpg" class="livethumbnail"><img src="images/SetHeightBefore.jpg" width="320" height="247" largewidth="655" largeheight="511" /></a><br />
                 <p><br />Now, when you press the left mouse button, it will create a plateau at exactly that height.</p>
                                 <p><br />
                   <i>(click to enlarge)</i> </p>
-                <a href="images/SetHeightAfter.jpg" class="livethumbnail"><img src="images/SetHeightAfter.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <a href="images/SetHeightAfter.jpg" class="livethumbnail"><img src="images/SetHeightAfter.jpg" width="320" height="247" largewidth="655" largeheight="511" /></a><br />
                 <h2> <span class="mw-headline">Clear Terrain Tool</span></h2>
                 <p><img alt="Image:ClearTerrainButton.jpg" src="images/ClearTerrainButton.jpg" border="0" width="36" height="29" /> </p>
                 <p><br />The Clear Terrain tool will allow you to remove pieces of the terrain. This is an effective way to carve out entrances to caves. That way your artist can create a detailed cave level and your level editor can "carve" out an entrance in the terrain. Using the previous tools, create a small hillside.</p>
                 <p><br />
                   <i>(click to enlarge)</i> </p>
-                <a href="images/ClearTerrainStep1.jpg" class="livethumbnail"><img src="images/ClearTerrainStep1.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <a href="images/ClearTerrainStep1.jpg" class="livethumbnail"><img src="images/ClearTerrainStep1.jpg" width="320" height="247" largewidth="655" largeheight="511" /></a><br />
                 <p><br />Now, set your brush size to 5 and zoom into an area that looks like a promising cave entrance.</p>
                 <p><br />
                   <i>(click to enlarge)</i> </p>
-                <a href="images/ClearTerrainStep2.jpg" class="livethumbnail"><img src="images/ClearTerrainStep2.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <a href="images/ClearTerrainStep2.jpg" class="livethumbnail"><img src="images/ClearTerrainStep2.jpg" width="320" height="247" largewidth="655" largeheight="511" /></a><br />
                 <p><br />When you select the terrain area, it will remove the mesh data from the terrain, creating an opening.</p>
                                 <p><br />
                   <i>(click to enlarge)</i> </p>
-                <a href="images/ClearTerrainStep3.jpg" class="livethumbnail"><img src="images/ClearTerrainStep3.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <a href="images/ClearTerrainStep3.jpg" class="livethumbnail"><img src="images/ClearTerrainStep3.jpg" width="320" height="247" largewidth="655" largeheight="511" /></a><br />
                 <p><br />Now you can place your cave model underneath the terrain so that the player can explore the world under your terrain.</p>
                 <h2> <span class="mw-headline">Restore Terrain Tool</span></h2>
-                <p><img alt="Image:RestoreTerrainButton.jpg" src="images/RestoreTerrainButton.jpg" border="0" width="36" height="29" /> </p>
+                <p><img alt="Image:RestoreTerrainButton.jpg" src="images/RestoreTerrainButton.jpg" 
+                        border="0" /> </p>
                 <p><br />The Restore Terrain tool complements the Clear Terrain tool. It will restore the mesh data for the terrain. That way, you can have better control over the transition between your models and terrains. If you select the Restore Terrain button and then left-click on the previously cleared area, you will see it restore the terrain to its previous state.</p>
                 <p><br />
                   <i>(click to enlarge)</i> </p>
-                <a href="images/ClearTerrainStep2.jpg" class="livethumbnail"><img src="images/ClearTerrainStep2.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
+                <a href="images/ClearTerrainStep2.jpg" class="livethumbnail"><img src="images/ClearTerrainStep2.jpg" width="320" height="247" largewidth="655" largeheight="511" /></a><br />
                 <a name="Conclusion" id="Conclusion"></a>
                 <h2> <span class="mw-headline">Conclusion</span></h2>
                 <p>In this article, you learned how to use the Terrain Editor. The power of this tool allows you to make broad, sweeping changes to your terrain or tiny detail adjustments to get it "just right."</p>

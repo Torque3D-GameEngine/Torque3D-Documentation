@@ -14,9 +14,9 @@
 <link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
 <script>
    // this script chunk is to update the ToC to the current doc and expand it
-   pageID = 5;
-   parent.leftFrame.expandToItem('tree2', 'doc5');
-   var element = parent.leftFrame.document.getElementById('doc5');
+   pageID = 6;
+   parent.leftFrame.expandToItem('tree2', 'doc6');
+   var element = parent.leftFrame.document.getElementById('doc6');
    if((element) && (element.className==parent.leftFrame.nodeClosedClass))
 {
    element.className = parent.leftFrame.nodeOpenClass
@@ -36,7 +36,7 @@
 
 <h2><a name="INTRO">Introduction</a></h2>
 
-<h3>File Formats</h3>
+<h3>File Formats</h3> 
 
 <p>This document provides an overview of some of the concepts involved in creating art for Torque. The table below summarizes the file formats used for Torque texture and shape resources.</p><br>
 
@@ -48,7 +48,7 @@
  </tr>
  <tr><td>dsq</td><td><a href="../Formats/dsq_format.html">DSQ</a> is the native, binary file format used by Torque to store animation data separately from the shape data. This is most often used to share animations between a set of shapes with the same skeleton.</td>
  </tr>
- <tr><td>dae, kmz</td><td><a href="../Formats/COLLADALoader.html">COLLADA</a> is an XML based model interchange format. Many 3D modeling packages support COLLADA import and export.</td></tr>
+ <tr><td>dae, kmz</td><td><a href="../Formats/ColladaLoader.html">COLLADA</a> is an XML based model interchange format. Many 3D modeling packages support COLLADA import and export.</td></tr>
  <tr><td>bmp, gif, jpeg, jpg, jng, mng, png, tga, dds</td><td>Supported texture file formats. Note that texture dimensions should be powers of 2 wherever possible such as 16, 32, 64, 128, 256, so forth, although they need not be square. Some older hardware is unable to process non-power-of-2 textures at all, and even modern hardware will pad such textures up to the next largest power of 2 when loaded which wastes VRAM.</td></tr>
 </table>
 <br><br>
@@ -58,7 +58,7 @@
 
 <p><img src="images/torque_coords.png"></p>
 
-<p>When exporting to DTS, one modeling-app unit equals one unit in Torque. When exporting to <a href="../Formats/COLLADALoader.html">COLLADA</a>, you are free to work in whatever units you like. They will be scaled appropriately when importing the model into Torque.</p>
+<p>When exporting to DTS, one modeling-app unit equals one unit in Torque. When exporting to <a href="../Formats/ColladaLoader.html">COLLADA</a>, you are free to work in whatever units you like. They will be scaled appropriately when importing the model into Torque.</p>
 <br><br>
 <h3>Normal/Bump Maps</h3>
 
@@ -67,7 +67,7 @@
 <h2>3-Space Features</h2>
 <br>
 <h3>COLLADA and DTS</h3>
-<p>Torque supports two different formats for 3D geometry and animation data: <a href="../Formats/COLLADALoader.html">COLLADA</a> (model.dae) and <a href="../Formats/dts_format.html">DTS</a> (model.dts). The two formats have different strengths and most teams will find an appropriate mix of both to be the best practice. Models in either format can be further customized after loading into Torque using TSShapeConstructor (see the TorqueScript reference documentation for more details). This TorqueScript accessible class allows nodes, sequences and detail levels to be examined and modified at runtime. Common uses are to define and split animation sequences embedded within a COLLADA file, and to share animations between characters with the same skeleton.</p>
+<p>Torque supports two different formats for 3D geometry and animation data: <a href="../Formats/ColladaLoader.html">COLLADA</a> (model.dae) and <a href="../Formats/dts_format.html">DTS</a> (model.dts). The two formats have different strengths and most teams will find an appropriate mix of both to be the best practice. Models in either format can be further customized after loading into Torque using TSShapeConstructor (see the TorqueScript reference documentation for more details). This TorqueScript accessible class allows nodes, sequences and detail levels to be examined and modified at runtime. Common uses are to define and split animation sequences embedded within a COLLADA file, and to share animations between characters with the same skeleton.</p>
 
 <p>It should be noted that all changes applied by a TSShapeConstructor script occur to the in-memory model; nothing is cached to disk, so the transformations will occur every time the shape is loaded by Torque. In some cases therefore it may make sense to 'bake' transformations by using the dae2dts tool as part of a custom import/export pipeline or release packaging script.</p>
 
@@ -147,9 +147,9 @@
 
 <h4>See also</h4>
 <ul>
- <li><a href="../Exporters/ms2dtsplus.html#MESHES_LOD">Setting up LOD in Milkshape3D</a></li>
- <li><a href="../Formats/COLLADALoader.html#SCENE_LOD">Setting up LOD in COLLADA</a></li>
- <li><a href="../../World Editor/Editors/ShapeEditor.html#DETAILS_TAB">Setting up LOD in T3D Shape Editor</a></li>
+ <li><a href="../Exporters/ms2dtsplus.html">Setting up LOD in Milkshape3D</a></li>
+ <li><a href="../Formats/ColladaLoader.html">Setting up LOD in COLLADA</a></li>
+ <li><a href="../../World Editor/Editors/ShapeEditor.html">Setting up LOD in T3D Shape Editor</a></li>
  </ul>
 
 <br><br>
@@ -159,9 +159,9 @@
 
 <h4>See also</h4>
 <ul>
- <li><a href="../Exporters/ms2dtsplus.html#MAIN_OVERVIEW">Setting up bounds in Milkshape3D</a></li>
- <li><a href="../Formats/COLLADALoader.html#BOUNDS">Setting up bounds in COLLADA</a></li>
- <li><a href="../../World Editor/Editors/ShapeEditor.html#DETAILS_TAB">Setting up bounds in T3D Shape Editor</a></li>
+ <li><a href="../Exporters/ms2dtsplus.html">Setting up bounds in Milkshape3D</a></li>
+ <li><a href="../Formats/ColladaLoader.html">Setting up bounds in COLLADA</a></li>
+ <li><a href="../../World Editor/Editors/ShapeEditor.html">Setting up bounds in T3D Shape Editor</a></li>
 </ul>
 
 <br><br>
@@ -185,7 +185,7 @@
 <br>
 <h4>See also</h4>
 <ul>
- <li><a href="../../World Editor/Editors/ShapeEditor.html#COLLISION_TAB">Setting up collision geometry in T3D Shape Editor</a></li>
+ <li><a href="../../World Editor/Editors/ShapeEditor.html">Setting up collision geometry in T3D Shape Editor</a></li>
 </ul>
 <br><br>
 
@@ -201,9 +201,9 @@
 <br>
 <h4>See also</h4>
 <ul>
- <li><a href="../Exporters/ms2dtsplus.html#MESHES_BILLBOARD">Setting up billboards in Milkshape3D</a></li>
- <li><a href="../Formats/COLLADALoader.html#BILLBOARDS">Setting up billboards in COLLADA</a></li>
- <li><a href="../../World Editor/Editors/ShapeEditor.html#DETAILS_TAB">Setting up billboards in T3D Shape Editor</a></li>
+ <li><a href="../Exporters/ms2dtsplus.html">Setting up billboards in Milkshape3D</a></li>
+ <li><a href="../Formats/ColladaLoader.html">Setting up billboards in COLLADA</a></li>
+ <li><a href="../../World Editor/Editors/ShapeEditor.html">Setting up billboards in T3D Shape Editor</a></li>
 </ul>
 
 <br><br>
@@ -251,9 +251,9 @@
 <br>
 <h4>See also</h4>
 <ul>
- <li><a href="../Exporters/ms2dtsplus.html#MESHES_OVERVIEW">Setting up imposters in Milkshape3D</a></li>
- <li><a href="../Formats/COLLADALoader.html#IMPOSTERS">Setting up imposters in COLLADA</a></li>
- <li><a href="../../World Editor/Editors/ShapeEditor.html#IMPOSTERS">Setting up imposters in T3D Shape Editor</a></li>
+ <li><a href="../Exporters/ms2dtsplus.html">Setting up imposters in Milkshape3D</a></li>
+ <li><a href="../Formats/ColladaLoader.html">Setting up imposters in COLLADA</a></li>
+ <li><a href="../../World Editor/Editors/ShapeEditor.html">Setting up imposters in T3D Shape Editor</a></li>
 </ul>
 
 <br><br>
@@ -271,7 +271,7 @@ function PlayerData::onAdd(%this, %obj)
 
 <h4>See also</h4>
 <ul>
- <li><a href="../../World Editor/Editors/ShapeEditor.html#ADVANCED_MOUNTING">Mounting objects in T3D Shape Editor</a></li>
+ <li><a href="../../World Editor/Editors/ShapeEditor.html">Mounting objects in T3D Shape Editor</a></li>
 </ul>
 
 <br><br>
@@ -295,8 +295,8 @@ function PlayerData::onAdd(%this, %obj)
 
 <h4>See also</h4>
 <ul>
- <li>ShapeBase TorqueScript reference</li>
- <li><a href="../../World Editor/Editors/ShapeEditor.html#ADVANCED_THREADS">Setting up threads in T3D Shape Editor</a></li>
+ <li><a href="../../Scripting/Advanced/Shapebase.html">ShapeBase TorqueScript reference</a></li>
+ <li><a href="../../World Editor/Editors/ShapeEditor.html">Setting up threads in T3D Shape Editor</a></li>
 </ul>
 
 <br><br>
@@ -308,7 +308,7 @@ function PlayerData::onAdd(%this, %obj)
 
 <h4>See also</h4>
 <ul>
- <li><a href="../Exporters/ms2dtsplus.html#ANIM_GROUND">Setting up ground transforms in Milkshape3D</a></li>
+ <li><a href="../Exporters/ms2dtsplus.html">Setting up ground transforms in Milkshape3D</a></li>
 </ul>
 
 <br><br>
@@ -320,8 +320,8 @@ function PlayerData::onAdd(%this, %obj)
 
 <h4>See also</h4>
 <ul>
- <li><a href="../Exporters/ms2dtsplus.html#ANIM_TRIGGERS">Setting up sequence triggers in Milkshape3D</a></li>
- <li><a href="../../World Editor/Editors/ShapeEditor.html#SEQUENCES_TAB">Setting up sequence triggers in T3D Shape Editor</a></li>
+ <li><a href="../Exporters/ms2dtsplus.html">Setting up sequence triggers in Milkshape3D</a></li>
+ <li><a href="../../World Editor/Editors/ShapeEditor.html">Setting up sequence triggers in T3D Shape Editor</a></li>
 </ul>
 
 <br><br>
@@ -341,8 +341,8 @@ function PlayerData::onAdd(%this, %obj)
 <br>
 <h4>See also</h4>
 <ul>
- <li><a href="../Exporters/ms2dtsplus.html#ANIM_OVERVIEW">Setting up blends in Milkshape3D</a></li>
- <li><a href="../../World Editor/Editors/ShapeEditor.html#SEQUENCES_TAB">Setting up blends in T3D Shape Editor</a></li>
+ <li><a href="../Exporters/ms2dtsplus.html">Setting up blends in Milkshape3D</a></li>
+ <li><a href="../../World Editor/Editors/ShapeEditor.html">Setting up blends in T3D Shape Editor</a></li>
 </ul>
 
 <br><br>
@@ -517,7 +517,7 @@ face      => face
 
 <h4>Image Sequence animation</h4>
 
-<p>Earlier Torque engines used IFL text files to specify a set of images with an optional number of frames to display each image. In Torque 3D, a similar effect can be achieved by putting all of the frames into a single texture, then setting the <i>sequenceFramePerSec</i> and <i>sequenceSegmentSize</i> fields of the Material (either manually, or via the <a href="../../World Editor/Editors/MaterialEditor.html#Interface">Material Editor</a>). For example, a 6-frame sequence, each frame sized 128x128 would be packed into a single texture of size 768x128.</p>
+<p>Earlier Torque engines used IFL text files to specify a set of images with an optional number of frames to display each image. In Torque 3D, a similar effect can be achieved by putting all of the frames into a single texture, then setting the <i>sequenceFramePerSec</i> and <i>sequenceSegmentSize</i> fields of the Material (either manually, or via the <a href="../../World Editor/Editors/MaterialEditor.html">Material Editor</a>). For example, a 6-frame sequence, each frame sized 128x128 would be packed into a single texture of size 768x128.</p>
 
 <p><img src="images/image_sequence.png">
 

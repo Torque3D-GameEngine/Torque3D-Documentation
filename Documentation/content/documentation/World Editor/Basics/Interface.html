@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
 <SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
@@ -14,9 +14,9 @@
 <link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
 <script>
    // this script chunk is to update the ToC to the current doc and expand it
-   pageID = 80;
-   parent.leftFrame.expandToItem('tree2', 'doc80');
-   var element = parent.leftFrame.document.getElementById('doc80');
+   pageID = 94;
+   parent.leftFrame.expandToItem('tree2', 'doc94');
+   var element = parent.leftFrame.document.getElementById('doc94');
    if((element) && (element.className==parent.leftFrame.nodeClosedClass))
 {
    element.className = parent.leftFrame.nodeOpenClass
@@ -157,11 +157,12 @@ function changetab(name) {
                   <tbody>
                     <tr valign="top">
                       <td bgcolor="#6699ff" width="62"><b>Menu</b></td>
-                      <td bgcolor="#6699ff" width="335"><b>Description </b></td>
+                      <td bgcolor="#6699ff" width="335" style="background-color: eeeeee"><b>Description </b></td>
                     </tr>
                     <tr valign="top">
-                      <td bgcolor="#eeeeee" width="62"><img alt="Image:WEFileMenu.jpg" src="images/WEFileMenu.jpg" border="0" width="352" height="400" /> </td>
-                      <td bgcolor="#eeeeee" width="335">File Menu allows you to:<br />
+                      <td bgcolor="#eeeeee" width="62" style="background-color: #FFFFFF">
+                          <img alt="Image:WEFileMenu.jpg" src="images/WEFileMenu.jpg" border="0" /> </td>
+                      <td bgcolor="#eeeeee" width="335" style="background-color: eeeeee">File Menu allows you to:<br />
                           Create, save, open, and close levels;<br />
                         <br />
                           Open, import, and export level data to/from other tools;<br />
@@ -169,8 +170,9 @@ function changetab(name) {
                           Run your level to test it and exit the World Editor.</td>
                     </tr>
                     <tr valign="top">
-                      <td bgcolor="#eeeeee" width="62"><img alt="Image:WEEditMenu.jpg" src="images/WEEditMenu.jpg" border="0" width="325" height="351" /> </td>
-                      <td bgcolor="#eeeeee" width="335">
+                      <td bgcolor="#eeeeee" width="62" style="background-color: #FFFFFF">
+                          <img alt="Image:WEEditMenu.jpg" src="images/WEEditMenu.jpg" border="0" /> </td>
+                      <td bgcolor="#eeeeee" width="335" style="background-color: eeeeee">
                       The Edit Menu allows you to:<br /><br />
                       Control editor actions such as undo and redo;<br /><br />
                       Cut, copy, paste, and delete objects you have selected;<br /><br />
@@ -181,8 +183,9 @@ function changetab(name) {
                       </td>
                     </tr>
                     <tr valign="top">
-                      <td bgcolor="#eeeeee" width="62"><img alt="Image:WEViewMenu.jpg" src="images/WEViewMenu.jpg" border="0" width="309" height="83" /> </td>
-                      <td bgcolor="#eeeeee" width="335">
+                      <td bgcolor="#eeeeee" width="62" style="background-color: #FFFFFF">
+                          <img alt="Image:WEViewMenu.jpg" src="images/WEViewMenu.jpg" border="0" /> </td>
+                      <td bgcolor="#eeeeee" width="335" style="background-color: eeeeee">
                       The View Menu:<br /><br />
                       Opens the Visibility Layers  dialog which toggles debug rendering modes;<br /><br />
                       And<br /><br />
@@ -190,64 +193,86 @@ function changetab(name) {
                       </td>
                     </tr>
                     <tr valign="top">
-                      <td bgcolor="#eeeeee" width="62"><img alt="Image:WEObjectMenu.jpg" src="images/WEObjectMenu.jpg" border="0" width="288" height="427" /> </td>
-                      <td bgcolor="#eeeeee" width="335">
+                      <td bgcolor="#eeeeee" width="62" style="background-color: #FFFFFF">
+                          <img alt="Image:WEObjectMenu.jpg" src="images/WEObjectMenu.jpg" border="0" /> </td>
+                      <td bgcolor="#eeeeee" width="335" style="background-color: eeeeee">
                       The Object Menu allows you to:<br /><br />
                       Manipulate a selected object's settings by locking/unlocking it, hiding/showing the object, resetting its transforms, and so on.
 
                       </td>
                     </tr>
                     <tr valign="top">
-                      <td bgcolor="#eeeeee" width="62"><img alt="Image:WEDropLocationMenu.jpg" src="images/WEDropLocationMenu.jpg" border="0" width="488" height="185" /> </td>
-                      <td bgcolor="#eeeeee" width="335">The Drop Location sub-menu selection informs the World Editor where it should place newly created objects.</td>
+                      <td bgcolor="#eeeeee" width="62" style="background-color: #FFFFFF"><img alt="Image:WEDropLocationMenu.jpg" src="images/WEDropLocationMenu.jpg" border="0" width="488" height="185" /> </td>
+                      <td bgcolor="#eeeeee" width="335" style="background-color: eeeeee">The Drop Location sub-menu selection informs the World Editor where it should place newly created objects.</td>
                     </tr>
                     <tr valign="top">
-                      <td bgcolor="#eeeeee" width="62"><img alt="Image:WECameraMenu.jpg" src="images/WECameraMenu.jpg" border="0" width="311" height="343" /> </td>
-                      <td bgcolor="#eeeeee" width="335">The Camera Menu allows you to choose your camera type, adjust its speed and motion, and drop it at certain locations. </td>
+                      <td bgcolor="#eeeeee" width="62" style="background-color: #FFFFFF"><img alt="Image:WEObjectMenu.jpg" src="images/WEPhysicsMenu.jpg" border="0" /> </td>
+                      <td bgcolor="#eeeeee" width="335" style="background-color: eeeeee">
+                      The Physics Menu allows you to:<br /><br />
+                          Start and stop PhysX simulation in the Editor, set the simulation speed and 
+                          reload all PhysX objects and actors.
+                      </td>
                     </tr>
                     <tr valign="top">
-                      <td bgcolor="#eeeeee" width="62"><img alt="Image:WEWorldCameraMenu.jpg" src="images/WEWorldCameraMenu.jpg" border="0" width="412" height="102" /> </td>
-                      <td bgcolor="#eeeeee" width="335">The World Camera sub-menu allows you to change the way the camera moves. </td>
+                      <td bgcolor="#eeeeee" width="62" style="background-color: #FFFFFF">
+                          <img alt="Image:WECameraMenu.jpg" src="images/WECameraMenu.jpg" border="0" /> </td>
+                      <td bgcolor="#eeeeee" width="335" style="background-color: eeeeee">The Camera Menu allows you to choose your camera type, adjust its speed and motion, and drop it at certain locations. </td>
                     </tr>
                     <tr valign="top">
-                      <td bgcolor="#eeeeee" width="62"><img alt="Image:WEPlayerCamera.jpg" src="images/WEPlayerCamera.jpg" border="0" width="385" height="49" /> </td>
-                      <td bgcolor="#eeeeee" width="335">The Player Camera sub-menu allows you to switch between perspectives while moving around as a player.</td>
+                      <td bgcolor="#eeeeee" width="62" style="background-color: #FFFFFF">
+                          <img alt="Image:WEWorldCameraMenu.jpg" src="images/WEWorldCameraMenu.jpg" 
+                              border="0" /> </td>
+                      <td bgcolor="#eeeeee" width="335" style="background-color: eeeeee">The World Camera sub-menu allows you to change the way the camera moves. </td>
                     </tr>
                     <tr valign="top">
-                      <td bgcolor="#eeeeee" width="62"><img alt="Image:WECameraSpeedMenu.jpg" src="images/WECameraSpeedMenu.jpg" border="0" width="418" height="160" /> </td>
-                      <td bgcolor="#eeeeee" width="335">The Camera Speed sub-menu allows you to adjust how fast the camera moves. </td>
+                      <td bgcolor="#eeeeee" width="62" style="background-color: #FFFFFF">
+                          <img alt="Image:WEPlayerCamera.jpg" src="images/WEPlayerCamera.jpg" 
+                              border="0" /> </td>
+                      <td bgcolor="#eeeeee" width="335" style="background-color: eeeeee">The Player Camera sub-menu allows you to switch between perspectives while moving around as a player.</td>
                     </tr>
                     <tr valign="top">
-                      <td bgcolor="#eeeeee" width="62"><img alt="Image:WEEditorsMenu.jpg" src="images/WEEditorsMenu.jpg" border="0" width="213" height="331" /> </td>
-                      <td bgcolor="#eeeeee" width="335">The Editors Menu allows you to select which set of editing tools is currently active in the World Editor.</td>
+                      <td bgcolor="#eeeeee" width="62" style="background-color: #FFFFFF">
+                          <img alt="Image:WECameraSpeedMenu.jpg" src="images/WECameraSpeedMenu.jpg" 
+                              border="0" /> </td>
+                      <td bgcolor="#eeeeee" width="335" style="background-color: eeeeee">The Camera Speed sub-menu allows you to adjust how fast the camera moves. </td>
                     </tr>
                     <tr valign="top">
-                      <td bgcolor="#eeeeee" width="62"><img alt="Image:WELightingMenu.jpg" src="images/WELightingMenu.jpg" border="0" width="466" height="120" /> </td>
-                      <td bgcolor="#eeeeee" width="335">The Lighting Menu allows you to switch between Advanced and Basic lighting modes, as well as perform level relights. </td>
+                      <td bgcolor="#eeeeee" width="62" style="background-color: #FFFFFF">
+                          <img alt="Image:WEEditorsMenu.jpg" src="images/WEEditorsMenu.jpg" border="0" /> </td>
+                      <td bgcolor="#eeeeee" width="335" style="background-color: eeeeee">The Editors Menu allows you to select which set of editing tools is currently active in the World Editor.</td>
                     </tr>
                     <tr valign="top">
-                      <td bgcolor="#eeeeee" width="62"><img src="images/WEHelpMenu.jpg" width="254" height="91" /></td>
-                      <td bgcolor="#eeeeee" width="335">Contains shortcuts to documentation and forums for Torque 3D.</td>
+                      <td bgcolor="#eeeeee" width="62" style="background-color: #FFFFFF">
+                          <img alt="Image:WELightingMenu.jpg" src="images/WELightingMenu.jpg" 
+                              border="0" /> </td>
+                      <td bgcolor="#eeeeee" width="335" style="background-color: eeeeee">The Lighting Menu allows you to switch between Advanced and Basic lighting modes, as well as perform level relights. </td>
+                    </tr>
+                    <tr valign="top">
+                      <td bgcolor="#eeeeee" width="62" style="background-color: #FFFFFF">
+                          <img src="images/WEHelpMenu.jpg" /></td>
+                      <td bgcolor="#eeeeee" width="335" style="background-color: eeeeee">Contains shortcuts to documentation and forums for Torque 3D.</td>
                     </tr>
                   </tbody>
                 </table><br />
                 <a name="Tools_Bar" id="Tools_Bar"></a>
                 <h2> <span class="mw-headline">Tools Bar</span></h2>
                 <p>The Tools Bar is the best way to switch between tools. It is made of two components: Tool Settings (top bar) and Tools Selector (bottom bar).</p><br />
-                <p><img alt="Image:ShortToolbar.jpg" src="images/ShortToolbar.jpg" border="0" width="675" height="84" /> </p><br />
+                <p><img alt="Image:ShortToolbar.jpg" src="images/ShortToolbar.jpg" border="0" /> </p><br />
                 <p>Tool Settings is made of up three sub-sections: the editor selector, camera settings, and Object Editor. The editor selector and camera setting will always be displayed. The Object Editor will display available settings for the currently selected tool. The Tools Selector will always display the same shortcuts for selecting tools.</p><br />
                 <p>This section focuses on the elements of Tool Settings.</p><br />
                 <p>The first three icons switch between the editor's operating modes. Each icon represents a different editing mode and only one mode can be active at any time. There are three modes: World Editor, GUI Editor, and Game Mode. The World Editor is represented by the mountain icon. The GUI Editor is represented by the boxes icon. The Game Mode is represented by the arrow icon.</p><br />
-                <p><img alt="Image:EditorIcons.jpg" src="images/EditorIcons.jpg" border="0" width="100" height="32" /> </p><br />
+                <p><img alt="Image:EditorIcons.jpg" src="images/EditorIcons.jpg" border="0" /> </p><br />
                 <p>World Editor mode provides tools for manipulating the "world" of your game including terrain, creatures, and so on.</p><br />
                 <p>GUI Editor mode provides tools for manipulating the Graphical User Interface (GUI) of your game such as health meters, cursors, and so on.</p><br />
                 <p>Play Game Mode runs your game and lets you play through it. NOTE: When you use this icon to play your game the World Editor actually closes completely. To return to the World Editor you must press F11 or exit the game and relaunch the World Editor from the Toolbox.</p><br />
                 
                 <p>Next to the editor selector, you will find the camera and visibility settings. </p><br />
-                <p><img alt="Image:CameraIcons.jpg" src="images/CameraIcons.jpg" border="0" width="241" height="31" /> </p><br />
-                <p><img src="images/WEVizMenu.jpg" width="161" height="151" /></p><br />
+                <p><img alt="Image:CameraIcons.jpg" src="images/CameraIcons.jpg" border="0" 
+                        width="241" /> </p><br />
+                <p><img src="images/WEVizMenu.jpg" /></p><br />
                 <p>The camera icon will let you choose your camera type. The drop-down menu next to it will let you switch between camera speeds. The eye icon is the visualization settings which toggle debug rendering modes for various graphical modules, such as normal mapping, wireframe, specular shading, etc. The icon that looks like a camera in a box will move your camera to whatever object you have selected, filling up your view with its boundaries.</p><br />
-                <p><img alt="Image:WorldSettingsIcons.jpg" src="images/WorldSettingsIcons.jpg" border="0" width="507" height="28" /> </p><br />
+                <p><img alt="Image:WorldSettingsIcons.jpg" src="images/WorldSettingsIcons.jpg" 
+                        border="0" /> </p><br />
                 <p>The World Settings make up the rest of this bar when using the tools. The first icon lets you determine your snapping options (snapping to terrain, a bounding box of an object, which axis, etc.). The next icon toggles snapping to a grid. The magnet icon determines soft snapping to other objects. The numeric indicator determines the distance of the snap option.</p><br />
                 <p>The box icon with an arrow is a selection tool that allows you to select an object according to its bounding box. This makes selecting small, detailed objects much easier. The next icon that looks like a bullseye will change the selection target from the object center to the bounding box center. The small icon with arrows and mountains will change the object transform and the world transform.</p><br />
                   <p>The next two icons show descriptors in your scene. The first icon that looks like a box in a square will display object icons for the various objects in your scene. The second icon will show text descriptors for the objects in your scene.</p><br />
@@ -258,47 +283,84 @@ function changetab(name) {
                   description which you can get by hovering over the image. The specifics
                   of each tool will be detailed in their own sections. </p><br />
                 <p><b>Object Editor</b> </p>
-                <p><img alt="Image:ObjectEditorTool.jpg" src="images/ObjectEditorTool.jpg" border="0" width="442" height="152" onmouseover="Tip('Used to place objects in the world, group them, and lay out your scenes.', WIDTH, 400)" onmouseout="UnTip()" /> </p>
+                <p><img alt="Image:ObjectEditorTool.jpg" src="images/ObjectEditorTool.jpg" 
+                        border="0" 
+                        onmouseover="Tip('Used to place objects in the world, group them, and lay out your scenes.', WIDTH, 400)" 
+                        onmouseout="UnTip()" /> </p>
                 <p>
                 </p>
                 <p><br />
                   <b>Terrain Editor</b> </p>
-                <p><img alt="Image:TerrainEditorTool.jpg" src="images/TerrainEditorTool.jpg" border="0" width="442" height="282" onmouseover="Tip('Used to edit, save, and load terrain objects in your scenes.', WIDTH, 400)" onmouseout="UnTip()"/> </p>
-                <p><br /><br />
+                <p><img alt="Image:TerrainEditorTool.jpg" src="images/TerrainEditorTool.jpg" 
+                        border="0" 
+                        onmouseover="Tip('Used to edit, save, and load terrain objects in your scenes.', WIDTH, 400)" 
+                        onmouseout="UnTip()"/> </p>
+                <br /><br />
                   <b>Terrain Painter</b> </p>
-                <p><img alt="Image:TerrainPainterTool.jpg" src="images/TerrainPainterTool.jpg" border="0" width="442" height="33" onmouseover="Tip('Used to paint textures onto terrains in scenes.', WIDTH, 400)" onmouseout="UnTip()"/> </p>
+                <p><img alt="Image:TerrainPainterTool.jpg" src="images/TerrainPainterTool.jpg" 
+                        border="0" 
+                        onmouseover="Tip('Used to paint textures onto terrains in scenes.', WIDTH, 400)" 
+                        onmouseout="UnTip()"/> </p>
                 <br /><br />
                 <p><b>Material Editor</b> </p>
-                <p><img alt="Image:MaterialEditorTool.jpg" src="images/MaterialEditorTool.jpg" border="0" width="442" height="152" onmouseover="Tip('Used to change texture and shader properties.', WIDTH, 400)" onmouseout="UnTip()"/> </p>
-                <p><br /><br />
-                </p>
+                <p><img alt="Image:MaterialEditorTool.jpg" src="images/MaterialEditorTool.jpg" 
+                        border="0" 
+                        onmouseover="Tip('Used to change texture and shader properties.', WIDTH, 400)" 
+                        onmouseout="UnTip()"/> </p>
+                <br /><br />
+                
                 <p><b>Sketch Tool</b> </p>
-                <p><img alt="Image:SketchTool.jpg" src="images/SketchTool.jpg" border="0" width="442" height="152" onmouseover="Tip('Used to create prototype geometry for quick level layout testing.', WIDTH, 400)" onmouseout="UnTip()" /> </p>
-                <p><br /><br />
+                <p><img alt="Image:SketchTool.jpg" src="images/SketchTool.jpg" border="0" 
+                        onmouseover="Tip('Used to create prototype geometry for quick level layout testing.', WIDTH, 400)" 
+                        onmouseout="UnTip()" /> </p>
+                <br /><br />
                 <p><b>Datablock Editor</b> </p>
-                <p><img alt="Image:DatablockEditor.jpg" src="images/DatablockEditor.jpg" border="0" width="442" height="152" onmouseover="Tip('Used to edit datablock properties of objects in the scene.', WIDTH, 400)" onmouseout="UnTip()"/> </p>
-                <p><br /><br />
+                <p><img alt="Image:DatablockEditor.jpg" src="images/DatablockEditor.jpg" border="0" 
+                        onmouseover="Tip('Used to edit datablock properties of objects in the scene.', WIDTH, 400)" 
+                        onmouseout="UnTip()"/> </p>
+                <br /><br />
                 <p><b>Decal Editor</b> </p>
-                <p><img alt="Image:DecalEditorTool.jpg" src="images/DecalEditorTool.jpg" border="0" width="442" height="178" onmouseover="Tip('Used to edit decals and decal properties.', WIDTH, 400)" onmouseout="UnTip()"/> </p>
-                <p><br /><br />
+                <p><img alt="Image:DecalEditorTool.jpg" src="images/DecalEditorTool.jpg" border="0" 
+                        onmouseover="Tip('Used to edit decals and decal properties.', WIDTH, 400)" 
+                        onmouseout="UnTip()"/> </p>
+                <br /><br />
                 <p><b>Forest Editor</b> </p>
-                <p><img alt="Image:ForestEditorTool.jpg" src="images/ForestEditorTool.jpg" border="0" width="442" height="230" onmouseover="Tip('Used to edit forest areas in the scene.', WIDTH, 400)" onmouseout="UnTip()"/> </p>
-                <p><br /><br />
-                <b>Mesh Road Tool</b> </p>
-                <p><img alt="Image:MeshRoadTool.jpg" src="images/MeshRoadTool.jpg" border="0" width="442" height="230" onmouseover="Tip('Used to create mesh roadways along the terrain.', WIDTH, 400)" onmouseout="UnTip()"/> </p>
-                <p><br /><br />
-                <b>Particle Editor</b> </p>
-                <p><img alt="Image:ParticleEditorTool.jpg" src="images/ParticleEditorTool.jpg" border="0" width="442" height="152" onmouseover="Tip('Used to create and edit particle properties for particle effects in the scene.', WIDTH, 400)" onmouseout="UnTip()"/> </p>
-                <p><br /><br />
+                <p><img alt="Image:ForestEditorTool.jpg" src="images/ForestEditorTool.jpg" 
+                        border="0" 
+                        onmouseover="Tip('Used to edit forest areas in the scene.', WIDTH, 400)" 
+                        onmouseout="UnTip()"/> </p>
+                <br /><br />
+                <p><b>Mesh Road Tool</b> </p>
+                <p><img alt="Image:MeshRoadTool.jpg" src="images/MeshRoadTool.jpg" border="0" 
+                        onmouseover="Tip('Used to create mesh roadways along the terrain.', WIDTH, 400)" 
+                        onmouseout="UnTip()"/> </p>
+                <br /><br />
+                <p><b>Mission Area Editor</b> </p>
+                <p><img alt="Image:MissionAreaTool.jpg" src="images/MissionAreaTool.jpg" border="0" 
+                        onmouseover="Tip('Used to edit the Mission Area object.', WIDTH, 400)" 
+                        onmouseout="UnTip()"/> </p>
+                <br /><br />
+                <p><b>Particle Editor</b> </p>
+                <p><img alt="Image:ParticleEditorTool.jpg" src="images/ParticleEditorTool.jpg" 
+                        border="0" 
+                        onmouseover="Tip('Used to create and edit particle properties for particle effects in the scene.', WIDTH, 400)" 
+                        onmouseout="UnTip()"/> </p>
+                <br /><br />
                 <p><b>River Tool</b> </p>
-                <p><img alt="Image:RiverTool.jpg" src="images/RiverTool.jpg" border="0" width="442" height="230" onmouseover="Tip('Used to create rivers in the scene.', WIDTH, 400)" onmouseout="UnTip()"/> </p>
+                <p><img alt="Image:RiverTool.jpg" src="images/RiverTool.jpg" border="0" 
+                        onmouseover="Tip('Used to create rivers in the scene.', WIDTH, 400)" 
+                        onmouseout="UnTip()"/> </p>
                 <p>&nbsp;</p>
                 <p><b>Decal Road Tool</b> </p>
-                <p><img alt="Image:DecalRoadTool.jpg" src="images/DecalRoadTool.jpg" border="0" width="442" height="203" onmouseover="Tip('Used to create decal roadways in the scene.', WIDTH, 400)" onmouseout="UnTip()"/> </p>
-                <p><br /><br />
+                <p><img alt="Image:DecalRoadTool.jpg" src="images/DecalRoadTool.jpg" border="0" 
+                        onmouseover="Tip('Used to create decal roadways in the scene.', WIDTH, 400)" 
+                        onmouseout="UnTip()"/> </p>
+                <br /><br />
                 </p>
                 <p><b>Shape Editor</b> </p>
-                <p><img alt="Image:ShapeEditorTool.jpg" src="images/ShapeEditorTool.jpg" border="0" width="442" height="151" onmouseover="Tip('Used to edit, change, and set properties on meshes.', WIDTH, 400)" onmouseout="UnTip()"/> </p>
+                <p><img alt="Image:ShapeEditorTool.jpg" src="images/ShapeEditorTool.jpg" border="0" 
+                        onmouseover="Tip('Used to edit, change, and set properties on meshes.', WIDTH, 400)" 
+                        onmouseout="UnTip()"/> </p>
                 <br />
                
                 <br />
@@ -306,7 +368,8 @@ function changetab(name) {
                 <h2> <span class="mw-headline">Scene Tree</span></h2>
                 <p>The Scene Tree panel is available while using the Object Editor tool. It is composed of two tabs: Scene and Library. The Scene tab contains a list of objects currently in your level. You can select specific objects to modify them. </p>
                 <p><br />
-                  <img alt="Image:SceneTree_SceneTab.jpg" src="images/SceneTree_SceneTab.jpg" border="0" width="209" height="324" /> </p>
+                  <img alt="Image:SceneTree_SceneTab.jpg" src="images/SceneTree_SceneTab.jpg" 
+                        border="0" /> </p>
                 <p><br />
                   Each object in the tree has an icon, unique ID, an object type, and a name. Whenever you click on an object in the tree, it is selected in the level and vice versa. Most of your objects can stand alone in the tree, but you can also use a SimGroup object to organize related entries. </p>
                 <p><br />
@@ -315,25 +378,27 @@ function changetab(name) {
                 <h2> <span class="mw-headline">Library Tab</span></h2>
                 <p>The Library tab is what you will use to add objects to your level. Once an object has been added to your level, it will appear in the Scene tab (described above).  There are four sub-categories on the Library tab, which are separated as sub-tabs: Scripted, Meshes, Level, and Prefabs. Each category contains objects that serve very specific purposes.</p>
                 <p><br />
-                  <img alt="Image:SceneTree_LibraryTab.jpg" src="images/SceneTree_LibraryTab.jpg" border="0" width="209" height="324" /> </p><br />
+                  <img alt="Image:SceneTree_LibraryTab.jpg" src="images/SceneTree_LibraryTab.jpg" 
+                        border="0" /> </p><br />
                 <a name="Scripted_Tab" id="Scripted_Tab"></a>
                 <h3> <span class="mw-headline">Scripted Tab</span></h3>
                 <p>The first tab, Scripted, is automatically populated with game objects that have been created via script. For example, let's say you have a ceiling fan object with an associated script which controls how and when the fan blades rotate. It would appear in the Scripted tab as follows: </p>
                 <br />
-                <p><img alt="Image:ScriptedObject.jpg" src="images/ScriptedObject.jpg" border="0" width="141" height="89" /> </p><br />
+                <p><img alt="Image:ScriptedObject.jpg" src="images/ScriptedObject.jpg" border="0" /> </p><br />
                 <p><br />
                   A discussion of scripting and how to associate scripts with an object is beyond the scope of this document.  See the <a href="../../Scripting/Overview/Introduction.html">TorqueScript Tutorial</a> for more information.</p>
                 <a name="Meshes_Tab" id="Meshes_Tab"></a>
                 <h3> <span class="mw-headline">Meshes Tab</span></h3>
                 <p>When you simply wish to add a 3D art asset, you will use the Meshes Tab. You can browse the various folders containing assets in your project's "art" directory. From here you can add DTS, COLLADA, and DIF files. </p><br />
-                <p><img alt="Image:MeshObject.jpg" src="images/MeshObject.jpg" border="0" width="200" height="111" /> </p><br />
+                <p><img alt="Image:MeshObject.jpg" src="images/MeshObject.jpg" border="0" /> </p><br />
                 <a name="Level_Tab" id="Level_Tab"></a>
                 <h3> <span class="mw-headline">Level Tab</span></h3>
                 <p>The Level Tab lists all the Torque 3D objects that can be used to populate your level. Objects are further divided into category folders. To view what is in a folder, double click it. To leave a folder and  view the folder list, click the left pointing arrow icon. To move directly to another folder, select it from the drop down list.</p>
                 <br />
-                <p><img alt="Image:LevelTab.jpg" src="images/LevelTab.jpg" border="0" width="209" height="322" /> </p><br /><br />
+                <p><img alt="Image:LevelTab.jpg" src="images/LevelTab.jpg" border="0" /> </p><br /><br />
                 <p>Each sub-category  contains objects with similar themes:</p><br />
-                <p><img alt="Image:LevelTab_Environment.jpg" src="images/LevelTab_Environment.jpg" border="0" width="209" height="323" /> 
+                <p><img alt="Image:LevelTab_Environment.jpg" src="images/LevelTab_Environment.jpg" 
+                        border="0" /> 
                 </p><br />
                 <p>The Environment sub-category contains most of the objects you will add to your level, such as Terrain, Sun, Clouds, Waterblocks, and similar objects.</p><br />
                 <p>The ExampleObjects sub-category contains example rendering classes created in C++.</p><br />
@@ -344,24 +409,26 @@ function changetab(name) {
                 <p>The prefab system allows you to group multiple objects together and combine them into a single file. This new object can then be repeatedly placed into your level as a whole, making it easier for you to add complex groups of objects with only a few mouse clicks. When you create a prefab from multiple selections,  you will save it to a *.prefab file 
                     using the group prefab icon. The World Editor will automatically load these files in the Prefabs tab.</p>
                 <br />
-                <p><img alt="Image:PrefabsTab.jpg" src="images/PrefabsTab.jpg" border="0" width="209" height="324" /> </p><br />
+                <p><img alt="Image:PrefabsTab.jpg" src="images/PrefabsTab.jpg" border="0" /> </p><br />
                 <a name="Inspector" id="Inspector"></a>
                 <h2> <span class="mw-headline">Inspector</span></h2>
                 <p>Whenever you add an object to a level, you will most likely start modifying them immediately. You can use the Inspector Panel to change the properties of an object.</p>
                 <p><br />
-                  <img alt="Image:WEInspectorPanel.jpg" src="images/WEInspectorPanel.jpg" border="0" width="210" height="360" /> </p>
+                  <img alt="Image:WEInspectorPanel.jpg" src="images/WEInspectorPanel.jpg" 
+                        border="0" /> </p>
                 <p><br />
                   While there are a few shared property sections, most object types will have a unique set of properties. Editing is as simple as selecting an object in the level, locating a field that you want to change, such as "className" or "media", then either editing the existing value or entering a value if no default value is given. There are different types of values such as strings, numbers, check boxes, vectors, and even values that require the use of a file browser or color picker. </p><br />
                 <a name="Dialogs" id="Dialogs"></a>
                 <h2> <span class="mw-headline">Dialogs</span></h2>
                 <p>The World Editor contains three dialogs specific to the editor itself. The rest of the dialogs are typically tool or object specific, and will be described in their own sections. The first we will discuss is the Options dialog, which is used to change your current session's audio and video properties as well as mouse and keyboard control bindings. The Options dialog is accessed from the main menu by selecting Edit > Game Options…</p>
-                <p><img alt="Image:OptionsDlg.jpg" src="images/OptionsDlg.jpg" border="0" width="378" height="303" /> </p><br />
+                <p><img alt="Image:OptionsDlg.jpg" src="images/OptionsDlg.jpg" border="0" /> </p><br />
                 <p>
                   You will use the Graphics tab to adjust your game resolution, screen mode, detail levels, and so on. The Audio tab allows you to adjust your current game's volume, both globally and channel specific.</p>
 
                   <p>The second dialog, which is very important to editing, is the World Editor Settings pop-up. </p><br />
                 <p>
-                  <img alt="Image:WorldEditorSettings.jpg" src="images/WorldEditorSettings.jpg" border="0" width="459" height="396" /> </p>
+                  <img alt="Image:WorldEditorSettings.jpg" src="images/WorldEditorSettings.jpg" 
+                        border="0" /> </p>
                 <p><br />
                   Through this dialog, you can change various aspects of how your tools
                   render and function. The top left section will control what is rendered

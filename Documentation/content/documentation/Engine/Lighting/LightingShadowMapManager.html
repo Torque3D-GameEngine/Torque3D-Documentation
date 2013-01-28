@@ -1,0 +1,178 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 25;
+   parent.leftFrame.expandToItem('tree2', 'doc25');
+   var element = parent.leftFrame.document.getElementById('doc25');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+    <title>Torque 3D/Engine/ShadowMapManager</title>
+
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<BODY id = "BODYID" onLoad = "initComponent()"  style="width: 700; padding: 10px" class="mediawiki ltr ns-0 ns-subject page-Torque3D_LightingOverview_GFX_Interface skin-monobook">
+
+<h2><span class="mw-headline">ShadowMapManager Class Reference</span></h2>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    deactivate()
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    <p>Called when the ShadowMapManager should be decactivated. The ShadowMapManager will notify the SceneManger to remove its onPreRender function from the pre-render signal, clean up the shadow texture memory and makes its self no longer active.</p>
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    deactivate()
+    <br />
+    <br />
+    <strong>Returns</strong>
+    <br />
+    <p>No return value.</p>
+    <br />
+    <strong><em>Examples</em></strong>
+<pre>
+// Called from within the AdvancedLightManager::deactivate, SHADOWMGR is a #define
+// of the ShadowMapManager::instance() function.
+SHADOWMGR->deactivate();
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    activate()
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    <p>Called when the ShadowMapManager should become active. If the ShadowMapManager is unable to retrieve a SceneManager through the internal method getSceneManager then it will return a console error saying it was unable to active the ShadowMapManager and return out of the function. If it is able to retrieve the SceneManager then it will notify the SceneManager of its onPreRender function and turn its self active.</p>
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    activate()
+    <br />
+    <br />
+    <strong>Returns</strong>
+    <br />
+    <p>No return value.</p>
+    <br />
+    <strong><em>Examples</em></strong>
+<pre>
+// Called from within the AdvancedLightManager::activate, SHADOWMGR is a #define
+// of the ShadowMapManager::instance() function.
+SHADOWMGR->activate();
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    setLightShadowMapForLight( LightInfo * )
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    <p>Looks up the shadow map for the light then sets it.</p>
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    setLightShadowMapForLight(LightInfo *light )
+    <br />
+    <ul>
+        <li><strong>light:</strong> Will use this variable to look up the potential ShadowMapParams.</li>
+    </ul>
+    <br />
+    <strong>Returns</strong>
+    <br />
+    <p>No return value.</p>
+    <br />
+    <strong><em>Examples</em></strong>
+<pre>
+// Set light holds the active shadow map.       
+mShadowManager->setLightShadowMapForLight( sunLight );
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    setLightShadowMap( LightShadowMap *)
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    <p>Sets the current shadowmap (used in setLightInfo/setTextureStage calls).</p>
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    setLightShadowMap(LightShadowMap *lm )
+    <br />
+    <ul>
+        <li><strong>lm:</strong> The current shadow map that will be assigned to the classes internal "LightShadowMap *mCurrentShadowMap" variable.</li>
+    </ul>
+    <br />
+    <strong>Returns</strong>
+    <br />
+    <p>No return value.</p>
+    <br />
+    <strong><em>Examples</em></strong>
+<pre>
+// While traversing the shadow maps in "ShadowMapPass::render".
+LightShadowMap *lsm = shadowMaps[i];
+mShadowManager->setLightShadowMap( lsm );
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

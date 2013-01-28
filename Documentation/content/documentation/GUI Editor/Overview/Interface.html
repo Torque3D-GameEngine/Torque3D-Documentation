@@ -1,4 +1,4 @@
-<html>
+﻿<html>
 <HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
 <SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
 <SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
@@ -13,9 +13,9 @@
 <link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
 <script>
    // this script chunk is to update the ToC to the current doc and expand it
-   pageID = 24;
-   parent.leftFrame.expandToItem('tree2', 'doc24');
-   var element = parent.leftFrame.document.getElementById('doc24');
+   pageID = 35;
+   parent.leftFrame.expandToItem('tree2', 'doc35');
+   var element = parent.leftFrame.document.getElementById('doc35');
    if((element) && (element.className==parent.leftFrame.nodeClosedClass))
 {
    element.className = parent.leftFrame.nodeOpenClass
@@ -28,7 +28,7 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
 <BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_GUIEditor_Interface skin-monobook">
-<script type="text/javascript" src="../../include/wz_tooltip.js"></script>
+<script type="text/javascript" src="../../../include/wz_tooltip.js"></script>
 <table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;">
 <tr>
 <td width="700">
@@ -69,21 +69,22 @@
                   <img alt="Image:LaunchFromToolbox.jpg" src="images/LaunchFromToolbox.jpg" border="0" height="360" width="385" /> </p>
                 <p><br />
                   Your project will begin to load. Before the game is actually
-                  launched, a screen will appear allowing to pick which GUI you want to
+                  launched, a screen will appear allowing you to pick which GUI you want to
                   start editing: </p>
                 <p><br />
                   <i>(click to enlarge)</i> </p>
                 <a href="images/ToolboxGuiSelector.jpg" class="livethumbnail"><img src="images/ToolboxGuiSelector.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
                 <p><br />
-                  Once you have selected a starting GUI, the editor will fully
-                  load. From here, you can edit your selection, load a different GUI, or
-                  create an entirely new one. The alternate method to loading the GUI
-                  Editor is to press the shortcut key while running a game: Windows users
+                  Once you have selected a starting GUI the editor will 
+                    finish opening and you can begin editing. From here, you can edit your selected 
+                    GUI, load a different GUI, or
+                  create an entirely new one. You can also open the GUI
+                  Editor by pressing the shortcut key while running a game: Windows users
                   press F10, OS X users press cmd + F10. </p>
                 <p><br />
-                  You can perform this action at anytime while running your game. The
-                  same shortcut will also quit the GUI Editor, so make sure you save your
-                  progress before you quit. </p>
+                  You can perform this action at any time while running your game. The
+                  same shortcut will also close the GUI Editor, so make sure you save your
+                  progress before switching back into game mode. </p>
                 <a name="Main_Editor_Sections" id="Main_Editor_Sections"></a>
                 <h2> <span class="mw-headline">Main Editor Sections</span></h2>
                 <p>The main GUI Editor view consists of 5 primary sections: </p>
@@ -122,11 +123,13 @@
                       <td bgcolor="#6699ff" width="335"><b>Description </b></td>
                     </tr>
                     <tr valign="top">
-                      <td bgcolor="#e6e6e6" width="62"><img alt="Image:GEFileMenu.jpg" src="images/GEFileMenu.jpg" border="0" height="239" width="254" /> </td>
+                      <td bgcolor="#e6e6e6" width="62" style="background-color: #FFFFFF">
+                          <img alt="Image:GEFileMenu.jpg" src="images/GEFileMenu.jpg" border="0" /> </td>
                       <td bgcolor="#e6e6e6" width="335">File Menu allows you to create, save, and open GUI files. You can also revert GUIs or load from file. </td>
                     </tr>
                     <tr valign="top">
-                      <td bgcolor="#e6e6e6" width="62"><img alt="Image:GEEditMenu.jpg" src="images/GEEditMenu.jpg" border="0" height="446" width="364" /> </td>
+                      <td bgcolor="#e6e6e6" width="62" style="background-color: #FFFFFF">
+                          <img alt="Image:GEEditMenu.jpg" src="images/GEEditMenu.jpg" border="0" /> </td>
                       <td bgcolor="#e6e6e6" width="335">Edit Menu controls various editor actions, such as undo and redo.<br />
                         <br />
                         The second function allows you to cut/copy/paste/delete objects you have selected. <br />
@@ -134,26 +137,30 @@
                         Finally, this is the menu that allows you to perform selection and group actions, such as toggling visibility and locking. </td>
                     </tr>
                     <tr valign="top">
-                      <td bgcolor="#e6e6e6" width="62"><img alt="Image:GELayoutMenu.jpg" src="images/GELayoutMenu.jpg" border="0" height="342" width="325" /> </td>
+                      <td bgcolor="#e6e6e6" width="62" style="background-color: #FFFFFF">
+                          <img alt="Image:GELayoutMenu.jpg" src="images/GELayoutMenu.jpg" border="0" /> </td>
                       <td bgcolor="#e6e6e6" width="335">The Layout Menu contains actions that makes it easy for you align your GUI controls for a clean and neat appearance.<br />
                         <br />
                         This is very useful for a complex interface with multiple controls that stack vertically or horizontally. </td>
                     </tr>
                     <tr valign="top">
-                      <td bgcolor="#e6e6e6" width="62"><img alt="Image:GEMoveMenu.jpg" src="images/GEMoveMenu.jpg" border="0" height="209" width="354" /> </td>
+                      <td bgcolor="#e6e6e6" width="62" style="background-color: #FFFFFF">
+                          <img alt="Image:GEMoveMenu.jpg" src="images/GEMoveMenu.jpg" border="0" /> </td>
                       <td bgcolor="#e6e6e6" width="335">When you need to perform very subtle and precise movements on a GUI control, you can use the actions listed in the Move Menu.<br />
                         <br />
                         Each nudge is assigned a shortcut, so using this menu is optional. </td>
                     </tr>
                     <tr valign="top">
-                      <td bgcolor="#e6e6e6" width="62"><img alt="Image:GESnapMenu.jpg" src="images/GESnapMenu.jpg" border="0" height="172" width="393" /> </td>
+                      <td bgcolor="#e6e6e6" width="62" style="background-color: #FFFFFF">
+                          <img alt="Image:GESnapMenu.jpg" src="images/GESnapMenu.jpg" border="0" /> </td>
                       <td bgcolor="#e6e6e6" width="335">When
                         dragging GUI controls with your mouse, using the Snap Menu toggles will
                         cause your mouse to immediately jump to specific points (depending on
                         the toggle). </td>
                     </tr>
                     <tr valign="top">
-                      <td bgcolor="#e6e6e6" width="62"><img alt="Image:GEHelpMenu.jpg" src="images/GEHelpMenu.jpg" border="0" height="90" width="251" /> </td>
+                      <td bgcolor="#e6e6e6" width="62" style="background-color: #FFFFFF">
+                          <img alt="Image:GEHelpMenu.jpg" src="images/GEHelpMenu.jpg" border="0" /> </td>
                       <td bgcolor="#e6e6e6" width="335">Contains shortcuts to documentation and forums for Torque 3D. </td>
                     </tr>
                   </tbody>
@@ -165,49 +172,51 @@
                   in the Inspector, you can use the Tool Bar to perform quick positioning
                   actions and testing. </p>
                 <p><br />
-                  <img alt="Image:GEToolBar.jpg" src="images/GEToolBar.jpg" border="0" height="19" width="496" /> </p>
+                  <img alt="Image:GEToolBar.jpg" src="images/GEToolBar.jpg" border="0" /> </p>
                 <p><br />
                   The first three icons toggle the editors, and are always available. The
                   left most icon (looks like a mountain) toggles the World Editor. The
                   next one (boxes) toggles the GUI Editor. The Play icon will exit the
                   editors and let you play through the game. </p>
                 <p><br />
-                  <img alt="Image:EditorIcons.jpg" src="images/EditorIcons.jpg" border="0" height="32" width="100" /> </p>
+                  <img alt="Image:EditorIcons.jpg" src="images/EditorIcons.jpg" border="0" /> </p>
                 <p><br />
                   Next to the editor toggles, you will find three extremely important
                   settings. The first two are drop down lists and the last one is a
                   button toggle. These determine what you are editing and at what
                   resolution. </p>
                 <p><br />
-                  <img alt="Image:GEBaseSettings.jpg" src="images/GEBaseSettings.jpg" border="0" height="32" width="280" /> </p>
+                  <img alt="Image:GEBaseSettings.jpg" src="images/GEBaseSettings.jpg" border="0" /> </p>
                 <p><br />
                   The first drop down is a list of every single GUI available
                   to edit, including new ones you just created. You can jump to an
                   individual GUI at anytime, which can be useful if you are editing
                   multiple GUIs that which work together. </p>
                 <p><br />
-                  <img alt="Image:GuiSelector.jpg" src="images/GuiSelector.jpg" border="0" height="307" width="208" /> </p>
+                  <img alt="Image:GuiSelector.jpg" src="images/GuiSelector.jpg" border="0" /> </p>
                 <p><br />
                   The second drop down list contains three different resolutions you can build your GUI in: </p>
                 <p><br />
-                  <img alt="Image:GEResolutionPicker.jpg" src="images/GEResolutionPicker.jpg" border="0" height="73" width="240" /> </p>
+                  <img alt="Image:GEResolutionPicker.jpg" src="images/GEResolutionPicker.jpg" 
+                        border="0" /> </p>
                 <p><br />
                   The button toggles the Control Palette, which is explained
                   in the next section. The next set of icons allow you to toggle the most
                   commonly used and important settings for snapping: </p>
                 <p><br />
-                  <img alt="Image:GESnapIcons.jpg" src="images/GESnapIcons.jpg" border="0" height="32" width="101" /> </p>
+                  <img alt="Image:GESnapIcons.jpg" src="images/GESnapIcons.jpg" border="0" /> </p>
                 <p><br />
                   After the snapping icons, several shortcuts are available toggle the alignment of controls: </p>
                 <p><br />
-                  <img alt="Image:GEAlignIcons.jpg" src="images/GEAlignIcons.jpg" border="0" height="32" width="178" /> </p>
+                  <img alt="Image:GEAlignIcons.jpg" src="images/GEAlignIcons.jpg" border="0" /> </p>
                 <p><br />
                   The next two icons, which look like multiple boxes attached
                   to lines, are used when you have multiple GUI controls selected. These
                   distribution toggles will equally space the GUIs you currently have
                   selected: </p>
                 <p><br />
-                  <img alt="Image:GEDistributeIcons.jpg" src="images/GEDistributeIcons.jpg" border="0" height="32" width="69" /> </p>
+                  <img alt="Image:GEDistributeIcons.jpg" src="images/GEDistributeIcons.jpg" 
+                        border="0" /> </p>
                 <p><br />
                   The final two icons in the the Tool Bar can move the
                   currently selected GUI between layers. The first button will move the
@@ -215,7 +224,7 @@
                   button will start shoving your GUI behind others, obscuring it from
                   view: </p>
                 <p><br />
-                  <img alt="Image:GELayerIcons.jpg" src="images/GELayerIcons.jpg" border="0" height="32" width="79" /> </p><br>
+                  <img alt="Image:GELayerIcons.jpg" src="images/GELayerIcons.jpg" border="0" /> </p><br>
                 <a name="Control_Palette" id="Control_Palette"></a>
                 <h2> <span class="mw-headline">Control Palette</span></h2>
                 <p>The Control Palette contains all of the controls you can add to your
@@ -289,7 +298,7 @@
                   This consists of dozens of controls working together to make up the
                   audio and video options: </p>
                 <p><br />
-                  <img alt="Image:GESelection.jpg" src="images/GESelection.jpg" border="0" height="303" width="377" /> </p>
+                  <img alt="Image:GESelection.jpg" src="images/GESelection.jpg" border="0" /> </p>
                 <p><br />
                   In the above image, I have selected the list box control
                   that shows the display driver for a video card. The current selection

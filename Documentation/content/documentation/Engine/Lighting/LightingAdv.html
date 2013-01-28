@@ -1,0 +1,444 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 19;
+   parent.leftFrame.expandToItem('tree2', 'doc19');
+   var element = parent.leftFrame.document.getElementById('doc19');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+    <title>Torque 3D/Engine/AdvancedLightManager</title>
+
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<BODY id = "BODYID" onLoad = "initComponent()"  style="width: 700; padding: 10px" class="mediawiki ltr ns-0 ns-subject page-Torque3D_LightingOverview_GFX_Interface skin-monobook">
+
+<h2><span class="mw-headline">AdvancedLightManager Class Reference</span></h2>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    getLightBinManager()
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    <p>Will return the lightBinManager for this light manager.</p>
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    getLightBinManager();
+    <br />
+    <br />
+    <strong>Returns</strong>
+    <br />
+    <ul>
+        <li><strong>AdvancedLightBinManager *:</strong> The lightBinManager member variable in AdvancedLightManager.</li>
+    </ul>
+    <br />
+    <strong><em>Examples</em></strong><br />
+<pre>
+lightmgr->getLightBinManager()
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    isCompatible()
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    <p>Checks to make sure that the graphics card is compatible with the current pixel shader version that is needed. Currently at least 3.0 is needed.</p>
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    isCompatible();
+    <br />
+    <br />
+    <strong>Returns</strong>
+    <br />
+    <p>No return value.</p>
+    <br />
+    <strong><em>Examples</em></strong><br />
+<pre>
+// Make sure its valid... else fail!
+if ( !lm->isCompatible() )
+    return false;
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    activate( SceneGraph *)
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    <p>In addition to calling its base classes active(SceneGraph*), it will activate the Shadow Manager and create the AdvancedLightBinManager. It will also setup the Render Prepass Manager and register the feature as an AdvancedLightingFeature.</p>
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    activate( SceneGraph *sceneManager);
+    <br />
+    <ul>
+        <li><strong>SceneGraph*:</strong> The SceneGraph to activate lighting for.</li>
+    </ul>
+    <br />
+    <strong>Returns</strong>
+    <br />
+    <ul>
+        <li><strong>SceneGraph *:</strong> The SceneGraph that will be used to create lighting features.</li>
+    </ul>
+    <br />
+    <strong><em>Examples</em></strong><br />
+<pre>
+// From the engine function "resetLightManager"
+ LIGHTMGR->activate( LIGHTMGR->getSceneManager()); 
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    deactivate()
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    <p>Will remove all the objects from the AdvancedLightBinManager and the PrePassRenderBin, then set them to NULL. It will deactivate the Shadow Manager, unregister all the advanced lighting features and then finally send a trigger to let everyone know the LightManager has been deactivated.</p>
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    deactivate()
+    <br />
+    <br />
+    <strong>Returns</strong>
+    <br />
+    <p>No return value.</p>
+    <br />
+    <strong><em>Examples</em></strong><br />
+<pre>
+if (mLightManager)
+   mLightManager->deactivate();  
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    registerGlobalLight( LightInfo *, SimObject * )
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    <p>In addition to calling LightManager::registerGlobalLight, it will add the light to the AdvancedLightBinManager member variable if the AdvancedLightBinManager is created and the light type is a LightInfo::Point or LightInfo::Spot.</p>
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    registerGlobalLight(LightInfo *light, SimObject *obj )
+    <br />
+    <ul>
+        <li><strong>type:</strong> The light to be registered to mRegisteredLights.</li>
+        <li><strong>light:</strong> Not used.</li>
+    </ul>
+    <br />
+    <strong>Returns</strong>
+    <br />
+    <p>No return value.</p>
+    <br />
+    <strong><em>Examples</em></strong><br />
+<pre>
+// From inside of Item::registerLights
+lightManager->registerGlobalLight( mLight, this );
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    unregisterAllLights()
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    <p>In addition to calling LightManager::unregisterAllLights, it will clear the AdvancedLightBinManager if it has been created.</p>
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    unregisterAllLights()
+    <br />
+    <br />
+    <strong>Returns</strong>
+    <br />
+    <p>No return value.</p>
+    <br />
+    <strong><em>Examples</em></strong><br />
+<pre>
+// Unregister all the lights in the light manager.
+LIGHTMGR->unregisterAllLights();
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    setLightInfo( ProcessedMaterial *, const Material *, const SceneGraphData &, const SceneState *, U32, GFXShaderConstBuffer * )
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    <p>Will check to make sure that the SceneGraphData is not PrePassBin, if it is then it will return out immediately. If it is not, then it will update the constants for the GFXShaderConstBuffer passed in.</p>
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    setLightInfo(ProcessedMaterial *pmat, Material *mat, const SceneGraphData &sgData, SceneState *state, U32 pass, GFXShaderConstBuffer *shaderConsts )
+    <br />
+    <ul>
+        <li><strong>pmat:</strong> Not used.</li>
+        <li><strong>mat:</strong> Not used.</li>
+        <li><strong>sgData:</strong> Will be used to ensure rendering is not being done from the PrePassBin and also to update light constants by a call to _update4LightConsts(...).</li>
+        <li><strong>state:</strong> While setting information to "shaderConsts" it will be used to obtain the camera's transform.</li>
+        <li><strong>pass:</strong> Not used.</li>
+        <li><strong>shaderConsts:</strong> Will be used to obtain the LightingShaderConstants and to the call to _update4LightConsts(...). It will also have its "set" function called to set the shader constant for "ViewToLightProj".</li>
+    </ul>
+    <br />
+    <strong>Returns</strong>
+    <br />
+    <p>No return value.</p>
+    <br />
+    <strong><em>Examples</em></strong><br />
+<pre>
+// From inside of ProcessedShaderMaterial::setSceneInfo
+LIGHTMGR->setLightInfo( this, mMaterial, sgData, state, pass, shaderConsts );
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    setTextureStage( const SceneGraphData &sgData, const U32 currTexFlag, const U32 textureSlot, GFXShaderConstBuffer *shaderConsts, ShaderConstHandles *handles )
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    <p>Will assign a Shadowmap if it exists. It will grab the ShadowMap via the LightingShaderContants obtained via the shaderConsts passed in.</p>
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    setTextureStage(const SceneGraphData &sgData, const U32 currTexFlag, const U32 textureSlot, GFXShaderConstBuffer *shaderConsts, ShaderConstHandles *handles )
+    <br />
+    <ul>
+        <li><strong>sgData:</strong> Used to obtain ShadowMapParams.</li>
+        <li><strong>currTexFlag:</strong> Depending on the currTexFlag the texture will be set differently to the GFXDevice.</li>
+        <li><strong>textureSlot:</strong> Not Used.</li>
+        <li><strong>shaderConsts:</strong> Used to obtain the LightingShaderConstants via getLightingShaderConstants(...).</li>
+        <li><strong>handles:</strong> Not used.</li>
+    </ul>
+    <br />
+    <strong>Returns</strong>
+    <br />
+    <p>No return value.</p>
+    <br />
+    <strong><em>Examples</em></strong><br />
+<pre>
+// From inside of ProcessedCustomMaterial::setTextureStages
+lm->setTextureStage(sgData, currTexFlag, i, shaderConsts, handles )
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    getSphereMesh( U32 &, GFXPrimitiveBuffer *& )
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    <p>Will return a vertex buffer handled filled out by a SphereMesh (mSphereGeometry), along with set the variables passed in. If the SphereMesh (mSphereGeometry) is not created by the time this function is called, it will create the sphere mesh (mSphereGeometry) in addition to returning it.</p>
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    getSphereMesh(U32 outNumPrimitives, GFXPrimitiveBuffer *&outPrimitives )
+    <br />
+    <ul>
+        <li><strong>outNumPrimitives:</strong> Will be set to the number of polygons for the SphereMesh.</li>
+        <li><strong>outPrimitives:</strong> Will always be set to NULL.</li>
+    </ul>
+    <br />
+    <strong>Returns</strong>
+    <br />
+    <ul>
+        <li><strong>GFXVertexBufferHandle&lt;AdvancedLightManager::LightVertex&gt;:</strong> Used for the vertex buffer, typically for a LightBinEntry.</li>
+    </ul>
+    <br />
+    <strong><em>Examples</em></strong><br />
+<pre>
+// From inside AdvancedLightBinManager::addLight
+AdvancedLightBinEntry::LightBinEntry lEntry.vertBuffer = mLightManager->
+    getSphereMesh( lEntry.numPrims, lEntry.primBuffer );
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    getConeMesh( U32 &, GFXPrimitiveBuffer *& )
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    <p>Will return a vertex buffer handled filled out by information for a cone, along with set the variables passed in. If the cone geomtery (mConeGeometry) is not created by the time this function is called, it will create the cone geometry (mConeGeometry) in addition to returning it.</p>
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    getConeMesh(U32 outNumPrimitives, GFXPrimitiveBuffer *&outPrimitives )
+    <br />
+    <ul>
+        <li><strong>outNumPrimitives:</strong> Will be set to the number of polygons for the SphereMesh.</li>
+        <li><strong>outPrimitives:</strong> Will always be set to NULL.</li>
+    </ul>
+    <br />
+    <strong>Returns</strong>
+    <br />
+    <ul>
+        <li><strong>GFXVertexBufferHandle&lt;AdvancedLightManager::LightVertex&gt;:</strong> Used for the vertex buffer, typically for a LightBinEntry.</li>
+    </ul>
+    <br />
+    <strong><em>Examples</em></strong><br />
+<pre>
+// From inside AdvancedLightBinManager::addLight
+AdvancedLightBinEntry::LightBinEntry lEntry.vertBuffer = mLightManager->
+    getConeMesh( lEntry.numPrims, lEntry.primBuffer );
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    findShadowMapForObject( SimObject * )
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    <p>Will take in a SimObject*, then cast it to a ISceneLight*. If the converted variable is valid (meaning you passed in a valid ISceneLight), then it would get the shadow map available for the light.</p>
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    findShadowMapForObject(SimObject *object)
+    <br />
+    <ul>
+        <li><strong>object:</strong> The SimObject to be converted to a ISceneLight* to find the ShadowMap.</li>
+    </ul>
+    <br />
+    <strong>Returns</strong>
+    <br />
+    <ul>
+        <li><strong>LightShadowMap *:</strong> The found shadow map from the ISceneLight casted "object" variable.</li>
+    </ul>
+    <br />
+    <strong><em>Examples</em></strong><br />
+<pre>
+LightShadowMap *lightShadowMap = lm->findShadowMapForObject( object );
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

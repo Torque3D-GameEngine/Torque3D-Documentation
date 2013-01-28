@@ -1,0 +1,135 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 27;
+   parent.leftFrame.expandToItem('tree2', 'doc27');
+   var element = parent.leftFrame.document.getElementById('doc27');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+    <title>Torque 3D/Engine/LightManager Usage</title>
+
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<BODY id = "BODYID" onLoad = "initComponent()"  style="width: 700; padding: 10px" class="mediawiki ltr ns-0 ns-subject page-Torque3D_LightingOverview_GFX_Interface skin-monobook">
+
+                <table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2></div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Examples"><span class="tocnumber">2</span> <span class="toctext">Example Uses</span></a></li>
+                          <li class="toclevel-1"><a href="#Compatibility"><span class="tocnumber">3</span> <span class="toctext">Compatibility</span></a></li>
+                          <li class="toclevel-1"><a href="#Activating"><span class="tocnumber">4</span> <span class="toctext">Activating and Deactivating the LightManager</span></a></li>
+                          <li class="toclevel-1"><a href="#Using"><span class="tocnumber">5</span> <span class="toctext">Using the Active LightManager</span></a></li>
+                          <li class="toclevel-1"><a href="#Advanced"><span class="tocnumber">6</span> <span class="toctext">AdvancedLightManager</span></a></li>
+                          <li class="toclevel-1"><a href="#Basic"><span class="tocnumber">7</span> <span class="toctext">BasicLightManager</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+<a name="Introduction"></a>
+<h2><span class="mw-headline">Introduction</span></h2>
+
+<p>The LightManager is one of the most comprehensive classes in the lighting system. LightManager is defined as a singleton and provides the user with the ability to register global lights, compute static lighting, register special types of lights and return the active LightManager. The active LightManager can be accessed at any time via the static function "getActiveLM", or with the #define "LIGHTMGR". Even though it has a wealth of functionality, on its own it can not operate and is the base class to BasicLightManager and AdvancedLightManager. It contains four key functions that need to be overridden for its subclasses to be initialized.</p>
+
+<pre>
+bool isCompatible() const
+</pre>
+        <p>Should return true if this light manager is compatible with the current platform and GFX device. </p>
+
+<pre>
+void setLightInfo( ProcessedMaterial *pmat, const Material *mat, const SceneGraphData &sgData, 
+    const SceneState *state, U32 pass, GFXShaderConstBuffer *shaderConsts )
+</pre>
+        <p>Sets shader constants / textures for LightInfo's </p>
+<pre>
+void setTextureStage( const SceneGraphData &sgData, const U32 currTexFlag, const U32 textureSlot, 
+    GFXShaderConstBuffer *shaderConsts, ShaderConstHandles *handles )
+</pre>
+        <p>Allows he ability to set textures during the Material::setTextureStage call, return true if it has done work. </p>
+<pre>
+void _addLightInfoEx( LightInfo *lightInfo )
+</pre>
+        <p>Attaches any LightInfoEx data for the light manager to the light info object. </p>
+
+<a name="Examples"></a>
+<h2><span class="mw-headline">Example Uses</span></h2>
+
+<p>The Sun class will need to have a LightInfo object created for it. As a result, in its constructor it will create a LightInfo object by calling the static function createLightInfo(LightInfo *) to allocate a new lightInfo object for its use. Inside of the LightManager::createLightInfo(LightInfo *) function the allocated LightInfo will then be added to all of the LightManager's currently allocated light objects by traversing the LightManagerMap returned by the member function _getLightManagers(). Finally, the function will return the pointer to the allocated LightInfo object that is created.</p>
+
+<p>After the Sun class creates the light info via "LightManager::createLightInfo()" the last thing it will do is set the type of light that it is (with LightInfo::setType). It sets the type to "LightInfo::Vector", or commonly referred to as "directional".</p>
+
+<p>Other examples of classes using createLightInfo are the following. If the type of light is not specified after the LightInfo is created, it is "vector" by default.</p>
+<ul>
+    <li>class Projectile
+        <p>Sets the type to LightInfo::Point </p></li>
+    <li>class Explosion
+        <p>Does not set a LightInfo after it is created in the constructor, so by default it users Point::Vector. However, later in the "Explosion::onAdd" function it will set the type to a LightInfo::Point if the Explosion's internal information calls for it. </p></li>
+    <li>class ScatterSky
+        <p>Will set the type to LightInfo::Vector </p></li>
+</ul>
+
+<a name="Compatibility"></a>
+<h2><span class="mw-headline">Compatibility</span></h2>
+
+<p>As mentioned in the section above, the LightManager contains the pure virtual function "bool isCompatible()", which is basically self explanatory. If the subclass detects that the graphics card does not meet the requirements that it needs, it will return false. This compatibility function will be called when a light manager is assigned to the SceneGraph. When the isCompatible function is called via "bool SceneGraph::_setLightManager" and it detects that the function did not return true, it will not assign the LightManager to the SceneGraph.</p>
+
+<a name="Activating"></a>
+<h2><span class="mw-headline">Activating and Deactivating the LightManager</span></h2>
+
+<p>The LightManager will provide the function "activate" that can be overridden by its subclasses, however, the subclasses should call the LightManager::activate function from any override that is written. The activate function will ensure that the SceneManager passed in is valid, the light manager currently is not active and that no other light manager is active.</p>
+
+<a name="Using"></a>
+<h2><span class="mw-headline">Using the active LightManager</span></h2>
+
+<p>The active LightManager is available throughout the code base via the static function "LightManager *getActiveLM()", or the most commonly used #define "LIGHTMGR". The LIGHTMGR definition is used throughout the code base to utilize the fact that the LightManager is defined as a singleton.</p>
+
+<h4>Example Uses</h4>
+<pre>
+WaterBlock::setupVertexBlock(U32, U32, U32)
+</pre>
+<p>WaterBlock uses LIGHTMGR to retrive the Sun light and obtain the direction it is pointing at. </p>
+
+<pre>
+CloudLayer::renderObject(ObjectRenderInst *, SceneState *, BaseMatInstance *)
+</pre>
+<p>CloudLayer uses LIGHTMGR during rendering to help obtain the ambient color of the sun. </p>
+
+<pre>
+GuiObjectView::renderWorld(const RectI&)
+</pre>
+<p>GuiObjectWorld uses LIGHTMGR to unregister all of the lights via "LIGHTMGR->unregisterAllLights()". </p>
+
+<a name="Advanced"></a>
+<h2><span class="mw-headline">AdvancedLightManager</span></h2>
+
+<p>The AdvancedLightManager is a singleton, meaning that there is always an instance available to grab and that the class is created at the runtimes initialization. In addition to overriding the pure virtual functions from its base class, LightMananger, it will override the activate and deactivate functions. It will also overrides the way global lights are registered and unregistered. As previously mentioned in the Overview section, the AdvancedLightManager requires the graphics card to support shader model 3.0. Additional functionality over the base LightManager is the ability to look for a LightShadowMap per SimObject (if the object can cast to an ISceneLight properly).</p>
+
+<a name="Basic"></a>
+<h2><span class="mw-headline">BasicLightManager</span></h2>
+
+<p>The BasicLightManager at its base is like the AdvancedLightManager, meaning that it is a singleton, that there is always an instance available, and that the object is created at the runtime's initialization. In addition to overriding the pure virtual functions from its base class, LightMananger, it will override the activate and deactivate functions. It will also create the static method "getShadowFilterDistance" to help filter out shadows. For an example of this, take a look at the function "ProjectedShadow::_renderToTexture". </p>
+<div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

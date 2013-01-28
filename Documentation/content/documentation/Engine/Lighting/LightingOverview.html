@@ -1,0 +1,100 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 23;
+   parent.leftFrame.expandToItem('tree2', 'doc23');
+   var element = parent.leftFrame.document.getElementById('doc23');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+    <title>Torque 3D/Engine/Lighting Overview</title>
+
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<BODY id = "BODYID" onLoad = "initComponent()"  style="width: 700; padding: 10px" class="mediawiki ltr ns-0 ns-subject page-Torque3D_LightingOverview_GFX_Interface skin-monobook">
+
+                <table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2></div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#BasicLightManager"><span class="tocnumber">2</span> <span class="toctext">Basic Light Manager</span></a></li>
+                          <li class="toclevel-1"><a href="#AdvancedLightManager"><span class="tocnumber">3</span> <span class="toctext">Advanced Light Manager</span></a></li>
+                          <li class="toclevel-1"><a href="#LightInfo"><span class="tocnumber">4</span> <span class="toctext">The LightInfo Class</span></a></li>
+                          <li class="toclevel-1"><a href="#LightInfoEx"><span class="tocnumber">5</span> <span class="toctext">The LightInfoEx Class</span></a></li>
+                          <li class="toclevel-1"><a href="#SceneLightingInterface"><span class="tocnumber">6</span> <span class="toctext">SceneLightingInterface</span></a></li>
+                          <li class="toclevel-1"><a href="#AvailableSLInterfaces"><span class="tocnumber">7</span> <span class="toctext">AvailableSLInterfaces</span></a></li>
+                          <li class="toclevel-1"><a href="#ShadowManager"><span class="tocnumber">8</span> <span class="toctext">The ShadowManager Base Class</span></a></li>
+                          <li class="toclevel-1"><a href="#ShadowMapManager"><span class="tocnumber">9</span> <span class="toctext">The ShadowMapManager Class</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+<a name="Introduction"></a>
+<h2><span class="mw-headline">Introduction</span></h2>
+
+<p>The lighting system in Torque3D is set up to support Shader Model 1.0 as a minimum. While the more advanced features will requires Shader Model 3.0, this will provide a balance between users with older and newer graphics cards. The lighting system provides for the use of shadow mapping techniques and deferred rendering.</p>
+
+<p>This guide will give you a detailed analysis of the classes that create the functionality of Torque 3D's lighting system while showing you how some of them are used. In addition to the <a href="LightingTour.html">Source Code Tour</a> and <a href="LightManager.html">Light Manager Usage</a>, there are detailed function definitions for the following classes.</p>
+<a name="BasicLightManager"></a>
+<h2><span class="mw-headline">Basic Light Manager</span></h2>
+
+<p>The Basic Light Manager (<strong>class BasicLightManager</strong>) requires that the graphics card have at least Shader Model 1.0. It is an override of the abstract class LightManager to provide a simple lighting solution to lower end graphics cards. Although it is targeted to lower end graphics cards, it does still support shadowing techniques.</p>
+<a name="AdvancedLightManager"></a>
+<h2><span class="mw-headline">Advanced Light Manager</span></h2>
+
+<p>The Advanced Light Manager (<strong>class AdvancedLightManager</strong>) requires that the graphics card support at least Shader Model 3.0. Much like the 
+    <strong>BasicLightManager</strong>, it is an override of the <strong>abstract class LightManager</strong>, however, it will provide a more sophisticated lighting solution for higher end graphics cards. The Advanced Light Manager supports multiple adaptations of shadow mapping techniques such as Dual Paraboloid and Cube Shadow maps.</p>
+<a name="LightInfo"></a>
+<h2><span class="mw-headline">LightInfo</span></h2>
+
+<p>This is the base light information class that will be tracked by the engine. It basically contains a bounding volume and methods to interact with the rest of the system (for example, setting the GFX fixed function lights).</p>
+<a name="LightInfoEx"></a>
+<h2><span class="mw-headline">LightInfoEx</span></h2>
+
+<p>This is the base class for extended lighting info that lies outside of the normal info stored in LightInfo. An example of where this class will be used is for creating 
+    <strong>LightMapParams</strong> and <strong>ShadowMapParams</strong>.</p>
+<a name="SceneLightingInterface"></a>
+<h2><span class="mw-headline">SceneLightingInterface</span></h2>
+
+<p>The <strong>SceneLightingInterface</strong> object is responsible for returning 
+    <strong>PersistChunk</strong> and <strong>ObjectProxy</strong> classes for the lighting system to use. The 
+    <strong>SceneLightingInterface</strong> is used by the <strong>AvailableSLInterfaces</strong> to register systems to itself, such as "<strong>class blInteriorSystem</strong>".</p>
+<a name="AvailableSLInterfaces"></a>
+<h2><span class="mw-headline">AvailableSLInterfaces</span></h2>
+
+<p><strong>AvailableSLInterfaces</strong> makes use of the <strong>SceneLightingInterface</strong> to register lighting interfaces. By default, the 
+    <strong>BasicLightManager</strong> will register an instance of the "<strong>blInteriorSystem</strong>" and "<strong>blTerrainSystem</strong>" in its constructor.</p>
+<a name="ShadowManager"></a>
+<h2><span class="mw-headline">ShadowManager</span></h2>
+
+<p>The <strong>ShadowManager</strong> is a base class to be extended later by a more sophisticated shadow manager, such as the class 
+    <strong>ShadowMapManager</strong>. While the <strong>ShadowManager</strong> does not currently contain any pure virtual functions, creating an instance of 
+    <strong>ShadowManager</strong> will not manage any shadows.</p>
+<a name="ShadowMapManager"></a>
+<h2><span class="mw-headline">ShadowMapManager</span></h2>
+
+<p>The <strong>ShadowMapManager</strong> is a full extension of the <strong>ShadowManager</strong> where the 
+    <strong>SceneManager</strong> will be notified to add the rendering function ("_onPreRender") to its list. The rendering function will then call the render function from its currently set shadow map pass. </p>
+<div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

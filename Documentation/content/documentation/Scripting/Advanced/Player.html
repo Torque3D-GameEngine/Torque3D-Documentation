@@ -14,9 +14,9 @@
 <link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
 <script>
    // this script chunk is to update the ToC to the current doc and expand it
-   pageID = 40;
-   parent.leftFrame.expandToItem('tree2', 'doc40');
-   var element = parent.leftFrame.document.getElementById('doc40');
+   pageID = 53;
+   parent.leftFrame.expandToItem('tree2', 'doc53');
+   var element = parent.leftFrame.document.getElementById('doc53');
    if((element) && (element.className==parent.leftFrame.nodeClosedClass))
 {
    element.className = parent.leftFrame.nodeOpenClass
@@ -27,7 +27,14 @@
 <link rel="stylesheet" type="text/css" href="../../../include/container.css" />
 <link rel="stylesheet" type="text/css" href="../../../include/content.css" />
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style type="text/css">
+        .style1
+        {
+            width: 154px;
+        }
+    </style>
+</head>
 <BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_Scripting_Overview_Introduction skin-monobook">
 
 <table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
@@ -78,7 +85,7 @@ class (and it's parent classes) as well.</p>
 <p>The Player class supports the following modes of movement, known as poses:</p>
 <ul>
 <li>
-Stand </li>
+Standing </li>
 <li>
 Sprinting </li>
 <li>
@@ -95,7 +102,7 @@ activates crouching, while $mvTriggerCount4 activates being prone.</p>
 <div align="center">
 <img src="images/player_bbox.png" alt="player_bbox.png" width="700"/>
 </div>
-<p>When the player changes pose a new PlayerData callback onPoseChange() is called. This is being used as Armor::onPoseChange() to modify an animation prefix used by ShapeBaseImageData to allow the 
+<p>When the player changes its pose a new PlayerData callback onPoseChange() is called. This is being used as Armor::onPoseChange() to modify an animation prefix used by ShapeBaseImageData to allow the 
 1st person arms to change their animation based on pose.</p>
 <dl class="user"><dt><b>Example:</b></dt><dd><div class="fragment"><pre class="fragment">function Armor::onPoseChange(%<span class="keyword">this</span>, %obj, %oldPose, %newPose)
 {
@@ -103,8 +110,8 @@ activates crouching, while $mvTriggerCount4 activates being prone.</p>
    %obj.setImageScriptAnimPrefix( $WeaponSlot, addTaggedString(%newPose) );
 }
 </pre></div></dd></dl>
-<p>Another feature is being able to lock out poses for the Player at any time. This is done with allowCrouch(), allowSprinting() etc. (there is even allowJumping() and allowJetJumping() which aren't 
-actually poses but states). So if for some game play reason the player should not be allowed to crouch right now, that may be disabled. All poses may be allowed with allowAllPoses() on the Player class.</p>
+<p>Another feature is the ability to lock out poses for the Player at any time. This is done with allowCrouch(), allowSprinting() etc. There is even allowJumping() and allowJetJumping() which aren't 
+actually poses but states. So if for some game play reason the player should not be allowed to crouch right now, that can be disabled. All poses can be allowed with allowAllPoses() on the Player class.</p>
 <p>The pose lock out mechanism is being used by the weapon script system -- see Weapon::onUse(). With this system, weapons can prevent the player from going into certain poses. This is used by the 
 deployable turret to lock out sprinting while the turret is the current weapon.</p>
 <dl class="user"><dt><b>Example:</b></dt><dd><div class="fragment"><pre class="fragment">function Weapon::onUse(%data, %obj)
@@ -203,7 +210,7 @@ datablock properties as shown below:</p>
 }
 </pre></div></dd></dl>
 <p>This player will not be able to jet if he has less than 25 units of energy, and 10 units will be subtracted each tick.</p>
-<p>If PlayerData::jetJumpFore is greater than zero then $mvTriggerCount1 will activate jetting.</p>
+<p>If PlayerData::jetJumpForce is greater than zero then $mvTriggerCount1 will activate jetting.</p>
 <a name="Falling_and_Landing"></a><h2>Falling and Landing</h2>
 <p>When the player is falling they transition into the "fall" sequence. This transition doesn't occur until the player has reached a particular speed -- you don't want the 
 fall sequence to kick in if they've just gone over a small bump. This speed threshold is set by the PlayerData fallingSpeedThreshold field. By default it is set to -10.0.</p>
@@ -226,10 +233,78 @@ damage will be considered an impact. Any speed over this parameter will trigger 
 player that hits a wall to get hurt, but being thrown into a wall by an explosion will.</p>
 <a name="Dismounting"></a><h2>Dismounting</h2>
 <p>It is possible to have the player mount another object, such as a vehicle, just like any other SceneObject. While mounted, $mvTriggerCount2 will cause the player to dismount.</p>
-<a name="Triggering_a_Mounted_Object"></a><h2>Triggering a Mounted Object</h2>
+      <a name="Triggering_a_Mounted_Object"></a><h2>Triggering a Mounted Object</h2>
 <p>A Player may have other objects mounted to it, with each mounted object assigned to a slot. These Player mounted objects are known as images. See ShapeBase::mountImage(). If there 
 is an image mounted to slot 0, $mvTriggerCount0 will trigger it. If the player dies this trigger is automatically released.</p>
 <p>If there is an image mounted to slot 1, $mvTriggerCount1 will trigger it. Otherwise $mvTriggerCount1 will be passed along to the image in slot 0 as an alternate fire state.</p>
+      <p>Below is a list of the system triggers and their default purposes:</p>
+<table style="border-collapse: collapse"><tbody>
+<tr>
+    <td class="style1" 
+        style="border: thin solid #000000; border-collapse: collapse; background-color: #C0C0C0;">
+        <p>Trigger</p>
+    </td>
+    <td style="border: thin solid #000000; border-collapse: collapse; background-color: #C0C0C0;">
+        <p>Default mapping</p>
+    </td>
+</tr>
+<tr>
+    <td class="style1" 
+        style="border: thin solid #000000; border-collapse: collapse">
+        <p>$mvTriggerCount0</p>
+    </td>
+    <td style="border: thin solid #000000; border-collapse: collapse">
+        <p>fire</p>
+    </td>
+</tr>
+<tr>
+    <td class="style1" 
+        style="border: thin solid #000000; border-collapse: collapse">
+        <p>$mvTriggerCount1</p>
+    </td>
+    <td style="border: thin solid #000000; border-collapse: collapse">
+        <p>jet, activate slot 1 mounted item or alt-fire slot 0 item</p>
+    </td>
+</tr>
+<tr>
+    <td class="style1" 
+        style="border: thin solid #000000; border-collapse: collapse">
+        <p>$mvTriggerCount2</p>
+    </td>
+    <td style="border: thin solid #000000; border-collapse: collapse">
+        <p>jump, dismount</p>
+    </td>
+</tr>
+<tr>
+    <td class="style1" 
+        style="border: thin solid #000000; border-collapse: collapse">
+        <p>$mvTriggerCount3</p>
+    </td>
+    <td style="border: thin solid #000000; border-collapse: collapse">
+        <p>crouch</p>
+    </td>
+</tr>
+<tr>
+    <td class="style1" 
+        style="border: thin solid #000000; border-collapse: collapse">
+        <p>$mvTriggerCount4</p>
+    </td>
+    <td style="border: thin solid #000000; border-collapse: collapse">
+        <p>prone</p>
+    </td>
+</tr>
+<tr>
+    <td class="style1" 
+        style="border: thin solid #000000; border-collapse: collapse">
+        <p>$mvTriggerCount5</p>
+    </td>
+    <td style="border: thin solid #000000; border-collapse: collapse">
+        <p>sprint</p>
+    </td>
+</tr>
+</tbody></table>
+<p>Additionally, there are now four generic triggers available for use in weapon state machines.  To change trigger mapping, see the Member Data Documentation
+at the end of this article - specifically the *Trigger* data members (eg Player::imageTrigger0).</p>
 <a name="Character_Model"></a><h2>Character model</h2>
 <p>The following sequences are used by the Player object to animate the character. Not all of them are required, but a model should have at least the root, run, back and side animations. 
 And please see the section on Sprinting above for how they are handled when not present.</p>
@@ -400,12 +475,11 @@ and if not found, they will play the "idle" sequence.</p>
    ...weapon state machine here...
 };
  
-datablock ShapeBaseImageData(Pistol2Image : Pistol1Image)
+datablock <a class="code" href="classShapeBaseImageData.html" title="Represents geometry to be mounted to a ShapeBase object.">ShapeBaseImageData</a>(Pistol2Image : Pistol1Image)
 {
    imageAnimPrefixFP = <span class="stringliteral">&quot;Pistol2&quot;</span>;
 };
-</pre>
-</div></dd></dl>
+</pre></div></dd></dl>
 <p>You could define a new pistol (Pistol2Image) that uses the exact same state machine as Pistol1Image, but could use a slightly different set of animation sequences with a prefix of "Pistol2".</p>
 <p>As was previously discussed with 3rd person animation above, a script-based modifier may also be added when looking up the sequence name for the arms. This is currently used to pass along the player's pose so the arm's idle sequence could have a swimming motion when in the swim pose, for example. And as with images, the arms sequence name look up uses the following order to find a sequence to play, with the first one found being used:</p>
 <ul>

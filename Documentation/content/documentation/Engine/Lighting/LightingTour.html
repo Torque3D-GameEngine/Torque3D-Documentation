@@ -1,0 +1,148 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 26;
+   parent.leftFrame.expandToItem('tree2', 'doc26');
+   var element = parent.leftFrame.document.getElementById('doc26');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+    <title>Torque 3D/Engine/Lighting Source Code Tour</title>
+
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<BODY id = "BODYID" onLoad = "initComponent()"  style="width: 700; padding: 10px" class="mediawiki ltr ns-0 ns-subject page-Torque3D_LightingOverview_GFX_Interface skin-monobook">
+
+                <table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2></div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#LightingCore"><span class="tocnumber">2</span> <span class="toctext">The Lighting Core</span></a></li>
+                          <li class="toclevel-1"><a href="#Basic"><span class="tocnumber">3</span> <span class="toctext">Basic Lighting</span></a></li>
+                          <li class="toclevel-1"><a href="#Advanced"><span class="tocnumber">4</span> <span class="toctext">Advanced Lighting</span></a></li>
+                          <li class="toclevel-1"><a href="#Common"><span class="tocnumber">5</span> <span class="toctext">Common Lighting Classes</span></a></li>
+                          <li class="toclevel-1"><a href="#ShadowMap"><span class="tocnumber">6</span> <span class="toctext">Shadow Maps</span></a></li>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+<a name="Introduction"></a>
+<h2><span class="mw-headline">Introduction</span></h2>
+
+<p>This document will explain the source code folders and files that make up Torque 3D's lighting system. If you have not done so already, make sure you read the following docs first:</p>
+<ul>
+    <li><a href="../../Setup/Overview.html">Torque 3D Overview</a>, especially the appropriate development environment setup for your compiler.</li>
+
+    <li><a href="../../Introduction/DirectoryOverview.html">Torque 3D Directory Overview</a></li>
+</ul>
+<a name="LightingCore"></a>
+<h2><span class="mw-headline">The Lighting Core</span></h2>
+
+<p>You can find the core Lighting files in engine/lighting. Most of the classes in these files will be derivatives of more sophisticated types. For example, the class LightManager from engine/lighting/lightManager.h is the derivative of AdvancedLightManager from engine/lighting/advanced/advancedLightManager.h.</p>
+
+<h4>Key Classes</h4>
+<ul>
+    <li><strong>LightInfoEx :</strong> Located in <em>engine/lighting/lightInfo.h</em>
+        <p>This is the base class for extended lighting info that lies outside of the normal info stored in LightInfo. </p></li>
+    <li><strong>LightInfo :</strong> Located in <em>engine/lighting/lightInfo.h</em>
+        <p>This is the base light information class that will be tracked by the engine. Should basically contain a bounding volume and methods to interact with the rest of the system. </p></li>
+    <li><strong>ISceneLight :</strong> Located in <em>engine/lighting/lightInfo.h</em>
+        <p>When the scene is queried for lights, the light manager will get this interface to trigger a register light call. </p></li>
+    <li><strong>AvailableSLInterfaces :</strong> Located in <em>engine/lighting/lightingInterfaces.h</em>
+        <p>List of available "systems" that the lighting system can use. </p></li>
+    <li><strong>LightManager :</strong> Located in <em>engine/lighting/lightManager.h</em>
+        <p>This is the base class for extending a lighting manager to support lighting features. </p></li>
+    <li><strong>ShadowManager :</strong> Located in <em>engine/lighting/shadowManager.h</em>
+        <p>This is the base class for extending a shadow manager to support more advanced shadowing techniques such as shadow maps. </p></li>
+</ul>
+
+<a name="Basic"></a>
+<h2><span class="mw-headline">Basic Lighting</span></h2>
+
+<p>The basic lighting system that is created in Torque3D requires at least Shader Model 1.0. Much like the advanced lighting code, the basic lighting system is an override of already created classes from the lighting core (engine/lighting) that resides in engine/lighting/basic.</p>
+
+<h4>Key Classes</h4>
+<ul>
+    <li><strong>BasicLightManager :</strong> Located in <em>engine/lighting/basic/basicLightManager.h</em>
+        <p>The <strong>BasicLightManager</strong> is an override of the <strong>LightManager</strong> that will provide a lighting system for low end cards, it only requires shader model 1.0. </p></li>
+    <li><strong>BasicSceneObjectLightingPlugin :</strong> Located in <em>engine/lighting/basic/BasicSceneObjectLightingPlugin.h</em>
+        <p>A <strong>BasicSceneObjectLightingPlugin</strong> is an override of the <strong>SceneObjectLightingPlugin</strong> that is used by the 
+            <strong>BasicLightManager</strong> during it's <strong>_onPreRender</strong> function for updating shadow plugins. </p></li>
+</ul>
+
+<a name="Advanced"></a>
+<h2><span class="mw-headline">Advanced Lighting</span></h2>
+
+<p>Torque3D takes advantage of Shader Model 3.0 to allow advanced lighting technqiues. The source code in engine/lighting/advanced is an override of already created classes from the lighting core (engine/lighting) to implement these techniques.</p>
+
+<h4>Key Classes</h4>
+<ul>
+    <li><strong>AdvancedLightingFeatures :</strong> Located in <em>engine/lighting/advanced/advancedLightingFeatures.h</em>
+        <p>The <strong>AdvancedLightingFeatures</strong> class provided static methods for registering and unregistering features to the Feature Manager (<strong>FeatureMgr</strong>). When the function 
+            <strong>registerFeatures</strong> is scalled it will features related to lighting based upon the 
+            <strong>GFXFormat</strong> passed into the function. These features are defined in "<em>Engine/source/materials/materialFeatureTypes.h</em>" and have the prefix "<strong>MFT_</strong>". </p></li>
+    <li><strong>AdvancedLightManager :</strong> Located in <em>engine/lighting/advanced/advancedLightManager.h</em>
+        <p>The <strong>AdvanceLightManager</strong> is an override of <strong>LightManager</strong> that provides a setup for the deferred rendering system. 
+            <strong>AdvanceLightManager</strong> requires at least shader model 3.0. </p></li>
+</ul>
+
+<a name="Common"></a>
+<h2><span class="mw-headline">Common Lighting Classes</span></h2>
+
+<p>Common is a place where classes that do not particularly fit in one designated area, such as advanced or lighting. The are not considered core classes of the lighting system either. In here you will find classes that will be used to assist in implementing features for the lighting system.</p>
+
+<h4>Key Classes</h4>
+<ul>
+    <li><strong>ShadowBase :</strong> Located in <em>engine/lighting/common/shadowBase.h</em>
+        <p>The <strong>ShadowBase</strong> class is an abstract class containing all pure virtual functions that will be overwritten by the shadow technique using them. </p></li>
+    <li><strong>BlobShadow :</strong> Located in <em>engine/lighting/common/blobShadow.h</em>
+        <p>A <strong>BlodShadow</strong> is one of the basic ways you may use the <strong>ShadowBase</strong> class. The 
+            <strong>BlobShadow</strong> is just a shadow based upon a radius. </p></li>
+    <li><strong>LightMapParams :</strong> Located in <em>engine/lighting/common/lightMapParams.h</em>
+        <p>The <strong>LightMapParams</strong> is an override of the <strong>LightInfoEx</strong> from the lighting core. Most "<strong>LightShadowMap</strong>" based classes will use 
+            <strong>LightMapParams</strong> in their render function to determine if it should use light mapped geometry. As 
+            <strong>LightMapParams</strong> are a super class of <strong>LightInfoEx</strong>, they will be grabbed by LightInfo's "<strong>getExtended</strong>" function as a parameter type. </p></li>
+</ul>
+
+<a name="ShadowMap"></a>
+<h2><span class="mw-headline">Shadow Maps</span></h2>
+
+<p>There are a wide range of shadow maps available in Torque3D, such as the Paraboloid Shadow Map. This folder contains a common base class for many shadow maps to override (LightShadowMap) and also an override of the ShadowManager class from the lighing core folder that is named "ShadowMapManager".</p>
+
+<h4>Key Classes</h4>
+<ul>
+    <li><strong>ShadowMapManager :</strong> Located in <em>engine/lighting/shadowMap/shadowMapManager.h</em>
+        <p>The <strong>ShadowMapManager</strong> is used to render a shadow map pass via its 
+            <strong>onPreRender</strong> function that is triggered by a signal of the 
+            <strong>SceneGraph</strong>. </p></li>
+    <li><strong>LightShadowMap :</strong> Located in <em>engine/lighting/shadowMap/lightShadowMap.h</em>
+        <p>Represents everything Torque 3D needs to render a shadow map for one light. </p></li>
+    <li><strong>DualParaboloidLightShadowMap :</strong> Located in <em>engine/lighting/shadowMap/dualparaboloidLightShadowMap.h</em>
+        <p>The <strong>DualParaboloidLightShadowMap</strong> class uses the Dual Paraboloid shadow mapping technique and is an override of the 
+            <strong>ParabolidLightShadowMap</strong> class, which is an override of the 
+            <strong>LightShadowMap</strong>. </p></li>
+</ul>
+<div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

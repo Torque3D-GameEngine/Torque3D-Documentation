@@ -1,0 +1,263 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 5;
+   parent.leftFrame.expandToItem('tree2', 'doc5');
+   var element = parent.leftFrame.document.getElementById('doc5');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Texture Compression</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+
+<BODY id = "BODYID" onLoad = "initComponent()" >
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td width="700">
+        <table border="0" cellpadding="0" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          </div>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#DDSFormat"><span class="tocnumber">2</span> <span class="toctext">The DDS Image Format</span></a></li>
+                          <li class="toclevel-1"><a href="#ExampleSoldier"><span class="tocnumber">3</span> <span class="toctext">Soldier Imperial Sample</span></a></li>
+                          <li class="toclevel-1"><a href="#ExampleGGLogo"><span class="tocnumber">4</span> <span class="toctext">GarageGames Logo Sample</span></a></li>
+                          <li class="toclevel-1"><a href="#CompressinGuidelines"><span class="tocnumber">4</span> <span class="toctext">DDS Compression Guidelines</span></a></li>
+                          <li class="toclevel-1"><a href="#Conversion"><span class="tocnumber">4</span> <span class="toctext">How to Convert to DDS</span></a></li>
+                          <li class="toclevel-1"><a href="#Reading"><span class="tocnumber">4</span> <span class="toctext">References and Further Reading</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">4</span> <span class="toctext">Conclusion</span></a></li>                          
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Introduction"></a>
+<h3>Introduction</h3>
+<p>Torque 3D is capable of using DDS compressed textures and is in fact optimized 
+    for them.&nbsp; This article is intended to help you to understand the different 
+    compression options available and how you can use them to reduce distribution 
+    package size while maintaining high visual quality in your titles.</p>
+
+<h4>Required Knowledge</h4>
+<ul><li>Basic understanding of Textures and their uses in games.</li></ul>
+<h4>Power of 2 Rule</h4>
+<p>Because of limitations on most Video Cards (GPUs), the dimensions of a texture must be a power of 2 number. Really, what it comes down to is on pretty much any platform past 2007 (post iPhone) it is safe to use one of the following numbers for either the height or width (in pixels) of the image: 4, 8, 16, 32, 64, 128, 256, 512, or 1024. If you&#39;re aiming at the current generation of consoles (xbox 360, ps3) or PC's newer than 2005 then you should be able to go as high as 2048.  While most games will use square dimensions (ex: 1024x1024), you can really do any power of 2 combination for width and height.  So 128x1024, 64x256, and 512x2 would all be valid dimensions.</p>
+<p>If you accidentally save out an image that isn’t a power of 2 size the GPU will automatically scale it down to the next closest size,H which increases load time and reduces your image quality. If you’re not sure what your target platform supports, speak to a 
+    graphics programmer on your team or do a quick web search.</p>
+
+<a name="DDSFormat"></a>
+<h3>The DDS Image Format</h3>
+<p>While Torque 3D can load many different image formats, for most projects we recommend that you use DDS for all 
+    of your images that will ship with the final game.  This next section will dig pretty deeply into why and how to take advantage of DDS images.</p>
+<p>One thing to understand about how game engines load images is that before they are loaded into memory they must first be converted to a format that can be quickly accessed by the GPU.  This involves creating mip-maps (scaled down versions of the image) and either compressing the image so it takes up less video memory or leaving it uncompressed (which would use 8 times more memory than the average texture in most video games). DDS however can skip this step because it is actually a container for the same exact formats that the GPU needs.</p>
+<p>Something else to consider is texture sizes on disk and sizes when they&#39;re packaged for the installer (which we roughly determine by  zipping it):</p>
+<table align="center"><tbody><tr><td>
+                  <img src="images/pistol-d-uncompressed.png" />
+</td></tr>
+<tr><td style="text-align: center">
+    <em>512x512 Texture used for testing</em>
+</td></tr></tbody></table>
+<br />
+<table style="border: thin solid #000000; width: 700; border-collapse: collapse;"><tbody>
+    <tr>
+        <td style="border: thin solid #000000; border-collapse: collapse;"></td>
+        <td style="border: thin solid #000000; border-collapse: collapse;">JPG (80% Quality)</td>
+        <td style="border: thin solid #000000; border-collapse: collapse;">PNG (24bit, No Alpha)</td>
+        <td style="border: thin solid #000000; border-collapse: collapse;">DDS (BC1)</td>
+        <td style="border: thin solid #000000; border-collapse: collapse;">DDS (BC3)</td>
+    </tr>
+    <tr>
+        <td style="border: thin solid #000000; border-collapse: collapse;">Unzipped</td>
+        <td style="border: thin solid #000000; border-collapse: collapse;">63kb</td>
+        <td style="border: thin solid #000000; border-collapse: collapse;">224kb</td>
+        <td style="border: thin solid #000000; border-collapse: collapse;">170kb</td>
+        <td style="border: thin solid #000000; border-collapse: collapse;">341kb</td>
+    </tr>
+    <tr>
+        <td style="border: thin solid #000000; border-collapse: collapse;">Zipped</td>
+        <td style="border: thin solid #000000; border-collapse: collapse;">62kb</td>
+        <td style="border: thin solid #000000; border-collapse: collapse;">224kb</td>
+        <td style="border: thin solid #000000; border-collapse: collapse;">84kb</td>
+        <td style="border: thin solid #000000; border-collapse: collapse;">97kb</td>
+    </tr>
+</tbody></table>
+<p>At this point we can see the major pros and cons of DDS that should help you determine if it's right for your project:</p>
+<ul>
+    <li><strong>PRO</strong>: Loads faster</li>
+    <li><strong>PRO</strong>: Fewer artifacts when compared to converting a lossy format (like JPEG) at runtime.</li>
+    <li><strong>PRO</strong>: Install packaged (zipped) size is smaller when compared to PNG (non-lossy).</li>
+    <li><strong>CON</strong>: Install packaged (zipped) size is larger when compared to JPEG (lossy).</li>
+    <li><strong>CON</strong>: Size on disk is larger than other formats.</li>
+</ul>
+<p>Now that we understand the basic reasons why DDS is used in most modern games, it’s time to get into what types of compression to use for different situations.  A DDS file is really a container for different types of image compression that are optimized for how the texture is intended to be used.  So instead of just a percentage of compression that you get when saving to a JPEG, you have names for different types of compression that have their own advantages and disadvantages in terms of quality and file size.  There are a 
+    number of different types, but for the majority of textures and for most developers  there are only 4 types that (as of  10/2011) you really need to be aware of:</p>
+<ul>
+    <li><strong>Uncompressed</strong></li>
+    <li><strong>BC1</strong> (8:1 compression or 6:1 if using alpha.  Known as <strong>DXT1</strong> prior to DirectX 10)</li>
+    <li><strong>BC3</strong> (4:1 compression.  Known as <strong>DXT5</strong> prior to DirectX 10)</li>
+    <li><strong>BC3n</strong> (4:1 compression.  Specifically for normal maps)</li>
+</ul>
+<p>Here are some images comparing artifacts caused by compression using BC1 and BC3:</p>
+<a name="ExampleSoldier"></a>
+<table style="border: thin solid #000000; border-collapse: collapse;"><tbody>
+<tr>
+    <td style="border: thin solid #000000; border-collapse: collapse">
+        <h3>Soldier Imperial Sample</h3>
+        <p>An example of the compression artifacts you might get from most textures.  As you can see, for most diffuse and specular textures we can compress to BC1 and not expect to see many artifacts.</p>
+        <p><em>(Use Ctrl + Wheel Up/Down or Ctrl + = / - to get your browser to zoom in/out; Ctrl + 0 to reset zoom)</em></p>
+    </td>
+</tr>
+<tr style="text-align: center">
+    <td>
+        <img src="images/soldier_imperial_1.png" />
+    </td>
+</tr>
+<tr style="text-align: center">
+    <td>
+        <p><em>Uncompressed</em></p>
+    </td>
+</tr>
+<tr style="text-align: center">
+    <td>
+        <img src="images/soldier_imperial_2.png" /><img src="images/soldier_imperial_3.png" />
+    </td>
+</tr>
+<tr style="text-align: center">
+    <td>
+        <p><em>BC1 Compression and Exaggerated Difference</em></p>
+        <p><em>42.8kb (30.5kb zipped)</em></p>
+    </td>
+</tr>
+<tr style="text-align: center">
+    <td>
+        <img src="images/soldier_imperial_4.png" /><img src="images/soldier_imperial_5.png" />
+    </td>
+</tr>
+<tr style="text-align: center">
+    <td>
+        <p><em>BC3 Compression and Exaggerated Difference</em></p>
+        <p><em>85.4kb  (34.7kb zipped)</em></p>
+    </td>
+</tr>
+</tbody></table>
+
+<br />
+<a name="ExampleGGLogo"></a>
+<table style="border: thin solid #000000; width: 700px; border-collapse: collapse; empty-cells: hide;"><tbody>
+<tr>
+    <td colspan="3">
+        <h3>GarageGames Logo Sample</h3>
+        <p>An example that shows differences with transparent images.  From this we can see that BC1 only supports 1 bit alpha and BC3 can do gradient alphas.</p>
+    </td>
+</tr>
+<tr style="text-align: center">
+    <td style="border: thin solid #000000; border-collapse: collapse">
+        <img src="images/gg-logo-uncompressed.png" />
+    </td>
+    <td style="border: thin solid #000000; border-collapse: collapse">
+        <img src="images/gg-logo-bc1.png" />
+    </td>
+    <td style="border: thin solid #000000; border-collapse: collapse">
+        <img src="images/gg-logo-bc3.png" />
+    </td>
+</tr>
+<tr style="text-align: center">
+    <td style="border: thin solid #000000; border-collapse: collapse"> 
+        <p><em>Uncompressed</em></p>
+        <p><em>85.4kb (20.1kb zipped)</em></p>
+    </td>
+    <td style="border: thin solid #000000; border-collapse: collapse">
+        <p><em>BC1</em></p>
+        <p><em>10.8kb (4.71kb zipped)</em></p>
+    </td>
+    <td style="border: thin solid #000000; border-collapse: collapse">
+        <p><em>BC3</em></p>
+        <p><em>21.4kb (9.81kb zipped)</em></p>
+    </td>
+</tr>
+</tbody></table>
+<a name="CompressinGuidelines"></a>
+<h3>DDS Compression Guidlines</h3>
+<p>For most games, we can just follow these general guidelines: </p>
+<ul>
+    <li><strong>GUI Images:</strong>
+    <p>In pretty much any situation you will want to use uncompressed DDS images for GUIs.  Compressed GUI images would have too many artifacts to get the smooth clean edges you’d want for most GUIs. </p></li>
+
+    <li><strong>Energy Effects:
+    </strong>
+    <p>For most effects you will want to blend their materials using the “Add” transparency blending option.  This adds the color value of the texture to whatever is behind the object, making black completely transparent and white fully visible.  This means we don’t need the alpha and we can just use BC1 with no alpha.</p></li>
+
+    <li><strong>Decals:
+    </strong>
+    <p>Because decal polygons are sorted differently than shape polygons, it can take advantage of full range transparency (0%, 100%, and everything in between).  In this case we would usually want to use BC3.</p></li>
+
+    <li><strong>Diffuse Textures without Transparency:</strong>
+    <p>For most textures that don’t need an alpha map (diffuse, specular, etc.) you should be fine using BC1 without the alpha. </p></li>
+
+    <li><strong>Diffuse Textures with Transparency:
+    </strong>
+    <p>In most situations when making a transparent material you’ll want to turn on Alpha Threshold (aka Alpha Test) to avoid sorting issues.  This makes the transparent pixels be interperted as either 100% or 0% with no values in between.  So for situations like this BC1 with the alpha included works great because its transparency is stored as either black or white.</p></li>
+
+    <li><strong>Specular Maps:
+    </strong>
+    <p>Since alpha isn’t used in most cases for the specular map and we don’t usually need it to be very accurate, BC1 without alpha should do fine in most cases.</p></li>
+
+    <li><strong>Normal Maps:
+    </strong>
+    <p>Normal maps don’t compress very well when using most DDS compression algorithms.  This is because compression formats like BC1 and BC3 are designed for standard color textures, where the artifacts aren’t very noticable.  But because normal maps require a different type of accuracy for calculating shading, the same artifacts that wouldn’t be visible in a diffuse texture are very noticable when rendered as normals.  Because of this you should use BC3n, which is really just BC3 but before compressing the image it modifies it to reduce artifacts in normal maps.  In Torque 
+        3D, if you try to use a BC3 compressed DDS in the normal map slot it will assume that it was saved using the BC3n technique.</p></li>
+</ul>
+
+<a name="Conversion"></a>
+<h3>How to convert to DDS</h3>
+<p>There many tools for converting to DDS, and all get the job done pretty well.  At GarageGames we use <a href="http://developer.nvidia.com/gpu-accelerated-texture-compression" class="external text">Nvidia Texture Tools</a>, but for most users we recommend using the <a href="http://developer.nvidia.com/nvidia-texture-tools-adobe-photoshop" class="external text">Photoshop DDS plugin</a> by Nvidia.</p>
+<p>The photoshop plugin is pretty straight forward; just save as DDS and a dialog will pop open with compression options.  You’ll see here the names for  BC1, BC3, and BC3n are called by their old names (DXT1, DXT5, and DXT5_NM).  Here is a quick reference image:</p>
+                  <img src="images/ps-dds-plugin-dialog.png" />
+ <a name="Reading"></a>
+<h3>References and Further reading:</h3>
+<ul>
+    <li>2011 DDS wiki doc on <a href="http://tech-artists.org/wiki/DDS" 
+            class="external text">Tech-Artists.org</a> </li>
+    <li>2011 Block Compression on 
+        <a href="http://msdn.microsoft.com/en-us/library/bb694531.aspx" 
+            class="external text">MSDN</a> </li>
+    <li>2008 Real-Time Normal Map DXT Compression by 
+        <a href="http://origin-developer.nvidia.com/object/real-time-normal-map-dxt-compression.html" 
+            class="external text">Id Software</a> </li>
+    <li>2004 Bump Map Compression doc by 
+        <a href="ftp://download.nvidia.com/developer/Papers/2004/Bump_Map_Compression/Bump_Map_Compression.pdf" 
+            class="external text">Nvidia</a> </li>
+    <li>2008 NVISION08 
+        <a href="https://docs.google.com/viewer?url=http://www.nvidia.com/content/nvision2008/tech_presentations/Game_Developer_Track/NVISION08-Direct3D_11_Overview.pdf" 
+            class="external text">Direct3D 11 Overview</a> </li>
+</ul>
+
+<a name="Conclusion"></a>
+<h3>Conclusion</h3>
+<p>You should now have a basic understanding of converting and using DDS compressed textures with Torque 3D.</p>
+
+</td></tr></table><div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

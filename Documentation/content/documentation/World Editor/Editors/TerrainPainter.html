@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
 <SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
@@ -14,9 +14,9 @@
 <link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
 <script>
    // this script chunk is to update the ToC to the current doc and expand it
-   pageID = 93;
-   parent.leftFrame.expandToItem('tree2', 'doc93');
-   var element = parent.leftFrame.document.getElementById('doc93');
+   pageID = 107;
+   parent.leftFrame.expandToItem('tree2', 'doc107');
+   var element = parent.leftFrame.document.getElementById('doc107');
    if((element) && (element.className==parent.leftFrame.nodeClosedClass))
 {
    element.className = parent.leftFrame.nodeOpenClass
@@ -98,7 +98,8 @@
                 <p><img alt="Image:TerrainPainterMenu.jpg" src="images/TerrainPainterMenu.jpg" border="0" width="213" height="152" /> </p>
                 <p><br />
                   The other method is to click the Terrain Editor shortcut in the Toolbar: </p>
-                <p><img alt="Image:TerrainPainterShortcut.jpg" src="images/TerrainPainterShortcut.jpg" border="0" width="300" height="84" /> </p>
+                <p><img alt="Image:TerrainPainterShortcut.jpg" 
+                        src="images/TerrainPainterShortcut.jpg" border="0" /> </p>
                 
                 <p><br />There are four main areas of the interface you will focus on while using this tool.</p>
                 <h2>The Brush</h2>
@@ -110,7 +111,8 @@
                 <p><br />
                   The image shown above is displaying the default brush style when you first open the Terrain Painter. If you wish to change your brush type, you can modify it via the Brush Settings found in the Tool Settings toolbar at the top of the screen. Brush Settings are only active while using the Terrain Painter. </p>
                 <p><br />
-                  <img alt="Image:PainterBrushSettings.jpg" src="images/PainterBrushSettings.jpg" border="0" width="250" height="30" /> </p>
+                  <img alt="Image:PainterBrushSettings.jpg" src="images/PainterBrushSettings.jpg" 
+                        border="0" /> </p>
                 <p><br />
                   The first setting allows you to choose your brush shape. The
                   default option is a circle. If you click on the square shape, your
@@ -143,7 +145,7 @@
                 <h2> <span class="mw-headline">Terrain Materials Editor</span></h2>
                 <p>When you wish to add a new TerrainMaterial, click on the New Layer entry in the palette. </p>
                 <p><br />
-                  <img alt="Image:NewLayerButton.jpg" src="images/NewLayerButton.jpg" border="0" width="201" height="48" /> </p>
+                  <img alt="Image:NewLayerButton.jpg" src="images/NewLayerButton.jpg" border="0" /> </p>
                 <p><br />
                   Once you click on the entry, the Terrain Materials Editor window will appear. This tool is completely separate from the basic <a href="MaterialEditor.html">Material Editor</a>, as TerrainMaterials are structured and used much differently than other Torque 3D materials which are used on shapes in the world placed with the World Editor. </p>
                 <p><br />
@@ -185,14 +187,15 @@
                 <img alt="Image:TerrainMaterialEditor.jpg" src="images/TerrainMaterialEditor.jpg" border="0" width="391" height="318" /> </p>
                 <p><br />
                   Once you have the material selected, click the Apply & Select button. Once you have done this, the new layer will have been added to your palette and available for painting.</p>
-                  <p><br />This is a good time to take a look behind the scenes to understand a little of how Torque 3D organizes materials and how it uses them for other operations to your advantage.What you can not see in the interface is that the system has associated each of the TerrainMaterials in your palette with a numbered layer. Throughout these documents you will see, or may have already seen, that material layers are used to control aspects of object placement such as which layer automatic object placement will occur on. </p>
-                  <p><br />If you started with a project that was created with the Full template and added the rocktest material in the last step then the system now considersgrass1 to be layer0 and rocktest to be layer1. This allows you, whenever asked, to select layers using something meaningful to you rather than remembering some random numbering system. When asked to select a layer you can simply pick the grass or rocktest layer from a list and the system will use and apply the proper numbered layer to perform the related operation. </p>
+                  <p><br />This is a good time to take a look behind the scenes to understand a little of how Torque 3D organizes materials and how it uses them for other operations to your advantage. What you can not see in the interface is that the system has associated each of the TerrainMaterials in your palette with a numbered layer. Throughout these documents you will see, or may have already seen, that material layers are used to control aspects of object placement such as which layer automatic object placement will occur on. </p>
+                  <p><br />If you started with a project that was created with the Full template and added the rocktest material in the last step then the system now considers grass1 to be layer0 and rocktest to be layer1. This allows you, whenever asked, to select layers using something meaningful to you rather than remembering some random numbering system. When asked to select a layer you can simply pick the grass or rocktest layer from a list and the system will use and apply the proper numbered layer to perform the related operation. </p>
                   <p><br />All this becomes very important in reducing the amount of work that is needed to create realistic terrain. The TerrainMaterials that you apply with the Terrain Painter tool not only give the terrain the appearance of natural materials but they can be used to automatically generate and restrict foliage and other shapes when used in conjunction with objects such as GroundCover.</p>
                 <p><br />
                   <p><img alt="Image:PainterPalette.jpg" src="images/PainterPaletteRocks.jpg" border="0" width="210" height="410" /> </p>
                 <p><br />
                   Now, on to learning to paint. Make sure you have the new material selected in the Terrain Painter Material Selector. So we can more easily see the modifications we are about to make, set your brush size to about 25. </p>
-                <p><img alt="Image:PainterIncreaseCameraSize.jpg" src="images/PainterIncreaseCameraSize.jpg" border="0" width="115" height="42" /> </p>
+                <p><img alt="Image:PainterIncreaseCameraSize.jpg" 
+                        src="images/PainterIncreaseCameraSize.jpg" border="0" /> </p>
                 <p><br />
                   Now, find a section of the terrain you wish to paint. Here, we started in a corner of the TerrainBlock. </p>
                 <p><br />
@@ -210,7 +213,8 @@
                 <a href="images/PainterBrushClamping.jpg" class="livethumbnail"><img src="images/PainterBrushClamping.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
                 <p><br />
                   Even though you just paved a large section of rock material, you can still paint over it. Decrease the Brush Size to approximately 9, so we can paint a more exact line of terrain. </p>
-                <p><img alt="Image:PainterSetCamera9.jpg" src="images/PainterSetCamera9.jpg" border="0" width="114" height="36" /> </p>
+                <p><img alt="Image:PainterSetCamera9.jpg" src="images/PainterSetCamera9.jpg" 
+                        border="0" /> </p>
                 <p><br />
                   We are going to paint a path over our rocky area. In the Terrain Painter palette, select the first material (desert_sand_03 in this image). </p>
                 <p><img alt="Image:SwitchToDesert.jpg" src="images/SwitchToDesert.jpg" border="0" width="208" height="408" /> </p>
@@ -220,7 +224,8 @@
                   <i>(click to enlarge)</i> </p>
                 <a href="images/PaintPathBefore.jpg" class="livethumbnail"><img src="images/PaintPathBefore.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
                 <p><br />
-                  Click and hold down the left mouse button to begin painting then sweep your mouse in a curving motion across the rocky area. When you are finished, let go of the mouse and examine or your winding path made of grass.</p>
+                  Click and hold down the left mouse button to begin painting then sweep your mouse in a curving motion across the rocky area. When you are finished, let go of the mouse and examine or your winding path made of 
+                    sand.</p>
                 <p><br />
                   <i>(click to enlarge)</i> </p>
                 <a href="images/PathPaintAfter.jpg" class="livethumbnail"><img src="images/PathPaintAfter.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
