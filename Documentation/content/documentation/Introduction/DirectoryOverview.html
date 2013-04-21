@@ -14,9 +14,9 @@
 <link href="../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
 <script>
    // this script chunk is to update the ToC to the current doc and expand it
-   pageID = 33;
-   parent.leftFrame.expandToItem('tree2', 'doc33');
-   var element = parent.leftFrame.document.getElementById('doc33');
+   pageID = 44;
+   parent.leftFrame.expandToItem('tree2', 'doc44');
+   var element = parent.leftFrame.document.getElementById('doc44');
    if((element) && (element.className==parent.leftFrame.nodeClosedClass))
 {
    element.className = parent.leftFrame.nodeOpenClass
@@ -29,14 +29,6 @@
 <title>Getting Started - Directory Overview</title>
 <style type="text/css" media="screen, projection"></style>
 
-<style type="text/css">
-.style1 {color: #000000}
-.style3 {
-	font-family: Geneva, verdana, arial, helvetica, sans-serif;
-	font-size: 12px;
-}
-
-</style>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
 <BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ns-0 ltr page-Main_Page_torque3d_gettingstarted_directoryrefactor">
 
@@ -77,46 +69,31 @@
                 <table width="700" border="1" cellpadding="7" cellspacing="0">
                   <tbody>
                     <tr valign="top">
-                      <td width="62" bgcolor="#6699ff"><p class=" western "><strong><i>Folder</i></strong></p></td>
+                      <td width="62" bgcolor="#6699ff" style="background-color: #6699ff"><p class=" western "><strong><i>Folder</i></strong></p></td>
                       <td bgcolor="#6699ff"><p class=" western "><strong><i>Description</i> </strong></p></td>
                     </tr>
                     <tr valign="top">
-                      <td width="62" bgcolor="#eeeeee"><p> <img alt="Image:root.jpg" 
+                      <td width="62" bgcolor="#eeeeee" style="background-color: #FFFFFF"><p> 
+                          <img alt="image:" 
                               src="images/Root.jpg" border="0" /> </p></td>
                       <td bgcolor="#eeeeee"><p> <font face="Arial, sans-serif"><font style="font-size: 8pt;" size="1">This is your Torque 3D root directory. From here, you can navigate through the rest of the SDK. Most importantly, the Torque 3D Toolbox is located in this directory. This is what you will run when you wish to create new projects, edit existing ones, run the editors, and so on. <br />
                           <br />
                       </font></font></p></td>
                     </tr>
                     <tr valign="top">
-                      <td width="62" bgcolor="#eeeeee"><p> <img alt="Image:demos.jpg" 
-                              src="images/Demos.jpg" border="0" /> </p></td>
-                      <td bgcolor="#eeeeee"><p> <font face="Arial, sans-serif"><font style="font-size: 8pt;" size="1">The
-                          Demos folder contains sample projects that serve a specific purpose. These projects are meant to show off engine features, and not game play or tutorials.<br />
-                          <br />
-                          You can use these projects as a reference on how other developers have prototyped simple demonstrations with Torque 3D tech.</font></font> </p></td>
-                    </tr>
-                    <tr valign="top">
-                      <td width="62" bgcolor="#eeeeee"><p> <img alt="Image:demoesexample.jpg" 
-                              src="images/Demoesexample.jpg" border="0" /> </p></td>
-                      <td bgcolor="#eeeeee"><p> <font face="Arial, sans-serif"><font style="font-size: 8pt;" size="1">
-					  A project in the Demos folder acts as a stand alone Torque 3D application. The folder structure and core files are similar to what you may find in other standard projects.<br />
-                          <br />
-                          Exactly how a Torque 3D project is structured is covered <a href="#Torque_3D_Project_Tour">here</a>.</font></font> </p></td>
-                    </tr>
-                    <tr valign="top">
-                      <td width="62" bgcolor="#eeeeee"><p> <img alt="Image:documentation.jpg" 
+                      <td width="62" bgcolor="#eeeeee" style="background-color: #FFFFFF"><p> <img alt="Image:documentation.jpg" 
                               src="images/Documentation.jpg" border="0" /> </p></td>
                       <td bgcolor="#eeeeee"><p> <font face="Arial, sans-serif"><font style="font-size: 8pt;" size="1">
                           The Documentation folder is self-descriptive. In this directory, you can find the Official Documentation for Torque 3D (the documentation you are currently reading). This is also where the Engine Reference docs will be located.<br /></font></font></p></td>
                     </tr>
                     <tr valign="top">
-                      <td width="62" bgcolor="#eeeeee"><p> <img alt="Image:engine.jpg" 
+                      <td width="62" bgcolor="#eeeeee" style="background-color: #FFFFFF"><p> <img alt="Image:engine.jpg" 
                               src="images/Engine.jpg" border="0" /> </p></td>
                       <td bgcolor="#eeeeee"><p> <font face="Arial, sans-serif"><font style="font-size: 8pt;" size="1">
 					  A large portion of the Torque 3D SDK is kept in the Engine directory. The libraries, binaries, and source files that allow you to build the Torque 3D engine are located here.</font></font> </p></td>
                     </tr>
                     <tr valign="top">
-                      <td width="62" bgcolor="#eeeeee"><p> <img alt="Image:bin.jpg" src="images/Bin.jpg" 
+                      <td width="62" bgcolor="#eeeeee" style="background-color: #FFFFFF"><p> <img alt="Image:bin.jpg" src="images/Bin.jpg" 
                               border="0" /> </p></td>
                       <td bgcolor="#eeeeee"><p> <font face="Arial, sans-serif"><font style="font-size: 8pt;" size="1">The Bin folder contains the <b>bin</b>aries (utility programs) used by the engine for compiling. It is not likely that you will need to dive into these folders for your game's development. 
 						  <br />
@@ -129,13 +106,13 @@
                           </font></font> </p></td>
                     </tr>
                     <tr valign="top">
-                      <td width="62" bgcolor="#eeeeee"><p> <img alt="Image:lib.jpg" src="images/Lib.jpg" 
+                      <td width="62" bgcolor="#eeeeee" style="background-color: #FFFFFF"><p> <img alt="Image:lib.jpg" src="images/Lib.jpg" 
                               border="0" /> </p></td>
                       <td bgcolor="#eeeeee"><p> <font face="Arial, sans-serif"><font style="font-size: 8pt;" size="1">
                           The Lib directory contains all of the 3rd party libraries Torque 3D utilizes. Each SDK has a specific function, such as the DirectX 8 rendering for Windows, OpenGL2D3D rendering for cross-platform systems, ljpeg for image loading, and so on.</font></font> </p></td>
                     </tr>
                     <tr valign="top">
-                      <td width="62" bgcolor="#eeeeee"><p> <img alt="Image:source.jpg" 
+                      <td width="62" bgcolor="#eeeeee" style="background-color: #FFFFFF"><p> <img alt="Image:source.jpg" 
                               src="images/Source.jpg" border="0" /> </p></td>
                       <td bgcolor="#eeeeee"><p> <font face="Arial, sans-serif"><font style="font-size: 8pt;" size="1">This directory contains all of the source code that makes up Torque 3D. The major systems are organized into separate folders, with each sub-directory pointing to more specific modules.<br />
                           <br />
@@ -145,34 +122,31 @@
                           - Game play code can be found in T3D</font></font> </p></td>
                     </tr>
                     <tr valign="top">
-                      <td width="62" bgcolor="#eeeeee"><p> <img alt="Image:genrekits.jpg" 
-                              src="images/Genrekits.jpg" border="0" /> </p></td>
-                      <td bgcolor="#eeeeee"><p> <font face="Arial, sans-serif"><font style="font-size: 8pt;" size="1">Much like the Demos folder, the Examples directory contains stand alone Torque 3D projects. A Torque3D example project provides you with a substantial amount of code and assets, geared toward a specific game play type, which can be used as a starting point for a new game for that genre.<br />
-                          <br />
-                          Currently available example is: First Person Shooter (FPS)</font></font> </p></td>
-                    </tr>
-                    <tr valign="top">
-                      <td width="62" bgcolor="#eeeeee"><p> <img alt="Image:kitexample.jpg" 
-                              src="images/Kitexample.jpg" border="0" /> </p></td>
+                      <td width="62" bgcolor="#eeeeee" style="background-color: #FFFFFF"><p> 
+                          <img alt="Image:kitexample.jpg" 
+                              src="images/examples.jpg" border="0" /> </p></td>
                       <td bgcolor="#eeeeee"><p> <font face="Arial, sans-serif"><font style="font-size: 8pt;" size="1">
 					  As a stand alone Torque 3D application, an Example project folder structure and core files are similar to what you may find in other standard projects.<br />
                           <br />
                           How a Torque 3D project is structured is covered later <a href="#Torque_3D_Project_Tour">here</a>.</font></font> </p></td>
                     </tr>
                     <tr valign="top">
-                      <td width="62" bgcolor="#eeeeee"><p> <img alt="Image:myprojects.jpg" 
+                      <td width="62" bgcolor="#eeeeee" style="background-color: #FFFFFF"><p> <img alt="Image:myprojects.jpg" 
                               src="images/Myprojects.jpg" border="0" /> </p></td>
                       <td bgcolor="#eeeeee"><p> <font face="Arial, sans-serif"><font style="font-size: 8pt;" size="1">The My Projects directory is where new projects are created by default.</font></font> </p></td>
                     </tr>
                     <tr valign="top">
-                      <td width="62" bgcolor="#eeeeee"><p> <img alt="Image:templates.jpg" 
+                      <td width="62" bgcolor="#eeeeee" style="background-color: #FFFFFF"><p> <img alt="Image:templates.jpg" 
                               src="images/Templates.jpg" border="0" /> </p></td>
-                      <td bgcolor="#eeeeee"><p> <font face="Arial, sans-serif"><font style="font-size: 8pt;" size="1">Projects in the Template directory are primarily used by the "Project Generator." When you are generating a new project, you can choose between a bare bones application ("Empty") or a project loaded with content and sample code ("Full").<br />
+                      <td bgcolor="#eeeeee"><p> <font face="Arial, sans-serif"><font style="font-size: 8pt;" size="1">Projects in the Template directory are primarily used by the "Project Generator." When you are generating a new project, you can choose between a bare bones application ("Empty") or a project loaded with content and sample code ("Full").&nbsp; 
+                          Additionally, there are &quot;empty&quot; and &quot;full&quot; PhysX templates available and a FPS 
+                          Tutorial template to use with the Torque 3D First Person Shooter Deathmatch 
+                          Tutorial.<br />
                           <br />
                           If you modify the directories, by editing or adding content, those changes will take affect when you generate a new project. Those changes will not be reflected in projects that have already been created from a template before the changes were made.</font></font> </p></td>
                     </tr>
                     <tr valign="top">
-                      <td width="62" bgcolor="#eeeeee"><p> <img alt="Image:templateexample.jpg" 
+                      <td width="62" bgcolor="#eeeeee" style="background-color: #FFFFFF"><p> <img alt="Image:templateexample.jpg" 
                               src="images/Templateexample.jpg" border="0" /> </p></td>
                       <td bgcolor="#eeeeee"><p> <font face="Arial, sans-serif"><font style="font-size: 8pt;" size="1">
 					  As a stand alone Torque 3D application, a Template's folder structure and core files are similar to what you may find in other standard projects.<br />
@@ -180,7 +154,7 @@
                           How a Torque 3D project is structured is covered later <a href="#Torque_3D_Project_Tour">here</a>.</font></font> </p></td>
                     </tr>
                     <tr valign="top">
-                      <td width="62" bgcolor="#eeeeee"><p> <img alt="Image:tools.jpg" 
+                      <td width="62" bgcolor="#eeeeee" style="background-color: #FFFFFF"><p> <img alt="Image:tools.jpg" 
                               src="images/Tools.jpg" border="0" /> </p></td>
                       <td bgcolor="#eeeeee"><p> <font face="Arial, sans-serif"><font style="font-size: 8pt;" size="1">The tools that make up the Toolbox's Project Generator and other utilities (such as map2dif) are located in this directory. There should be no need for you to modify anything here.</font></font> </p></td>
                     </tr>
@@ -192,16 +166,16 @@
                 <table width="700" border="1" cellpadding="7" cellspacing="0">
                   <tbody>
                     <tr valign="top">
-                      <td width="62" bgcolor="#6699ff"><p class=" western "><em><strong>Folder</strong></em></p></td>
+                      <td width="62" bgcolor="#6699ff" style="background-color: #6699ff"><p class=" western "><em><strong>Folder</strong></em></p></td>
                       <td bgcolor="#6699ff"><p class=" western "><strong><i>Description</i> </strong></p></td>
                     </tr>
                     <tr valign="top">
-                      <td width="62" bgcolor="#eeeeee"><p> <img alt="Image:ProjectRoot.jpg" 
+                      <td width="62" bgcolor="#eeeeee" style="background-color: #FFFFFF"><p> <img alt="Image:ProjectRoot.jpg" 
                               src="images/ProjectRoot.jpg" border="0" /> </p></td>
                       <td bgcolor="#eeeeee"><p> <font face="Arial, sans-serif"><font style="font-size: 8pt;" size="1">The main directory for a project contains four main folders. You can also find the game's binary and DLLs here.</font></font> </p></td>
                     </tr>
                     <tr valign="top">
-                      <td width="62" bgcolor="#eeeeee"><p> <img alt="Image:ProjectBuildFiles.jpg" 
+                      <td width="62" bgcolor="#eeeeee" style="background-color: #FFFFFF"><p> <img alt="Image:ProjectBuildFiles.jpg" 
                               src="images/ProjectBuildFiles.jpg" border="0" /> </p></td>
                       <td bgcolor="#eeeeee"><p> <font face="Arial, sans-serif"><font style="font-size: 8pt;" size="1">Files related to compilers are found in this directory. <br />
                           <br />
@@ -214,7 +188,7 @@
                           -<b>Xcode</b> will contain the project (.xcodeproj) files for Apple's XCode</font></font> </p></td>
                     </tr>
                     <tr valign="top">
-                      <td width="62" bgcolor="#eeeeee"><p> <img alt="Image:ProjectArt.jpg" 
+                      <td width="62" bgcolor="#eeeeee" style="background-color: #FFFFFF"><p> <img alt="Image:ProjectArt.jpg" 
                               src="images/ProjectArt.jpg" border="0" /> </p></td>
                       <td bgcolor="#eeeeee"><p> <font face="Arial, sans-serif"><font style="font-size: 8pt;" size="1">
                           The Art directory is dedicated to organizing your game specific assets. Outside of initialization, you will not find scripts in these directories. You should not place any files that are related to functionality, such as game code.<br />
@@ -244,7 +218,7 @@
                           -<b>water</b> contains the base materials used to render water blocks</font></font> </p></td>
                     </tr>
                     <tr valign="top">
-                      <td width="62" bgcolor="#eeeeee"><p> <img alt="Image:ProjectCore.jpg" 
+                      <td width="62" bgcolor="#eeeeee" style="background-color: #FFFFFF"><p> <img alt="Image:ProjectCore.jpg" 
                               src="images/ProjectCore.jpg" border="0" /> </p></td>
                       <td bgcolor="#eeeeee"><p> <font face="Arial, sans-serif"><font style="font-size: 8pt;" size="1">The core folder contains files that are commonly used by every Torque 3D project.<br />
                           <br />
@@ -259,12 +233,12 @@
                           -<b>unifiedShell</b> is a special case folder used that allows you to create a unified interface piecing together your menu system.</font></font> </p></td>
                     </tr>
                     <tr valign="top">
-                      <td width="62" bgcolor="#eeeeee"><p> <img alt="Image:ProjectLevels.jpg" 
+                      <td width="62" bgcolor="#eeeeee" style="background-color: #FFFFFF"><p> <img alt="Image:ProjectLevels.jpg" 
                               src="images/ProjectLevels.jpg" border="0" /> </p></td>
                       <td bgcolor="#eeeeee"><p> <font face="Arial, sans-serif"><font style="font-size: 8pt;" size="1">This directory contains your game levels (.mis) and the cached lighting files (.ml)</font></font> </p></td>
                     </tr>
                     <tr valign="top">
-                      <td width="62" bgcolor="#eeeeee"><p> <img alt="Image:ProjectScripts.jpg" 
+                      <td width="62" bgcolor="#eeeeee" style="background-color: #FFFFFF"><p> <img alt="Image:ProjectScripts.jpg" 
                               src="images/ProjectScripts.jpg" border="0" /> </p></td>
                       <td bgcolor="#eeeeee"><p> <font face="Arial, sans-serif"><font style="font-size: 8pt;" size="1">The bulk of your game play logic will be stored here in TorqueScript (.cs) format. Torque 3D uses a consistent networked architecture, which means you need to keep your scripts separated based on whether or not the code affects networked code. Understanding Torques client/server architecture is very important, even for single player games. A useful overview can be found  <a href="../Scripting/Advanced/Networking.html">here</a><br />
                           <br />
@@ -275,7 +249,7 @@
                           -<b>gui</b> scripts contain the logic for your interface. This mainly includes the pushing/popping of dialogs, menu transition, input mapping, changing settings, and so on.</font></font> </p></td>
                     </tr>
                     <tr valign="top">
-                      <td width="62" bgcolor="#eeeeee"><p> <img alt="Image:ProjectShaders.jpg" 
+                      <td width="62" bgcolor="#eeeeee" style="background-color: #FFFFFF"><p> <img alt="Image:ProjectShaders.jpg" 
                               src="images/ProjectShaders.jpg" border="0" /> </p></td>
                       <td bgcolor="#eeeeee"><p> <font face="Arial, sans-serif"><font style="font-size: 8pt;" size="1">
 					  If you need to add new shaders (.glsl and .hlsl) or edit existing files, you will work within this directory. Currently, there are two main folders but you can add more to maintain basic organization.<br />
@@ -285,7 +259,7 @@
                           -<b>procedural</b> contains shaders generated by the rendering system.</font></font> </p></td>
                     </tr>
                     <tr valign="top">
-                      <td width="62" bgcolor="#eeeeee"><p> <img alt="Image:ProjectTools.jpg" 
+                      <td width="62" bgcolor="#eeeeee" style="background-color: #FFFFFF"><p> <img alt="Image:ProjectTools.jpg" 
                               src="images/ProjectTools.jpg" border="0" /> </p></td>
                       <td bgcolor="#eeeeee"><p> <font face="Arial, sans-serif"><font style="font-size: 8pt;" size="1">
 					  The files in this directory, mostly scripts and GUIs, are used by the editors to modify your project in real time.<br />
@@ -294,14 +268,15 @@
                           When you are ready to ship your game, you will not actually include this folder.</font></font></p></td>
                     </tr>
 					<tr valign="top">
-                      <td width="62" bgcolor="#eeeeee"><p> <img alt="Image:ProjectSource.jpg" 
-                              src="images/ProjectSource.jpg" border="0" /> </p></td>
-                      <td bgcolor="#eeeeee"><p> <font face="Arial, sans-serif"><font style="font-size: 8pt;" size="1">The files included in this directory are for deployment to browser platforms like Internet Explorer, Firefox, Chrome and Safari.</font></font></p></td>
-                    </tr>
-                    <tr valign="top">
-                      <td width="62" bgcolor="#eeeeee"><p> <img alt="Image:ProjectSource.jpg" 
+                      <td width="62" bgcolor="#eeeeee" style="background-color: #FFFFFF"><p> <img alt="Image:ProjectSource.jpg" 
                               src="images/ProjectSource.jpg" border="0" /> </p></td>
                       <td bgcolor="#eeeeee"><p> <font face="Arial, sans-serif"><font style="font-size: 8pt;" size="1">Whenever you generate a new project, this directory is populated with two C++ source files. The first is a <b>main.cpp</b> file, which will look familiar to traditional programmers. This is the entry point for your application and contains the "main loop" that controls all game processing. The other file is <b>torqueConfig.h</b>, which contains various preprocessor definitions used to control the development tools that can tailor your executable, such as the application name, enable/disable DSO generation, version number changing, and so on.</font></font></p></td>
+                    </tr>
+                    <tr valign="top">
+                      <td width="62" bgcolor="#eeeeee" style="background-color: #FFFFFF"><p> 
+                          <img alt="Image:ProjectSource.jpg" 
+                              src="images/ProjectWeb.jpg" border="0" /> </p></td>
+                      <td bgcolor="#eeeeee"><p> <font face="Arial, sans-serif"><font style="font-size: 8pt;" size="1">The files included in this directory are for deployment to browser platforms like Internet Explorer, Firefox, Chrome and Safari.</font></font></p></td>
                     </tr>
                   </tbody>
                 </table><br />

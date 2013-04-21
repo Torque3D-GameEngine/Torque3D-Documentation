@@ -13,9 +13,9 @@
 <link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
 <script>
    // this script chunk is to update the ToC to the current doc and expand it
-   pageID = 29;
-   parent.leftFrame.expandToItem('tree2', 'doc29');
-   var element = parent.leftFrame.document.getElementById('doc29');
+   pageID = 40;
+   parent.leftFrame.expandToItem('tree2', 'doc40');
+   var element = parent.leftFrame.document.getElementById('doc40');
    if((element) && (element.className==parent.leftFrame.nodeClosedClass))
 {
    element.className = parent.leftFrame.nodeOpenClass
@@ -95,7 +95,7 @@
                   Let’s start a new Blank project, click on the <b>New Project</b> button: </p>
                 <p><br />
                   <i>(click to enlarge)</i> </p>
-                <a href="1_Images/NewProject.jpg" class="livethumbnail"><img src="1_Images/NewProject.jpg" width="276" height="174" largewidth="552" largeheight="348" /></a><br />
+                <a href="1_Images/NewProject.jpg" class="livethumbnail"><img src="1_Images/NewProject.jpg" width="350" height="225" largewidth="700" largeheight="550" /></a><br />
                 <p><br />
                   Then from the following window name your new project as GUI Tutorials and select <b>Empty</b> from the drop down: </p>
                 <p><br />
@@ -131,10 +131,13 @@
                 <p><br />
                   <b>STEP 1:</b> You will see the tab on the top right for the <b>Library</b> with all the available GUI control types, click on the tab:</p>
                 <p><br />
-                  <img alt="Image:ControlPalette.jpg" src="1_Images/ControlPalette.jpg" border="0" height="420" width="216" /> </p>
+                  <img alt="Image:ControlPalette.jpg" src="1_Images/ControlPalette.jpg" 
+                        border="0" /> </p>
                 <p>You will notice that the <b>Library</b> can shows categories for all the available controls. 
                 Select the <b>Containers</b> category and from the list please choose <b>GuiWindowCtrl</b> it will be at the end 
                 of the common list. If you can not see the control, use the scroll bar to reach the other entries. </p>
+                <p><br />
+                    <img atl="Image:CreateWindowControl.jpg" src="1_Images/CreateWindowControl.jpg" border="0" /></p>
                 <p><br />
                   After you have clicked on the <b>guiWindowCtrl</b>, an instance of this control will be added to the editor. </p>
                 <p><br />
@@ -143,32 +146,34 @@
                   screen. You can also resize this control by using the square handles.
                   Try it now and make your window a little wider. </p>
                 <p><br />
-                  <img alt="Image:NewWindow.jpg" src="1_Images/NewWindow.jpg" border="0" height="231" width="145" /> </p>
+                  <img alt="Image:NewWindow.jpg" src="1_Images/NewWindow.jpg" border="0" /> </p>
                 <p><br />
                   <b>STEP 3</b>: Change the name in the window title bar. Select your
                   window control either from the control list or directly in the editor
                   work area, now you have access to its properties. Scroll down the list
                   of properties until you find <b>Window</b> section and change the <b>text</b> value to read <b>Hello World</b>. Press enter to fix the new text in place. </p>
                 <p><br />
-                  <img alt="Image:ChangeText.jpg" src="1_Images/ChangeText.jpg" border="0" height="668" width="262" /> </p>
+                  <img alt="Image:ChangeText.jpg" src="1_Images/ChangeText.jpg" border="0" /> </p>
                 <p><br />
                   <b>STEP 4</b>: Now that we have a window, let's add a button. First we must
                   ensure the new window control is highlighted as we want this to contain
                   our button. </p>
                 <p><br />
-                  <img alt="Image:SelectWindow.jpg" src="1_Images/SelectWindow.jpg" border="0" height="142" width="261" /> </p>
+                  <img alt="Image:SelectWindow.jpg" src="1_Images/SelectWindow.jpg" border="0" /> </p>
                 <p><br />
                   From the <b>Library</b> open the <b>Buttons</b> drop down and select <b>GuiButtonCtrl</b> 
                   a new button will now be placed in the window. Move this new button to
                   a location near the bottom of your new window. Again you can resize
                   this button control but for now we will leave it as it is. </p>
                 <p><br />
+                    <img alt="Image:CreateButtonControl.jpg" src="1_Images/CreateButtonControl.jpg" border="0" /></p>
+                <p><br />
                   <b>STEP 5</b>: Give the button a name. With the button control selected
                   you will have access to all of its properties. In the standard layout
                   these will be at the bottom of the controls list. Scroll down if
                   needed, to the section named <b>Button</b> and change the display text entry to read <b>Click Me</b>: </p>
                 <p><br />
-                  <img alt="Image:ChangeButtonText.jpg" src="1_Images/ChangeButtonText.jpg" border="0" height="114" width="259" /> </p>
+                  <img alt="Image:ChangeButtonText.jpg" src="1_Images/ChangeButtonText.jpg" border="0" /> </p>
                 <p><br />
                   This will update the Button Display text, notice your new button now shows <i>Click Me</i>.
                   Save the GUI now by using the menu bar <b>File > Save</b>. Press F10 so that you can see your
@@ -179,10 +184,13 @@
                 <a name="Text_Control" id="Text_Control"></a>
                 <h2> <span class="mw-headline">Text Control</span></h2>
                 <p>Next we will add a text label to our window, so that we can show
-                  some text when we press the button. With the <b>GuiWindowCtrl</b> selected; select the Library + <b>Text</b> 
+                  some text when we press the button.</p>
+                <p><br />
+                  <img alt="Image:ReselectWindowCtrl.jpg" src="1_Images/ReselectWindowCtrl.jpg" border="0"  /> </p>
+                <p>With the <b>GuiWindowCtrl</b> selected, select the <strong>Library</strong> &gt; <b>Text</b> 
                   category and select a new <b>GuiTextCtrl</b> from the control library. </p>
                 <p><br />
-                  <img alt="Image:ReselectWindowCtrl.jpg" src="1_Images/ReselectWindowCtrl.jpg" border="0" height="154" width="261" /> </p>
+                    <img alt="Image:CreateTextControl.jpg" src="1_Images/CreateTextControl.jpg" border="0" /></p>
                 <p><br />
                 Move this new text control so that it sits above the button, you can either resize it so that it is the same width as the button by changing the <b>position</b> and
                 <b>extent</b> under the <b>Layout</b> properties.
@@ -192,11 +200,11 @@
                   Next we need to give the control a name so that we can easily refer back to it in script. Whilst the text 
                   controls properties are open, head to the top of the list and in <b>name</b> give it the id of <b>lblHWDisplay</b> and press enter. </p>
                 <p><br />
-                  <img alt="Image:1_Images/lblHWDisplayName.jpg" src="1_Images/lblHWDisplayName.jpg" border="0" height="675" width="262" /> </p>
+                  <img alt="Image:1_Images/lblHWDisplayName.jpg" src="1_Images/lblHWDisplayName.jpg" border="0" /> </p>
                 <p><br />
                   You should have something looking like this; </p>
                 <p><br />
-                  <img alt="Image:PrototypeWindow.jpg" src="1_Images/PrototypeWindow.jpg" border="0" height="206" width="242" /> </p>
+                  <img alt="Image:PrototypeWindow.jpg" src="1_Images/PrototypeWindow.jpg" border="0" /> </p>
                 <p><br />
                   <i><b>HINT</b>: Remember to save often, for ease use <b>Ctrl + S</b></i>, </p><br>
                 <a name="Dynamic_Text" id="Dynamic_Text"></a>
@@ -211,23 +219,24 @@
                   <b>Sample Code:</b> </p>
                 <pre>lblHWDisplay.setValue("Hello World");</pre>
                 <p><br />
-                  <i><b>NOTE</b>: Do not forget the; or you will get an error.</i> </p>
+                  <i><b>NOTE</b>: Do not forget the semi-colon ( ;&nbsp; ) or you will get an error.</i> </p>
                 <p><br />
                   Select the button control. Within its properties in the <b>Control</b> section there is an entry called <b>command</b>. 
                   It is in this property that we will enter our script from above. </p>
                 <p><br />
-                  <img alt="Image:SetCommand.jpg" src="1_Images/SetCommand.jpg" border="0" height="331" width="387" /> </p>
+                  <img alt="Image:SetCommand.jpg" src="1_Images/SetCommand.jpg" border="0" /> </p>
                 <p><br />
-                  <b>Save</b> you GUI. Press F10 and try out your button, when pressed the text should change to read "<i>Hello World</i>". </p>
+                  <b>Save</b> your GUI. Press F10 and try out your button; when you press the button the text should change to read "<i>Hello World</i>". </p>
                 <p><br />
-                  <b>STEP 2</b>: Now that you have pressed the button the text remains "<i>Hello World</i>" we need a way to clear and reset the display. 
+                  <b>STEP 2</b>: Now that you have pressed the button the text remains "<i>Hello World</i>". 
+                    We need a way to clear and reset the display. 
                   This can be done by adding a similar bit of script to the text control <b>Command</b> parameter.  Select the text control and in 
                   its <b>Command</b> add the following: </p>
                 <br><pre>lblHWDisplay.setValue("Waiting");</pre>
                 <p><br />
-                  Make a save. Now when you preview your GUI you can click on
+                    Save your GUI. Now when you preview your GUI you can click on
                   the text to reset it. You may have noticed the text looks a little
-                  small, this can be easily rectified by changing the text control <b>Profile</b>.
+                  small; this can be easily rectified by changing the text control <b>Profile</b>.
                   The profiles hold data such as font color, size, and many other
                   parameters. We we will explore this in greater detail in another
                   tutorial. </p>
@@ -235,7 +244,10 @@
                   For now while the text control is selected go to GuiControl and change the profile to <b>GuiBigTextProfile</b>. 
                   You may need to resize your GUI components to make every thing look nice and balanced. </p>
                 <p><br />
-                  Save and preview your GUI F10. </p>
+                    <img alt="Image:ChooseBigTextProfile.jpg" src="1_Images/ChooseBigTextProfile.jpg" border="0" /></p>
+                <p><br />
+                  Save 
+                    ( <strong>CTRL-S</strong> ) and preview ( <strong>F10</strong> ) your GUI. </p>
                 <p><br />
                   <img alt="Image:FinalGUI.jpg" src="1_Images/FinalGUI.jpg" border="0" height="183" width="327" /> </p><br>
                 <a name="Conclusion" id="Conclusion"></a>

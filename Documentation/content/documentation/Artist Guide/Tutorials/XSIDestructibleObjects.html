@@ -1,0 +1,659 @@
+<html xmlns="http://www.w3.org/TR/REC-html40">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 14;
+   parent.leftFrame.expandToItem('tree2', 'doc14');
+   var element = parent.leftFrame.document.getElementById('doc14');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+    <style>
+    body {
+     font-family:Verdana, Geneva, sans-serif;
+     font-size:12px;
+     width: 700px;
+    }
+    div.design {
+     background-color: #FFC;
+    }
+    div.hint {
+     margin: 10px;
+     font-style:italic;
+     margin-top: 1em; margin-bottom: 2em;
+    }
+    div.toc {
+     background-color: #EEE;
+     width: 700px;
+    }
+    div.warn {
+     background-color: #F93;
+     font-weight:bold;
+     margin-top: 1em; margin-bottom: 2em;
+    }
+	div.advert {
+		margin: 10px;
+		margin-top: 1em;
+		margin-bottom: 2em;
+		background-color: #B0FFB0
+	}
+    div.codesample {
+     background-color: #9FF;
+     margin: 10px;
+     margin-top: 1em; margin-bottom: 2em;
+    }
+    p { margin-top: 1em; margin-bottom: 1em; }
+    li { margin-top: 1em; margin-bottom: 1em; }
+    ol { margin-top: 1em; margin-bottom: 2em; }
+    ul { margin-top: 1em; margin-bottom: 2em; }
+    h1 { margin-top: 3em; margin-bottom: 1em; }
+    </style>
+</head>
+<BODY id = "BODYID" onLoad = "initComponent()" >
+<div class="toc">
+<p><a name=top></a><b><span
+      style='font-size:18.0pt;font-family:"Times New Roman","serif";"Times New Roman"'>Contents</b></p>
+<ul type=disc>
+	<li><a href="#Introduction_to_Destructible_Objects">1 Introduction to
+                        Destructible Objects</a></li>
+	<li><a href="#Setting_Up_Collision">2 Setting Up Collision</a></li>
+	<li><a href="#Exporting_from_Softimage">3 Exporting from Softimage</a></li>
+	<li><a href="#Hierarchy_For_Meshes_With_Multiple_LODs">4 Hierarchy For
+                        Meshes With Multiple LODs</a></li>
+	<li><a href="#Aligning_the_Pivot_Points">5 Aligning the Pivot Points</a></li>
+	<li><a href="#Freeze_Transforms">6 Freeze Transforms</a></li>
+	<li><a href="#Setting_up_the_physicsShape.cs_file">7 Setting up the <span
+           class=SpellE>physicsShape.cs file</a></li>
+	<li><a href="#Building_a_destructible_object_with_mor">8 Building a
+                        destructible object with more than one damage states</a></li>
+	<li><a href="#Null_LODs">9 Null LODs</a></li>
+	<li><a href="#Conclusion">10 Conclusion</a></li>
+</ul>
+</div>                    
+
+<p>*this was made using Autodesk Softimage 2012 </p>
+
+<a name="Introduction_to_Destructible_Objects">
+<h3>1 Introduction to Destructible Objects</h3></a>
+              <p>In Torque 3D destructible
+                objects are created by building multiple states of an object (unbroken and
+                broken) and swapping between them when appropriate. Once swapped, the
+                pieces of the broken mesh can become physical simulation entities. The physicsShape.cs file is used to tell the engine how to
+                swap out the undamaged and damaged states. </p>
+              <p>
+                Unlike previous methods, <b>no special PhysX plug-in is needed for your
+                modeling program</b>. In this much simpler method, everything is set up in physicsShape.cs file. Damaged versions can be made of
+                multiple meshes that become physical when broken. For instance, the crate
+                below has a single mesh made of its undamaged state (left) and four
+                physical meshes that make up its damaged state (right): </p>
+              <p>
+                (<i>click to enlarge</i>)</p>
+              <p>
+			  <a href="http://docs.garagegames.com/torque-3d/official/content/documentation/Artist%20Guide/Tutorials/images/ExampleCrate.jpg" class="livethumbnail">
+	<img src="http://docs.garagegames.com/torque-3d/official/content/documentation/Artist%20Guide/Tutorials/images/ExampleCrate.jpg" border="0" width="350" height="133" largewidth="700" largeheight="267" /></a>
+
+   </p>
+              <p>The crate is made up of two
+                separate mesh files. Both are set up like traditional Torque 3D files, with
+                an exception for the children of the <b>Start Node</b>. In this example,
+                the meshes only have a single LOD. </p>
+              <p>
+                <b>The unbroken mesh:</b></p>
+              <p>(<i>click to enlarge</i>)</p>
+			  <a href="http://docs.garagegames.com/torque-3d/official/content/documentation/Artist%20Guide/Tutorials/images/UnbrokenHierarchy.jpg" class="livethumbnail">
+              <img src="http://docs.garagegames.com/torque-3d/official/content/documentation/Artist%20Guide/Tutorials/images/UnbrokenHierarchy.jpg" border="0" width="230" height="116" largewidth="476" largeheight="247" /></a>
+  </p>
+              <p>
+                
+                <b>The broken mesh:</b></p>
+              <p>(<i>click to enlarge</i>)</p>
+              <p><a href="http://docs.garagegames.com/torque-3d/official/content/documentation/Artist%20Guide/Tutorials/images/BrokenHierarchy.jpg" class="livethumbnail">
+			  <img src="http://docs.garagegames.com/torque-3d/official/content/documentation/Artist%20Guide/Tutorials/images/BrokenHierarchy.jpg" border="0" width="350" height="88" largewidth="715" largeheight="191" /></a>
+</p>
+              <p><b><i></i></b><i> A destructible object can have just a single physical
+                collision volume for the broken mesh. For example, you might want a destructible
+                barrel that does not become multiple pieces after the explosion; just a
+                single dented barrel. The same process would be used to swap between the
+                unbroken and broken version of the barrel.</i></p>
+
+<a name="Setting_Up_Collision"><h3>2 Setting Up Collision </h3></a>
+              <p>Collision is set up in the traditional
+                Torque fashion. Collision meshes are under the Start Node. Collision marker
+                nodes are under the Base Node, using the standard prefix <b>col-</b> to
+                represent a convex collision mesh. </p>
+              <p>
+                When creating destructible objects, collision volumes must be children of
+                their mesh counterpart. Complicated collision volumes can be costly, so T3D
+                now allows for some inexpensive primitives to be designated using naming
+                conventions. These should be used whenever possible: </p>
+              <ul type=disc>
+                <li><b>colbox</b><b>-</b> is used for box collision
+                  shapes </li>
+              </ul>
+              <ul type=disc>
+                <li><b>colsphere</b><b>-</b> is used for spherical
+                  collision shapes </li>
+              </ul>
+              <ul type=disc>
+                <li><b>colcapsule</b><span
+         class=GramE><b>-</b> is used for capsule
+                  collision shapes (<i>note that cylindrical is not an option</i>)
+                   
+                  <i>*in Autodesk Softimage a “cylinder” can be used in
+                  place of a “capsule” since Softimage doesn’t have a “Capsule” primitive.
+                  Just name it colcapsule- and it will be
+                  treated as a capsule. Note: The radius of the bevel is the same as the
+                  radius of the cylinder and then the length is to the tip of the
+                  capsule not to the start of the bevel.</i> </li>
+              </ul>
+              <p>When using box, sphere, and
+                capsule primitives in your modeling application, use the above prefixes in
+                their name. Primitives are not always the best option for a shape, so the
+                traditional convex mesh designation of <b>col-</b> can still be used for
+                convex shapes. </p>
+              <p>
+                Each collision volume, convex mesh or primitive must still have a
+                corresponding Collision Marker. </p>
+              <p>(<i>click to enlarge</i>)</p>
+              <p><a href="http://docs.garagegames.com/torque-3d/official/content/documentation/Artist%20Guide/Tutorials/images/image008.jpg" class="livethumbnail">
+				<img src="http://docs.garagegames.com/torque-3d/official/content/documentation/Artist%20Guide/Tutorials/images/image008.jpg" border="0" width="538" height="150" largewidth="673" largeheight="188" /></a>
+ </p>
+              <p><a
+    name="Exporting_from_Softimage" id="Exporting_from_Softimage"></a><h3>3 Exporting from Softimage</h3>
+              <p>
+                Export your two meshes (broken and unbroken) to COLLADA format. It may be a
+                good idea to create a folder specifically for destructible Physics shapes.
+                Softimage uses Crosswalk for COLLADA export. It is a series of
+                import/export plugins for transferring data between Softimage and other
+                programs via the .xsi, .dae,
+                and .fbx plugins. However, there is a bug in the
+                way that Softimage exports COLLADA when using the “Export Selected” option
+                where when you don’t select via a middle click “Branch Select” then it
+                basically dumps everything in the root of the scene. To overcome this we
+                will use Softimage’s “model containers” for our branches. In the image
+                above you can see the model containers at the top of the hierarchy.</p>
+              <p>Here is what it looks like in
+                the Explorer window:</p>
+              <p><img border=0 width=282 height=478
+    src="images/image010.jpg"
+    alt="Description: C:\Users\jbarnette\Desktop\DestructibleDocumentation_SI\exportHierarchy.jpg"
+    v:shapes="Picture_x0020_14"></p>
+              <p>So, to export the crate broken
+                branch we will “middle-click” the “base-node” on the branch for the broken
+                crate. Then hold CTRL and then “Left-Click” the bounds node. Like so:</p>
+              <p><img border=0 width=273 height=463
+    src="images/image012.jpg"
+    alt="Description: C:\Users\jbarnette\Desktop\DestructibleDocumentation_SI\exportHierarchySelected.jpg"
+    v:shapes="Picture_x0020_15"></p>
+              <p>
+                Now, with the items we need selected we can export via Crosswalk.
+                File&gt;Crosswalk&gt;Export…</p>
+              <p>Then on the Settings tab we need
+                to make sure that we have the following items checked:
+                
+                <img border=0 width=289 height=570
+    src="images/image014.jpg"
+    alt="Description: C:\Users\jbarnette\Desktop\DestructibleDocumentation_SI\CrosswalkOptions.jpg"
+    v:shapes="Picture_x0020_16"></p>
+              <p>
+                <a name="Hierarchy_For_Meshes_With_Multiple_LODs"></a>
+                <h3>4 Hierarchy For Meshes With
+                Multiple LODs </h3>
+              <p>Multiple LODs require a slightly
+                different setup than the crate example above. To set up your mesh so that
+                the broken (aka &quot;debris&quot;) pieces, can LOD properly, a &quot;LOD
+                helper&quot; must be a parent of the collision volume and meshes for all
+                levels of detail for any given debris piece: </p>
+              <p><img border=0 width=325 height=645
+    src="images/image016.jpg"
+    alt="Description: Description: Description: C:\Users\jbarnette\Desktop\DestructibleDocumentation_SI\multiLOD_explorer.jpg"
+    v:shapes="Picture_x0020_17"></p>
+              <p>The LOD helpers are dummy
+                objects which can be named anything as long as they do not end in a number.
+                T3D would read this as a LOD level. None of the node names are critical, as
+                long as they end in the proper detail level number and do not contain
+                numbers otherwise. </p>
+
+<a name="Aligning_the_Pivot_Points"></a><h3>5 Aligning
+                the Pivot Points </h3>
+              <p>The pivot points of any
+                renderable mesh and its associated collision volume must share the same
+                coordinates and orientation. An easy method to align these is setting the
+                pivot points of all objects to 0,0,0 in
+                world-space. The pivot points do not need to be in the center of the object
+                they represent. </p>
+
+<a name="Freeze_Transforms"></a><h3>6 Freeze
+                Transforms </h3>
+              <p>Shapes often need to have their
+                transforms reset after being modeled so they align properly with their
+                collision volume. To avoid any unwanted weirdness just in case you happened
+                to accidently scale one of your “Base” or “Start” nodes, I suggest
+                activating the “Child Compensation” under Constrain on the “MCP” on the
+                right-hand side of the screen.</p>
+              <p><img border=0 width=163 height=112
+    src="images/image018.jpg"
+    alt="Description: Description: Description: C:\Users\jbarnette\Desktop\DestructibleDocumentation_SI\chldComp.jpg"
+    v:shapes="Picture_x0020_11"></p>
+              <p>After you have enabled that you are
+                ready to freeze things without fear of child objects freaking out because
+                they were parented to an object that had some kind of SRT transfom on them. to freeze
+                the transforms on the MCP Panel click on the word Transform&gt;Freeze All
+                Transforms.
+                
+                <img border=0
+    width=430 height=370 id="_x0000_i1032"
+    src="images/freeze_transforms.jpg"
+    
+                      alt="Description: Description: C:\Users\RRanft\Documents\T3D\XSI docs\SoftimagePhysicsDocumentation_files\freeze_transforms.jpg"></p>
+              <p><b>Freeze
+                Modeling</b></p>
+              <p>Also, you will want to freeze
+                the modeling. This is like the collapse stack function in 3D Studio Max. It
+                is located in the “Edit” section of the “MCP”</p>
+              <p><img border=0 width=179 height=128
+    src="images/image020.jpg"
+    alt="Description: Description: Description: C:\Users\jbarnette\Desktop\DestructibleDocumentation_SI\freeze.jpg"
+    v:shapes="Picture_x0020_12"></p>
+
+<a name="Setting_up_the_physicsShape.cs_file"></a><h3>7 Setting
+                up the physicsShape.cs file </h3>
+              <p>The physicsShape.cs file goes in the same directory as the exported unbroken and broken meshes.
+                For each destructible object, two datablocks are
+                needed: </p>
+              <ul type=disc>
+                <li><b>datablock</b><b> PhysicsDebrisData</b> (contains information
+                  about the behavior of the broken mesh) </li>
+              </ul>
+              <ul type=disc>
+                <li><b>datablock</b><b> PhysicsShapeData</b> (contains information
+                  about the behavior of the unbroken mesh) </li>
+              </ul>
+              <p>
+                It is critical that the Debris Data precedes the Shape Data for any given
+                destructible object. Example code for our square crate above: </p>
+<div class="codesample"><pre>
+datablock PhysicsDebrisData( CrateSquareDebris )
+{
+	lifetime = 60.0;
+	lifetimeVariance = 0.0;
+	velocity = 0.1;
+	velocityVariance = 0;
+	shapeFile = &quot;art/shapes/physicsShapes/crate_square_broken.DAE&quot;;
+	mass = 10;
+	dynamicFriction = 0;
+	staticFriction = 0.5;
+	restitution = 0.0;
+	linearDamping = 0.0;
+	angularDamping = 0.0;
+	linearSleepThreshold = 1.0;
+	angularSleepThreshold = 1.0;
+	waterDampingScale = 1.0;
+	buoyancyDensity = 0.0;
+	castShadows = &quot;1&quot;;
+	friction = &quot;0.4&quot;;
+};
+
+datablock PhysicsShapeData( PSCrateSquare )
+{
+	category = &quot;PhysicsShape&quot;;
+	shapeName = &quot;art/shapes/physicsShapes/crate_square_unbroken.DAE&quot;;
+	emap = 1;
+	mass = 5;
+	massCenter = &quot;0 0 0&quot;;      // Center of mass for rigid body
+	massBox = &quot;0 0 0&quot;;         // Size of box used for moment of inertia,
+                                   // if zero it defaults to object bounding box
+	drag = 0.2;                // Drag coefficient
+	bodyFriction = 0.2;
+	bodyRestitution = 0.1;
+	minImpactSpeed = 5;        // Impacts over this invoke the script callback
+	softImpactSpeed = 5;       // Play SoftImpact Sound
+	hardImpactSpeed = 15;      // Play HardImpact Sound
+	integration = 4;           // Physics integration: TickSec/Rate
+	collisionTol = 0.1;        // Collision distance tolerance
+	contactTol = 0.1;          // Contact velocity tolerance
+	minRollSpeed = 10;
+	maxDrag = 0.5;
+	minDrag = 0.01;
+	triggerDustHeight = 1;
+	dustHeight = 10;
+	dragForce = 0.05;
+	vertFactor = 0.05;
+	normalForce = 0.05;
+	restorativeForce = 0.05;
+	rollForce = 0.05;
+	pitchForce = 0.05;
+	debris = CrateSquareDebris;
+	friction = &quot;0.4&quot;;
+	linearDamping = &quot;0.1&quot;;
+	angularDamping = &quot;0.2&quot;;
+	buoyancyDensity = &quot;0.9&quot;;
+	staticFriction = &quot;0.5&quot;;
+	explosion = WoodMinorExplosion;
+	radiusDamage = 0;
+	damageRadius = 0;
+	areaImpulse = 0;
+	restitution = &quot;0.3&quot;;
+	invulnerable = &quot;0&quot;;
+	waterDampingScale = &quot;10&quot;;
+};</pre></div>
+
+<a name="Building_a_destructible_object_with_mor"></a><h3>8 Building
+                a Destructible Object With More Than One Damage State</h3>
+              <p>A destructible object can be
+                built with multiple successive damage states. This way the player can <i>slightly</i> damage an object, then <i>fully</i> damage an object: </p>
+              <p>(<i>click to enlarge</i>)</p>
+              <p><a href="http://docs.garagegames.com/torque-3d/official/content/documentation/Artist%20Guide/Tutorials/images/Fence.jpg" class="livethumbnail">
+			  <img src="http://docs.garagegames.com/torque-3d/official/content/documentation/Artist%20Guide/Tutorials/images/Fence.jpg" border="0" width="350" height="124" largewidth="700" largeheight="249" /></a></p>
+
+              <p>
+                In this example we will also use a combination of physical and non-physical
+                meshes to make up the three &quot;states&quot; of destruction: </p>
+              <ul type=disc>
+                <li><b>State One:</b> A single, non-physical
+                  mesh with a single collision volume. When this is fired upon, the mesh
+                  swaps out and state two replaces it. </li>
+              </ul>
+              <ul type=disc>
+                <li><b>State Two:</b> This state is made up of a
+                  non-physical lower portion and a number of physical debris pieces for
+                  the upper portion. When this state replaces the first state, the
+                  physical &quot;debris&quot; pieces will go flying, giving the
+                  impression that the top half of state one has been blown to pieces.
+                  When the non-physical mesh is fired upon, its mesh swaps out and state
+                  three replaces it. The physical parts of this mesh (the
+                  &quot;debris&quot;) will not be swapped out. </li>
+              </ul>
+              <ul type=disc>
+                <li><b>State Three:</b> The final state. It is constructed
+                  like state two, with a non-physical lower portion and a number of
+                  physical debris pieces for the upper portion. </li>
+              </ul>
+              <p>(<i>click to enlarge</i>)</p>
+              <p><a href="http://docs.garagegames.com/torque-3d/official/content/documentation/Artist%20Guide/Tutorials/images/Threestates.jpg" class="livethumbnail">
+			  <img src="http://docs.garagegames.com/torque-3d/official/content/documentation/Artist%20Guide/Tutorials/images/Threestates.jpg" border="0" width="350" height="149" largewidth="700" largeheight="299" /></a></p>
+ 
+              <p>
+                The three different states are exported separately into five different
+                files: </p>
+              <ul type=disc>
+                <li><b>Unbroken Mesh</b> </li>
+              </ul>
+              <ul type=disc>
+                <li><b>State One base</b> </li>
+              </ul>
+              <ul type=disc>
+                <li><b>State One physical pieces</b> </li>
+              </ul>
+              <ul type=disc>
+                <li><b>State Two base</b> </li>
+              </ul>
+              <ul type=disc>
+                <li><b>State Two physical pieces</b> </li>
+              </ul>
+              <p>
+                As before, in order to export the hierarchies properly we have to separate
+                things into “model containers,” like so:</p>
+              <p><img border=0 width=256 height=194
+    src="images/image026.jpg"
+    alt="Description: Description: Description: C:\Users\jbarnette\Desktop\DestructibleDocumentation_SI\explorerMultiStateFence.jpg"
+    v:shapes="Picture_x0020_18"></p>
+              <p>The individual mesh hierarchies
+                end up looking something like this: </p>
+              <p>(<i>click to enlarge</i>)</p>
+			   <p><a href="http://docs.garagegames.com/torque-3d/official/content/documentation/Artist%20Guide/Tutorials/images/image027.jpg" class="livethumbnail">
+			  <img src="http://docs.garagegames.com/torque-3d/official/content/documentation/Artist%20Guide/Tutorials/images/image027.jpg" border="0" width="500" height="864" largewidth="700" largeheight="1215" /></a></p>
+    
+              <p>
+                The meshes are built either like traditional static Torque meshes or as
+                physical pieces set up as described in the Introduction, Collision, and LOD
+                sections above. 
+                As before, &quot;middle-click&quot; the base node of the branch that you
+                are exporting and then &quot;CTRL-click the bounds node, then export.</p>
+              <p>For example, I saved them out
+                as:</p>
+              <table border=0 cellpadding=0 width="66%">
+                <tr>
+                  <td width="50%"><p>fence_1_unbk.DAE</p></td>
+                  <td width="50%"><p>Unbroken
+                      fence mesh</p></td>
+                </tr>
+                <tr>
+                  <td><p>fence_1_bkstate_a.DAE</p></td>
+                  <td><p>State
+                      A debries mesh</p></td>
+                </tr>
+                <tr>
+                  <td><p>fence_1_bkstate_b.DAE</p></td>
+                  <td><p>State
+                      B debries mesh</p></td>
+                </tr>
+                <tr>
+                  <td><p>fence_1_bkbase_a.DAE</p></td>
+                  <td><p>State
+                      A base mesh</p></td>
+                </tr>
+                <tr>
+                  <td><p>fence_1_bkbase_b.DAE</p></td>
+                  <td><p>State
+                      B base mesh</p></td>
+                </tr>
+              </table>
+              <p>In this case, the physicsShape.cs file should look something like this: </p>
+<div class="codesample"><pre>
+// fence 1 broken state A
+datablock PhysicsDebrisData( PSfence1Adebris )
+{
+	lifetime = 60.0;
+	lifetimeVariance = 0.0;
+	velocity = 0.1;
+	velocityVariance = 0;
+	shapeFile = &quot;art/shapes/physicsShapes/fence_1_bkstate_a.DAE&quot;;
+	mass = 1.5;
+	dynamicFriction = 0;
+	staticFriction = 0.3;
+	restitution = 0.0
+	linearDamping = 0.1;
+	angularDamping = 0.1;
+	linearSleepThreshold = 1.0;
+	angularSleepThreshold = 1.0;
+	waterDampingScale = 10;
+	buoyancyDensity = 0.8;
+	friction = &quot;0.2&quot;;
+};
+ 
+datablock PhysicsShapeData( PSfence1A )
+{
+	category = &quot;PhysicsShape&quot;;
+	shapeName = &quot;art/shapes/physicsShapes/fence_1_unbk.DAE&quot;;
+	mass = 0;
+	debris =PSfence1Adebris;
+	explosion = &quot;SplinterExplosion&quot;;
+	friction = &quot;0.1&quot;;
+	linearDamping = &quot;0.1&quot;;
+	angularDamping = &quot;0.1&quot;;
+	buoyancyDensity = &quot;0.2&quot;;
+	staticFriction = &quot;0.1&quot;;
+	restitution = &quot;0.3&quot;;
+	invulnerable = &quot;0&quot;;
+	minDamageAmount = &quot;0.5&quot;;
+	destroyedShape = &quot;PSfence1B&quot;;
+};
+
+// fence 1 broken state B
+datablock PhysicsDebrisData( PSfence1Bdebris )
+{
+	lifetime = 60.0;
+	lifetimeVariance = 0.0;
+	velocity = 0.1;
+	velocityVariance = 0;
+	shapeFile = &quot;art/shapes/physicsShapes/fence_1_bkstate_b.DAE&quot;;
+	mass = 1.5;
+	dynamicFriction = 0;
+	staticFriction = 0.3;
+	restitution = 0.0;
+	linearDamping = 0.1;
+	angularDamping = 0.1;
+	linearSleepThreshold = 1.0;
+	angularSleepThreshold = 1.0;
+	waterDampingScale = 10;
+	buoyancyDensity = 0.8;
+	friction = &quot;0.2&quot;;
+};
+
+datablock PhysicsShapeData( PSfence1baseB )
+{
+	category = &quot;PhysicsShape&quot;;
+	shapeName = &quot;art/shapes/physicsShapes/fence_1_bkbase_b.DAE&quot;;
+	mass = 0;
+	invulnerable = &quot;1&quot;;
+};
+
+datablock PhysicsShapeData( PSfence1B )
+{
+	category = &quot;PhysicsShape&quot;;
+	shapeName = &quot;art/shapes/physicsShapes/fence_1_bkbase_a.DAE&quot;;
+	mass = 0;
+	debris = PSfence1Bdebris;
+	explosion = &quot;SplinterExplosion&quot;;
+	friction = &quot;0.1&quot;;
+	linearDamping = &quot;0.1&quot;;
+	angularDamping = &quot;0.1&quot;;
+	buoyancyDensity = &quot;0.2&quot;;
+	staticFriction = &quot;0.1&quot;;
+	restitution = &quot;0.3&quot;;
+	invulnerable = &quot;0&quot;;
+	minDamageAmount = &quot;1.25&quot;;
+	destroyedShape = &quot;PSfence1baseB&quot;;
+};</pre></div>
+              <p>
+                In the Datablock Editor you will need to specify
+                the &quot;destroyedShape&quot; for each state: </p>
+              <p><p>(<i>click to enlarge</i>)</p>
+			   <p><a href="http://docs.garagegames.com/torque-3d/official/content/documentation/Artist%20Guide/Tutorials/images/Inspector.jpg" class="livethumbnail">
+			  <img src="http://docs.garagegames.com/torque-3d/official/content/documentation/Artist%20Guide/Tutorials/images/Inspector.jpg" border="0" width="350" height="275" largewidth="715" largeheight="565" /></a></p>
+              <p>
+                To place the shape in the level, choose the first state physics shape in
+                the Inspector and add it to your scene. </p>
+
+<a name="Null_LODs"></a><h3>9 Null LODs</h3>
+              <p>To minimize performance the
+                overhead of having a large number of physical shapes any hierarchy can be
+                given a &quot;Null LOD&quot; detail marker. The detail number of the next
+                LOD marker will denote when the meshes should disappear. </p>
+              <p>
+                <img border=0 width=509 height=282
+    src="images/image031.jpg"
+    alt="Description: Description: Description: Image:Nulldetail.jpg" v:shapes="Picture_x0020_1"></p>
+    
+<a name="Conclusion"></a><h3>10 Conclusion</h3>
+              <p>This tutorial covered the
+                process of adding destructible objects to your T3D game by building multiple
+                states of an object. This feature greatly enhances interaction and
+                immersion, so plan ahead when creating your art and designing levels.</p>
+              <p>You can download the sample
+                Softimage files shown in this guide by clicking <a
+    href="Softimage_T3D_PhysicsSamples.zip">HERE</a>. </p></td>
+          </tr>
+          <tr>
+            <td width=700>&nbsp;</td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+  <p>Contributed by James Brad Barnette.</p>
+</div>
+<div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+<script type="text/javascript">
+
+var links = document.getElementsByTagName('a');
+
+for (var i = 0; i < links.length; i++)
+	if (links[i].className == 'livethumbnail')
+	{
+		var img = links[i].getElementsByTagName('img')[0];		
+		img.state = 'small';
+		img.smallSrc = img.getAttribute('src');
+		img.smallWidth = parseInt(img.getAttribute('width'));
+		img.smallHeight = parseInt(img.getAttribute('height'));
+		img.largeSrc = links[i].getAttribute('href');
+		img.largeWidth = parseInt(img.getAttribute('largewidth'));
+		img.largeHeight = parseInt(img.getAttribute('largeheight'));
+		img.ratio = img.smallHeight / img.smallWidth;
+		links[i].onclick = scale;
+	}
+	
+function scale()
+{
+	var img = this.getElementsByTagName('img')[0];		
+	img.src = img.smallSrc;
+	
+	if (! img.preloaded)
+	{
+		img.preloaded = new Image();
+		img.preloaded.src = img.largeSrc;
+	}
+
+	var interval = window.setInterval(scaleStep, 10);
+	return false;
+	
+	function scaleStep()
+	{
+		var step = 45;
+		var width = parseInt(img.getAttribute('width'));
+		var height = parseInt(img.getAttribute('height'));
+		
+		if (img.state == 'small')
+		{
+			width += step;
+			height += Math.floor(step * img.ratio);
+			
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width > img.largeWidth - step)
+			{
+				img.setAttribute('width', img.largeWidth);
+				img.setAttribute('height', img.largeHeight);
+				img.setAttribute('src', img.largeSrc);
+				window.clearInterval(interval);
+				img.state = 'large';
+			}
+		}
+		else
+		{
+			width -= step;
+			height -= Math.floor(step * img.ratio);
+
+			img.setAttribute('width', width);
+			img.setAttribute('height', height);
+			
+			if (width < img.smallWidth + step)
+			{
+				img.setAttribute('width', img.smallWidth);
+				img.setAttribute('height', img.smallHeight);
+				img.src = img.smallSrc;
+				window.clearInterval(interval);
+				img.state = 'small';
+			}
+		}
+	}			
+}
+
+</script>
+</html>

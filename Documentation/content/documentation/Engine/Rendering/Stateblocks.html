@@ -1,4 +1,4 @@
-<html>
+﻿<html>
 <HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
 <SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
 <SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
@@ -13,9 +13,9 @@
 <link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
 <script>
    // this script chunk is to update the ToC to the current doc and expand it
-   pageID = 22;
-   parent.leftFrame.expandToItem('tree2', 'doc22');
-   var element = parent.leftFrame.document.getElementById('doc22');
+   pageID = 33;
+   parent.leftFrame.expandToItem('tree2', 'doc33');
+   var element = parent.leftFrame.document.getElementById('doc33');
    if((element) && (element.className==parent.leftFrame.nodeClosedClass))
 {
    element.className = parent.leftFrame.nodeOpenClass
@@ -102,7 +102,7 @@ glBlendFunc (GL_SRC_ALPHA ,GL_ONE_MINUS_SRC_ALPHA)
                   properly cleaned up before exiting. </p><br>
                 <a name="Source_Code" id="Source_Code"></a>
                 <h2> <span class="mw-headline">Source Code</span></h2>
-                <p>It might help if we tour the engine code, so you can get some concrete code samples in front of your eyes. Start by opening <b>gfxStateBlock.h</b> and <b>gfxStateBlock.cpp</b>, both of which are found in <i>engine/source/GFX</i>. Let's browse the header (.h) first. All four major declarations are important here: </p>
+                <p>It might help if we tour the engine code, so you can get some concrete code samples in front of your eyes. Start by opening <b>gfxStateBlock.h</b> and <b>gfxStateBlock.cpp</b>, both of which are found in <i>engine/source/gfx</i>. Let's browse the header (.h) first. All four major declarations are important here: </p>
                 <pre>struct GFXSamplerStateDesc {...};
 
 struct GFXStateBlockDesc {...};
@@ -117,13 +117,14 @@ typedef StrongRefPtr&lt;GFXStateBlock&gt; GFXStateBlockRef;
                   to identify the texture object used for each texture lookup. You'll
                   find texture arguments for color, alpha, min/mag/mip filter, and
                   address modes. A solid example of how this structure is used can be
-                  found in the GFXGLStateBlock::activate(...) function. </p>
+                  found in the <strong>gfxD3D9StateBlock::activate(...)</strong> function. </p>
                 <p><br />
                   Inside this method, a GFXSamplerStateDesc variable (ssd) is
                   set to one of the stateblocks internal samplers. The function performs
                   a check to see how OpenGL handles the GL_TEXTURE_2D variable: </p>
                 <p><br />
-                  Abbreviated code from GFXGLStateBlock::activate(...), found in engine/source/gfx/gl/gfxGLStateBlock.cpp </p>
+                  Abbreviated code from GFXGLStateBlock::activate(...), found in <em>engine/source/gfx/gl/gfxGLStateBlock.cpp</em> 
+                    :</p>
                 <pre>const GFXSamplerStateDesc ssd = mDesc.samplers[i];
 
 switch (ssd.textureColorOp)

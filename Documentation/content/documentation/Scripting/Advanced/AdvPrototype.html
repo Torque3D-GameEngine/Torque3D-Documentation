@@ -1,0 +1,341 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 48;
+   parent.leftFrame.expandToItem('tree2', 'doc48');
+   var element = parent.leftFrame.document.getElementById('doc48');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque3D - Adventure Prototype</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    </head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_Scripting_Advanced_RTSPrototype skin-monobook" style="width: 700;">
+<table width="700" cellspacing="0" cellpadding="0" border="0" style="width: 700; text-align: justify; padding-left: 10px;" xmlns="">
+<tbody><tr>
+<td style="width: 700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="15" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Building_A_Level"><span class="tocnumber">2</span> <span class="toctext">Building A Level</span></a></li>
+                          <li class="toclevel-1"><a href="#Triggers"><span class="tocnumber">3</span> <span class="toctext">Hooking Up The Triggers</span></a>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">4</span> <span class="toctext">Conclusion</span></a>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+                <p>In the RTS Prototype article we covered how to get started on building a 
+                    Real-time Strategy or Hack &#39;n Slash type camera and movement setup.&nbsp; In 
+                    this article we&#39;re going to build on some of that work to set up an Adventure 
+                    camera system that allows us to set up cameras on a per-room basis.</p>
+                <p>If you haven&#39;t completed the <a href="RTSPrototype.html">RTS Prototype article</a> you should do so before 
+                    starting this one.&nbsp; Once you finish there you should be able to simply 
+                    continue using the same project.</p>
+
+<a name="Adding_Adventure_Cam"></a>
+<h2>Adding the Adventure Camera Mode</h2>
+
+<p>Before we get into building our level we&#39;re going to add one more camera mode to 
+    our arsenal; TrackObject (or Adventure) Mode.&nbsp; This will take our 
+    stationary camera and make it track a target object, like the player for 
+    instance.&nbsp; In <strong>scripts/server/commands.cs</strong> add the following code at the end 
+    of the file: </p>
+
+<pre>
+function serverCmdactionCam(%client)
+{
+   %client.camera.setTrackObject(%client.player);
+}
+</pre>
+
+<p>You can use this mode if you want the camera to track the player as he walks 
+    around the room.</p>
+<p>Next, we&#39;ll set up our level for testing.</p>
+
+<a name="Building_A_Level"></a>
+<h2>Building A Level With Rooms</h2>
+
+<p>Start the Torque Toolbox, select your RTS Prototype project and open the Empty 
+    Terrain level&nbsp; in the World Editor.</p>
+                  <p>
+                      <img alt="" src="images/advStartEditingLevel.png" /></p>
+                  <p>
+                      Create a Station by opening the Library tab in the Scene Tree, navigating to 
+                      <strong>art/shapes/station</strong> and double-clicking <strong>station01</strong>.</p>
+                  <p>
+                      <img alt="" src="images/advCreateStation.png" /></p>
+                  <p>
+                      Back in the Scene tab, ensure that your new TSStatic is selected.&nbsp; In the 
+                      Collision section of the Inspector panel, ensure that <strong>collisionType</strong> and 
+                      <strong>decalType</strong> are both set to <strong>Visible Mesh</strong>.</p>
+                  <p>
+                      <img alt="" src="images/advStationCollisionSettings.png" /></p>
+                  <p>
+                      Position the station however you like, smooth the terrain around it and make 
+                      sure that the player can easily walk into the doors of the station.</p>
+                  <p>
+                      Next, open the Datablock Editor (
+                      <img alt="" src="images/advDBEditor.png" /> ) and create a new 
+                      TriggerData called <strong>CameraRoomTrigger</strong> and copy values from DefaultTrigger.</p>
+                  <p>
+                      <img alt="" src="images/advCreateTriggerData.png" /></p>
+                  <p>
+                      Be sure to save your new datablock (
+                      <img alt="" src="images/advSave.png" /> ).</p>
+                  <p>
+                      Now you can start creating triggers to define your &quot;rooms&quot; within your scene.&nbsp; 
+                      We&#39;re going to set it up so that when the player enters a trigger the camera is 
+                      moved to the appropriate position to view the room.&nbsp; We&#39;ll start by placing 
+                      one on the near side of the station.</p>
+                  <p>
+                      <img alt="" src="images/advRoom1Trigger.png" /></p>
+                  <p>
+                      Name the trigger <strong>Room1</strong> and ensure that you select <strong>CameraRoomTrigger</strong> as its 
+                      datablock.&nbsp; Size it so that it is fairly flat and move the default spawn 
+                      sphere up a bit so that the player will fall into the trigger when entering the 
+                      level.&nbsp; This lets us set the camera to our first room camera angle on level 
+                      start. </p>
+                  <p>
+                      <img alt="" src="images/advRoom1Settings.png" /></p>
+                  <p>
+                      Create another trigger (or copy this one by holding 
+                      <strong>SHIFT</strong> while dragging it) and 
+                      name it Room2.&nbsp; Place it on the other side of the station.</p>
+                  <p>
+                      <img alt="" src="images/advRoom2Trigger.png" /></p>
+                  <p>
+                      Again, ensure that the new trigger is named Room2 and that its datablock is set 
+                      to CameraRoomTrigger.</p>
+                  <p>
+                      Create a third trigger named (you guessed it) Room3 and place it along the 
+                      &quot;bridge&quot; part of the station.</p>
+                  <p>
+                      <img alt="" src="images/advRoom3Trigger.png" /></p>
+                  <p>
+                      Room 4 and 5 will be used to cover the short tower section.&nbsp; Room4 will 
+                      cover the bottom portion: </p>
+                  <p>
+                      <img alt="" src="images/advRoom4Trigger.png" /></p>
+                  <p>
+                      Room5 will cover the top portion of the tower.&nbsp; You may need to adjust the 
+                      heights and overlap on these two triggers to get your camera angle changes 
+                      dialed in.</p>
+                  <p>
+                      <img alt="" src="images/advRoom5Trigger.png" /></p>
+                  <p>
+                      Room6 and Room7 will cover the taller tower.</p>
+                  <p>
+                      <img alt="" src="images/advRoom6Trigger.png" /></p>
+                  <p>
+                      <img alt="" src="images/advRoom7Trigger.png" /></p>
+                  <p>
+                      Now that the tower has been partitioned off into &quot;rooms&quot; we&#39;ll need some way to 
+                      mark our camera locations.&nbsp; We can use Spawn Spheres for this, since they 
+                      don&#39;t render in game but they have both position and rotation information 
+                      attached to them.</p>
+                  <p>
+                      Move your camera to the position you want your first marker to be and get your 
+                      angle dialed in.&nbsp; Once your camera is in position, open the Library tab of 
+                      the Scene Tree, browse to the <strong>Level</strong> tab&#39;s <strong>Level</strong> folder and double click the 
+                      <strong>Player Spawn Sphere</strong> item to create a new Spawn Sphere.</p>
+                  <p>
+                      <img alt="" src="images/advCreateSpawnSphere.png" /></p>
+                  <p>
+                      &nbsp;Name your new Spawn Sphere <strong>Cam1</strong>.</p>
+                  <p>
+                      <img alt="" src="images/advCam1Create.png" /></p>
+                  <p>
+                      Pull down the <strong>Object</strong> menu and select<strong> Drop Location &gt; at Camera w/Rotation</strong>.</p>
+                  <p>
+                      <img alt="" src="images/advSetDropOptions.png" /></p>
+                  <p>
+                      Now you can drop your Spawn Sphere so that it will be in the correct place and 
+                      face the correct direction by selecting <strong>Object &gt; Drop Selection</strong> with 
+                      <strong>Cam1</strong> 
+                      selected.&nbsp; You can optionally use the shortcut <strong>CTRL-D</strong>.</p>
+                  <p>
+                      <img alt="" src="images/advDropObject.png" /></p>
+                  <p>
+                      You may see your screen turn green.&nbsp; This is not a bug, you&#39;ve just pulled 
+                      the Spawn Sphere over your head and you&#39;re seeing the world through 
+                      emerald-tinted glasses.&nbsp; The Spawn Sphere should be placed and facing 
+                      exactly the way the camera currently is, so this is a good sign.</p>
+                  <p>
+                      <img alt="" src="images/advCam1Placed.png" /></p>
+                  <p>
+                      Next, we&#39;ll perform the same steps for the rest of our rooms.&nbsp; 
+                      Move your camera into position, create a new Player Spawn Sphere and then use 
+                      the Drop Selection command to place it where your camera will be.&nbsp; Name 
+                      each one <strong>Cam#</strong> where the <strong>#</strong> is the same as the number on the corresponding 
+                      trigger.</p>
+
+<a name="Triggers"></a>
+<h2>Hooking Up The Triggers</h2>
+
+<p>Once all of the camera markers are placed we need to create a callback function 
+    so that our camera will move when we enter our triggers.&nbsp; In <strong>scripts/server</strong> 
+    create a file called <strong>cameraTrigger.cs</strong> and place the following code in it: </p>
+
+<pre>
+function CameraRoomTrigger::onEnterTrigger(%this,%trigger,%obj)
+{
+   // This method is called whenever an object enters the %trigger
+   // area, the object is passed as %obj.
+   // echo(" -- Trigger entered");
+   
+   %client = %obj.client;
+   
+   switch$(%trigger.name)
+   {
+      case "Room1":
+         echo(" - entered room 1");
+         %client.camera.position = Cam1.position;
+         %client.camera.rotation = Cam1.rotation;
+      
+      case "Room2":
+         echo(" - entered room 2");
+         %client.camera.position = Cam2.position;
+         %client.camera.rotation = Cam2.rotation;
+
+      case "Room3":
+         echo(" - entered room 3");
+         %client.camera.position = Cam3.position;
+         %client.camera.rotation = Cam3.rotation;
+
+      case "Room4":
+         echo(" - entered room 4");
+         %client.camera.position = Cam4.position;
+         %client.camera.rotation = Cam4.rotation;
+
+      case "Room5":
+         echo(" - entered room 5");
+         %client.camera.position = Cam5.position;
+         %client.camera.rotation = Cam5.rotation;
+
+      case "Room6":
+         echo(" - entered room 6");
+         %client.camera.position = Cam6.position;
+         %client.camera.rotation = Cam6.rotation;
+
+      case "Room7":
+         echo(" - entered room 7");
+         %client.camera.position = Cam7.position;
+         %client.camera.rotation = Cam7.rotation;
+         
+      default:
+         echo(" -- Something is wrong with your room triggers");
+   }
+}</pre>
+
+<p>Now open <strong>scripts/server/scriptExec.cs</strong> and add this code at the end of the file: </p>
+
+<pre>
+// Additional trigger code
+exec("./cameraTrigger.cs");</pre>
+
+<p>Save all of your scripts and restart your game.&nbsp; When the Empty Terrain 
+    level loads your player should fall into Room1 and your camera should set itself 
+    right where we want it.&nbsp; Click the right mouse button to move around the 
+    area, moving up into the tower and across the bridge to test your camera angles 
+    and trigger placement.&nbsp; You may need to move some of your triggers to 
+    ensure that the camera angle changes at the right time.</p>
+
+<p>If your cursor is hidden when you start the mission, simply open the 
+    <strong>art/gui/playgui.gui</strong> file and at the beginning of the script you should find a 
+    section that looks like this: </p>
+
+<pre>
+%guiContent = new GameTSCtrl(PlayGui) {
+   cameraZRot = "0";
+   forceFOV = "0";
+   reflectPriority = "1";
+   margin = "0 0 0 0";
+   padding = "0 0 0 0";
+   anchorTop = "1";
+   anchorBottom = "0";
+   anchorLeft = "1";
+   anchorRight = "0";
+   position = "0 0";
+   extent = "1024 768";
+   minExtent = "8 8";
+   horizSizing = "right";
+   vertSizing = "bottom";
+   profile = "GuiContentProfile";
+   visible = "1";
+   active = "1";
+   tooltipProfile = "GuiToolTipProfile";
+   hovertime = "1000";
+   isContainer = "1";
+   canSave = "1";
+   canSaveDynamicFields = "1";
+      enabled = "1";
+      helpTag = "0";
+      noCursor = "1";</pre>
+
+<p>Simply change the last line to <strong>noCursor = &quot;0&quot;;</strong> to show the cursor on startup.&nbsp; 
+    The &#39;<strong>m</strong>&#39; key should toggle the cursor on and off unless you&#39;ve changed it from 
+    the RTS Prototype settings.</p>
+                  <p>Also, if you want to use the &quot;Adventure Camera&quot; mode you can change the 
+                      <strong>commandToServer()</strong> in the <strong>GameCore::preparePlayer()</strong> function 
+                      located in <strong>scripts/server/GameCore.cs</strong> from:</p>
+<pre>
+commandToServer('overheadCam');</pre>
+
+<p>to:</p>
+
+<pre>commandToServer(&#39;actionCam&#39;);</pre>
+
+<p>This will cause the camera to track the player through the scene from each of 
+    the vantage points you have set up.</p>
+
+<a name="Conclusion"></a>
+<h2>Conclusion</h2>
+<p>By now you should have a fully functional Adventure camera system.  There are 
+    several ways to improve upon this tutorial; for starters you could set up 
+    invisible walls to keep the player from getting lost in the desert.&nbsp; </p>
+                  <p>There are 
+    dozens of ways to showcase your level and this is just one of them.&nbsp; 
+    Hopefully this article will give you some more ideas for camera and movement 
+    systems and help you to make the games you want to make.</p>
+
+</div>
+</div>
+
+</td>
+</tr>
+</tbody>
+</table>
+<div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

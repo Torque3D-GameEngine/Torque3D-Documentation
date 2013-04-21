@@ -14,9 +14,9 @@
 <link href="../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
 <script>
    // this script chunk is to update the ToC to the current doc and expand it
-   pageID = 34;
-   parent.leftFrame.expandToItem('tree2', 'doc34');
-   var element = parent.leftFrame.document.getElementById('doc34');
+   pageID = 45;
+   parent.leftFrame.expandToItem('tree2', 'doc45');
+   var element = parent.leftFrame.document.getElementById('doc45');
    if((element) && (element.className==parent.leftFrame.nodeClosedClass))
 {
    element.className = parent.leftFrame.nodeOpenClass
@@ -221,7 +221,7 @@ function GameCore::loadOut(%game, %player)
 
 				<a name="New_Damage_Reporting" id="New_Damage_Reporting"></a>
                 <h2> <span class="mw-headline">New Damage Reporting</span></h2>
-                <p>Starting with 1.2 T3D supports custom death messages based on the type of damage the killed the player.  To set this up you need to define a sendMsgClientKilled_XXX 
+                <p>Starting with 1.2 T3D supports custom death messages based on the type of damage that killed the player.  To set this up you need to define a sendMsgClientKilled_XXX 
                 function that provides the death message, where XXX is the damage type.  For example, the proximity mine has the following defined for the MineDamage damage type as defined 
                 in the mine's datablock:</p>
 <pre>

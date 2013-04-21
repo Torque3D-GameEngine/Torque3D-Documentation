@@ -1,0 +1,149 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 60;
+   parent.leftFrame.expandToItem('tree2', 'doc60');
+   var element = parent.leftFrame.document.getElementById('doc60');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<title>Torque 3D - Triggers</title>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_Scripting_Overview_Introduction skin-monobook">
+
+<table width="700" cellspacing="0" cellpadding="15" border="0" style="text-align: justify;" xmlns="">
+<tr>
+<td style="width: 700">
+<table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                          
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Creation"><span class="tocnumber">2</span> <span class="toctext">Creating Triggers</span></a></li>
+                          <li class="toclevel-1"><a href="#Events"><span class="tocnumber">3</span> <span class="toctext">Using Triggers to Cause Events</span></a></li>
+                          <li class="toclevel-1"><a href="#Callbacks"><span class="tocnumber">4</span> <span class="toctext">Using Trigger Callbacks to Cause Events</span></a></li>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">5</span> <span class="toctext">Conclusion</span></a></li></ul></td>
+                    </tr>
+                  </tbody>
+                </table></td>
+</tr>
+<tr>
+<td>
+    <a name="Introduction"></a>
+    <h3>Introduction</h3>
+    <p>Triggers are very useful for causing all types of events to occur in your games.  They can be used to trigger explosions as the player nears a dramatic fight, or to open doors and
+    gates as the player approaches.  They can be used to spawn AI units so that the system doesn't have to process them while they wait for the player.</p>
+    
+    <a name="Creation"></a>
+    <h3>Creating Triggers</h3>
+    <p>Triggers are created through the Object Editor.  With the Object Editor open, select the Library tab, then select the Level sub-tab.</p>  
+    <img src="images/triggers_obj_editor_create.png" />
+    <p>Open the Level folder and double-click the Trigger icon to open the <strong>Create 
+        Object: Trigger</strong> dialog.  Enter a name for your trigger, select a source datablock and click
+        <strong>Create New</strong>.</p>
+    <img src="images/triggers_create_dialog.png" />
+    <p>You should be staring at a fresh, new trigger:</p>
+    <img src="images/triggers_my_trigger.png" />
+
+    <a name="Events"></a>
+    <h3>Using Triggers to Cause Events</h3>
+    <p>Now that you have a trigger in your level you will need to do some scripting to get it to handle its events.  This can be accomplished in one of two ways.  You can create 
+    your event callback functions in the editor by using the <strong>enterCommand</strong>, 
+        <strong>leaveCommand</strong> and <strong>tickCommand</strong> fields in the 
+        <strong>General</strong> tab of the Object Inspector or you can manually write the 
+    callback functions in script.</p>
+    <h4>Using the Object Inspector Fields</h4>
+    <p>You can directly enter your scripts for your trigger events in the fields provided by clicking in the field.</p>  
+    <img src="images/triggers_callback_in_editor.png" />
+    <p>A text editor will pop up for you to use.  Note that the event fields are limited to 1024 characters, so if your event script is going to be longer you will have to edit the script using an outside editor.</p>
+    <img src="images/triggers_textpad.png" />
+    <p>Note that the trigger assigns the object that initiates the callback to the 
+        <strong>%obj</strong> local variable.  In the above script the class name of the entering object will be echoed to 
+    the console when it enters the trigger.  Once you are finished entering code, click
+        <strong>OK</strong>.&nbsp; Here&nbsp; is the console output you should see when 
+        a Player enters the trigger:</p>
+    <img src="images/triggers_console_output.png" />
+    <p>Next, we can put similar code in the leaveCommand field to tell us when an object exits the trigger.</p>
+    <img src="images/triggers_exit_callback.png" />
+    <p>Now, when a Player enters and then exits the trigger the output should look something like this:</p>
+    <img src="images/triggers_console_output_2.png" />
+    <p>The tickCommand is fired on the trigger's tick cycle, as set in the trigger type datablock.  The 
+        <strong>defaultTrigger</strong> datablock defines its tick frequency at 100 ms.  Because this callback
+    is called repeatedly, try not to do any heavy lifting here.</p>
+    <p>As long as you're not doing anything overly complex you should be fine using the trigger's event fields to handle trigger events.  If you need more room, you can either write a script function
+    outside of the Text Pad editor and call it from your event callback or you can write the entire callback in an outside editor.&nbsp; 
+        As a point of interest, code entered in the event fields is written to the level 
+        file that contains the trigger.</p>
+    <p>A point to keep in mind is that callbacks entered directly in a trigger's event fields only affect that specific trigger.  Callbacks written for the trigger's datablock affect all triggers that use the 
+    same datablock.</p>
+
+    <a name="Callbacks"></a>
+    <h3>Using Trigger Callbacks to Cause Events</h3>
+    <p>The following is taken directly from the DefaultTrigger datablock callback code:</p>
+    <pre>
+//-----------------------------------------------------------------------------
+// DefaultTrigger is used by the mission editor.  This is also an example
+// of trigger methods and callbacks.
+
+function DefaultTrigger::onEnterTrigger(%this,%trigger,%obj)
+{
+   // This method is called whenever an object enters the %trigger
+   // area, the object is passed as %obj.
+}
+
+function DefaultTrigger::onLeaveTrigger(%this,%trigger,%obj)
+{
+   // This method is called whenever an object leaves the %trigger
+   // area, the object is passed as %obj.
+}
+
+function DefaultTrigger::onTickTrigger(%this,%trigger)
+{
+   // This method is called every tickPerioMS, as long as any
+   // objects intersect the trigger.
+
+   // You can iterate through the objects in the list by using these
+   // methods:
+   //    %trigger.getNumObjects();
+   //    %trigger.getObject(n);
+}
+</pre>
+    <p>To get the behavior we defined on our trigger in its event field to work on all DefaultTrigger-derived triggers we could place our 
+    event script code into the DefaultTrigger::onEnterTrigger() and DefaultTrigger::onLeaveTrigger() functions.  As you can see, in 
+    the default onTickTrigger() callback there is code that is commented out that you could use to get the object count within 
+    the trigger every tick.</p>
+    <p>Again, note that any code you put in these callbacks will be called for every trigger that derives from this datablock (or any
+    custom datablock that you may define later).</p>
+
+    <a name="Conclusion"></a>
+    <h3>Conclusion</h3>
+    <p>You should now have a general understanding of basic trigger creation through the editor and the purpose of the event fields and callback functions.  With 
+    this knowledge you can script many different sorts of events and effects within your levels.</p>
+</td>
+</tr>
+</table>
+
+<div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

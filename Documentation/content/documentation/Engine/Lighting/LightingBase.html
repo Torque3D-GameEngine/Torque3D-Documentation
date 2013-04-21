@@ -1,0 +1,789 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 20;
+   parent.leftFrame.expandToItem('tree2', 'doc20');
+   var element = parent.leftFrame.document.getElementById('doc20');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+    <title>Torque 3D/Engine/LightManager</title>
+
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<BODY id = "BODYID" onLoad = "initComponent()"  style="width: 700; padding: 10px" class="mediawiki ltr ns-0 ns-subject page-Torque3D_LightingOverview_GFX_Interface skin-monobook">
+
+<h2><span class="mw-headline">LightManager Class Reference</span></h2>
+<br />
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    lightScene( const char*, const char* )
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    Will generate static lighting (aka lightmaps) for the scene if supported by the 
+    active light manager. If mode is &quot;forceAlways&quot;, the lightmaps will be 
+    regenerated regardless of whether lighting cache files can be written to. If 
+    mode is &quot;forceWritable&quot;, then the lightmaps will be regenerated only if the 
+    lighting cache files can be written.
+    <br />
+    <strong><em>
+    <br />
+    Syntax<br />
+    <br />
+    </em></strong>lightScene(const char* <strong>callback</strong>, const char*
+    <strong>param</strong> )<br />
+    <ul>
+        <li><strong>callback:</strong>&nbsp; The name of the function to execute when the lighting is 
+    complete.</li>
+        <li><strong>param:</strong> Either &quot;forceAlways&quot; or &quot;forceWritable&quot;.</li>
+    </ul>
+    <strong>
+    <br />
+    Returns</strong>
+    <ul>
+        <li><strong>bool:</strong> Returns true if the scene lighting process was started.</li>
+    </ul>
+    <strong><em>
+    <br />
+    Examples</em></strong>
+<pre>
+// Get the sunlight.
+LightInfo *sunLight = mLightManager-&gt;getSpecialLight( LightManager::slSunLightType );
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    getSceneLightingInterface( )
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    Will return the AvailableSLInterfaces for the LightManager, if there is no 
+    available lighting system then it will create a new AvailableSLInterfaces and 
+    then return that.
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    getSceneLightingInterface()<br />
+    
+    <br />
+    <strong>Returns</strong>
+    <ul>
+        <li><strong>LightInfo *</strong>: The LightInfo * of the special light.</li>
+    </ul>
+    
+    <br />
+    <strong><em>Examples</em></strong>
+<pre>
+// From PersistInfo::read 
+SceneLightingInterfaces sli = LIGHTMGR-&gt;getSceneLightingInterface()-&gt;
+    mAvailableSystemInterfaces;
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    _update4LightConsts( const SceneGraphData &sgData, GFXShaderConstHandle *, GFXShaderConstHandle *,GFXShaderConstHandle *, GFXShaderConstHandle *, GFXShaderConstHandle *,GFXShaderConstHandle *,GFXShaderConstBuffer *)
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    Will update the shader constants of "GFXShaderConstBuffer *" depending on the validity of the "GFXShaderConstHandle *"'s passed in.
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong>
+    <br />
+    <br />
+    update4LightConsts(const SceneGraphData &<strong>sgData</strong>, GFXShaderConstHandle *<strong>lightPositionSC</strong>, GFXShaderConstHandle *<strong>lightDiffuseSC</strong>, GFXShaderConstHandle *<strong>lightAmbientSC</strong>, GFXShaderConstHandle *<strong>lightInvRadiusSqSC</strong>, GFXShaderConstHandle *<strong>lightSpotDirSC</strong>, GFXShaderConstHandle **<strong>lightSpotAngleSC</strong>, GFXShaderConstBuffer *<strong>shaderConsts</strong>)
+    <br />
+    <ul>
+        <li><strong>sgData:</strong> The scene graph data related to how the lights will be used.</li>
+        <li><strong>lightPositionSC:</strong> The shader constant for the position paramter.</li>
+        <li><strong>lightDiffuseSC:</strong> The shader constant for the diffuse paramter.</li>
+        <li><strong>lightAmbientSC:</strong> The shader constant for the ambient paramter.</li>
+        <li><strong>lightInvRadiusSqSC:</strong> The shader constant for the light inverse radius paramter.</li>
+        <li><strong>lightSpotDirSC:</strong> The shader constant for the spot light direction paramter.</li>
+        <li><strong>lightSpotAngleSC:</strong> The shader constant for the spot light angle paramter.</li>
+        <li><strong>shaderConsts:</strong> The shader consts for the buffer.</li>
+    </ul>
+    <br />
+    <strong>Returns</strong>
+    <p>No return value.</p>
+    <br />
+    <strong><em>Examples</em></strong>
+<pre>
+// From AdvancedLightManager::setLightInfo
+// Update the forward shading light constants.
+_update4LightConsts( sgData,
+                        lsc->mLightPositionSC,
+                        lsc->mLightDiffuseSC,
+                        lsc->mLightAmbientSC,
+                        lsc->mLightInvRadiusSqSC,
+                        lsc->mLightSpotDirSC,
+                        lsc->mLightSpotAngleSC,
+                        shaderConsts );
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    getAllUnsortedLights( Vector<LightInfo*> * )
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    Will append all of the registered lights to the "Vector<LightInfo*> *" variable passed in.
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    getAllUnsortedLights(Vector<LightInfo*> *list)
+    <br />
+    
+    <ul>
+        <li><strong>list:</strong> A vector of "LightInfo" pointers that will have the registered lights added to it.</li>
+    </ul>
+    <br />
+    <strong>Returns</strong>
+    <p>No return value.</p>
+    <br />
+    <strong><em>Examples</em></strong>
+<pre>
+// From SceneLighting::light
+LIGHTMGR->getAllUnsortedLights(&mLights);
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    unregisterAllLights()
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    Will clear out all of the special lights and registered lights.
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    unregisterAllLights()
+    <br />
+    <br />
+    <strong>Returns</strong>
+    <p>No return value.</p>
+    <br />
+    <strong><em>Examples</em></strong>
+<pre>
+// Unregister all the lights in the light manager.
+LIGHTMGR->unregisterAllLights();
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    unregisterLocalLight( LightInfo * )
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    Empty function.
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    Not used.
+    <br />
+    <br />
+    <strong>Returns</strong>
+    <p>No return value.</p>
+    <br />
+    <strong><em>Examples</em></strong>
+    <p>None.</p>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    registerLocalLight( LightInfo * )
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    Empty function.
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    Not used.
+    <br />
+    <br />
+    <strong>Returns</strong>
+    <p>No return value.</p>
+    <br />
+    <strong><em>Examples</em></strong>
+    <p>None.</p>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    unregisterGlobalLight( LightInfo * )
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    Will remove the passed in light from the registered lights. If the light passed in is the sun, then it will clear the suns special light also.
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    unregisterGlobalLight(LightInfo *light)
+    <br />
+    <ul>
+        <li><strong>light:</strong> The light to be registered from mRegisteredLights.</li>
+    </ul>
+    <br />
+    <strong>Returns</strong>
+    <p>No return value.</p>
+    <br />
+    <strong><em>Examples</em></strong>
+<pre>
+lightManager->unregisterGlobalLight( mLight );
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    registerGlobalLight( LightInfo *, SimObject * )
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    If the light is not already registered, then the light will be added to the registered lights. If it already added, a AssertFatal will be thrown.
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    registerGlobalLight(LightInfo *light, SimObject *obj )
+    <br />
+    <ul>
+        <li><strong>light:</strong> The light to be registered to mRegisteredLights.</li>
+        <li><strong>obj:</strong> Not used.</li>
+    </ul>
+    <br />
+    <strong>Returns</strong>
+    <p>No return value.</p>
+    <br />
+    <strong><em>Examples</em></strong>
+<pre>
+// From inside of Item::registerLights
+lightManager->registerGlobalLight( mLight, this );
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    registerGlobalLights( const Frustum *, bool )
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    <p>Register the lights depending if there is a Frustum or if there is static lighting. If there is no frustum or there is static lighting, then there will be no light culling. If there is a frustum or there is no static lighting, then cull the lights using the frustum.</p>
+    <p>After the decision for light culling or not, it will have the lights register themselves.</p>
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    registerGlobalLights(const Frustum *frustum, bool staticLighting )
+    <br />
+    <ul>
+        <li><strong>frustrum:</strong> The frustum to be used for light culling.</li>
+        <li><strong>staticLighting:</strong> Whether or not static lighting is being processed.</li>
+    </ul>
+    <br />
+    <strong>Returns</strong>
+    <p>No return value.</p>
+    <br />
+    <strong><em>Examples</em></strong>
+<pre>
+// Get the lights for rendering the scene.
+LIGHTMGR->registerGlobalLights( &sceneState->getFrustum(), false);
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    setSpecialLight( LightManager::SpecialLightTypesEnum, LightInfo * )
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    <p>Register the light with the LightManager and set the light to one of the special light types for the LightManager.</p>
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    setSpecialLight(LightManager::SpecialLightTypesEnum type, LightInfo *light )
+    <br />
+    <ul>
+        <li><strong>type:</strong> The special light type.</li>
+        <li><strong>light:</strong> The light to apply the type to.</li>
+    </ul>
+    <br />
+    <strong>Returns</strong>
+    <p>No return value.</p>
+    <br />
+    <strong><em>Examples</em></strong>
+<pre>
+// Set the sunlight. 
+mLightManager->setSpecialLight( LightManager::slSunLightType, theSun );
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    getSpecialLight( LightManager::SpecialLightTypesEnum , bool )
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    <p>Will return the special light based upon the type passed in if it is available. If it is not available, and the useDefault is set to true then it will return the result of getDefaultLight(). In the event that the special light is not found and useDefault is false, the function will return false.</p>
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    getSpecialLight(LightManager::SpecialLightTypesEnum type, bool useDefault )
+    <br />
+    <ul>
+        <li><strong>type:</strong> The special light type to find.</li>
+        <li><strong>useDefault:</strong> If the special light based up the light is not found, it will return the default light from getDefaultLight(). useDefault is set to true by default.</li>
+    </ul>
+    <br />
+    <strong>Returns</strong>
+    <ul>
+        <li><strong>LightInfo *:</strong> The LightInfo * of the special light.</li>
+    </ul>
+    <br />
+    <strong><em>Examples</em></strong>
+<pre>
+// Get the sunlight. 
+LightInfo *sunLight = mLightManager->getSpecialLight( LightManager::slSunLightType );
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    getDefaultLight()
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    <p>Will return the sun if it is registered, as it is always the default light. However, if the sun has not been registered yet then it will create a dummy special light.</p>
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    getDefaultLight()
+    <br />
+    <br />
+    <strong>Returns</strong>
+    <ul>
+        <li><strong>LightInfo *:</strong> The LightInfo * of the default light.</li>
+    </ul>
+    <br />
+    <strong><em>Examples</em></strong>
+<pre>
+// Get the default light, which will be the sun if it is registered
+mLightManager->getDefaultLight();
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    deactivate()
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    <p>Will check to see if the LightManager has been already been deactived and that it is the active light manager. If it is passes those two checks, it will call it's deactivate callback and then unregister all of the lights associated with LightManager (via unregiserAllLights(), detailed below).</p>
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    deactivate()
+    <br />
+    <br />
+    <strong>Returns</strong>
+    <p>No return value.</p>
+    <br />
+    <strong><em>Examples</em></strong>
+<pre>
+// Deactivate the light manager
+mLightManager->deactivate();
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    activate( SceneGraph *)
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    <p>Will activate the LightManager if it is not already activate (in which case an AssertFatal will be thrown) and call the callback for activating the light manager.</p>
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    activate(SceneGraph *sceneManager);
+    <br />
+    <ul>
+        <li><strong>sceneManager:</strong> The SceneGraph that will be used to activate rendering passes and the post effect fog if there is a prepass.</li>
+    </ul>
+    <br />
+    <strong>Returns</strong>
+    <p>No return value.</p>
+    <br />
+    <strong><em>Examples</em></strong>
+<pre>
+// From inside of "SceneGraph::_setLightManager( LightManager *lm )" located in 
+// sceneGraph.cpp
+mLightManager->activate( this );
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    initLightFields()
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    <p>A static function that will traverse the LightManagerMap and will call each LightManager's _initLightFields function. Since _initLightFields is a pure virtual function, it will call the derived classes _initLightFields.</p>
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    initLightFields()
+    <br />
+    <br />
+    <strong>Returns</strong>
+    <p>No return value.</p>
+    <br />
+    <strong><em>Examples</em></strong>
+<pre>
+LightManager::initLightFields();
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    getLightManagerNames( String * )
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    <p>A static function that will create a String containing all of the LightManager names from the LightManagerMap.</p>
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    getLightManagerNames(String *outString);
+    <br />
+    <ul>
+        <li><strong>outString:</strong> The string that will be constructed based upon the available LightManger names from the LightManagerMap.</li>
+    </ul>
+    <br />
+    <strong>Returns</strong>
+    <p>No return value.</p>
+    <br />
+    <strong><em>Examples</em></strong>
+<pre>
+If the LightManagerMap had two LightManager's inside of it, one being 
+"Advanced Lighting" and the other "Basic Lighting" then outString will be 
+"Advanced Lighting    Basic Lighting". The spacing between "Advanced Lighting" 
+and "Basic Lighting" is a tab ("\\t").
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    findByName( const char * )
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    <p>A static function that traverses the LightManagerMap for the LightManager with the name passed in. If no LightManager in the LightManagerMap contains that name, it will return NULL.</p>
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    findByName(const char *name);
+    <br />
+    <ul>
+        <li><strong>name:</strong> The name of the LightManager to find.</li>
+    </ul>
+    <br />
+    <strong>Returns</strong>
+    <br />
+    <ul>
+        <li><strong>LightManager*:</strong> The LightManager found in the LightManagerMap with the name passed in.</li>
+    </ul>
+    <br />
+    <strong><em>Examples</em></strong>
+<pre>
+// Find the LightManager with the name "Advanced Lighting"
+LightManager::findByName( "Advanced Lighting" )
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    _getLightManagers()
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    <p>Returns the static LightManagerMap.</p>
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    _getLightManagers()
+    <br />
+    <br />
+    <strong>Returns</strong>
+    <br />
+    <ul>
+        <li><strong>LightManagerMap</strong></li>
+    </ul>
+    <br />
+    <strong><em>Examples</em></strong>
+<pre>
+// Retrieve the LightManagerMap, example is from LightManagerMap::findByName
+LightManagerMap &lightManagers = _getLightManagers();
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    ~LightManager()
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    <p>Will safely delete the default light and Available Scene Lighting Interfaces. It will also remove its self from the LightManagerMap.</p>
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    ~LightManager()
+    <br />
+    <br />
+    <strong>Returns</strong>
+    <br />
+    <p>No return value.</p>
+    <br />
+    <strong><em>Examples</em></strong>
+<pre>
+This function is called implicitly at the destruction of LightManager.
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    LightManager( const char *, const char * )
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    <p>Initializes the class variables to the default values.</p>
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    LightManager(const char *name, const char * id);
+    <br />
+    <ul>
+        <li><strong>name:</strong> The name of the LightManager.</li>
+        <li><strong>id:</strong> The id of the LightManager, often an abbreviation of the name.</li>
+    </ul>
+    <br />
+    <strong>Returns</strong>
+    <br />
+    <p>No return value.</p>
+    <br />
+    <strong><em>Examples</em></strong>
+<pre>
+// The LightManager being given the name "Advanced Lighting" and the id of "ADVLM"
+LightManager( "Advanced Lighting", "ADVLM" )
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

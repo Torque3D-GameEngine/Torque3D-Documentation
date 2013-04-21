@@ -1,0 +1,266 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 51;
+   parent.leftFrame.expandToItem('tree2', 'doc51');
+   var element = parent.leftFrame.document.getElementById('doc51');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+<title>Torque3D - Adventure Prototype</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    </head>
+<BODY id = "BODYID" onLoad = "initComponent()"  bgcolor="#FFFFFF" class="mediawiki ltr ns-0 ns-subject page-Torque3D_Scripting_Advanced_RTSPrototype skin-monobook" style="width: 700;">
+<table width="700" cellspacing="0" cellpadding="0" border="0" style="width: 700; text-align: justify; padding-left: 10px;" xmlns="">
+<tbody><tr>
+<td style="width: 700">
+
+<div id="globalWrapper" xmlns="http://www.w3.org/1999/xhtml">
+  <div id="column-content">
+    <a name="top" id="top"></a>
+      
+        <table border="0" cellpadding="15" cellspacing="0" width="700">
+          <tbody>
+            <tr>
+              <td width="700"><table id="toc" summary="Contents">
+                  <tbody>
+                    <tr>
+                      <td><div id="toctitle">
+                          <h2>Contents</h2>
+                        <ul>
+                          <li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+                          <li class="toclevel-1"><a href="#Setting_Up"><span class="tocnumber">2</span> <span class="toctext">Setting Up</span></a></li>
+                          <li class="toclevel-1"><a href="#Create_Trigger_Datablock"><span class="tocnumber">3</span> <span class="toctext">Create the New Trigger Datablock</span></a>
+                          <li class="toclevel-1"><a href="#Scripts"><span class="tocnumber">4</span> <span class="toctext">The onEnterTrigger() Callback and Other Support Scripts</span></a>
+                          <li class="toclevel-1"><a href="#Put_It_Together"><span class="tocnumber">4</span> <span class="toctext">Putting It All Together</span></a>
+                          <li class="toclevel-1"><a href="#Conclusion"><span class="tocnumber">4</span> <span class="toctext">Conclusion</span></a>
+                        </ul></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a name="Introduction" id="Introduction"></a>
+                <h2> <span class="mw-headline">Introduction</span></h2>
+<p>Many games have more than one level or area in which the player is going to play, unless you're making a 
+    card game or other similar setup.&nbsp; If you&#39;re making a deathmatch game then 
+    you&#39;re already set - the default scripts will automatically cycle the mission 
+    when a player gets the requisite score.&nbsp; If you&#39;re making a role-playing 
+    game you might want to have other ways to get a player from one mission to the 
+    next.</p>
+                  <p>In this article we&#39;re going to cover mission cycling using triggers and spawn 
+                      points.&nbsp; This will let us pick a landing spot in the destination mission 
+                      file for our player based on which trigger was used.</p>
+
+<a name="Setting_Up"></a>
+<h2>Setting Up</h2>
+
+<p>We&#39;re going to start with a clean project, so open the Toolbox and create one 
+    using the FPS Tutorial template.&nbsp; This will give us an assortment of 
+    mission files to play in.</p>
+                  <p><img alt="" src="images/MTNewProject.png" /></p>
+                  <p>Name your new project MissionTriggers and select the FPS Tutorial template.</p>
+                  <p><img alt="" src="images/MTProjectOptions.png" /></p>
+                  <p>When the project has been created, select your new project (1), select the
+                      <strong>ChinaTown_Day.mis</strong> mission (2) and open it in the World Editor 
+                      (3).</p>
+                  <p><img alt="" src="images/MTEditCTDay.png" /></p>
+
+<a name="Create_Trigger_Datablock"></a>
+<h2>Create the New Trigger Datablock</h2>
+
+                  <p>When the mission loads start the Datablock Editor.</p>
+                  <p>
+                      <img alt="" src="images/MTStartDBEditor.png" /></p>
+                  <p>In the Datablock Library, select the New tab and scroll down to TriggerData.&nbsp; 
+                      Double-click TriggerData to create a new TriggerData datablock.</p>
+                  <p>
+                      <img alt="" src="images/MTNewTriggerData.png" /></p>
+                  <p>In the Create New Datablock dialog, name your datablock <strong>transitionTrigger</strong> 
+                      and click <strong>Create</strong>.</p>
+                  <p>
+                      <img alt="" src="images/MTTriggerDataSettings.png" /></p>
+                  <p>Save your new datablock, then save your mission file and close the editor.</p>
+                  <p>
+                      <img alt="" src="images/MTSaveDatablock.png" /></p>
+
+<a name="Scripts"></a>
+<h2>The onEnterTrigger() Callback and Other Support Scripts</h2>
+
+<p>Now we need to script our new transitionTrigger's <strong>onEnterTrigger()</strong> callback to handle moving the player from the current 
+mission to the desired mission.</p>
+                  <p>Open <strong>scripts/server/triggers.cs</strong> and add the following code to the end of the 
+                      file:</p>
+
+<pre>
+function transitionTrigger::onEnterTrigger(%this, %trigger, %obj)
+{
+   // get the .mission dynamic field value of the activated trigger 
+   // and assign it to the global variable $Server::TargetMission for use when 
+   // loading the next mission file
+   
+   $Server::TargetMission = %trigger.mission;
+
+   // get the .target dynamic field value of the activated trigger
+   // and assign it to the global variable $Server::TargetSpawn for use when
+   // spawning the player in the next mission
+   
+   $Server::TargetSpawn = %trigger.target;
+   
+   // call the function to cycle the mission.  This shows the score screen and
+   // then flushes the current mission before loading the next one.
+   
+   cycleGame();
+}</pre>
+
+<p>Next, open <strong>scripts/server/game.cs</strong> and find the <strong>
+    onCyclePauseEnd()</strong> function.&nbsp; Comment out everything except the 
+    first and last line of the function.&nbsp; Then change the last line from:</p>
+
+<pre>loadMission(%file);</pre>
+                  <p>To:</p>
+<pre>loadMission($Server::TargetMission);</pre>
+
+<p>Then open <strong>core/scripts/server/spawn.cs</strong> and find the <strong>pickPlayerSpawnPoint()</strong> function.  Change the first
+    <strong>for</strong> block to the following:</p>
+
+<pre>
+   for (%i = 0; %i < getWordCount(%spawnGroups); %i++)
+   {
+      %group = getWord(%spawnGroups, %i);
+
+      if (isObject(%group))
+      {
+         %count = %group.getCount();
+         for(%j = 0; %j < %count; %j++)
+         {
+            %spawnPoint = %group.getObject(%j);
+            if(%spawnPoint.getName() $= $Server::TargetSpawn)
+            {
+               if(isObject(%spawnPoint))
+               {
+                  return %spawnPoint;
+               }
+            }
+         }
+      }
+   }</pre>
+
+<p>If you're watching carefully, you'll notice that the script above looks for the player spawn points in a particular 
+    SimGroup.&nbsp; We&#39;ll talk about that and the rest of the system next.</p>
+
+<a name="Put_It_Together"></a>
+<h2>Putting It All Together</h2>
+
+<p>Now it's time to make all of this work.  Open up <strong>ChinaTown_Day.mis</strong> in the World Editor.&nbsp; 
+    Once it opens create a new trigger by opening the Object Editor, selecting the
+    <strong>Library</strong> tab, selecting the <strong>Level</strong> sub-tab, 
+    opening the <strong>Level</strong> folder and double-clicking the <strong>
+    Trigger</strong> item.</p>
+                  <p>
+                      <img alt="" src="images/MTCreateTrigger.png" /></p>
+                  <p>In the <strong>Create Object: Trigger</strong> dialog, name your trigger <strong>
+                      CTNight</strong> and select the <strong>transitionTrigger</strong> datablock, 
+                      then click <strong>Create New</strong>.</p>
+                  <p>
+                      <img alt="" src="images/MTNewTriggerSettings.png" /></p>
+                  <p>Place the trigger somewhere easy to remember, like in a doorway.</p>
+                  <p>
+                      <img alt="" src="images/MTCTNightInDoor.png" /></p>
+                  <p>Next, in the Scene Tree, click the Scene tab and scroll down to the bottom of the 
+                      Inspector pane edit your trigger&#39;s dynamic fields.</p>
+                  <p>
+                      <img alt="" src="images/MTEditDynamicFields.png" /></p>
+                  <p>Click the green + symbol to add a new Dynamic Field.</p>
+                  <p>
+                      <img alt="" src="images/MTNewDynamicField.png" /></p>
+                  <p>Where it says &quot;dynamicField,&quot; type <strong>mission</strong> and where it says 
+                      &quot;defaultValue&quot; type <strong>levels\ChinaTown_Dusk.mis</strong>.</p>
+                  <p>Add another dynamic field, name it <strong>target</strong> and set <strong>
+                      CTNight</strong> as the value.</p>
+                  <p>
+                      <img alt="" src="images/MTCTNTriggerFields.png" /></p>
+                  <p>This will set up what we need to land our player at a spawnpoint named &quot;<strong>CTNight</strong>&quot; 
+                      in the <strong>ChinaTown_Dusk.mis</strong> mission.</p>
+                  <p>Next, we&#39;ll create a spawn point here so that we can come back to the day mission 
+                      later.</p>
+                  <p>
+                      <img alt="" src="images/MTDaySpawnPoint.png" /></p>
+                  <p>Name it <strong>CTDay</strong>, then click <strong>Create New</strong>.</p>
+                  <p>
+                      <img alt="" src="images/MTCTDaySpawn.png" /></p>
+                  <p>Place it in front of the door facing the street.&nbsp; To do this, with the spawn 
+                      sphere selected open the <strong>Object</strong> menu, select <strong>Drop 
+                      Location &gt; at Camera w/Rotation</strong> and then use <strong>Object &gt; Drop 
+                      Selection</strong> (or <strong>CTRL-D</strong> ) to place the object.</p>
+                  <p>
+                      <img alt="" src="images/MTDropAtCamera.png" /></p>
+                  <p>Next, make sure you place it in the <strong>PlayerSpawnPoints</strong> SimGroup 
+                      or you will spawn at the default spawn point:</p>
+                  <p>
+                      <img alt="" src="images/MTCTDayInFolder.png" /></p>
+                  <p>Save your mission file ( <strong>CTRL-S</strong> ) and open <strong>
+                      ChinaTown_Dusk.mis</strong> in the World Editor.</p>
+                  <p>Once it opens, create a new trigger, name it <strong>CTDay</strong> and set the 
+                      datablock to <strong>transitionTrigger</strong>.</p>
+                  <p>
+                      <img alt="" src="images/MTCTDaySettings.png" /></p>
+                  <p>Place it in a doorway to make it easy to remember where it is.</p>
+                  <p>
+                      <img alt="" src="images/MTCTDayInDoor.png" /></p>
+                  <p>Add a dynamic field named <strong>mission</strong> and set the value to <strong>
+                      levels\ChinaTown_Day.mis</strong>.&nbsp; Add a second dynamic field named
+                      <strong>target</strong> and set the value to <strong>CTDay</strong>.</p>
+                  <p>
+                      <img alt="" src="images/MTCTDayDynamicFields.png" /></p>
+                  <p>Now, place a spawn point in front of the door facing the street and name it
+                      <strong>CTNight</strong>.</p>
+                  <p>
+                      <img alt="" src="images/MTCTNightSP.png" /></p>
+                  <p>Ensure that the <strong>CTNight</strong> spawn point is in the <strong>
+                      PlayerSpawnPoints</strong> SimGroup or you will spawn at the default spawn 
+                      point.</p>
+                  <p>
+                      <img alt="" src="images/MTCTNightInFolder.png" /></p>
+                  <p>Now we should be ready to test this all out.&nbsp; Save your mission file (
+                      <strong>CTRL-S</strong> ) and exit the World Editor.&nbsp; Then, from the 
+                      Toolbox select your project ( 1 ) and then click Play Game ( 2 ).</p>
+                  <p>
+                      <img alt="" src="images/MTPlayGame.png" /></p>
+                  <p>When the main menu appears, choose <strong>Multiplayer</strong>, <strong>Host</strong> and then 
+                      <strong>Start Game</strong>.</p>
+                  <p>
+                      <img alt="" src="images/MTPlayProc.png" /></p>
+                  <p>Now simply run through your trigger to transfer to the ChinaTown_Dusk mission, 
+                      and then run through your trigger there to come back to ChinaTown_Day.</p>
+                  <a name="Conclusion"></a>
+<h2>Conclusion</h2>
+<p>Now you can transfer from one mission to another using triggers and spawn points.&nbsp; 
+    You could use the mouse interaction methods used in the RTS Prototype article to 
+    make clickable objects that would cause the transfer instead.</p>
+
+</div>
+</div>
+
+</td>
+</tr>
+</tbody>
+</table>
+<div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

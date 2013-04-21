@@ -1,4 +1,4 @@
-<html>
+﻿<html>
 <HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
 <SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
 <SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
@@ -13,9 +13,9 @@
 <link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
 <script>
    // this script chunk is to update the ToC to the current doc and expand it
-   pageID = 18;
-   parent.leftFrame.expandToItem('tree2', 'doc18');
-   var element = parent.leftFrame.document.getElementById('doc18');
+   pageID = 29;
+   parent.leftFrame.expandToItem('tree2', 'doc29');
+   var element = parent.leftFrame.document.getElementById('doc29');
    if((element) && (element.className==parent.leftFrame.nodeClosedClass))
 {
    element.className = parent.leftFrame.nodeOpenClass
@@ -83,8 +83,8 @@
                   automatically for you. When working in the engine, you will want to
                   focus on the source code related to your target platform: </p>
                 <ul>
-                  <li><b>Windows</b> - GFX-&gt;D3D9 for rendering. Input, window management, and general Windows components are handled by platformWin32, windowManager->win32, and a few other filters which will be detailed in the  <a href="tour.html">GFX Engine Tour</a>. </li>
-                  <li><b>Mac OSX</b> - GFX-&gt;gl for rendering. platformMac
+                  <li><b>Windows</b> - GFX-&gt;D3D9 for rendering while input, window management, and general Windows components are handled by platformWin32, windowManager->win32, and a few other filters which will be detailed in the  <a href="Tour.html">GFX Engine Tour</a>. </li>
+                  <li><b>Mac OSX</b> - GFX-&gt;gl for rendering while platformMac
                     and windowManager-&gt;mac handle input, window management, and other
                     Mac components. </li>
                 </ul>
@@ -104,16 +104,16 @@
                   <li><b>DirectX</b> (<a href="http://msdn.microsoft.com/en-us/directx/default.aspx" class="external" title="http://msdn.microsoft.com/en-us/directx/default.aspx" rel="nofollow">http://msdn.microsoft.com/en-us/directx/default.aspx</a>)
                     - A collection of APIs which handle rendering, input, audio, and other
                     forms of media interaction. DirectX is commonly what drives game and
-                    video programming on Microsoft's operating systems. Example DirectX
-                    APIs are Direct3D (D3D), DirectInput, and so on. DirectX developers
+                    video programming on Microsoft's operating systems. Examples of DirectX
+                    APIs include Direct3D (D3D) and DirectInput. DirectX developers
                     must use the DirectX SDK to develop a Windows game. The SDK contains
-                    all of the DirectX APIs, including the runtime libraries and source
+                    all of the DirectX APIs including the runtime libraries and source
                     headers. </li>
                   <li><b>OpenGL</b> (<a href="http://www.opengl.org/" class="external" title="http://www.opengl.org/" rel="nofollow">http://www.opengl.org/</a>)
                     - OpenGL stands for Open Graphics Library. This powerful,
                     cross-platform API is used for low-level rendering of 2D and 3D
                     graphics. Supporting OpenGL in Torque 3D is what allows the engine to run
-                    on Mac OSX </li>
+                    on Mac OSX. </li>
                   <li><b>Shaders</b> - Shaders are part of the DirectX and OpenGL
                     rendering systems. A shader file contains a set of instructions that
                     get passed to the GPU along with the 3D data it will affect. Both

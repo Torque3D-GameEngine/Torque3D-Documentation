@@ -1,4 +1,4 @@
-<html>
+﻿<html>
 <HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
 <SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
 <SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
@@ -13,9 +13,9 @@
 <link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
 <script>
    // this script chunk is to update the ToC to the current doc and expand it
-   pageID = 19;
-   parent.leftFrame.expandToItem('tree2', 'doc19');
-   var element = parent.leftFrame.document.getElementById('doc19');
+   pageID = 30;
+   parent.leftFrame.expandToItem('tree2', 'doc30');
+   var element = parent.leftFrame.document.getElementById('doc30');
    if((element) && (element.className==parent.leftFrame.nodeClosedClass))
 {
    element.className = parent.leftFrame.nodeOpenClass
@@ -113,10 +113,12 @@ state-&gt;getRenderPass()-&gt;addInst( ri );
    GFXTransformSaver saver;  
    GFX-&gt;setVertexBuffer( mVB );         
       
-   MatrixF worldMat = state-&gt;getCameraTransform();     
+   MatrixF worldMat = MatrixF::Identity;
+   worldMat.setPosition( state->getCameraPosition() );
 
-   SceneGraphData sgData;
-   sgData.objTrans = worldMat;
+   SceneData sgData;
+   sgData.init( state );
+   sgData.objTrans = &worldMat;
    
    ...
 </pre><br>

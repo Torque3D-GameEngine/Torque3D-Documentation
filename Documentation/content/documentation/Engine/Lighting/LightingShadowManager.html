@@ -1,0 +1,137 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/glossaryLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/referenceLookUp.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/component.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT SRC="../../../include/componentContainer.js" LANGUAGE="JavaScript"></SCRIPT>
+<SCRIPT>DocImagePath = "../../../";</SCRIPT><link href="../../../include/tutorialStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/tutorial.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/globalMainPageStyles.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/referenceThemeStyle.css" rel="stylesheet" type="text/css" />
+<link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
+<script>
+   // this script chunk is to update the ToC to the current doc and expand it
+   pageID = 24;
+   parent.leftFrame.expandToItem('tree2', 'doc24');
+   var element = parent.leftFrame.document.getElementById('doc24');
+   if((element) && (element.className==parent.leftFrame.nodeClosedClass))
+{
+   element.className = parent.leftFrame.nodeOpenClass
+}
+;
+</script>
+    <title>Torque 3D/Engine/ShadowManager</title>
+
+<link rel="stylesheet" type="text/css" href="../../../include/container.css" />
+<link rel="stylesheet" type="text/css" href="../../../include/content.css" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<BODY id = "BODYID" onLoad = "initComponent()"  style="width: 700; padding: 10px" class="mediawiki ltr ns-0 ns-subject page-Torque3D_LightingOverview_GFX_Interface skin-monobook">
+
+<h2><span class="mw-headline">ShadowManager Class Reference</span></h2>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    activate()
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    <p>Called when the shadow manager should become active. It will assign the class variable "SceneGraph* mSceneManager" to the global "SceneGraph* gClientSceneGraph" variable.</p>
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    activate()
+    <br />
+    <br />
+    <strong>Returns</strong>
+    <br />
+    <p>No return value.</p>
+    <br />
+    <strong><em>Examples</em></strong>
+<pre>
+// Called from within the AdvancedLightManager::activate, SHADOWMGR is a #define 
+// of the ShadowMapManager::instance() function.
+SHADOWMGR->activate();
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    deactivate()
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    <p>Called when we don't want the shadow manager active (should clean up). As this is basically just a base class, this function does nothing and should be overridden by the super class to clean clean up its own data.</p>
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    deactivate()
+    <br />
+    <br />
+    <strong>Returns</strong>
+    <br />
+    <p>No return value.</p>
+    <br />
+    <strong><em>Examples</em></strong>
+<pre>
+// Called from within the AdvancedLightManager::deactivate, SHADOWMGR is a #define 
+// of the ShadowMapManager::instance() function.
+SHADOWMGR->deactivate();
+</pre>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<table style="width: 700">
+<tbody>
+<tr>
+<td style="padding: 10px; font-weight: bold; background-color: #3399FF">
+    canActivate()
+</td>
+</tr>
+<tr>
+<td style="padding: 10px; background-color: #CCCCCC">
+    <p>Called to find out if it is valid to activate this shadow system. Currently this function will always return true.</p>
+    <br />
+    <br />
+    <strong><em>Syntax</em></strong><br />
+    <br />
+    canActivate()
+    <br />
+    <br />
+    <strong>Returns</strong>
+    <br />
+    <ul>
+        <li><strong>bool:</strong> Will always return true.</li>
+    </ul>
+    <br />
+    <strong><em>Examples</em></strong>
+    <p>Currently this function is not called in the base and is left up to the user to implement.</p>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<div class="footer">   <a href="../../../content_welcome.html" target="">Home</a>   <a href="#">Back to Top</a></div></body>
+</html>

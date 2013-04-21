@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><HEAD><SCRIPT SRC="../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
 <SCRIPT SRC="../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
 <SCRIPT SRC="../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
@@ -13,9 +13,9 @@
 <link href="../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
 <script>
    // this script chunk is to update the ToC to the current doc and expand it
-   pageID = 65;
-   parent.leftFrame.expandToItem('tree2', 'doc65');
-   var element = parent.leftFrame.document.getElementById('doc65');
+   pageID = 79;
+   parent.leftFrame.expandToItem('tree2', 'doc79');
+   var element = parent.leftFrame.document.getElementById('doc79');
    if((element) && (element.className==parent.leftFrame.nodeClosedClass))
 {
    element.className = parent.leftFrame.nodeOpenClass
@@ -45,7 +45,7 @@
                   <tbody>
                     <tr>
                       <td><div id="toctitle">
-			<h1>Contents</h2>
+			<h2>Contents</h2>
 			</div>
 			<ul>
 			<li class="toclevel-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a></li>
@@ -70,11 +70,11 @@
 </table>
 
 <a name="Overview" id="Overview"></a>
-<h1><span class="mw-headline">Overview</span></h2>
+<h2><span class="mw-headline">Overview</span></h2>
 <p>This article will take you through installing the necessary tools to develop games using Torque 3D. We have separated this article into two sections depending on the focus of your team. The first section is oriented towards level designers, artists, and people who are new to Torque 3D and do not need to dive into the source code. The second section is oriented towards programmers who will be working with the source code of the engine.</p>
 
 <a name="New_Users_Scripters_and_Artists" id="New_Users_Scripters_and_Artists"></a>
-<h1><span class="mw-headline">New Users, Scripters, and Artists</span></h2>
+<h2><span class="mw-headline">New Users, Scripters, and Artists</span></h2>
     <p>Now that you have decided to work with Torque 3D, this section will take 
     you through setting up your environment.</p>
     <p><br />If you are using the demo or are primarily using the tools, the setup of Torque 3D is simple. 
@@ -105,10 +105,10 @@
                 <li><a href="http://www.realtek.com.tw/downloads/" class="external">RealTek</a></li>
             </ul>
 
-		<p><br />
+		<br />
 
 <a name="Programmers" id="Programmers"></a>
-<h1><span class="mw-headline">Programmers</span></h2>
+<h2><span class="mw-headline">Programmers</span></h2>
 <p>When you buy the T3D license, you receive access to the complete engine source code. This allows you to customize the engine to meet your project needs. </p>
                 <p><br />
                 This tutorial will guide you step-by-step through the process of setting up your development environment. Once set up correctly, you will be able to edit and recompile your T3D engine source code. </p>
@@ -117,37 +117,32 @@
                 <p><br />This tutorial explains how to:</p>
                 <ul>
                   <li>Install VC++ Express.</li>
-                <ul>
                   <li>Download the required files for a successful engine build. </li>
-                </ul>
-                <ul>
                   <li>Set up the environment dependent files correctly. </li>
-                </ul>
-                <ul>
                   <li>Make your first successful engine build.</li>
-                </ul><br>
+                </ul><br />
                 <a name="Part1_-_Download_the_Required_Files" id="Part1_-_Download_the_Required_Files"></a>
-                <h2> <span class="mw-headline"><a href="./Downloads.html" class="external" title="Setup Part 1" rel="nofollow">Part 1 - Download the Required Files</a> </span></h3>
+                <h3> <span class="mw-headline"><a href="Downloads.html">Part 1 - Download the Required Files</a> </span></h3>
                 <p>To successfully compile the engine source code, you will need to 
                   download these files. </p>
                 <a name="Part2_-_Install_the_DirectX_SDK" id="Part2_-_Install_the_DirectX_SDK"></a>
-                <h2> <span class="mw-headline"><a href="./DirectX.html" class="external" title="Setup Part 2" rel="nofollow">Part 2 - Install the DirectX SDK</a> </span></h3>
+                <h3> <span class="mw-headline"><a href="DirectX.html">Part 2 - Install the DirectX SDK</a> </span></h3>
                 <p>How to download and install the DirectX SDK. </p>
                 <a name="Part3_-_Install_Visual_Studio_C.2B.2B_2008_Express" id="Part3_-_Install_Visual_Studio_C.2B.2B_2008_Express"></a>
-                <h2>Part 3 - Installing Visual C++ Express</h2>
-                <h4> <span class="mw-headline"><a href="./VisualStudio2008.html" class="external" title="Setup Part 3" rel="nofollow">Install Visual Studio C++ 2008 Express </a></span></h4>
+                <h3>Part 3 - Installing Visual C++ Express</h3>
+                <h4> <span class="mw-headline"><a href="VisualStudio2008.html">Install Visual Studio C++ 2008 Express </a></span></h4>
                 <p>Instructions for installing Visual Studio C++ 2008 Express.</p>
-                <h4> <span class="mw-headline"><a href="./VisualStudio2010.html" class="external" title="Setup Part 4" rel="nofollow">Install Visual Studio C++ 2010 Express </a></span></h4>
+                <h4> <span class="mw-headline"><a href="VisualStudio2010.html">Install Visual Studio C++ 2010 Express </a></span></h4>
                 <p>Instructions for installing Visual Studio C++ 2010 Express.</p>
-                <h2>Part 4 - Setup the Development Environment</h2>
+                <h3>Part 4 - Setup the Development Environment</h3>
                 <a name="Part4_-_Setup_the_Development_environment" id="Part4_-_Setup_the_Development_environment"></a>
-                <h4> <span class="mw-headline"><a href="./DevEnvironment2008.html" class="external" title="Setup Part 5" rel="nofollow">Setup the Development environment (Visual C++ 2008 Express)</a> </span></h4>
+                <h4> <span class="mw-headline"><a href="DevEnvironment2008.html">Setup the Development environment (Visual C++ 2008 Express)</a> </span></h4>
                 <p>Setting up the Visual Studio C++ 2008 environment.</p>
-                <h4> <span class="mw-headline"><a href="./DevEnvironment2010.html" class="external" title="http://torquewiki.com/wiki/index.php?title=Torque3D/Introduction/Setup/Part4" rel="nofollow">Setup the Development environment (Visual C++ 2010 Express)</a> </span></h4>
+                <h4> <span class="mw-headline"><a href="DevEnvironment2010.html">Setup the Development environment (Visual C++ 2010 Express)</a> </span></h4>
                 <p>
                 <p>Setting up the Visual Studio C++ 2010 environment.</p></p>
                 <a name="Part5_-_Working_with_a_T3D_Project" id="Part5_-_Working_with_a_T3D_Project"></a>
-                <h2> <span class="mw-headline"><a href="./FirstProject.html" class="external" title="http://torquewiki.com/wiki/index.php?title=Torque3D/Introduction/Setup/Part5" rel="nofollow">Part 5 - Work with a Torque 3D Project</a> </span></h3>
+                <h3> <span class="mw-headline"><a href="FirstProject.html">Part 5 - Work with a Torque 3D Project</a> </span></h3>
                 <p>How to compile a T3D project. </p>
 </td>
 </tr>

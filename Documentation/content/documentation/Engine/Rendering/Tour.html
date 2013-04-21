@@ -1,4 +1,4 @@
-<html>
+﻿<html>
 <HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
 <SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
 <SCRIPT SRC="../../../include/scriptaculous.js" LANGUAGE="JavaScript"></SCRIPT>
@@ -13,9 +13,9 @@
 <link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
 <script>
    // this script chunk is to update the ToC to the current doc and expand it
-   pageID = 23;
-   parent.leftFrame.expandToItem('tree2', 'doc23');
-   var element = parent.leftFrame.document.getElementById('doc23');
+   pageID = 34;
+   parent.leftFrame.expandToItem('tree2', 'doc34');
+   var element = parent.leftFrame.document.getElementById('doc34');
    if((element) && (element.className==parent.leftFrame.nodeClosedClass))
 {
    element.className = parent.leftFrame.nodeOpenClass
@@ -65,7 +65,7 @@
                   make up Torque 3D's rendering system. If you have not done so already,
                   make sure you read the following docs first: </p>
                 <ul>
-                  <li><a href="../../Setup/DevEnvironment.html">Environment Setup</a></li>
+                  <li><a href="../../Setup/Overview.html">Overview</a> Part 4 - Development Environment Setup</li>
                   <li><a href="../../Introduction/DirectoryOverview.html">Torque 3D Directory Overview</a></li>
                 </ul>
                 <a name="GFX_Core" id="GFX_Core"></a>
@@ -80,7 +80,7 @@
                   <li>GFXNullDevice (inside the Null directory)</li>
                 </ul>
                 <p><br />
-                  As you can see, each platform gets its own GFXDevice. The same
+                  As you can see, each platform has its own GFXDevice. The same
                   goes for other platform dependent files: gfxShader, gfxCubemap,
                   gfxVertexBuffer, and so on. Some of the other source files are
                   stand-alone. For instance, gfxStructs.h contains classes/structs and
@@ -88,13 +88,13 @@
                   information, such as GFXLightInfo containing light type, position, etc. </p>
                 <a name="DirectX_.28D3D.2C_D3D9.29" id="DirectX_.28D3D.2C_D3D9.29"></a>
                 <h2> <span class="mw-headline">DirectX (D3D, D3D9)</span></h2>
-                <p>Since Torque 3D supports cross-platform compatibility, it is
+                <p>Because Torque 3D supports cross-platform compatibility, it is
                   important to keep the GFX layers separate. The D3D folder contains only
                   two files: screenshotD3D.h and screenshotD3D.cpp. Just as the name
                   implies, these two files are used in capturing screens while running a
-                  game, <i>currently D3D9 only</i>. </p>
+                  game. <i>(Currently D3D9 only)</i>. </p>
                 <p><br />
-                  You'll see the major platform specific classes represented here, such
+                  You will see the major platform specific classes represented here, such
                   as the GFXdevice, TextureManager, VertexBuffer, etc. The functionality
                   remains the same, but the application and execution are specific to the
                   API. </p>
@@ -136,7 +136,7 @@
                   <b>GFXStateBlockData</b> is extremely important. Since GFXStateBlocks
                   are meant to be created in script, a ConsoleObject that can hold
                   StateBlock description was needed. GFXStateBlockData is that
-                  ConsoleObject. We will cover this in greater detail later. </p>
+                  ConsoleObject. This covered in more detail in <a href="../../Setup/Overview.html">Stateblocks. </p>
                 <a name="Test" id="Test"></a>
                 <h2> <span class="mw-headline">Test</span></h2>
                 <p><i>You can ignore this folder, as it was used during internal testing</i>. </p>

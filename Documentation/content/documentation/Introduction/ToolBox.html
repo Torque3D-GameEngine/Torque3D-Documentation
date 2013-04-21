@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <HEAD><SCRIPT SRC="../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
 <SCRIPT SRC="../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
@@ -14,9 +14,9 @@
 <link href="../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
 <script>
    // this script chunk is to update the ToC to the current doc and expand it
-   pageID = 35;
-   parent.leftFrame.expandToItem('tree2', 'doc35');
-   var element = parent.leftFrame.document.getElementById('doc35');
+   pageID = 46;
+   parent.leftFrame.expandToItem('tree2', 'doc46');
+   var element = parent.leftFrame.document.getElementById('doc46');
    if((element) && (element.className==parent.leftFrame.nodeClosedClass))
 {
    element.className = parent.leftFrame.nodeOpenClass
@@ -120,12 +120,14 @@
                 <p><br />
                   The Template drop-down menu will allow you to pick an
                   existing project type to generate your game on top of. Stock Torque 3D
-                  ships with Full and Empty templates. The Empty template is a completely
-                  bare-bones project with no starting assets or game scripts. The Full
-                  template contains at least one of nearly every asset type and script
+                  ships with Full and Empty templates, Full and Empty PhysX templates and the FPS 
+                    Tutorial template. The Empty templates are completely
+                  bare-bones projects with no starting assets or game scripts. The Full
+                  templates contain at least one of nearly every asset type and script
                   example. </p>
                 <p><br />
-                  <img alt="Image:ToolboxNewProjectTemplates.jpg" src="images/ToolboxNewProjectTemplates.jpg" border="0" width="155" height="61" /> </p>
+                  <img alt="Image:ToolboxNewProjectTemplates.jpg" 
+                        src="images/ToolboxNewProjectTemplates.jpg" border="0" /> </p>
                 <p><br />Go ahead and name your project "Tutorials" and select the Full template. Since a large portion of tutorials and guides found in the rest of this documentation require existing assets (the technical term for models, artwork, and other items used within games), it is best to use this template to save time and allow you to focus on learning the engine. We will learn about generating and importing assets later.  </p>
                 <p><br />
                   <i>(click to enlarge)</i> </p>
@@ -141,7 +143,8 @@
                 <p><br />
                   When the process is finished you will be provided the projects location on disk. </p>
                 <p>&nbsp;</p>
-                <p><img alt="Image:ToolboxProjectCreateFinished.jpg" src="images/ToolboxProjectCreateFinished.jpg" border="0" width="328" height="142" /> </p>
+                <p><img alt="Image:ToolboxProjectCreateFinished.jpg" 
+                        src="images/ToolboxProjectCreateFinished.jpg" border="0" /> </p>
                 <p><br />In addition, the Project Snapshot list will automatically update to include a new section called "My Projects" and your Tutorials project will be added. Any future projects you create will be added here as well. </p>
                 <p><br />
                   <img alt="Image:ToolboxMyProjects.jpg" src="images/ToolboxMyProjects.jpg" border="0" width="288" height="112" /> </p><br />
@@ -203,7 +206,8 @@
                 <a href="images/ToolboxOpenfolder.jpg" class="livethumbnail"><img src="images/ToolboxOpenfolder.jpg" width="240" height="180" largewidth="480" largeheight="360" /></a><br /><br />
                 <a name="Edit_Source" id="Edit_Source"></a>
                 <h3> <span class="mw-headline">Edit Source</span></h3>
-                <p><img alt="Image:EditSourceButton.jpg" src="images/EditSourceButton.jpg" border="0" width="111" height="31" /> </p>
+                <p><img alt="Image:EditSourceButton.jpg" src="images/EditSourceButton.jpg" 
+                        border="0" /> </p>
                 <p><br />
                 For developers who want to edit the engines source code, the Edit Source button provides a shortcut to launch Visual Studio (for Windows) or Xcode (for Mac).  It is recommended that you follow the Programmer section of the <a href="../Setup/Overview.html">Setup – Overview</a>  instructions before using the Edit Source button.  </p>
                 <p><br />When you click Edit Source, the Toolbox will begin to prepare the developer environment for the currently selected project. This process should not be interrupted.</p>
@@ -230,7 +234,8 @@
                   When you exit the game, the Toolbox will still be running with your project selected.</p>
                 <a name="Play_In_Web" id="Play_In_Web"></a>
                 <h3> <span class="mw-headline">Play In Web</span></h3>
-                <p><img alt="Image:PlayInWebButton.jpg" src="images/PlayInWebButton.jpg" border="0" width="111" height="31" /> </p>
+                <p><img alt="Image:PlayInWebButton.jpg" src="images/PlayInWebButton.jpg" 
+                        border="0" /> </p>
                 <p><br />Play in Web  is similar to the Play Game button. Clicking <a href="../Introduction/WebPublishing.html">Play in Web</a> will launch your project inside a web browser. NOTE: You may need to compile the web plug-in  for your project before this option becomes available.  </p>
                 <p><br />
                   <i>(click to enlarge)</i> </p>
@@ -259,7 +264,8 @@
                 <p><br />
                   Once the cleanup  is complete, you will be notified by a pop-up box. Your projects should have been restored to its default state. </p>
                 <p><br />
-                  <img alt="Image:ProjectGenSuccess.jpg" src="images/ProjectGenSuccess.jpg" border="0" width="248" height="121" /> </p>
+                  <img alt="Image:ProjectGenSuccess.jpg" src="images/ProjectGenSuccess.jpg" 
+                        border="0" /> </p>
 
                 <a name="Adding_Quick_Links" id="Adding_Quick_Links"></a>
                 <h2> <span class="mw-headline">Adding Quick Links</span></h2>
@@ -289,19 +295,22 @@
                 
                 <a name="Package_Project" id="Package_Project"></a>
                 <h2> <span class="mw-headline">Package Project</span></h2>
-                <p><img alt="Image:PackageProjectButton.jpg" src="images/PackageProjectButton.jpg" border="0" width="366" height="36" /> </p><br />
+                <p><img alt="Image:PackageProjectButton.jpg" src="images/PackageProjectButton.jpg" 
+                        border="0" /> </p><br />
                 <p><br />
                   When you are ready to distribute your final game or a demo, you can make use of the Toolbox Package Project feature. In previous Torque engines, it was up to you to come up with a method of deployment/packaging. This meant manually compiling your project, zipping your files, and acquiring a 3rd party utility to create an installer.</p>
                 <p><br />With Torque 3D and Toolbox, we have provided an automated process that can be kicked off with a few simple button clicks. When you click on the Package Project button, a new dialog will appear. </p>
                 <p><br />
                 </p>
-                <p><img alt="Image:PackageProjectDialog.jpg" src="images/PackageProjectDialog.jpg" border="0" width="388" height="511" /> </p><br />
+                <p><img alt="Image:PackageProjectDialog.jpg" src="images/PackageProjectDialog.jpg" 
+                        border="0" /> </p><br />
                 <p><b>Source Code Options</b></p>
                 <p>Checking the box here will cause Toolbox to recompile your project. If you are not using an IDE like Visual Studio to edit source code, there is no reason to check this box. Note: Changes made to TorqueScript using Torsion (or any plain text editor) do not constitute changes to source code.</p>
                 <p><b>Target Formats</b></p>
                 <p>Choose the package type you would like to create by clicking on the check boxes.</p>
 
-                <p><img alt="Image:PackageWithWebCheck.jpg" src="images/PackageWithWebCheck.jpg" border="0" width="388" height="104" /> </p>
+                <p><img alt="Image:PackageWithWebCheck.jpg" src="images/PackageWithWebCheck.jpg" 
+                        border="0" /> </p>
                 <ul>
                 <li><strong>Installer</strong>  will create an automated installation utility.</li>
                 <li><strong>Zip</strong> will compress your game files into a single .zip file.</li>
@@ -357,7 +366,8 @@
                 <br />Once the packaging process has completed, you will be notified by a new pop-up dialog. </p>
                 <p><br />
                 </p>
-                <p><img alt="Image:PackagingComplete.jpg" src="images/PackagingComplete.jpg" border="0" width="328" height="142" /> </p>
+                <p><img alt="Image:PackagingComplete.jpg" src="images/PackagingComplete.jpg" 
+                        border="0" /> </p>
                 <p><br />This dialog gives you the option to jump straight to the folder containing your final product by pressing the Open Folder button. The files found here can be distributed to your end users however you see fit. </p>
                 <a name="Conclusion" id="Conclusion"></a>
                 <h2> <span class="mw-headline">Conclusion</span></h2>

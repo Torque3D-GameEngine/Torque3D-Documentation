@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <HEAD><SCRIPT SRC="../../../include/tutorial.js" LANGUAGE="JavaScript"></SCRIPT>
 <SCRIPT SRC="../../../include/prototype.js" LANGUAGE="JavaScript"></SCRIPT>
@@ -14,9 +14,9 @@
 <link href="../../../include/docTheme/theme.css" rel="stylesheet" type="text/css" />
 <script>
    // this script chunk is to update the ToC to the current doc and expand it
-   pageID = 77;
-   parent.leftFrame.expandToItem('tree2', 'doc77');
-   var element = parent.leftFrame.document.getElementById('doc77');
+   pageID = 91;
+   parent.leftFrame.expandToItem('tree2', 'doc91');
+   var element = parent.leftFrame.document.getElementById('doc91');
    if((element) && (element.className==parent.leftFrame.nodeClosedClass))
 {
    element.className = parent.leftFrame.nodeOpenClass
@@ -71,14 +71,17 @@
                 <h2> <span class="mw-headline">Creating Blank Terrain</span></h2>
                 <p>To create a new blank terrain start from the menu by selecting File>Create Blank Terrain.  </p>
                 <p><br />
-                  <img alt="Image:CreateBlankTerrain.jpg" src="images/CreateBlankTerrain.jpg" border="0" width="289" height="261" /> </p>
+                  <img alt="Image:CreateBlankTerrain.jpg" src="images/CreateBlankTerrain.jpg" 
+                        border="0" /> </p>
                 <p><br />After you click the menu entry, a Create New Terrain Dialog will appear. </p>
                 <p><br />
-                  <img alt="Image:NewTerrainDialog.jpg" src="images/NewTerrainDialog.jpg" border="0" width="250" height="140" /> </p>
+                  <img alt="Image:NewTerrainDialog.jpg" src="images/NewTerrainDialog.jpg" 
+                        border="0" /> </p>
                 <p><br />The Name field allows you to specify a name for your TerrainBlock. This name will appear in the Scene Tree and can be used to reselect your terrain later for editing. Enter a name for the terrain in the text box, in this example <em>theterrain</em>. </p>
                 <p><br />The Material for the terrain, that is the texture that will be displayed to depict the ground cover, is selected using a drop-down list. This list is populated by the World builder with all the existing materials created specifically for terrains. </p>
                 <p><br />
-                  <img alt="Image:TerrainMaterialMenu.jpg" src="images/TerrainMaterialMenu.jpg" border="0" width="250" height="202" /> </p>
+                  <img alt="Image:TerrainMaterialMenu.jpg" src="images/TerrainMaterialMenu.jpg" 
+                        border="0" /> </p>
                   <p><br />The Resolution that you select from that drop-down list determines the size of the terrain that will be created. The size of the terrain that you choose is largely dependent on the design of your game. You will have to experiment to find the right size that works for each game you create and some combinations of options are not very practical. For example, selecting a terrain size of 256 and using the Noise option will result in a terrain that is so drastically contoured that it will not be of much use.</p>
                   <p><br />The radio buttons to the right of the Resolution dropdown determine the smoothness of the terrain that is generated. Selecting Flat will create a relatively smooth terrain and selecting Noise will generate a bumpy terrain. </p>
                   <a name="Creating_a_Flat_Terrain"></a>
@@ -92,7 +95,8 @@
                   <h2> <span class="mw-headline">Creating a Bumpy Terrain</span></h2>
                   <p><br />To create a bumpy terrain: from the main menu select File>Create Blank Terrain; enter a name; select a material; select a larger size such as 1024; and select the Noise radio button, then click the Create New button. </p>
                 <p><br />
-                  <img alt="Image:CreateNoisyTerrain.jpg" src="images/CreateNoisyTerrain.jpg" border="0" width="254" height="140" /> </p>
+                  <img alt="Image:CreateNoisyTerrain.jpg" src="images/CreateNoisyTerrain.jpg" 
+                        border="0" /> </p>
                 <p><br />TerrainBlock loaded into the scene. A contoured extremely mountainous terrain will be generated and automatically loaded into your scene. The noise algorithm randomly generated the hills and valleys for you. </p>
                 <p><i>(click to enlarge)</i> </p>
                 <a href="images/NoisyTerrainAdded.jpg" class="livethumbnail"><img src="images/NoisyTerrainAdded.jpg" width="320" height="247" largewidth="640" largeheight="495" /></a><br />
@@ -102,9 +106,11 @@
                 <a name="Add_Existing_Terrain_File" id="Add_Existing_Terrain_File"></a>
                 <h2> <span class="mw-headline">Adding an Existing Terrain File</span></h2>
                 <p>To add an existing terrain file to a level start by selecting the Object Editor tool. Locate your Library panel and click it. Click on the Level tab then select the Environment folder. Once that is open, locate the TerrainBlock entry, and double-click it. </p>
-                <p><img alt="Image:LibraryTerrainBlock.jpg" src="images/LibraryTerrainBlock.jpg" border="0" width="224" height="320" /> </p>
+                <p><img alt="Image:LibraryTerrainBlock.jpg" src="images/LibraryTerrainBlock.jpg" 
+                        border="0" /> </p>
                 <p><br />The new terrain dialog will open. </p>
-                <p><img alt="Image:LoadTerrainDialog.jpg" src="images/LoadTerrainDialog.jpg" border="0" width="256" height="150" /> </p>
+                <p><img alt="Image:LoadTerrainDialog.jpg" src="images/LoadTerrainDialog.jpg" 
+                        border="0" /> </p>
                 <p><br />The Object Name field allows you to specify a name for your TerrainBlock. This name will appear in the Scene Tree and can be used to reselect your terrain later for editing. Enter a name for the terrain in the text box, in this example <em>theterrain</em>.</p>
                 <p><br />The Terrain file box  indicates the information file which holds the data describing the terrain to be loaded. Clicking the box loads the OS file browser.</p>
                 <p><br />Terrain files are named with a .ter extension. The .ter file type is a proprietary format that contains terrain data understood by Torque 3D. Locating a .ter file then clicking Open/OK will cause it to be selected as the Terrain file to be loaded. </p>
@@ -152,11 +158,13 @@
                 <h2> <span class="mw-headline">Importing a Heightmap</span></h2>
                 <p> To import a heightmap for terrain start the World Editor, then from the menu select File > Import Terrain Heightmap:  </p>
                 <p><br />
-                  <img alt="Image:ImportTerrainHeightmap.jpg" src="images/ImportTerrainHeightmap.jpg" border="0" width="264" height="262" /> </p>
+                  <img alt="Image:ImportTerrainHeightmap.jpg" 
+                        src="images/ImportTerrainHeightmap.jpg" border="0" /> </p>
                 <p><br />
                   The Import Terrain heightmap dialog will appear. </p>
                 <p><br />
-                  <img alt="Image:ImportHeightMapDialog.jpg" src="images/ImportHeightMapDialog.jpg" border="0" width="391" height="257" /> </p>
+                  <img alt="Image:ImportHeightMapDialog.jpg" src="images/ImportHeightMapDialog.jpg" 
+                        border="0" /> </p>
                 <p><br />
                   <b>Name:</b> If you specify the name of an existing TerrainBlock in the dialog it will update that existing TerrainBlock and its associated .ter file. Otherwise, a new TerrainBlock will be created.  </p>
                 <p><br />
@@ -186,7 +194,8 @@
                   the edit button in the bottom right. You will now see the Terrain
                   Materials Editor. </p>
                 <p><br />
-                  <img alt="Image: TerrainMaterialEditor.jpg" src="images/TerrainMaterialEditor.jpg" border="0" width="394" height="321" /> </p>
+                  <img alt="Image: TerrainMaterialEditor.jpg" 
+                        src="images/TerrainMaterialEditor.jpg" border="0" /> </p>
                 <p><br />Click the New button, found at the top next to the garbage bin, to add a new material. Type in a name then click the Edit button next to the Diffuse preview box. Again, a file browser will pop up allowing you to open the base texture file for the material. Alternatively, you can click the preview box itself, which is a checkerboard image until you add a texture.</p>
                 <p><i>(click to enlarge)</i> </p>
                 <a href="images/ChoosePrairieBase.jpg" class="livethumbnail"><img src="images/ChoosePrairieBase.jpg" width="314" height="239" largewidth="628" largeheight="479" /></a><br />
@@ -199,7 +208,8 @@
                 <a href="images/ChoosePrairieNormal.jpg" class="livethumbnail"><img src="images/ChoosePrairieNormal.jpg" width="314" height="239" largewidth="628" largeheight="479" /></a><br />
                 <p><br />Your final material properties should look like the following: </p>
                 <p><br />
-                  <img alt="Image:FinalPrairieMaterials.jpg" src="images/FinalPrairieMaterials.jpg" border="0" width="394" height="322" /> </p>
+                  <img alt="Image:FinalPrairieMaterials.jpg" src="images/FinalPrairieMaterials.jpg" 
+                        border="0" /> </p>
                 <p><br />
                   <br />Repeat this process until each opacity layer has a material assigned to it. Back in the Import Terrain Height Map dialog, click on the import button. It will take a few moments for Torque 3D to generate the terrain data from our various assets. When the import process is complete, the new TerrainBlock will be added to your scene (you might need to move your camera back to see it).  </p>
                 <p><i>(click to enlarge)</i> </p>
@@ -214,13 +224,27 @@
 				<a name="TerrainBlock_Properties" id="TerrainBlock_Properties"></a>
                 <h2> <span class="mw-headline">TerrainBlock Properties</span></h2><br />
                 <p><br />A TerrainBlock has properties which can be set like any other object using the Object Editor. Clicking a TerrainBlock in the scene or selecting it from the Scene Tree will update the Inspector pane with information about it. TerrainBlocks have their own unique set of properties. Hover over a section of the image below for a description of the properties in that section:</p>
-                <img src="images/TBName.jpg" width="225" border="0" height="80" onmouseover="Tip('<strong>name</strong>: <i>TypeName</i>. Optional global name of this object.<br><br><strong>id</strong> : <i>TypeCaseString</i>. SimObjectId of this object. Read Only.<br><br><strong>Source Class</strong> : <i>TypeCaseString</i>. Source code class of this object. Read Only.', WIDTH, 450)" onmouseout="UnTip()" > <br />
-                  <img src="images/TBTransform.jpg" width="225" border="0" height="74" onmouseover="Tip('<strong>position</strong>: <i>MatrixPosition</i>. Object world position.<br><br><strong>rotation</strong> : <i>MatrixOrientation</i>. Object world orientation.<br><br><strong>scale</strong> : <i>Point3F</i>. Object world scale.', WIDTH, 450)" onmouseout="UnTip()" > <br />
-                  <img src="images/TBMedia.jpg" width="225" border="0" height="40" onmouseover="Tip('<strong>terrainFile</strong>: <i>TypeStringFilename</i>. The source terrain data file.', WIDTH, 450)" onmouseout="UnTip()" > <br />
-                  <img src="images/TBMisc.jpg" width="225" border="0" height="111" onmouseover="Tip('<strong>squareSize</strong>: <i>TypeF32</i>. Indicates the spacing between points on the XY plane on the terrain.<br><br><strong>tile</strong> : <i>TypeBool</i>. Toggles infinite tiling of terrain.<br><br><strong>baseTexSize</strong> : <i>TypeS32</i>. Size of base texture size per meter.<br><br><strong>screenError</strong> : <i>TypeS32</i>. Not yet implemented.<br><br><strong>isRenderEnabled</strong>: <i>TypeBool</i>. Only render if true (and if class is render-enabled, too).', WIDTH, 450)" onmouseout="UnTip()" > <br />
-                  <img src="images/TBSimBase.jpg" width="225" border="0" height="75" onmouseover="Tip('<strong>canSaveDynamicFields</strong>: <i>typeBool</i>. True if dynamic fields (added at runtime) should be saved, defaults to true.<br><br><strong>internalName</strong> : <i>TypeString</i>. Non-unique name used by child objects of a group.<br><br><strong>parentGroup</strong> : <i>TypeString</i>. Group object belongs to.', WIDTH, 450)" onmouseout="UnTip()" /><br />
-                  <img src="images/TBNamespace.jpg" width="225" border="0" height="74" onmouseover="Tip('<strong>superClass</strong>: <i>TypeString</i>. Links object to script super class (parent) namespace.<br><br><strong>class</strong>: <i>TypeString</i>. Links object to script class namespace.<br><br><strong>className</strong>: <i>TypeString</i>. Legacy version of class field.<br><br>', WIDTH, 450)" onmouseout="UnTip()" ><br />
-                  <img src="images/TBDynamic.jpg" width="225" border="0" height="51" onmouseover="Tip('<strong>(n/a)</strong>: <i>*</i>. No stock dynamic values.', WIDTH, 450)" onmouseout="UnTip()" > <br />
+                <img src="images/TBName.jpg" border="0" 
+                      onmouseover="Tip('<strong>name</strong>: <i>TypeName</i>. Optional global name of this object.<br><br><strong>id</strong> : <i>TypeCaseString</i>. SimObjectId of this object. Read Only.<br><br><strong>Source Class</strong> : <i>TypeCaseString</i>. Source code class of this object. Read Only.', WIDTH, 450)" 
+                      onmouseout="UnTip()" > <br />
+                  <img src="images/TBTransform.jpg" border="0" 
+                      onmouseover="Tip('<strong>position</strong>: <i>MatrixPosition</i>. Object world position.<br><br><strong>rotation</strong> : <i>MatrixOrientation</i>. Object world orientation.<br><br><strong>scale</strong> : <i>Point3F</i>. Object world scale.', WIDTH, 450)" 
+                      onmouseout="UnTip()" > <br />
+                  <img src="images/TBMedia.jpg" border="0" 
+                      onmouseover="Tip('<strong>terrainFile</strong>: <i>TypeStringFilename</i>. The source terrain data file.', WIDTH, 450)" 
+                      onmouseout="UnTip()" > <br />
+                  <img src="images/TBMisc.jpg" border="0" 
+                      onmouseover="Tip('<strong>squareSize</strong>: <i>TypeF32</i>. Indicates the spacing between points on the XY plane on the terrain.<br><br><strong>tile</strong> : <i>TypeBool</i>. Toggles infinite tiling of terrain.<br><br><strong>baseTexSize</strong> : <i>TypeS32</i>. Size of base texture size per meter.<br><br><strong>screenError</strong> : <i>TypeS32</i>. Not yet implemented.<br><br><strong>isRenderEnabled</strong>: <i>TypeBool</i>. Only render if true (and if class is render-enabled, too).', WIDTH, 450)" 
+                      onmouseout="UnTip()" > <br />
+                  <img src="images/TBSimBase.jpg" border="0" 
+                      onmouseover="Tip('<strong>canSaveDynamicFields</strong>: <i>typeBool</i>. True if dynamic fields (added at runtime) should be saved, defaults to true.<br><br><strong>internalName</strong> : <i>TypeString</i>. Non-unique name used by child objects of a group.<br><br><strong>parentGroup</strong> : <i>TypeString</i>. Group object belongs to.', WIDTH, 450)" 
+                      onmouseout="UnTip()" /><br />
+                  <img src="images/TBNamespace.jpg" border="0" 
+                      onmouseover="Tip('<strong>superClass</strong>: <i>TypeString</i>. Links object to script super class (parent) namespace.<br><br><strong>class</strong>: <i>TypeString</i>. Links object to script class namespace.<br><br><strong>className</strong>: <i>TypeString</i>. Legacy version of class field.<br><br>', WIDTH, 450)" 
+                      onmouseout="UnTip()" ><br />
+                  <img src="images/TBDynamic.jpg" border="0" 
+                      onmouseover="Tip('<strong>(n/a)</strong>: <i>*</i>. No stock dynamic values.', WIDTH, 450)" 
+                      onmouseout="UnTip()" > <br />
 <br /><br />
                 <a name="Conclusion" id="Conclusion"></a>
                 <h2> <span class="mw-headline">Conclusion</span></h2>
